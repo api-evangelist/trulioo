@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.trulioo.com/v3/verifications/documentverification/verify",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Basic <base64(username:password)>"
+    },
+    "body": {
+      "AcceptTruliooTermsAndConditions": true,
+      "ConfigurationName": "Document Verification",
+      "CountryCode": "CA",
+      "CustomerReferenceID": "onboarding-2026-19283",
+      "CallBackUrl": "https://example.com/trulioo/webhook",
+      "DataFields": {
+        "Document": {
+          "DocumentFrontImage": "<base64 image>",
+          "DocumentBackImage": "<base64 image>",
+          "LivePhoto": "<base64 image>",
+          "DocumentType": "DrivingLicence"
+        }
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "TransactionID": "a1b2c3d4-5e6f-7081-9203-1c4d7a3e0bb1",
+      "TransactionRecordID": "a1b2c3d4-5e6f-7081-9203-1c4d7a3e0bb1",
+      "DocumentClassification": "CA_DrivingLicence",
+      "DocumentFields": {
+        "FirstGivenName": "Jane",
+        "FirstSurName": "Doe",
+        "DateOfBirth": "1990-04-12",
+        "DocumentNumber": "D1234-56789-01234",
+        "Expiration": "2030-04-12"
+      },
+      "FaceMatchScore": 0.94,
+      "LivenessScore": 0.99,
+      "Errors": []
+    }
+  }
+}

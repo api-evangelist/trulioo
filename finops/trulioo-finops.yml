@@ -1,0 +1,127 @@
+specification: API Commons FinOps
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/FinOps
+provider: Trulioo
+providerId: trulioo
+created: '2026-05-25'
+modified: '2026-05-25'
+description: >-
+  FinOps mapping of the Trulioo commercial surface to the FinOps Framework /
+  FOCUS data spec. Trulioo bills via committed-volume contracts with overage
+  rates, broken down by product (KYC, KYB, DocV, Person Fraud, Watchlist) and
+  country / datasource bundle. There is no self-serve billing portal; usage
+  reporting is delivered via the Trulioo portal and monthly invoices.
+sources:
+  - https://www.trulioo.com/contact
+  - https://developer.trulioo.com/reference/api-reference-overview
+
+billingModel:
+  type: contract-with-overage
+  commitment: monthly-committed-volume
+  invoicing: monthly
+  selfService: false
+  unitOfWaste:
+    - unused-monthly-commitment
+    - failed-verifications-billed-as-success-when-RecordStatus=match
+
+services:
+  - id: trulioo-kyc
+    label: Person Verification
+    billing: per-verification
+    cost-dimensions:
+      - country
+      - datasource-bundle
+      - configuration-name
+    focus-mapping:
+      ServiceCategory: Identity Verification
+      ServiceName: Trulioo Person Verification
+      ChargeCategory: Usage
+      PricingUnit: verification
+  - id: trulioo-kyb
+    label: Business Verification
+    billing: per-business-record
+    cost-dimensions:
+      - jurisdiction-of-incorporation
+      - report-tier
+    focus-mapping:
+      ServiceCategory: Identity Verification
+      ServiceName: Trulioo Business Verification
+      ChargeCategory: Usage
+      PricingUnit: business-verification
+  - id: trulioo-docv
+    label: Document Verification
+    billing: per-document-verification
+    cost-dimensions:
+      - country
+      - document-type
+      - liveness-included
+    focus-mapping:
+      ServiceCategory: Identity Verification
+      ServiceName: Trulioo Document Verification
+      ChargeCategory: Usage
+      PricingUnit: document-verification
+  - id: trulioo-fraud
+    label: Person Fraud
+    billing: per-risk-check
+    cost-dimensions:
+      - country
+    focus-mapping:
+      ServiceCategory: Fraud Detection
+      ServiceName: Trulioo Person Fraud
+      ChargeCategory: Usage
+      PricingUnit: risk-check
+  - id: trulioo-screening
+    label: Watchlist & PEP Screening
+    billing: per-screening-check
+    cost-dimensions:
+      - monitoring-enabled
+    focus-mapping:
+      ServiceCategory: AML Screening
+      ServiceName: Trulioo Watchlist Screening
+      ChargeCategory: Usage
+      PricingUnit: screening-check
+  - id: trulioo-workflow-studio
+    label: Workflow Studio Platform
+    billing: platform-fee
+    cost-dimensions:
+      - workspace
+    focus-mapping:
+      ServiceCategory: Identity Platform
+      ServiceName: Trulioo Workflow Studio
+      ChargeCategory: Subscription
+      PricingUnit: contract
+
+optimization-strategies:
+  - id: dedupe-with-end-client-profiles
+    label: Reuse end-client profiles
+    description: >-
+      Workflow Studio supports reusable end-client profiles. Reusing a profile
+      avoids re-running expensive verifications for the same individual within
+      a configured TTL.
+  - id: configuration-recommended-fields
+    label: Send only recommended fields
+    description: >-
+      Use /v3/configuration/fields/{config}/{country}/recommended to discover
+      the minimal field set most likely to match. Sending unnecessary fields
+      may select more expensive datasource bundles.
+  - id: sandbox-test-entities
+    label: Use Trulidemo test entities for dev / CI
+    description: >-
+      Test entities in the Trulidemo sandbox return deterministic results
+      without consuming contracted production volume.
+  - id: partial-results-polling
+    label: Poll partial results for slow datasources
+    description: >-
+      For verifications routed across multiple datasources, use
+      /v3/verifications/transaction/{id}/partialresult to stream early
+      verdicts and exit early when sufficient evidence exists.
+
+reporting:
+  - id: portal-usage
+    label: Trulioo Portal usage dashboard
+    url: https://portal.trulioo.com
+    cadence: realtime-to-daily
+  - id: monthly-invoice
+    label: Monthly invoice
+    cadence: monthly
+    format: pdf

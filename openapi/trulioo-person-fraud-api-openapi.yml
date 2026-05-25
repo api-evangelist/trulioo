@@ -1,0 +1,180 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Person Fraud API
+  description: >
+    Fraud Intelligence — Person Fraud risk scoring. Submit an identity payload
+    and receive a risk verdict that aggregates third-party fraud signals,
+    velocity checks, device intelligence, and identity-graph data.
+  version: "1.0"
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+externalDocs:
+  description: Fraud Intelligence - Person Fraud
+  url: https://developer.trulioo.com/reference/fraud-intelligence-person-fraud
+servers:
+  - url: https://api.trulioo.com
+    description: Production
+security:
+  - BasicAuth: []
+  - OAuth2: []
+tags:
+  - name: Person Fraud
+    description: Risk-score a person.
+  - name: Configuration
+    description: Discover supported fields, datasources, and test entities.
+paths:
+  /risk/v1/check:
+    post:
+      summary: Person Fraud Check
+      description: Perform a person-fraud risk check.
+      operationId: personFraudCheck
+      tags:
+        - Person Fraud
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RiskVerifyRequest'
+      responses:
+        "200":
+          description: Risk verdict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiskVerifyResult'
+  /risk/v1/configuration/countrycodes/{configurationName}:
+    get:
+      summary: Get Country Codes For Person Fraud
+      description: Country codes configured for the Person Fraud product.
+      operationId: getPersonFraudCountryCodes
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/ConfigurationName'
+      responses:
+        "200":
+          description: Country codes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /risk/v1/configuration/fields/{configurationName}/{countryCode}:
+    get:
+      summary: Get Fields For Person Fraud
+      description: Field schema for the Person Fraud product per country.
+      operationId: getPersonFraudFields
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/ConfigurationName'
+        - $ref: '#/components/parameters/CountryCode'
+      responses:
+        "200":
+          description: Field schema.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+  /risk/v1/configuration/datasources/{configurationName}/{countryCode}:
+    get:
+      summary: Get Datasources For Person Fraud
+      description: Available risk-data sources for the Person Fraud product per country.
+      operationId: getPersonFraudDatasources
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/ConfigurationName'
+        - $ref: '#/components/parameters/CountryCode'
+      responses:
+        "200":
+          description: List of datasources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+  parameters:
+    ConfigurationName:
+      name: configurationName
+      in: path
+      required: true
+      schema:
+        type: string
+    CountryCode:
+      name: countryCode
+      in: path
+      required: true
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+  schemas:
+    RiskVerifyRequest:
+      type: object
+      required:
+        - AcceptTruliooTermsAndConditions
+        - ConfigurationName
+        - CountryCode
+        - DataFields
+      properties:
+        AcceptTruliooTermsAndConditions:
+          type: boolean
+        ConfigurationName:
+          type: string
+        CountryCode:
+          type: string
+        CustomerReferenceID:
+          type: string
+        DataFields:
+          type: object
+          properties:
+            PersonInfo:
+              type: object
+              additionalProperties: true
+            Communication:
+              type: object
+              additionalProperties: true
+            Location:
+              type: object
+              additionalProperties: true
+            Device:
+              type: object
+              additionalProperties: true
+    RiskVerifyResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        RiskScore:
+          type: number
+        RiskVerdict:
+          type: string
+          enum: [pass, review, fail]
+        Reasons:
+          type: array
+          items:
+            type: string
+        DatasourceResults:
+          type: array
+          items:
+            type: object
+            additionalProperties: true

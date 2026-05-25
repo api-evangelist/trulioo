@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/trulioo/main/json-schema/trulioo-business-record-schema.json",
+  "title": "Trulioo Business Record",
+  "description": "Business registry record returned by the Trulioo Business Verification API.",
+  "type": "object",
+  "properties": {
+    "BusinessName": { "type": "string" },
+    "BusinessRegistrationNumber": { "type": "string" },
+    "JurisdictionOfIncorporation": { "type": "string" },
+    "Status": { "type": "string" },
+    "ConfidenceScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "IncorporationDate": { "type": "string", "format": "date" },
+    "BusinessAddress": {
+      "type": "object",
+      "properties": {
+        "BuildingNumber": { "type": "string" },
+        "StreetName": { "type": "string" },
+        "City": { "type": "string" },
+        "StateProvinceCode": { "type": "string" },
+        "PostalCode": { "type": "string" },
+        "Country": { "type": "string" }
+      }
+    },
+    "Officers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": { "type": "string" },
+          "Role": { "type": "string" },
+          "AppointmentDate": { "type": "string", "format": "date" }
+        }
+      }
+    },
+    "PersonsOfSignificantControl": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": { "type": "string" },
+          "Nature": { "type": "string" },
+          "OwnershipPercentage": { "type": "number" }
+        }
+      }
+    }
+  }
+}

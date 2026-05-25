@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.trulioo.com/v3/business/search",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Basic <base64(username:password)>"
+    },
+    "body": {
+      "AcceptTruliooTermsAndConditions": true,
+      "ConfigurationName": "Business Verification",
+      "CountryCode": "US",
+      "JurisdictionOfIncorporation": "DE",
+      "BusinessSearchInputFields": {
+        "BusinessName": "Acme Logistics Inc",
+        "BusinessRegistrationNumber": "5503217"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "TransactionID": "7e2a1c93-4f8a-44a2-9d52-1c4d7a3e0bb1",
+      "Results": [
+        {
+          "BusinessName": "ACME LOGISTICS, INC.",
+          "BusinessRegistrationNumber": "5503217",
+          "JurisdictionOfIncorporation": "US-DE",
+          "Status": "Active",
+          "ConfidenceScore": 96.5
+        }
+      ]
+    }
+  }
+}

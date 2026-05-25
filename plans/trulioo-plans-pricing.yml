@@ -1,0 +1,151 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Trulioo
+providerId: trulioo
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - Identity Verification
+  - KYC
+  - KYB
+  - Sales-Led
+description: >-
+  Trulioo does not publish self-serve list pricing. Commercial terms are
+  negotiated per-customer based on product mix (Person, Business, Document,
+  Person Fraud, Watchlist, Workflow Studio), volume tier, country coverage,
+  and contract duration. The plans below capture the named commercial
+  packaging surfaces — exact unit prices are confirmed via contact with
+  Trulioo sales.
+sources:
+  - https://www.trulioo.com/contact
+  - https://www.trulioo.com/products
+  - https://developer.trulioo.com/reference/api-reference-overview
+plans:
+  - id: trulioo-person-verification
+    name: Person Verification (KYC)
+    type: subscription-plus-usage
+    description: >-
+      KYC identity verification via the Trulioo Verifications API. Includes
+      access to GlobalGateway across configured countries and Configuration
+      API for runtime discovery. Per-verification pricing varies by country
+      and datasource bundle.
+    entries:
+      - label: Per verification (price varies by country/datasource)
+        name: verification
+        type: metered
+        metric: verifications
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: contact-sales
+        userMultiplied: false
+  - id: trulioo-business-verification
+    name: Business Verification (KYB)
+    type: subscription-plus-usage
+    description: >-
+      KYB business registry verification, officers and persons of significant
+      control retrieval, and business report download. Priced per business
+      record retrieved, often with credit-pack purchasing.
+    entries:
+      - label: Per business verification
+        name: business-verify
+        type: metered
+        metric: verifications
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: contact-sales
+        userMultiplied: false
+  - id: trulioo-document-verification
+    name: Identity Document Verification
+    type: subscription-plus-usage
+    description: >-
+      ID document capture and authentication (DocV) with optional liveness
+      selfie and face match. Includes mobile / web capture SDKs.
+    entries:
+      - label: Per document verification
+        name: document-verify
+        type: metered
+        metric: verifications
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: contact-sales
+        userMultiplied: false
+      - label: Per liveness / face-match check
+        name: face-match
+        type: metered
+        metric: checks
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: contact-sales
+        userMultiplied: false
+  - id: trulioo-watchlist-screening
+    name: Watchlist & PEP Screening
+    type: subscription-plus-usage
+    description: >-
+      Sanctions, PEP, and adverse-media screening as a standalone or bundled
+      service with KYC / KYB packages. Ongoing monitoring available.
+    entries:
+      - label: Per screening check
+        name: screening
+        type: metered
+        metric: checks
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: contact-sales
+        userMultiplied: false
+      - label: Ongoing monitoring (per active record / month)
+        name: monitoring
+        type: metered
+        metric: records
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact-sales
+        userMultiplied: false
+  - id: trulioo-person-fraud
+    name: Fraud Intelligence — Person Fraud
+    type: subscription-plus-usage
+    description: >-
+      Risk scoring with aggregated fraud signals, device intelligence, and
+      identity-graph data. Priced per check.
+    entries:
+      - label: Per fraud check
+        name: fraud-check
+        type: metered
+        metric: checks
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: contact-sales
+        userMultiplied: false
+  - id: trulioo-workflow-studio
+    name: Workflow Studio (Platform)
+    type: subscription
+    description: >-
+      Low-code workflow orchestration, hosted user sessions, embedded SDK
+      delivery, and end-client profile storage. Typically bundled into the
+      master MSA at a platform fee plus per-product usage.
+    entries:
+      - label: Platform fee
+        name: platform-fee
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: contract
+        geo: global
+        unit: 1
+        price: contact-sales
+        userMultiplied: false

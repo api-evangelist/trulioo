@@ -1,0 +1,70 @@
+extends:
+  - spectral:oas
+rules:
+  trulioo-info-contact:
+    description: Trulioo APIs must declare a contact block with Support email.
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  trulioo-server-required:
+    description: Trulioo APIs must declare at least one server URL.
+    severity: error
+    given: $
+    then:
+      field: servers
+      function: truthy
+
+  trulioo-server-on-api-trulioo-com:
+    description: Trulioo production servers must target api.trulioo.com or gateway.trulioo.com.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://(api|gateway|auth-api)\\.trulioo\\.com.*$"
+
+  trulioo-operation-id-required:
+    description: Every Trulioo operation must declare an operationId.
+    severity: error
+    given: $.paths[*][get,post,put,delete,patch]
+    then:
+      field: operationId
+      function: truthy
+
+  trulioo-operation-summary-title-case:
+    description: Operation summary must use Title Case.
+    severity: warn
+    given: $.paths[*][get,post,put,delete,patch].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: "^([A-Z][A-Za-z0-9]*)(\\s+[A-Z0-9][A-Za-z0-9]*)*$"
+
+  trulioo-tag-pascal-or-spaced:
+    description: Tags must use Title Case (e.g. "Business Verification", "Known Faces").
+    severity: warn
+    given: $.tags[*].name
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][A-Za-z0-9]*( [A-Z0-9][A-Za-z0-9]*)*$"
+
+  trulioo-security-required:
+    description: Every Trulioo API must define security at the document level (Basic or OAuth2).
+    severity: error
+    given: $
+    then:
+      field: security
+      function: truthy
+
+  trulioo-path-kebab-or-camel:
+    description: Path segments use lowercase camel or single-word (e.g. /v3/verifications/transactionrecord).
+    severity: info
+    given: $.paths
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[/a-zA-Z0-9_{}-]+$"

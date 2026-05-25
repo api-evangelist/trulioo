@@ -1,0 +1,119 @@
+specification: API Commons Vocabulary
+specificationVersion: '0.1'
+provider: Trulioo
+providerId: trulioo
+description: >-
+  Operational vocabulary for the Trulioo GlobalGateway and Trulioo Platform.
+  Captures the canonical terms used across the Verifications, Configuration,
+  Connection, Business Verification, Person Fraud, Document Verification, and
+  Platform APIs.
+sources:
+  - https://developer.trulioo.com
+  - https://developer.trulioo.com/reference/api-reference-overview
+  - https://www.trulioo.com
+modified: '2026-05-25'
+
+concepts:
+  - id: globalgateway
+    label: GlobalGateway
+    description: Trulioo's single-API gateway across 450+ datasources in 195+ countries.
+  - id: configurationname
+    label: Configuration Name
+    description: Customer-configured product name (e.g. "Identity Verification") that selects datasource bundles, fields, and rules.
+  - id: datasource
+    label: Datasource
+    description: An individual underlying data provider that contributes to a verification (credit bureau, government, utility, telco, watchlist).
+  - id: datasourceresult
+    label: Datasource Result
+    description: Per-datasource breakdown of which fields matched.
+  - id: recordstatus
+    label: Record Status
+    description: Aggregate verdict for a verification record (match, nomatch, partial, error).
+  - id: rule
+    label: Rule
+    description: A configured matching rule (e.g. "1+1" or "1+1+SSN") that determines whether a record qualifies as match.
+  - id: transactionrecord
+    label: Transaction Record
+    description: Persistent record of one verification, retrievable by TransactionRecordID.
+  - id: appendedfield
+    label: Appended Field
+    description: Additional data returned by a datasource that was not in the request (e.g. credit-bureau-confirmed address).
+  - id: consent
+    label: Consent
+    description: End-user consent text required by certain datasources before submission.
+  - id: jurisdictionofincorporation
+    label: Jurisdiction Of Incorporation
+    description: The state, province, or country in which a business is registered (US-DE, GB, CA-BC, etc).
+  - id: knownfaces
+    label: Known Faces
+    description: Biometric watchlist of enrolled faces; used to detect repeat fraudsters.
+  - id: workflowstudio
+    label: Workflow Studio
+    description: Trulioo's low-code and API-driven orchestrator for verification flows.
+  - id: endclient
+    label: End Client
+    description: An individual being verified through a customer's Trulioo workspace.
+
+services:
+  - id: kyc
+    label: Know Your Customer
+    apis:
+      - trulioo:trulioo-verifications-api
+  - id: kyb
+    label: Know Your Business
+    apis:
+      - trulioo:trulioo-business-verification-api
+  - id: docv
+    label: Identity Document Verification
+    apis:
+      - trulioo:trulioo-document-verification-api
+  - id: aml
+    label: AML / Watchlist Screening
+    apis:
+      - trulioo:trulioo-verifications-api
+  - id: fraud
+    label: Fraud Intelligence
+    apis:
+      - trulioo:trulioo-person-fraud-api
+  - id: workflow
+    label: Workflow Orchestration
+    apis:
+      - trulioo:trulioo-platform-api
+
+tools:
+  - id: trulioo-mcp-server
+    label: Trulioo MCP Server
+    url: https://github.com/trulioo/mcp-server
+  - id: trulioo-csharp-sdk
+    label: Trulioo C# SDK
+    url: https://github.com/trulioo/sdk-csharp-v3
+  - id: trulioo-java-sdk
+    label: Trulioo Java SDK
+    url: https://github.com/trulioo/sdk-java-v3
+  - id: trulioo-ios-sdk
+    label: Trulioo iOS SDK
+    url: https://github.com/trulioo/trulioo-ios
+  - id: trulioo-kyc-documents-capture-ios
+    label: KYC Documents Capture SDK for iOS
+    url: https://github.com/trulioo/kyc-documents-capture
+  - id: trulidemo
+    label: Trulidemo Sandbox
+    url: https://developer.trulioo.com/docs/trulidemo
+
+standards:
+  - id: iso-3166
+    label: ISO 3166 country codes
+  - id: oauth2-client-credentials
+    label: OAuth 2.0 Client Credentials
+  - id: hmac-signed-requests
+    label: HMAC request signing
+  - id: mutual-tls
+    label: Mutual TLS
+  - id: fatf-kyc-aml
+    label: FATF KYC/AML guidance
+  - id: gdpr
+    label: GDPR
+  - id: ccpa
+    label: CCPA
+  - id: pipeda
+    label: PIPEDA (Canadian privacy law)

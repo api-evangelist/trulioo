@@ -1,0 +1,294 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Configuration API
+  description: >
+    Discovery endpoints for the Trulioo GlobalGateway. Use these endpoints to
+    learn which countries, datasources, fields, document types, and consents
+    are available for a configured product/package before submitting a Verify
+    request. Returns metadata that drives client-side form generation and
+    dynamic field selection.
+  version: "3.0"
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+  license:
+    name: Trulioo Terms of Service
+    url: https://www.trulioo.com/legal/terms-of-service
+externalDocs:
+  description: Configuration API guide
+  url: https://developer.trulioo.com/reference/configuration-1
+servers:
+  - url: https://api.trulioo.com
+    description: Production
+security:
+  - BasicAuth: []
+  - OAuth2: []
+tags:
+  - name: Configuration
+    description: Discover packages, countries, datasources, fields, and consents.
+paths:
+  /v3/configuration/packages:
+    get:
+      summary: Get List Of Packages
+      description: List all configured product packages available to the authenticated customer.
+      operationId: getPackages
+      tags:
+        - Configuration
+      responses:
+        "200":
+          description: List of packages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Package'
+  /v3/configuration/countrycodes/{configurationName}:
+    get:
+      summary: Get Country Codes
+      description: Get the list of country codes supported by a given product configuration.
+      operationId: getCountryCodes
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/ConfigurationName'
+      responses:
+        "200":
+          description: List of ISO 3166 two-letter country codes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /v3/configuration/countrysubdivisions/{countryCode}:
+    get:
+      summary: Get Country Subdivisions
+      description: Get the list of subdivisions (states/provinces) for a country.
+      operationId: getCountrySubdivisions
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/CountryCode'
+      responses:
+        "200":
+          description: List of subdivisions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountrySubdivision'
+  /v3/configuration/fields/{configurationName}/{countryCode}:
+    get:
+      summary: Get Fields
+      description: Get the full set of accepted input fields for a country/product.
+      operationId: getFields
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/ConfigurationName'
+        - $ref: '#/components/parameters/CountryCode'
+      responses:
+        "200":
+          description: JSON Schema describing accepted fields.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+  /v3/configuration/fields/{configurationName}/{countryCode}/recommended:
+    get:
+      summary: Get Recommended Fields
+      description: Get the recommended (most likely to match) field combination for a country/product.
+      operationId: getRecommendedFields
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/ConfigurationName'
+        - $ref: '#/components/parameters/CountryCode'
+      responses:
+        "200":
+          description: Recommended field set.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+  /v3/configuration/datasources/{configurationName}/{countryCode}:
+    get:
+      summary: Get Datasources
+      description: Get the list of available datasources for a country/product.
+      operationId: getDatasources
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/ConfigurationName'
+        - $ref: '#/components/parameters/CountryCode'
+      responses:
+        "200":
+          description: List of datasource groups.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatasourceGroup'
+  /v3/configuration/consents/{configurationName}/{countryCode}:
+    get:
+      summary: Get Consents
+      description: List datasources that require end-user consent for a country/product.
+      operationId: getConsents
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/ConfigurationName'
+        - $ref: '#/components/parameters/CountryCode'
+      responses:
+        "200":
+          description: List of consent strings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /v3/configuration/consents/{configurationName}/{countryCode}/detail:
+    get:
+      summary: Get Detailed Consents
+      description: Detailed consent metadata including text to present to end-users.
+      operationId: getDetailedConsents
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/ConfigurationName'
+        - $ref: '#/components/parameters/CountryCode'
+      responses:
+        "200":
+          description: List of detailed consents.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Consent'
+  /v3/configuration/testentities/{configurationName}/{countryCode}:
+    get:
+      summary: Get Test Entities
+      description: Pre-canned test entities that resolve deterministically in sandbox mode.
+      operationId: getTestEntities
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/ConfigurationName'
+        - $ref: '#/components/parameters/CountryCode'
+      responses:
+        "200":
+          description: List of test entities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TestEntity'
+  /v3/configuration/documentTypes/{countryCode}:
+    get:
+      summary: Get Document Types
+      description: Document types supported for identity document verification per country.
+      operationId: getDocumentTypes
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/CountryCode'
+      responses:
+        "200":
+          description: List of document type identifiers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+  parameters:
+    ConfigurationName:
+      name: configurationName
+      in: path
+      required: true
+      description: Configured product/package name (e.g. "Identity Verification").
+      schema:
+        type: string
+    CountryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: Two-letter ISO 3166 country code.
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+  schemas:
+    Package:
+      type: object
+      properties:
+        ConfigurationName:
+          type: string
+        Description:
+          type: string
+    CountrySubdivision:
+      type: object
+      properties:
+        Name:
+          type: string
+        Code:
+          type: string
+    DatasourceGroup:
+      type: object
+      properties:
+        GroupName:
+          type: string
+        GroupCountry:
+          type: string
+        Datasources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Datasource'
+    Datasource:
+      type: object
+      properties:
+        DatasourceName:
+          type: string
+        DatasourceFields:
+          type: array
+          items:
+            type: string
+    Consent:
+      type: object
+      properties:
+        Name:
+          type: string
+        Text:
+          type: string
+        TextSummary:
+          type: string
+    TestEntity:
+      type: object
+      properties:
+        Profile:
+          type: string
+        Description:
+          type: string
+        Fields:
+          type: object
+          additionalProperties: true

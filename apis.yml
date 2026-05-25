@@ -1,0 +1,365 @@
+aid: trulioo
+url: https://raw.githubusercontent.com/api-evangelist/trulioo/refs/heads/main/apis.yml
+name: Trulioo
+kind: company
+description: >-
+  Trulioo is a Vancouver-based global identity verification platform that operates GlobalGateway,
+  a single-API gateway into 450+ data sources across 195+ countries for person verification (KYC),
+  business verification (KYB), watchlist and PEP screening, identity document verification (DocV),
+  biometric face match, and fraud-intelligence risk scoring. The Trulioo Platform layers Workflow
+  Studio (hosted and low-code), reusable end-client profiles, event-driven webhooks, native mobile
+  and web capture SDKs, and an MCP server on top of the underlying Verifications and Business APIs.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Identity Verification
+  - KYC
+  - KYB
+  - AML
+  - Watchlist Screening
+  - Biometrics
+  - Document Verification
+  - Fraud Prevention
+  - Compliance
+  - Global Identity
+created: '2026-05-25'
+modified: '2026-05-25'
+specificationVersion: '0.19'
+apis:
+  - aid: trulioo:trulioo-verifications-api
+    name: Trulioo Verifications API
+    description: >-
+      Normalized KYC / electronic identity verification API. Submit a Verify request with
+      normalized PersonInfo, Communication, Location, NationalIds, and Documents fields and
+      Trulioo's GlobalGateway routes the request across local data sources in 195+ countries.
+      Companion endpoints retrieve transaction records, statuses, partial results, and
+      downloadable document images.
+    humanURL: https://developer.trulioo.com/reference/identity-verifications
+    baseURL: https://api.trulioo.com
+    tags:
+      - KYC
+      - Identity Verification
+      - Verifications
+      - Transactions
+      - Documents
+    properties:
+      - url: https://developer.trulioo.com/reference/identity-verifications
+        type: Documentation
+      - url: https://developer.trulioo.com/reference/api-reference-overview
+        type: APIReference
+      - url: openapi/trulioo-verifications-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/trulioo-verify-request-schema.json
+        type: JSONSchema
+      - url: json-schema/trulioo-verify-result-schema.json
+        type: JSONSchema
+      - url: json-ld/trulioo-context.jsonld
+        type: JSONLD
+      - url: capabilities/verifications-verify.yaml
+        type: NaftikoCapability
+      - url: capabilities/verifications-transactions.yaml
+        type: NaftikoCapability
+  - aid: trulioo:trulioo-configuration-api
+    name: Trulioo Configuration API
+    description: >-
+      Discovery endpoints for the GlobalGateway. Learn which countries, datasources, fields,
+      document types, consents, and test entities are available for a configured product /
+      package before submitting a Verify request.
+    humanURL: https://developer.trulioo.com/reference/configuration-1
+    baseURL: https://api.trulioo.com
+    tags:
+      - Configuration
+      - Countries
+      - Datasources
+      - Fields
+      - Consents
+    properties:
+      - url: https://developer.trulioo.com/reference/configuration-1
+        type: Documentation
+      - url: openapi/trulioo-configuration-api-openapi.yml
+        type: OpenAPI
+      - url: capabilities/configuration-configuration.yaml
+        type: NaftikoCapability
+  - aid: trulioo:trulioo-connection-api
+    name: Trulioo Connection API
+    description: >-
+      Health-check and authentication-test endpoints. `sayhello` is an unauthenticated ping;
+      `testauthentication` verifies your credentials before exercising paid endpoints.
+    humanURL: https://developer.trulioo.com/reference/connection
+    baseURL: https://api.trulioo.com
+    tags:
+      - Connection
+      - Health Check
+    properties:
+      - url: https://developer.trulioo.com/reference/connection
+        type: Documentation
+      - url: openapi/trulioo-connection-api-openapi.yml
+        type: OpenAPI
+      - url: capabilities/connection-connection.yaml
+        type: NaftikoCapability
+  - aid: trulioo:trulioo-business-verification-api
+    name: Trulioo Business Verification API
+    description: >-
+      Know Your Business (KYB) API for verifying legal entities, retrieving business
+      registration data from official registries, listing officers and persons of significant
+      control, and downloading business reports. Supports search-then-verify flows by name,
+      registration number, and jurisdiction of incorporation.
+    humanURL: https://developer.trulioo.com/reference/kyb-business-verification
+    baseURL: https://api.trulioo.com
+    tags:
+      - KYB
+      - Business Verification
+      - Business Search
+      - Business Reports
+      - Jurisdiction Of Incorporation
+    properties:
+      - url: https://developer.trulioo.com/reference/kyb-business-verification
+        type: Documentation
+      - url: https://developer.trulioo.com/reference/guide-business-verification
+        type: Guides
+      - url: openapi/trulioo-business-verification-api-openapi.yml
+        type: OpenAPI
+      - url: json-schema/trulioo-business-record-schema.json
+        type: JSONSchema
+      - url: capabilities/business-verification-search.yaml
+        type: NaftikoCapability
+      - url: capabilities/business-verification-verify.yaml
+        type: NaftikoCapability
+  - aid: trulioo:trulioo-person-fraud-api
+    name: Trulioo Person Fraud API
+    description: >-
+      Fraud Intelligence — Person Fraud risk scoring. Submit an identity payload and receive
+      a risk verdict that aggregates third-party fraud signals, velocity checks, device
+      intelligence, and identity-graph data.
+    humanURL: https://developer.trulioo.com/reference/fraud-intelligence-person-fraud
+    baseURL: https://api.trulioo.com
+    tags:
+      - Fraud Intelligence
+      - Person Fraud
+      - Risk Scoring
+    properties:
+      - url: https://developer.trulioo.com/reference/fraud-intelligence-person-fraud
+        type: Documentation
+      - url: openapi/trulioo-person-fraud-api-openapi.yml
+        type: OpenAPI
+      - url: capabilities/person-fraud-risk.yaml
+        type: NaftikoCapability
+  - aid: trulioo:trulioo-document-verification-api
+    name: Trulioo Identity Document Verification API
+    description: >-
+      Capture, classify, and verify government-issued identity documents (driver's license,
+      passport, national ID) paired with optional liveness selfie checks. Used to authenticate
+      documents, extract MRZ / barcode data, match the document photo to a captured selfie,
+      and manage Known Faces biometric watchlists.
+    humanURL: https://developer.trulioo.com/reference/identity-document-verification
+    baseURL: https://api.trulioo.com
+    tags:
+      - Document Verification
+      - DocV
+      - Biometrics
+      - Liveness
+      - Known Faces
+    properties:
+      - url: https://developer.trulioo.com/reference/identity-document-verification
+        type: Documentation
+      - url: https://developer.trulioo.com/reference/known-faces
+        type: Documentation
+      - url: openapi/trulioo-document-verification-api-openapi.yml
+        type: OpenAPI
+      - url: capabilities/document-verification-verify.yaml
+        type: NaftikoCapability
+      - url: capabilities/document-verification-known-faces.yaml
+        type: NaftikoCapability
+  - aid: trulioo:trulioo-platform-api
+    name: Trulioo Platform API
+    description: >-
+      Workflow Studio API. Drive hosted and embedded workflows: initialize a flow, submit
+      data and files for each step, handle handoffs between user-facing capture and backend
+      processing, and retrieve end-client profiles, files, workflow definitions, and
+      transaction state. Backs both the Low-Code Workflow Studio and the API-first Workflow
+      Studio integrations.
+    humanURL: https://developer.trulioo.com/reference/workflow-studio-api
+    baseURL: https://api.trulioo.com
+    tags:
+      - Workflow Studio
+      - Platform
+      - Flows
+      - End Clients
+      - Workflows
+      - Sessions
+      - Events
+    properties:
+      - url: https://developer.trulioo.com/reference/workflow-studio-api
+        type: Documentation
+      - url: https://developer.trulioo.com/reference/workflow-studio-low-code
+        type: Documentation
+      - url: https://developer.trulioo.com/reference/event-dispatcher
+        type: Webhooks
+      - url: openapi/trulioo-platform-api-openapi.yml
+        type: OpenAPI
+      - url: capabilities/platform-flows.yaml
+        type: NaftikoCapability
+      - url: capabilities/platform-end-clients.yaml
+        type: NaftikoCapability
+      - url: capabilities/platform-workflows.yaml
+        type: NaftikoCapability
+common:
+  - type: Portal
+    url: https://www.trulioo.com
+  - type: Documentation
+    url: https://developer.trulioo.com
+  - type: GettingStarted
+    url: https://developer.trulioo.com/reference/getting-started-1
+  - type: APIReference
+    url: https://developer.trulioo.com/reference/api-reference-overview
+  - type: Authentication
+    url: https://developer.trulioo.com/reference/authentication
+  - type: Authentication
+    url: https://developer.trulioo.com/reference/hmac
+    name: HMAC
+  - type: Authentication
+    url: https://developer.trulioo.com/reference/connecting-to-trulioos-api-using-mutual-tls
+    name: Mutual TLS
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+  - type: ChangeLog
+    url: https://developer.trulioo.com/docs/release-notes
+  - type: ReleaseNotes
+    url: https://developer.trulioo.com/docs/platform-update-67
+    name: Platform Update 6.7
+  - type: Sandbox
+    url: https://developer.trulioo.com/docs/trulidemo
+    name: Trulidemo
+  - type: Support
+    url: https://support@trulioo.com
+  - type: SupportPortal
+    url: https://knowledgehub.trulioo.com
+    name: Trulioo Knowledge Hub
+  - type: Status
+    url: https://status.trulioo.com
+  - type: TrustCenter
+    url: https://www.trulioo.com/trust
+  - type: Security
+    url: https://www.trulioo.com/trust/security
+  - type: Compliance
+    url: https://www.trulioo.com/trust/compliance
+  - type: PrivacyPolicy
+    url: https://www.trulioo.com/legal/privacy-policy
+  - type: TermsOfService
+    url: https://www.trulioo.com/legal/terms-of-service
+  - type: Blog
+    url: https://www.trulioo.com/blog
+  - type: Customers
+    url: https://www.trulioo.com/customers
+  - type: CaseStudies
+    url: https://www.trulioo.com/resource-library?type=case-studies
+  - type: ResourceLibrary
+    url: https://www.trulioo.com/resource-library
+  - type: Pricing
+    url: https://www.trulioo.com/contact
+    name: Contact for pricing
+  - type: Login
+    url: https://portal.trulioo.com
+  - type: SignUp
+    url: https://www.trulioo.com/contact-sales
+  - type: ContactSales
+    url: https://www.trulioo.com/contact-sales
+  - type: Careers
+    url: https://www.trulioo.com/about-us/careers
+  - type: AboutUs
+    url: https://www.trulioo.com/about-us
+  - type: Leadership
+    url: https://www.trulioo.com/about-us/leadership
+  - type: News
+    url: https://www.trulioo.com/news-and-events
+  - type: GitHubOrganization
+    url: https://github.com/trulioo
+  - type: SDK
+    url: https://github.com/trulioo/sdk-csharp-v3
+    name: Trulioo C# SDK v3
+  - type: SDK
+    url: https://github.com/trulioo/sdk-java-v3
+    name: Trulioo Java SDK v3
+  - type: SDK
+    url: https://github.com/trulioo/sdk-csharp-v1
+    name: Trulioo C# SDK v1 (legacy)
+  - type: SDK
+    url: https://github.com/trulioo/sdk-java-v1
+    name: Trulioo Java SDK v1 (legacy)
+  - type: MobileSDK
+    url: https://github.com/trulioo/trulioo-ios
+    name: Trulioo iOS SDK
+  - type: MobileSDK
+    url: https://github.com/trulioo/kyc-documents-capture
+    name: KYC Documents Capture SDK for iOS
+  - type: MobileSDK
+    url: https://github.com/trulioo/docv
+    name: Document Verification SDK for iOS (legacy)
+  - type: MobileSDK
+    url: https://developer.trulioo.com/reference/android
+    name: Android Capture SDK
+  - type: MobileSDK
+    url: https://developer.trulioo.com/reference/react-native
+    name: React Native Capture SDK
+  - type: WebSDK
+    url: https://developer.trulioo.com/reference/web
+    name: Web Capture SDK
+  - type: MCPServer
+    url: https://github.com/trulioo/mcp-server
+    name: Trulioo MCP Server (KYB)
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/trulioo
+  - type: Twitter
+    url: https://twitter.com/trulioo
+  - type: Instagram
+    url: https://www.instagram.com/trulioo_global
+  - type: Regions
+    url: https://developer.trulioo.com/reference/multi-region-hosting
+    name: Multi-Region Hosting
+  - type: Errors
+    url: https://developer.trulioo.com/reference/errors
+  - type: Versioning
+    url: https://developer.trulioo.com/reference/api-reference-overview
+  - type: llmstxt
+    url: https://developer.trulioo.com/llms.txt
+  - type: Plans
+    url: plans/trulioo-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/trulioo-rate-limits.yml
+  - type: FinOps
+    url: finops/trulioo-finops.yml
+  - type: Features
+    data:
+      - GlobalGateway — single API into 450+ data sources across 195+ countries
+      - Normalized KYC verification (Verifications API) with watchlist and PEP screening
+      - KYB business verification with official registry data, officers, and persons of significant control
+      - Identity Document Verification (DocV) with MRZ / barcode extraction and liveness checks
+      - Biometric face match plus Known Faces biometric watchlists
+      - Fraud Intelligence — Person Fraud risk scoring with third-party signal aggregation
+      - Watchlist screening (sanctions, PEPs, adverse media) and ongoing AML monitoring
+      - Address validation, cleansing, and standardization
+      - Workflow Studio — low-code orchestrator for verification flows
+      - Workflow Studio (API) — programmatic flow control with hand-offs and signed-URL sessions
+      - Reusable end-client profiles and bulk client management
+      - Multi-region data residency (AMER, EMEA, APAC) for sovereign deployments
+      - Webhook event delivery via the Event Dispatcher
+      - Authentication via Basic, OAuth2 client-credential, HMAC, and Mutual TLS
+      - Sandbox (Trulidemo) with deterministic test entities per country
+      - Mobile SDKs (iOS, Android, React Native) and Web Capture SDK
+      - Backend SDKs in C# (v3) and Java (v3) plus legacy v1 SDKs
+      - MCP Server for agentic KYB integrations
+      - Customer consent capture per datasource with retrievable consent text
+      - Configuration API for runtime form generation and field discovery
+    sources:
+      - https://www.trulioo.com
+      - https://developer.trulioo.com
+      - https://developer.trulioo.com/reference/api-reference-overview
+      - https://developer.trulioo.com/docs/platform-update-67
+      - https://github.com/trulioo
+    updated: '2026-05-25'
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com
+    X: apievangelist
+    url: https://apievangelist.com
+position: Consuming
+access: 3rd-Party

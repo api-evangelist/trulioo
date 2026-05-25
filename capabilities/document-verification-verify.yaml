@@ -1,0 +1,66 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Trulioo Identity Document Verification API — Verify
+  description: >-
+    Submit captured identity document images (and optional liveness selfie) to
+    Trulioo's DocV engine. Returns extracted document fields, classification
+    confidence, face-match score, and liveness score.
+  tags:
+    - Trulioo
+    - Document Verification
+    - DocV
+    - Biometrics
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      TRULIOO_USERNAME: TRULIOO_USERNAME
+      TRULIOO_PASSWORD: TRULIOO_PASSWORD
+capability:
+  consumes:
+    - type: http
+      namespace: document-verification-verify
+      baseUri: https://api.trulioo.com
+      description: Trulioo DocV verify.
+      resources:
+        - name: documentverification-verify
+          path: /v3/verifications/documentverification/verify
+          operations:
+            - name: documentVerificationVerify
+              method: POST
+              description: Document Verification Verify
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  description: DocumentVerifyRequest payload.
+                  required: true
+      authentication:
+        type: basic
+        username: '{{env.TRULIOO_USERNAME}}'
+        password: '{{env.TRULIOO_PASSWORD}}'
+  exposes:
+    - type: mcp
+      namespace: document-verification-verify-mcp
+      port: 9090
+      transport: http
+      description: MCP adapter for Trulioo DocV.
+      tools:
+        - name: trulioo-document-verify
+          description: Verify an identity document via Trulioo DocV
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: document-verification-verify.documentVerificationVerify
+          with:
+            body: tools.body
+          outputParameters:
+            - type: object
+              mapping: $.

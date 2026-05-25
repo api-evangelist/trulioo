@@ -1,0 +1,65 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Trulioo Person Fraud API — Risk Check
+  description: >-
+    Submit a person identity payload to Trulioo's Fraud Intelligence engine and
+    receive a risk score and verdict aggregating third-party fraud signals,
+    velocity, device, and identity-graph data.
+  tags:
+    - Trulioo
+    - Fraud Intelligence
+    - Risk Scoring
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      TRULIOO_USERNAME: TRULIOO_USERNAME
+      TRULIOO_PASSWORD: TRULIOO_PASSWORD
+capability:
+  consumes:
+    - type: http
+      namespace: person-fraud-risk
+      baseUri: https://api.trulioo.com
+      description: Trulioo Person Fraud check.
+      resources:
+        - name: risk-check
+          path: /risk/v1/check
+          operations:
+            - name: personFraudCheck
+              method: POST
+              description: Person Fraud Check
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  description: RiskVerifyRequest payload.
+                  required: true
+      authentication:
+        type: basic
+        username: '{{env.TRULIOO_USERNAME}}'
+        password: '{{env.TRULIOO_PASSWORD}}'
+  exposes:
+    - type: mcp
+      namespace: person-fraud-risk-mcp
+      port: 9090
+      transport: http
+      description: MCP adapter for Trulioo Person Fraud.
+      tools:
+        - name: trulioo-person-fraud-check
+          description: Score a person identity for fraud risk via Trulioo
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: person-fraud-risk.personFraudCheck
+          with:
+            body: tools.body
+          outputParameters:
+            - type: object
+              mapping: $.

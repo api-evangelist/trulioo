@@ -1,0 +1,89 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.trulioo.com/v3/verifications/verify",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Basic <base64(username:password)>"
+    },
+    "body": {
+      "AcceptTruliooTermsAndConditions": true,
+      "CleansedAddress": true,
+      "ConfigurationName": "Identity Verification",
+      "CountryCode": "US",
+      "CustomerReferenceID": "order-2026-04827",
+      "DataFields": {
+        "PersonInfo": {
+          "FirstGivenName": "John",
+          "MiddleName": "Q",
+          "FirstSurName": "Public",
+          "DayOfBirth": 1,
+          "MonthOfBirth": 1,
+          "YearOfBirth": 1980
+        },
+        "Location": {
+          "BuildingNumber": "123",
+          "StreetName": "Main",
+          "StreetType": "Street",
+          "City": "Anytown",
+          "StateProvinceCode": "NY",
+          "PostalCode": "10001"
+        },
+        "Communication": {
+          "EmailAddress": "john.public@example.com",
+          "MobileNumber": "+15551234567"
+        },
+        "NationalIds": [
+          {
+            "Number": "123456789",
+            "Type": "SSN",
+            "CountryCode": "US"
+          }
+        ]
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "TransactionID": "5f5b4d3a-6c2e-4d8e-9a1f-91d3a0c7b8c2",
+      "UploadedDt": "2026-05-25T18:22:14Z",
+      "CountryCode": "US",
+      "ProductName": "Identity Verification",
+      "Record": {
+        "TransactionRecordID": "5f5b4d3a-6c2e-4d8e-9a1f-91d3a0c7b8c2",
+        "RecordStatus": "match",
+        "DatasourceResults": [
+          {
+            "DatasourceName": "Credit Bureau",
+            "DatasourceFields": [
+              { "FieldName": "FirstGivenName", "Status": "match" },
+              { "FieldName": "FirstSurName", "Status": "match" },
+              { "FieldName": "DayOfBirth", "Status": "match" },
+              { "FieldName": "MonthOfBirth", "Status": "match" },
+              { "FieldName": "YearOfBirth", "Status": "match" },
+              { "FieldName": "BuildingNumber", "Status": "match" },
+              { "FieldName": "StreetName", "Status": "match" },
+              { "FieldName": "City", "Status": "match" },
+              { "FieldName": "PostalCode", "Status": "match" }
+            ],
+            "Errors": []
+          },
+          {
+            "DatasourceName": "Government - SSA",
+            "DatasourceFields": [
+              { "FieldName": "Number", "Status": "match" }
+            ],
+            "Errors": []
+          }
+        ],
+        "Rule": {
+          "RuleName": "1+1+SSN",
+          "Note": "Identity verified by one name+address+DOB match plus SSN match."
+        },
+        "Errors": []
+      },
+      "Errors": []
+    }
+  }
+}

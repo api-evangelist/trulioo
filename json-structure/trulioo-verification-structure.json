@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-structure.org/draft/2025-01/schema",
+  "title": "Trulioo Verification Result Structure",
+  "description": "JSON Structure for a Trulioo Verifications API result, mapping the normalized record returned by GlobalGateway.",
+  "type": "object",
+  "properties": {
+    "transactionId": { "type": "string", "source": "$.TransactionID" },
+    "transactionRecordId": { "type": "string", "source": "$.Record.TransactionRecordID" },
+    "country": { "type": "string", "source": "$.CountryCode" },
+    "product": { "type": "string", "source": "$.ProductName" },
+    "uploadedAt": { "type": "string", "format": "date-time", "source": "$.UploadedDt" },
+    "recordStatus": {
+      "type": "string",
+      "enum": ["match", "nomatch", "partial", "error"],
+      "source": "$.Record.RecordStatus"
+    },
+    "datasourceResults": {
+      "type": "array",
+      "source": "$.Record.DatasourceResults[*]",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "source": "$.DatasourceName" },
+          "fields": {
+            "type": "array",
+            "source": "$.DatasourceFields[*]",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "source": "$.FieldName" },
+                "status": { "type": "string", "source": "$.Status" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "source": "$.Errors[*]",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string", "source": "$.Code" },
+          "message": { "type": "string", "source": "$.Message" }
+        }
+      }
+    }
+  }
+}

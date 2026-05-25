@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Trulioo Platform API — Workflows
+  description: >-
+    Retrieve workflow definitions from a Trulioo organization and generate
+    signed URLs for hosted user sessions.
+  tags:
+    - Trulioo
+    - Workflow Studio
+    - Workflows
+    - Sessions
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      TRULIOO_CLIENT_ID: TRULIOO_CLIENT_ID
+      TRULIOO_CLIENT_SECRET: TRULIOO_CLIENT_SECRET
+capability:
+  consumes:
+    - type: http
+      namespace: platform-workflows
+      baseUri: https://api.trulioo.com
+      description: Trulioo Workflow Studio workflow definitions and sessions.
+      resources:
+        - name: workflows
+          path: /customer/v2/workflows
+          operations:
+            - name: getWorkflows
+              method: GET
+              description: Retrieve Workflows From Organization
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: array
+                  value: $.
+        - name: signedurl
+          path: /customer/v2/signedurl
+          operations:
+            - name: generateSignedUrl
+              method: POST
+              description: Generate Signed URL For User Session
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  required: true
+      authentication:
+        type: oauth2
+        flow: client_credentials
+        tokenUrl: https://api.trulioo.com/customer/v2/auth/customer
+        clientId: '{{env.TRULIOO_CLIENT_ID}}'
+        clientSecret: '{{env.TRULIOO_CLIENT_SECRET}}'
+  exposes:
+    - type: mcp
+      namespace: platform-workflows-mcp
+      port: 9090
+      transport: http
+      description: MCP adapter for Trulioo Workflow Studio workflows.
+      tools:
+        - name: trulioo-list-workflows
+          description: List Trulioo workflows
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: platform-workflows.getWorkflows
+          outputParameters:
+            - type: array
+              mapping: $.
+        - name: trulioo-generate-signed-url
+          description: Generate a signed URL for a Trulioo hosted workflow session
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: platform-workflows.generateSignedUrl
+          with:
+            body: tools.body
+          outputParameters:
+            - type: object
+              mapping: $.

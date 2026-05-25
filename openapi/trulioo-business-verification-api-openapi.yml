@@ -1,0 +1,321 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Business Verification API
+  description: >
+    Know Your Business (KYB) API for verifying legal entities, retrieving
+    business registration data, and downloading business reports.
+    Supports searching businesses by name and registration number, verifying
+    a business record, and pulling the underlying registry document.
+  version: "3.0"
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+externalDocs:
+  description: KYB - Business Verification
+  url: https://developer.trulioo.com/reference/kyb-business-verification
+servers:
+  - url: https://api.trulioo.com
+    description: Production
+security:
+  - BasicAuth: []
+  - OAuth2: []
+tags:
+  - name: Business Search
+    description: Search the Trulioo business registry universe.
+  - name: Business Verification
+    description: Verify a business and retrieve its registration record.
+  - name: Business Reports
+    description: Download business reports.
+  - name: Business Configuration
+    description: Discover JOIs and registration number requirements.
+paths:
+  /v3/business/search:
+    post:
+      summary: Business Search
+      description: >
+        Search for a business by name, registration number, and
+        jurisdiction-of-incorporation. Returns candidate matches with
+        confidence scores.
+      operationId: businessSearch
+      tags:
+        - Business Search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessSearchRequest'
+      responses:
+        "200":
+          description: Business search response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessSearchResponse'
+  /v3/business/verify:
+    post:
+      summary: Business Verify
+      description: >
+        Verify a specific business by registration number and jurisdiction.
+        Returns the canonical record plus officers, addresses, and other
+        registry-supplied fields.
+      operationId: businessVerify
+      tags:
+        - Business Verification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessVerifyRequest'
+      responses:
+        "200":
+          description: Business verify result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessVerifyResult'
+  /v3/business/search/transactionrecord/{transactionRecordId}:
+    get:
+      summary: Get Business Search Result
+      description: Retrieve a previously executed Business Search by transaction ID.
+      operationId: getBusinessSearchResult
+      tags:
+        - Business Search
+      parameters:
+        - $ref: '#/components/parameters/TransactionRecordId'
+      responses:
+        "200":
+          description: Business search response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessSearchResponse'
+  /v3/business/report/{transactionRecordId}:
+    get:
+      summary: Get Business Report
+      description: Download the business registration document/report associated with a transaction.
+      operationId: getBusinessReport
+      tags:
+        - Business Reports
+      parameters:
+        - $ref: '#/components/parameters/TransactionRecordId'
+        - name: additionalData
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: Report payload.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadDocument'
+  /v3/business/countryJOI:
+    get:
+      summary: Get All Jurisdictions Of Incorporation
+      description: List all supported jurisdictions of incorporation across all countries.
+      operationId: getAllJurisdictionsOfIncorporation
+      tags:
+        - Business Configuration
+      responses:
+        "200":
+          description: List of country/subdivision JOIs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountrySubdivision'
+  /v3/business/countryJOI/{countryCode}:
+    get:
+      summary: Get Jurisdictions Of Incorporation Per Country
+      description: List the supported jurisdictions of incorporation within a single country.
+      operationId: getJurisdictionsOfIncorporationPerCountry
+      tags:
+        - Business Configuration
+      parameters:
+        - $ref: '#/components/parameters/CountryCode'
+      responses:
+        "200":
+          description: List of JOIs for the country.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountrySubdivision'
+  /v3/business/businessregistrationnumbers:
+    get:
+      summary: Get Business Registration Numbers For All Supported Countries
+      description: List business registration number types for every supported country.
+      operationId: getAllBusinessRegistrationNumbers
+      tags:
+        - Business Configuration
+      responses:
+        "200":
+          description: List of registration number metadata.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessRegistrationNumber'
+  /v3/business/businessregistrationnumbers/{countryCode}:
+    get:
+      summary: Get Business Registration Numbers By Country
+      description: List business registration number types for one country.
+      operationId: getBusinessRegistrationNumbersByCountry
+      tags:
+        - Business Configuration
+      parameters:
+        - $ref: '#/components/parameters/CountryCode'
+      responses:
+        "200":
+          description: List of registration number metadata.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessRegistrationNumber'
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+  parameters:
+    TransactionRecordId:
+      name: transactionRecordId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    CountryCode:
+      name: countryCode
+      in: path
+      required: true
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+  schemas:
+    BusinessSearchRequest:
+      type: object
+      required:
+        - AcceptTruliooTermsAndConditions
+        - ConfigurationName
+        - CountryCode
+        - BusinessSearchInputFields
+      properties:
+        AcceptTruliooTermsAndConditions:
+          type: boolean
+        ConfigurationName:
+          type: string
+        CountryCode:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
+        BusinessSearchInputFields:
+          $ref: '#/components/schemas/BusinessInputFields'
+    BusinessVerifyRequest:
+      type: object
+      required:
+        - AcceptTruliooTermsAndConditions
+        - ConfigurationName
+        - CountryCode
+        - BusinessSearchInputFields
+      properties:
+        AcceptTruliooTermsAndConditions:
+          type: boolean
+        ConfigurationName:
+          type: string
+        CountryCode:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
+        BusinessSearchInputFields:
+          $ref: '#/components/schemas/BusinessInputFields'
+    BusinessInputFields:
+      type: object
+      properties:
+        BusinessName:
+          type: string
+        BusinessRegistrationNumber:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
+    BusinessSearchResponse:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        Results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessRecord'
+    BusinessRecord:
+      type: object
+      properties:
+        BusinessName:
+          type: string
+        BusinessRegistrationNumber:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
+        Status:
+          type: string
+        ConfidenceScore:
+          type: number
+    BusinessVerifyResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        Record:
+          $ref: '#/components/schemas/BusinessRecord'
+        Officers:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    CountrySubdivision:
+      type: object
+      properties:
+        Name:
+          type: string
+        Code:
+          type: string
+    BusinessRegistrationNumber:
+      type: object
+      properties:
+        CountryCode:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
+        RegistrationNumberType:
+          type: string
+        Description:
+          type: string
+    DownloadDocument:
+      type: object
+      properties:
+        Document:
+          type: string
+          format: byte
+        ContentType:
+          type: string

@@ -1,0 +1,98 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Trulioo Business Verification API — Verify
+  description: >-
+    Verify a business by registration number and jurisdiction, retrieve the canonical
+    registry record, list officers and persons of significant control, and download
+    business reports.
+  tags:
+    - Trulioo
+    - KYB
+    - Business Verification
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      TRULIOO_USERNAME: TRULIOO_USERNAME
+      TRULIOO_PASSWORD: TRULIOO_PASSWORD
+capability:
+  consumes:
+    - type: http
+      namespace: business-verification-verify
+      baseUri: https://api.trulioo.com
+      description: Trulioo KYB business verify and report retrieval.
+      resources:
+        - name: business-verify
+          path: /v3/business/verify
+          operations:
+            - name: businessVerify
+              method: POST
+              description: Business Verify
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  description: BusinessVerifyRequest payload.
+                  required: true
+        - name: business-report
+          path: /v3/business/report/{transactionRecordId}
+          operations:
+            - name: getBusinessReport
+              method: GET
+              description: Get Business Report
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: transactionRecordId
+                  in: path
+                  type: string
+                  required: true
+                - name: additionalData
+                  in: query
+                  type: boolean
+                  required: false
+      authentication:
+        type: basic
+        username: '{{env.TRULIOO_USERNAME}}'
+        password: '{{env.TRULIOO_PASSWORD}}'
+  exposes:
+    - type: mcp
+      namespace: business-verification-verify-mcp
+      port: 9090
+      transport: http
+      description: MCP adapter for Trulioo KYB verify.
+      tools:
+        - name: trulioo-business-verify
+          description: Verify a business via Trulioo
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: business-verification-verify.businessVerify
+          with:
+            body: tools.body
+          outputParameters:
+            - type: object
+              mapping: $.
+        - name: trulioo-get-business-report
+          description: Download a Trulioo business report
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: true
+          call: business-verification-verify.getBusinessReport
+          with:
+            transactionRecordId: tools.transactionRecordId
+            additionalData: tools.additionalData
+          outputParameters:
+            - type: object
+              mapping: $.

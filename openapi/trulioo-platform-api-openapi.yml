@@ -1,0 +1,459 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Platform API
+  description: >
+    Workflow Studio API (Trulioo Platform). Drive hosted and embedded
+    workflows: initialize a flow, submit data and files for each step,
+    handle handoffs between user-facing capture and backend processing,
+    and retrieve end-client profiles, files, workflow definitions, and
+    transaction state. Backs both the Low-Code Workflow Studio and the
+    API-first Workflow Studio integrations.
+  version: "2.0"
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+externalDocs:
+  description: Workflow Studio (API)
+  url: https://developer.trulioo.com/reference/workflow-studio-api
+servers:
+  - url: https://api.trulioo.com
+    description: Production
+security:
+  - OAuth2: []
+tags:
+  - name: Authentication
+    description: OAuth2 client-credential token acquisition.
+  - name: Flows
+    description: Initialize and drive a workflow flow.
+  - name: Workflows
+    description: Retrieve workflow definitions.
+  - name: End Clients
+    description: Profiles, files, and bulk operations on end clients.
+  - name: Sessions
+    description: Generate signed URLs for user sessions.
+  - name: Events
+    description: Webhook event dispatch.
+paths:
+  /customer/v2/auth/customer:
+    post:
+      summary: Post Auth Customer
+      description: Exchange OAuth credentials for an access token to call the Platform API.
+      operationId: postAuthCustomer
+      tags:
+        - Authentication
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  example: client_credentials
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+      responses:
+        "200":
+          description: Access token response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+  /customer/v2/flow/{userStateId}:
+    get:
+      summary: Get Current Step Or Initialize A Flow
+      description: >
+        Returns the current step for an existing flow identified by
+        `userStateId`, or initializes a new flow.
+      operationId: getFlow
+      tags:
+        - Flows
+      parameters:
+        - $ref: '#/components/parameters/UserStateId'
+      responses:
+        "200":
+          description: Current flow step.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowStep'
+    post:
+      summary: Submit Data For The Current Step Of A Flow
+      description: Submit JSON payload for the current step.
+      operationId: submitFlowData
+      tags:
+        - Flows
+      parameters:
+        - $ref: '#/components/parameters/UserStateId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "200":
+          description: Next step.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowStep'
+  /customer/v2/flow/{userStateId}/file:
+    post:
+      summary: Submit File For The Current Step Of A Flow
+      description: Submit a file (e.g. document image) for the current flow step.
+      operationId: submitFlowFile
+      tags:
+        - Flows
+      parameters:
+        - $ref: '#/components/parameters/UserStateId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Next step.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowStep'
+  /customer/v2/flow/{userStateId}/back:
+    post:
+      summary: Backward Step In The Flow
+      description: Compute a backward step in the flow execution.
+      operationId: flowBack
+      tags:
+        - Flows
+      parameters:
+        - $ref: '#/components/parameters/UserStateId'
+      responses:
+        "200":
+          description: Previous step.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowStep'
+  /customer/v2/handoff:
+    post:
+      summary: Post Handoff
+      description: >
+        Notify the platform that control of the flow is being handed off
+        between user-facing capture and backend processing.
+      operationId: postHandoff
+      tags:
+        - Flows
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "200":
+          description: Handoff acknowledged.
+  /customer/v2/init:
+    post:
+      summary: Create Or Update User State
+      description: Create a new user state ID or update an existing one with init data.
+      operationId: createOrUpdateUserState
+      tags:
+        - Flows
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "200":
+          description: User state ID.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userStateId:
+                    type: string
+  /customer/v2/workflows:
+    get:
+      summary: Retrieve Workflows From Organization
+      description: List all workflows defined in the organization.
+      operationId: getWorkflows
+      tags:
+        - Workflows
+      responses:
+        "200":
+          description: List of workflows.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workflow'
+  /customer/v2/profiles:
+    get:
+      summary: Retrieve Profiles From Your Workspace
+      description: List end-client profiles in your workspace.
+      operationId: getProfiles
+      tags:
+        - End Clients
+      responses:
+        "200":
+          description: Profiles.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Profile'
+  /customer/v2/profiles/{clientId}:
+    get:
+      summary: Retrieve Profile Data From A Client
+      description: Get the full profile (and verification data) for an end client.
+      operationId: getProfile
+      tags:
+        - End Clients
+      parameters:
+        - $ref: '#/components/parameters/ClientId'
+      responses:
+        "200":
+          description: Profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+  /customer/v2/profiles/{clientId}/file/{fileId}:
+    get:
+      summary: Retrieve A File From A Client
+      description: Download a file stored on an end-client profile.
+      operationId: getClientFile
+      tags:
+        - End Clients
+      parameters:
+        - $ref: '#/components/parameters/ClientId'
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: File binary.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+  /customer/v2/endclients/link:
+    post:
+      summary: Create A Link Between Two End Clients
+      description: Establish a relationship link between two end-client profiles.
+      operationId: createLinkedLead
+      tags:
+        - End Clients
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "201":
+          description: Link created.
+    delete:
+      summary: Delete A Link Between Two End Clients
+      description: Remove a link between two end-client profiles.
+      operationId: deleteLinkedLead
+      tags:
+        - End Clients
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "204":
+          description: Link removed.
+  /customer/v2/endclients/bulkdelete:
+    post:
+      summary: Delete End Clients In Bulk
+      description: Bulk delete end-client profiles.
+      operationId: deleteEndClientsBulk
+      tags:
+        - End Clients
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clientIds:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: Bulk delete result.
+  /customer/v2/endclients/bulkstatus:
+    post:
+      summary: Update End Clients Status In Bulk
+      description: Bulk update the status of end-client profiles.
+      operationId: updateEndClientsStatusBulk
+      tags:
+        - End Clients
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "200":
+          description: Status updated.
+  /customer/v2/signedurl:
+    post:
+      summary: Generate Signed URL For User Session
+      description: >
+        Generate a signed URL for an end-user to access a hosted workflow
+        session.
+      operationId: generateSignedUrl
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "200":
+          description: Signed URL.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    format: uri
+                  expiresAt:
+                    type: string
+                    format: date-time
+  /customer/v2/events:
+    post:
+      summary: Send Event
+      description: >
+        Dispatch a webhook event from the platform. Used by the Event
+        Dispatcher to deliver workflow lifecycle events.
+      operationId: sendEvent
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "202":
+          description: Event accepted for delivery.
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.trulioo.com/customer/v2/auth/customer
+          scopes: {}
+  parameters:
+    UserStateId:
+      name: userStateId
+      in: path
+      required: true
+      schema:
+        type: string
+    ClientId:
+      name: clientId
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    AccessToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+        expires_in:
+          type: integer
+    FlowStep:
+      type: object
+      properties:
+        userStateId:
+          type: string
+        stepId:
+          type: string
+        stepType:
+          type: string
+        inputs:
+          type: object
+          additionalProperties: true
+        outputs:
+          type: object
+          additionalProperties: true
+    Workflow:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        version:
+          type: string
+        steps:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    Profile:
+      type: object
+      properties:
+        clientId:
+          type: string
+        status:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        data:
+          type: object
+          additionalProperties: true

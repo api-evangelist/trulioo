@@ -1,0 +1,65 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Trulioo
+providerId: trulioo
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+description: >-
+  Trulioo does not publish a public rate-limit schedule for the GlobalGateway
+  APIs; limits are negotiated per-customer alongside contracted volumes.
+  Documented patterns include synchronous transaction throughput, asynchronous
+  callback windows, and per-IP throttling on the developer portal sandbox.
+sources:
+  - https://developer.trulioo.com/reference/asynchronous-requests
+  - https://developer.trulioo.com/reference/api-reference-overview
+  - https://developer.trulioo.com/docs/trulidemo
+
+limits:
+  - id: trulioo-platform-default
+    name: Platform default
+    description: >-
+      Contracted per-customer concurrency and per-second throughput on the
+      Trulioo GlobalGateway. Customers exceeding contracted throughput receive
+      HTTP 429 responses with Retry-After. Hard limits are not published.
+    scope: per-customer
+    metric: requests-per-second
+    limit: contact-sales
+    burst: contact-sales
+    enforcement: 429-retry-after
+    headers:
+      - Retry-After
+
+  - id: trulioo-async-callback
+    name: Asynchronous callback window
+    description: >-
+      Verifications submitted with a CallBackUrl are processed asynchronously.
+      Callback delivery retries follow Trulioo's Event Dispatcher policy with
+      exponential backoff. Subscribers should respond within 15 seconds.
+    scope: per-webhook
+    metric: response-time-seconds
+    limit: 15
+    enforcement: retry-with-backoff
+
+  - id: trulioo-sandbox
+    name: Trulidemo sandbox
+    description: >-
+      The Trulidemo sandbox enforces lower per-IP throughput than production
+      to prevent abuse. Use the configured Test Entities for deterministic
+      results without consuming production volume.
+    scope: per-ip
+    metric: requests-per-minute
+    limit: contact-support
+    enforcement: 429-retry-after
+
+quota:
+  - id: trulioo-contracted-volume
+    name: Contracted monthly volume
+    description: >-
+      Each customer commits to a contracted monthly verification volume per
+      product (KYC, KYB, DocV, Fraud, Screening). Overages are typically
+      billed at a contracted overage rate or rolled into a tier upgrade.
+    metric: verifications-per-month
+    limit: contact-sales
+    overage: contact-sales

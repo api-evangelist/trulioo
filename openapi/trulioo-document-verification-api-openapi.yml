@@ -1,0 +1,251 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Identity Document Verification API
+  description: >
+    Capture, classify, and verify government-issued identity documents
+    (driver's license, passport, national ID) paired with optional liveness
+    selfie checks. Used to authenticate documents, extract MRZ/barcode data,
+    and match the document photo to a captured selfie. Returns extracted
+    fields, classification confidence, fraud signals, and document images.
+  version: "3.0"
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+externalDocs:
+  description: Identity Document Verification
+  url: https://developer.trulioo.com/reference/identity-document-verification
+servers:
+  - url: https://api.trulioo.com
+    description: Production
+security:
+  - BasicAuth: []
+  - OAuth2: []
+tags:
+  - name: Document Verification
+    description: Submit and retrieve document verifications.
+  - name: Document Configuration
+    description: Discover document types per country.
+  - name: Known Faces
+    description: Manage Known Faces lists for biometric watchlists.
+paths:
+  /v3/verifications/documentverification/verify:
+    post:
+      summary: Document Verification Verify
+      description: Submit captured ID document images and an optional selfie for verification.
+      operationId: documentVerificationVerify
+      tags:
+        - Document Verification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentVerifyRequest'
+      responses:
+        "200":
+          description: Document verification result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentVerifyResult'
+  /v3/verifications/documenttypes/{countryCode}:
+    get:
+      summary: Get Document Types
+      description: Document types supported for a given country.
+      operationId: getDocumentTypes
+      tags:
+        - Document Configuration
+      parameters:
+        - name: countryCode
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 2
+      responses:
+        "200":
+          description: List of document type identifiers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /v3/knownfaces/lists:
+    get:
+      summary: Get Known Faces Lists
+      description: List configured Known Faces watchlists.
+      operationId: getKnownFacesLists
+      tags:
+        - Known Faces
+      responses:
+        "200":
+          description: Lists.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnownFacesList'
+    post:
+      summary: Post Known Faces List
+      description: Create a new Known Faces list.
+      operationId: postKnownFacesList
+      tags:
+        - Known Faces
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KnownFacesList'
+      responses:
+        "201":
+          description: List created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnownFacesList'
+  /v3/knownfaces/lists/{listId}:
+    delete:
+      summary: Delete Known Faces List
+      description: Delete a Known Faces list.
+      operationId: deleteKnownFacesList
+      tags:
+        - Known Faces
+      parameters:
+        - name: listId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Deleted.
+  /v3/knownfaces/lists/{listId}/transactions:
+    get:
+      summary: Get Known Faces List Transactions
+      description: Retrieve transactions associated with a Known Faces list.
+      operationId: getKnownFacesListTransactions
+      tags:
+        - Known Faces
+      parameters:
+        - name: listId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Transactions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+    post:
+      summary: Add Known Faces List Transaction
+      description: Enroll a transaction into a Known Faces list.
+      operationId: addKnownFacesListTransaction
+      tags:
+        - Known Faces
+      parameters:
+        - name: listId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                TransactionRecordId:
+                  type: string
+      responses:
+        "201":
+          description: Enrolled.
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+  schemas:
+    DocumentVerifyRequest:
+      type: object
+      required:
+        - AcceptTruliooTermsAndConditions
+        - ConfigurationName
+        - CountryCode
+        - DataFields
+      properties:
+        AcceptTruliooTermsAndConditions:
+          type: boolean
+        ConfigurationName:
+          type: string
+        CountryCode:
+          type: string
+        CustomerReferenceID:
+          type: string
+        CallBackUrl:
+          type: string
+          format: uri
+        DataFields:
+          type: object
+          properties:
+            Document:
+              type: object
+              properties:
+                DocumentFrontImage:
+                  type: string
+                  format: byte
+                DocumentBackImage:
+                  type: string
+                  format: byte
+                LivePhoto:
+                  type: string
+                  format: byte
+                DocumentType:
+                  type: string
+    DocumentVerifyResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        TransactionRecordID:
+          type: string
+        DocumentClassification:
+          type: string
+        DocumentFields:
+          type: object
+          additionalProperties: true
+        FaceMatchScore:
+          type: number
+        LivenessScore:
+          type: number
+        Errors:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    KnownFacesList:
+      type: object
+      properties:
+        Id:
+          type: string
+        Name:
+          type: string
+        Description:
+          type: string

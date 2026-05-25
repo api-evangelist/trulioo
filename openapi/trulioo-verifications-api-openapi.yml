@@ -1,0 +1,502 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Verifications API
+  description: >
+    Trulioo's Normalized API for identity verification (KYC) and electronic
+    identity verification (eIDV). Submit a Verify request with normalized
+    PersonInfo, Communication, Location, NationalIds, and Documents fields
+    and Trulioo's GlobalGateway routes the request across local data sources
+    in 195+ countries. Returns a normalized VerifyResult with Record status,
+    DatasourceResults, RecordStatus, and Errors. Companion endpoints retrieve
+    transaction records, statuses, partial results, and downloadable document
+    images.
+  version: "3.0"
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+  license:
+    name: Trulioo Terms of Service
+    url: https://www.trulioo.com/legal/terms-of-service
+externalDocs:
+  description: Trulioo Developer Portal
+  url: https://developer.trulioo.com/reference/api-reference-overview
+servers:
+  - url: https://api.trulioo.com
+    description: Production
+  - url: https://gateway.trulioo.com
+    description: Legacy production gateway
+security:
+  - BasicAuth: []
+  - OAuth2: []
+tags:
+  - name: Verifications
+    description: Perform person verification and retrieve verification results.
+  - name: Transactions
+    description: Retrieve verification transactions and status.
+  - name: Documents
+    description: Download evidence documents from completed transactions.
+paths:
+  /v3/verifications/verify:
+    post:
+      summary: Verify A Person
+      description: >
+        Submit a Verify request to perform a KYC verification on a person.
+        Trulioo selects the appropriate local datasources for the country
+        specified in the `CountryCode` field, matches the supplied identity
+        fields, and returns a normalized VerifyResult.
+      operationId: verifyPerson
+      tags:
+        - Verifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyRequest'
+            example:
+              AcceptTruliooTermsAndConditions: true
+              CleansedAddress: true
+              ConfigurationName: Identity Verification
+              CountryCode: US
+              DataFields:
+                PersonInfo:
+                  FirstGivenName: John
+                  MiddleName: Q
+                  FirstSurName: Public
+                  DayOfBirth: 1
+                  MonthOfBirth: 1
+                  YearOfBirth: 1980
+                Location:
+                  BuildingNumber: "123"
+                  StreetName: Main
+                  StreetType: Street
+                  City: Anytown
+                  StateProvinceCode: NY
+                  PostalCode: "10001"
+      responses:
+        "200":
+          description: Verification result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyResult'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "429":
+          $ref: '#/components/responses/TooManyRequests'
+        "500":
+          $ref: '#/components/responses/ServerError'
+  /v3/verifications/transactionrecord/{transactionRecordId}:
+    get:
+      summary: Get Transaction Record
+      description: >
+        Retrieve the full TransactionRecord for a previously executed Verify.
+        Includes Record, DatasourceResults, and any AppendedFields returned by
+        the datasources.
+      operationId: getTransactionRecord
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/TransactionRecordId'
+      responses:
+        "200":
+          description: Transaction record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionRecordResult'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /v3/verifications/transactionrecord/{transactionRecordId}/withaddress:
+    get:
+      summary: Get Transaction Record With Address
+      description: Retrieve a transaction record including cleansed-address details.
+      operationId: getTransactionRecordWithAddress
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/TransactionRecordId'
+      responses:
+        "200":
+          description: Transaction record with address.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionRecordResult'
+  /v3/verifications/transaction/{transactionId}/status:
+    get:
+      summary: Get Transaction Status
+      description: >
+        Get the current status of an asynchronous verification transaction
+        identified by its TransactionID.
+      operationId: getTransactionStatus
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/TransactionId'
+      responses:
+        "200":
+          description: Transaction status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionStatus'
+  /v3/verifications/transaction/{transactionRecordId}/partialresult:
+    get:
+      summary: Get Partial Transaction Result
+      description: >
+        Retrieve partial results from an in-flight verification — useful when
+        some datasources have returned but others are still processing.
+      operationId: getPartialTransactionResult
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/TransactionRecordId'
+      responses:
+        "200":
+          description: Partial transaction result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyResult'
+  /v3/verifications/documentdownload/{transactionRecordId}/{fieldName}:
+    get:
+      summary: Download Evidence Document
+      description: >
+        Download an evidence document image (e.g. captured ID front, ID back,
+        selfie) returned by a verification.
+      operationId: downloadDocument
+      tags:
+        - Documents
+      parameters:
+        - $ref: '#/components/parameters/TransactionRecordId'
+        - name: fieldName
+          in: path
+          required: true
+          description: Name of the document field to retrieve.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Document binary stream.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth with Trulioo username and password.
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+      description: Two-legged client credentials OAuth2 flow.
+  parameters:
+    TransactionRecordId:
+      name: transactionRecordId
+      in: path
+      required: true
+      description: TransactionRecordID returned by a previous Verify call.
+      schema:
+        type: string
+        format: uuid
+    TransactionId:
+      name: transactionId
+      in: path
+      required: true
+      description: TransactionID returned by a previous Verify call.
+      schema:
+        type: string
+        format: uuid
+  responses:
+    BadRequest:
+      description: Invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    VerifyRequest:
+      type: object
+      required:
+        - AcceptTruliooTermsAndConditions
+        - ConfigurationName
+        - CountryCode
+        - DataFields
+      properties:
+        AcceptTruliooTermsAndConditions:
+          type: boolean
+          description: Must be true. Confirms agreement to Trulioo's terms.
+        CleansedAddress:
+          type: boolean
+          description: Request cleansed/standardized address output.
+        ConfigurationName:
+          type: string
+          description: Name of the configured product/package (e.g. "Identity Verification").
+        CountryCode:
+          type: string
+          description: Two-letter ISO 3166 country code.
+        CustomerReferenceID:
+          type: string
+          description: Optional client-side reference for the transaction.
+        ConsentForDataSources:
+          type: array
+          items:
+            type: string
+          description: Datasources the end-user has consented to.
+        DataFields:
+          $ref: '#/components/schemas/DataFields'
+        CallBackUrl:
+          type: string
+          format: uri
+          description: Webhook URL for asynchronous result delivery.
+    DataFields:
+      type: object
+      properties:
+        PersonInfo:
+          $ref: '#/components/schemas/PersonInfo'
+        Location:
+          $ref: '#/components/schemas/Location'
+        Communication:
+          $ref: '#/components/schemas/Communication'
+        NationalIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/NationalId'
+        Document:
+          $ref: '#/components/schemas/Document'
+    PersonInfo:
+      type: object
+      properties:
+        FirstGivenName:
+          type: string
+        MiddleName:
+          type: string
+        FirstSurName:
+          type: string
+        SecondSurname:
+          type: string
+        DayOfBirth:
+          type: integer
+        MonthOfBirth:
+          type: integer
+        YearOfBirth:
+          type: integer
+        Gender:
+          type: string
+    Location:
+      type: object
+      properties:
+        BuildingNumber:
+          type: string
+        BuildingName:
+          type: string
+        UnitNumber:
+          type: string
+        StreetName:
+          type: string
+        StreetType:
+          type: string
+        City:
+          type: string
+        StateProvinceCode:
+          type: string
+        PostalCode:
+          type: string
+        Country:
+          type: string
+    Communication:
+      type: object
+      properties:
+        Telephone:
+          type: string
+        MobileNumber:
+          type: string
+        EmailAddress:
+          type: string
+    NationalId:
+      type: object
+      properties:
+        Number:
+          type: string
+        Type:
+          type: string
+        CountryCode:
+          type: string
+    Document:
+      type: object
+      properties:
+        DocumentFrontImage:
+          type: string
+          format: byte
+        DocumentBackImage:
+          type: string
+          format: byte
+        LivePhoto:
+          type: string
+          format: byte
+        DocumentType:
+          type: string
+    VerifyResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        UploadedDt:
+          type: string
+          format: date-time
+        CountryCode:
+          type: string
+        ProductName:
+          type: string
+        Record:
+          $ref: '#/components/schemas/Record'
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceError'
+    Record:
+      type: object
+      properties:
+        TransactionRecordID:
+          type: string
+        RecordStatus:
+          type: string
+          enum: [match, nomatch, partial, error]
+        DatasourceResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatasourceResult'
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordError'
+        Rule:
+          $ref: '#/components/schemas/Rule'
+    DatasourceResult:
+      type: object
+      properties:
+        DatasourceName:
+          type: string
+        DatasourceFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatasourceField'
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordError'
+        AppendedFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppendedField'
+    DatasourceField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Status:
+          type: string
+        Data:
+          type: string
+    AppendedField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Data:
+          type: string
+    Rule:
+      type: object
+      properties:
+        RuleName:
+          type: string
+        Note:
+          type: string
+    RecordError:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
+    ServiceError:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
+    TransactionRecordResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        CountryCode:
+          type: string
+        ProductName:
+          type: string
+        Record:
+          $ref: '#/components/schemas/Record'
+        InputFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputField'
+    InputField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Value:
+          type: string
+    TransactionStatus:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        Status:
+          type: string
+          enum: [completed, inprogress, failed]
+        TimestampUtc:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string

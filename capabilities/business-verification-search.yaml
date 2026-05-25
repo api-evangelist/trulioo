@@ -1,0 +1,64 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Trulioo Business Verification API — Search
+  description: >-
+    Search the Trulioo business registry universe by name, registration number,
+    and jurisdiction of incorporation. Returns candidate matches with confidence.
+  tags:
+    - Trulioo
+    - KYB
+    - Business Search
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+  - namespace: env
+    keys:
+      TRULIOO_USERNAME: TRULIOO_USERNAME
+      TRULIOO_PASSWORD: TRULIOO_PASSWORD
+capability:
+  consumes:
+    - type: http
+      namespace: business-verification-search
+      baseUri: https://api.trulioo.com
+      description: Trulioo KYB business search.
+      resources:
+        - name: business-search
+          path: /v3/business/search
+          operations:
+            - name: businessSearch
+              method: POST
+              description: Business Search
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: $.
+              inputParameters:
+                - name: body
+                  in: body
+                  type: object
+                  description: BusinessSearchRequest payload.
+                  required: true
+      authentication:
+        type: basic
+        username: '{{env.TRULIOO_USERNAME}}'
+        password: '{{env.TRULIOO_PASSWORD}}'
+  exposes:
+    - type: mcp
+      namespace: business-verification-search-mcp
+      port: 9090
+      transport: http
+      description: MCP adapter for Trulioo KYB search.
+      tools:
+        - name: trulioo-business-search
+          description: Search the Trulioo business registry
+          hints:
+            readOnly: true
+            destructive: false
+            idempotent: false
+          call: business-verification-search.businessSearch
+          with:
+            body: tools.body
+          outputParameters:
+            - type: object
+              mapping: $.

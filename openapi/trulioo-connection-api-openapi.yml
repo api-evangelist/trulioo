@@ -1,0 +1,76 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Connection API
+  description: >
+    Health-check and authentication-test endpoints for the Trulioo platform.
+    Use `sayhello` for a no-auth ping and `testauthentication` to verify your
+    credentials before exercising paid endpoints.
+  version: "3.0"
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+externalDocs:
+  description: Connection guide
+  url: https://developer.trulioo.com/reference/connection
+servers:
+  - url: https://api.trulioo.com
+    description: Production
+security:
+  - BasicAuth: []
+  - OAuth2: []
+tags:
+  - name: Connection
+    description: Ping and authentication-test endpoints.
+paths:
+  /v3/connection/sayhello/{name}:
+    get:
+      summary: Say Hello
+      description: Unauthenticated ping that returns a hello message. Use for connectivity checks.
+      operationId: sayHello
+      tags:
+        - Connection
+      security: []
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Caller name to include in the greeting.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Greeting string.
+          content:
+            text/plain:
+              schema:
+                type: string
+  /v3/connection/testauthentication:
+    get:
+      summary: Test Authentication
+      description: >
+        Validates the caller's credentials. Returns the authenticated username
+        when credentials are valid; 401 otherwise.
+      operationId: testAuthentication
+      tags:
+        - Connection
+      responses:
+        "200":
+          description: Authenticated username.
+          content:
+            text/plain:
+              schema:
+                type: string
+        "401":
+          description: Authentication failed.
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}

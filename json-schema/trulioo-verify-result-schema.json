@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/trulioo/main/json-schema/trulioo-verify-result-schema.json",
+  "title": "Trulioo Verify Result",
+  "description": "Normalized response payload returned by POST /v3/verifications/verify.",
+  "type": "object",
+  "properties": {
+    "TransactionID": { "type": "string" },
+    "UploadedDt": { "type": "string", "format": "date-time" },
+    "CountryCode": { "type": "string" },
+    "ProductName": { "type": "string" },
+    "Record": {
+      "type": "object",
+      "properties": {
+        "TransactionRecordID": { "type": "string" },
+        "RecordStatus": {
+          "type": "string",
+          "enum": ["match", "nomatch", "partial", "error"]
+        },
+        "DatasourceResults": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "DatasourceName": { "type": "string" },
+              "DatasourceFields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "FieldName": { "type": "string" },
+                    "Status": { "type": "string" },
+                    "Data": { "type": "string" }
+                  }
+                }
+              },
+              "Errors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "Code": { "type": "string" },
+                    "Message": { "type": "string" }
+                  }
+                }
+              },
+              "AppendedFields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "FieldName": { "type": "string" },
+                    "Data": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Rule": {
+          "type": "object",
+          "properties": {
+            "RuleName": { "type": "string" },
+            "Note": { "type": "string" }
+          }
+        },
+        "Errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Code": { "type": "string" },
+              "Message": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "Errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Code": { "type": "string" },
+          "Message": { "type": "string" }
+        }
+      }
+    }
+  }
+}

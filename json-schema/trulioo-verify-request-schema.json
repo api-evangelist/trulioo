@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/trulioo/main/json-schema/trulioo-verify-request-schema.json",
+  "title": "Trulioo Verify Request",
+  "description": "Request payload for POST /v3/verifications/verify on the Trulioo Verifications API.",
+  "type": "object",
+  "required": ["AcceptTruliooTermsAndConditions", "ConfigurationName", "CountryCode", "DataFields"],
+  "properties": {
+    "AcceptTruliooTermsAndConditions": {
+      "type": "boolean",
+      "description": "Must be true. Confirms agreement to Trulioo's terms."
+    },
+    "CleansedAddress": {
+      "type": "boolean",
+      "description": "Request cleansed/standardized address output."
+    },
+    "ConfigurationName": {
+      "type": "string",
+      "description": "Name of the configured product/package."
+    },
+    "CountryCode": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2,
+      "description": "Two-letter ISO 3166 country code."
+    },
+    "CustomerReferenceID": {
+      "type": "string",
+      "description": "Optional client-side reference for the transaction."
+    },
+    "ConsentForDataSources": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "CallBackUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "DataFields": {
+      "type": "object",
+      "properties": {
+        "PersonInfo": {
+          "type": "object",
+          "properties": {
+            "FirstGivenName": { "type": "string" },
+            "MiddleName": { "type": "string" },
+            "FirstSurName": { "type": "string" },
+            "SecondSurname": { "type": "string" },
+            "DayOfBirth": { "type": "integer" },
+            "MonthOfBirth": { "type": "integer" },
+            "YearOfBirth": { "type": "integer" },
+            "Gender": { "type": "string" }
+          }
+        },
+        "Location": {
+          "type": "object",
+          "properties": {
+            "BuildingNumber": { "type": "string" },
+            "BuildingName": { "type": "string" },
+            "UnitNumber": { "type": "string" },
+            "StreetName": { "type": "string" },
+            "StreetType": { "type": "string" },
+            "City": { "type": "string" },
+            "StateProvinceCode": { "type": "string" },
+            "PostalCode": { "type": "string" },
+            "Country": { "type": "string" }
+          }
+        },
+        "Communication": {
+          "type": "object",
+          "properties": {
+            "Telephone": { "type": "string" },
+            "MobileNumber": { "type": "string" },
+            "EmailAddress": { "type": "string" }
+          }
+        },
+        "NationalIds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Number": { "type": "string" },
+              "Type": { "type": "string" },
+              "CountryCode": { "type": "string" }
+            }
+          }
+        },
+        "Document": {
+          "type": "object",
+          "properties": {
+            "DocumentFrontImage": { "type": "string", "contentEncoding": "base64" },
+            "DocumentBackImage": { "type": "string", "contentEncoding": "base64" },
+            "LivePhoto": { "type": "string", "contentEncoding": "base64" },
+            "DocumentType": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
