@@ -1,0 +1,79 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Verify A Sandbox Test Entity
+  summary: Pull a deterministic sandbox test entity for a country and run a Verify against it.
+  description: >-
+    Trulioo ships pre-canned test entities that resolve deterministically in
+    sandbox mode, which is ideal for integration testing. This workflow fetches
+    the test entities for a configuration/country pair and submits a Verify using
+    the supplied test data fields, then confirms the deterministic record status.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/trulioo-configuration-api-openapi.yml
+  type: openapi
+- name: verificationsApi
+  url: ../openapi/trulioo-verifications-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: sandbox-test-entity-verify
+  summary: Fetch sandbox test entities and verify one of them.
+  description: >-
+    Lists the deterministic test entities for a configuration/country pair, then
+    runs a Verify with the supplied test DataFields to confirm the integration.
+  inputs:
+    type: object
+    required:
+    - configurationName
+    - countryCode
+    - dataFields
+    properties:
+      configurationName:
+        type: string
+        description: Configured product/package name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      dataFields:
+        type: object
+        description: DataFields block populated from a returned test entity's Fields.
+  steps:
+  - stepId: getTestEntities
+    description: >-
+      Retrieve the deterministic sandbox test entities for the configuration and
+      country so a known-good profile can be exercised.
+    operationId: getTestEntities
+    parameters:
+    - name: configurationName
+      in: path
+      value: $inputs.configurationName
+    - name: countryCode
+      in: path
+      value: $inputs.countryCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      testEntities: $response.body
+      firstProfile: $response.body#/0/Profile
+  - stepId: verify
+    description: >-
+      Submit the Verify request using the supplied test DataFields to confirm a
+      deterministic match in sandbox mode.
+    operationId: verifyPerson
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        DataFields: $inputs.dataFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionRecordId: $response.body#/Record/TransactionRecordID
+      recordStatus: $response.body#/Record/RecordStatus
+  outputs:
+    testEntities: $steps.getTestEntities.outputs.testEntities
+    recordStatus: $steps.verify.outputs.recordStatus

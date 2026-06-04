@@ -1,0 +1,80 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Generate A Hosted Verification Session URL
+  summary: Authenticate, list available workflows, then generate a signed URL for an end-user hosted session.
+  description: >-
+    Hosted verification lets an end user complete a workflow in a Trulioo-hosted
+    page reached through a short-lived signed URL. This workflow acquires a
+    Platform token, lists the organization's workflow definitions so the caller
+    can pick the right one, and generates a signed session URL for the end user.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: platformApi
+  url: ../openapi/trulioo-platform-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: hosted-session-signed-url
+  summary: Authenticate, list workflows, and generate a signed hosted-session URL.
+  description: >-
+    Acquires a Platform token, retrieves the organization's workflow definitions,
+    and generates a signed URL for an end-user hosted session.
+  inputs:
+    type: object
+    required:
+    - clientId
+    - clientSecret
+    - sessionRequest
+    properties:
+      clientId:
+        type: string
+        description: OAuth client_id for the Platform API.
+      clientSecret:
+        type: string
+        description: OAuth client_secret for the Platform API.
+      sessionRequest:
+        type: object
+        description: Payload describing the session to generate a signed URL for.
+  steps:
+  - stepId: authenticate
+    description: >-
+      Exchange the OAuth client credentials for a Platform API access token.
+    operationId: postAuthCustomer
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        grant_type: client_credentials
+        client_id: $inputs.clientId
+        client_secret: $inputs.clientSecret
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accessToken: $response.body#/access_token
+  - stepId: listWorkflows
+    description: >-
+      List the workflow definitions in the organization so the right workflow can
+      be selected for the session.
+    operationId: getWorkflows
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      workflows: $response.body
+      firstWorkflowId: $response.body#/0/id
+  - stepId: generateSignedUrl
+    description: >-
+      Generate a signed URL for the end user to access the hosted workflow
+      session.
+    operationId: generateSignedUrl
+    requestBody:
+      contentType: application/json
+      payload: $inputs.sessionRequest
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      url: $response.body#/url
+      expiresAt: $response.body#/expiresAt
+  outputs:
+    workflows: $steps.listWorkflows.outputs.workflows
+    url: $steps.generateSignedUrl.outputs.url
+    expiresAt: $steps.generateSignedUrl.outputs.expiresAt

@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Workflow Studio Drive A Flow
+  summary: Authenticate, initialize a user state, fetch the current step, submit step data, then read the profile.
+  description: >-
+    The Workflow Studio Platform API drives multi-step hosted/embedded
+    verification flows. This workflow exchanges OAuth credentials for a token,
+    creates a user state, fetches the current step for that state, submits data
+    for the step to advance the flow, and finally retrieves the end-client profile
+    that the flow produced. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: platformApi
+  url: ../openapi/trulioo-platform-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: workflow-studio-run-flow
+  summary: Authenticate, init a flow, drive one step, and read the resulting profile.
+  description: >-
+    Acquires a Platform token, creates a user state, fetches and advances the
+    current flow step, then reads the end-client profile.
+  inputs:
+    type: object
+    required:
+    - clientId
+    - clientSecret
+    - initData
+    - stepData
+    - endClientId
+    properties:
+      clientId:
+        type: string
+        description: OAuth client_id for the Platform API.
+      clientSecret:
+        type: string
+        description: OAuth client_secret for the Platform API.
+      initData:
+        type: object
+        description: Initialization payload used to create the user state.
+      stepData:
+        type: object
+        description: Payload submitted for the current flow step.
+      endClientId:
+        type: string
+        description: End-client identifier whose profile to read after the flow advances.
+  steps:
+  - stepId: authenticate
+    description: >-
+      Exchange the OAuth client credentials for a Platform API access token.
+    operationId: postAuthCustomer
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        grant_type: client_credentials
+        client_id: $inputs.clientId
+        client_secret: $inputs.clientSecret
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      accessToken: $response.body#/access_token
+  - stepId: initUserState
+    description: >-
+      Create a new user state with the supplied init data and capture the
+      userStateId that identifies the flow.
+    operationId: createOrUpdateUserState
+    requestBody:
+      contentType: application/json
+      payload: $inputs.initData
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      userStateId: $response.body#/userStateId
+  - stepId: getCurrentStep
+    description: >-
+      Fetch the current step for the flow identified by the new userStateId.
+    operationId: getFlow
+    parameters:
+    - name: userStateId
+      in: path
+      value: $steps.initUserState.outputs.userStateId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      stepId: $response.body#/stepId
+      stepType: $response.body#/stepType
+  - stepId: submitStep
+    description: >-
+      Submit the step payload to advance the flow to the next step.
+    operationId: submitFlowData
+    parameters:
+    - name: userStateId
+      in: path
+      value: $steps.initUserState.outputs.userStateId
+    requestBody:
+      contentType: application/json
+      payload: $inputs.stepData
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      nextStepId: $response.body#/stepId
+  - stepId: getProfile
+    description: >-
+      Retrieve the end-client profile and verification data produced by the flow.
+    operationId: getProfile
+    parameters:
+    - name: clientId
+      in: path
+      value: $inputs.endClientId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      data: $response.body#/data
+  outputs:
+    userStateId: $steps.initUserState.outputs.userStateId
+    nextStepId: $steps.submitStep.outputs.nextStepId
+    profileStatus: $steps.getProfile.outputs.status

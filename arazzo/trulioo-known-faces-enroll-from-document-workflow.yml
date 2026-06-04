@@ -1,0 +1,119 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Enroll A Verified Face Into A Known Faces List
+  summary: Create a Known Faces watchlist, verify a document with a selfie, then enroll the transaction into the list.
+  description: >-
+    Known Faces lists power biometric watchlist screening — once a face is
+    enrolled, future captures can be matched against it. This workflow creates a
+    new Known Faces list, runs a document verification that captures a liveness
+    selfie, and enrolls the resulting transaction into the list, then reads the
+    list's transactions back. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: documentVerificationApi
+  url: ../openapi/trulioo-document-verification-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: known-faces-enroll-from-document
+  summary: Create a Known Faces list, verify a face, and enroll it.
+  description: >-
+    Creates a Known Faces list, performs a document verification with a liveness
+    selfie, enrolls the transaction into the list, and lists the list's
+    transactions.
+  inputs:
+    type: object
+    required:
+    - listName
+    - configurationName
+    - countryCode
+    - documentFrontImage
+    - livePhoto
+    properties:
+      listName:
+        type: string
+        description: Name for the new Known Faces list.
+      listDescription:
+        type: string
+        description: Optional description for the Known Faces list.
+      configurationName:
+        type: string
+        description: Configured product/package name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      documentFrontImage:
+        type: string
+        description: Base64-encoded front image of the identity document.
+      livePhoto:
+        type: string
+        description: Base64-encoded liveness selfie image.
+      documentType:
+        type: string
+        description: Document type identifier.
+  steps:
+  - stepId: createList
+    description: >-
+      Create a new Known Faces list to hold the enrolled face.
+    operationId: postKnownFacesList
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.listName
+        Description: $inputs.listDescription
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      listId: $response.body#/Id
+  - stepId: verifyDocument
+    description: >-
+      Run a document verification with a liveness selfie to produce a transaction
+      whose face can be enrolled.
+    operationId: documentVerificationVerify
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        DataFields:
+          Document:
+            DocumentFrontImage: $inputs.documentFrontImage
+            LivePhoto: $inputs.livePhoto
+            DocumentType: $inputs.documentType
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionRecordId: $response.body#/TransactionRecordID
+  - stepId: enroll
+    description: >-
+      Enroll the verification's transaction record into the Known Faces list.
+    operationId: addKnownFacesListTransaction
+    parameters:
+    - name: listId
+      in: path
+      value: $steps.createList.outputs.listId
+    requestBody:
+      contentType: application/json
+      payload:
+        TransactionRecordId: $steps.verifyDocument.outputs.transactionRecordId
+    successCriteria:
+    - condition: $statusCode == 201
+  - stepId: listTransactions
+    description: >-
+      Retrieve the transactions enrolled in the Known Faces list to confirm the
+      enrollment.
+    operationId: getKnownFacesListTransactions
+    parameters:
+    - name: listId
+      in: path
+      value: $steps.createList.outputs.listId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactions: $response.body
+  outputs:
+    listId: $steps.createList.outputs.listId
+    transactionRecordId: $steps.verifyDocument.outputs.transactionRecordId
+    transactions: $steps.listTransactions.outputs.transactions

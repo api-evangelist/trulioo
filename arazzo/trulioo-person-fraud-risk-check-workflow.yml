@@ -1,0 +1,100 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Person Fraud Risk Check
+  summary: Resolve the Person Fraud field schema for a country, then run a fraud risk check.
+  description: >-
+    Fraud Intelligence scores a person against velocity, device, and
+    identity-graph signals. This workflow first reads the Person Fraud field
+    schema and supported datasources for the configuration/country pair so the
+    payload can be shaped correctly, then submits a risk check and returns the
+    verdict and score. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: personFraudApi
+  url: ../openapi/trulioo-person-fraud-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: person-fraud-risk-check
+  summary: Resolve fields and datasources, then run a Person Fraud risk check.
+  description: >-
+    Reads the Person Fraud field schema and datasources for the country, then
+    submits a risk check and returns the verdict, score, and reasons.
+  inputs:
+    type: object
+    required:
+    - configurationName
+    - countryCode
+    - dataFields
+    properties:
+      configurationName:
+        type: string
+        description: Configured Person Fraud product name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      dataFields:
+        type: object
+        description: DataFields block (PersonInfo, Communication, Location, Device).
+      customerReferenceId:
+        type: string
+        description: Optional client-side reference for the transaction.
+  steps:
+  - stepId: getFields
+    description: >-
+      Retrieve the Person Fraud field schema for the configuration and country so
+      the risk payload is shaped correctly.
+    operationId: getPersonFraudFields
+    parameters:
+    - name: configurationName
+      in: path
+      value: $inputs.configurationName
+    - name: countryCode
+      in: path
+      value: $inputs.countryCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      fieldSchema: $response.body
+  - stepId: getDatasources
+    description: >-
+      List the risk-data sources available for the Person Fraud product in this
+      country.
+    operationId: getPersonFraudDatasources
+    parameters:
+    - name: configurationName
+      in: path
+      value: $inputs.configurationName
+    - name: countryCode
+      in: path
+      value: $inputs.countryCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      datasources: $response.body
+  - stepId: riskCheck
+    description: >-
+      Submit the Person Fraud risk check and capture the verdict, score, and
+      contributing reasons.
+    operationId: personFraudCheck
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        CustomerReferenceID: $inputs.customerReferenceId
+        DataFields: $inputs.dataFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/TransactionID
+      riskScore: $response.body#/RiskScore
+      riskVerdict: $response.body#/RiskVerdict
+      reasons: $response.body#/Reasons
+  outputs:
+    fieldSchema: $steps.getFields.outputs.fieldSchema
+    datasources: $steps.getDatasources.outputs.datasources
+    riskScore: $steps.riskCheck.outputs.riskScore
+    riskVerdict: $steps.riskCheck.outputs.riskVerdict
+    reasons: $steps.riskCheck.outputs.reasons

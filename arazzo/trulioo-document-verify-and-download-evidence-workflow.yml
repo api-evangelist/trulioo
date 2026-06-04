@@ -1,0 +1,97 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Document Verify And Download Evidence Image
+  summary: Verify an identity document, then download a captured evidence image from the transaction.
+  description: >-
+    After an identity document verification completes, the captured document and
+    selfie images are retained as evidence on the transaction. This workflow runs
+    a document verification and then downloads a named evidence image (e.g. the
+    front of the ID or the selfie) from the resulting transaction record. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: documentVerificationApi
+  url: ../openapi/trulioo-document-verification-api-openapi.yml
+  type: openapi
+- name: verificationsApi
+  url: ../openapi/trulioo-verifications-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: document-verify-and-download-evidence
+  summary: Verify a document, then download a named evidence image.
+  description: >-
+    Submits captured document images for verification and downloads the named
+    evidence document field from the resulting transaction record.
+  inputs:
+    type: object
+    required:
+    - configurationName
+    - countryCode
+    - documentFrontImage
+    - fieldName
+    properties:
+      configurationName:
+        type: string
+        description: Configured product/package name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      documentFrontImage:
+        type: string
+        description: Base64-encoded front image of the identity document.
+      documentBackImage:
+        type: string
+        description: Optional base64-encoded back image of the identity document.
+      livePhoto:
+        type: string
+        description: Optional base64-encoded liveness selfie image.
+      documentType:
+        type: string
+        description: Document type identifier.
+      fieldName:
+        type: string
+        description: Name of the evidence document field to download (e.g. DocumentFrontImage).
+  steps:
+  - stepId: verifyDocument
+    description: >-
+      Submit the captured document images and optional live photo for
+      verification, capturing the TransactionRecordID for the evidence download.
+    operationId: documentVerificationVerify
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        DataFields:
+          Document:
+            DocumentFrontImage: $inputs.documentFrontImage
+            DocumentBackImage: $inputs.documentBackImage
+            LivePhoto: $inputs.livePhoto
+            DocumentType: $inputs.documentType
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionRecordId: $response.body#/TransactionRecordID
+      documentClassification: $response.body#/DocumentClassification
+  - stepId: downloadEvidence
+    description: >-
+      Download the named evidence document image from the verification's
+      transaction record.
+    operationId: downloadDocument
+    parameters:
+    - name: transactionRecordId
+      in: path
+      value: $steps.verifyDocument.outputs.transactionRecordId
+    - name: fieldName
+      in: path
+      value: $inputs.fieldName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      evidenceDocument: $response.body
+  outputs:
+    transactionRecordId: $steps.verifyDocument.outputs.transactionRecordId
+    documentClassification: $steps.verifyDocument.outputs.documentClassification
+    evidenceDocument: $steps.downloadEvidence.outputs.evidenceDocument

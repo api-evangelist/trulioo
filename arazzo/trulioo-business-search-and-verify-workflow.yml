@@ -1,0 +1,101 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Business Search Then Verify (KYB)
+  summary: Resolve a country's jurisdictions of incorporation, search for a business, then verify the best match.
+  description: >-
+    The standard Know Your Business flow: discover the valid jurisdictions of
+    incorporation for a country, search the registry universe for a business by
+    name, and then verify the strongest candidate using its registration number
+    and jurisdiction. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: businessVerificationApi
+  url: ../openapi/trulioo-business-verification-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: business-search-and-verify
+  summary: Resolve JOIs, search for a business, and verify the top match.
+  description: >-
+    Lists the jurisdictions of incorporation for the country, searches for a
+    business by name, and verifies the first candidate by its registration number
+    and jurisdiction.
+  inputs:
+    type: object
+    required:
+    - configurationName
+    - countryCode
+    - businessName
+    properties:
+      configurationName:
+        type: string
+        description: Configured product/package name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      businessName:
+        type: string
+        description: Legal or trading name of the business to search for.
+      jurisdictionOfIncorporation:
+        type: string
+        description: Optional jurisdiction of incorporation to scope the search.
+  steps:
+  - stepId: getJurisdictions
+    description: >-
+      List the jurisdictions of incorporation supported for the country so the
+      search can be scoped correctly.
+    operationId: getJurisdictionsOfIncorporationPerCountry
+    parameters:
+    - name: countryCode
+      in: path
+      value: $inputs.countryCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jurisdictions: $response.body
+  - stepId: search
+    description: >-
+      Search the business registry universe for the named business, returning
+      candidate matches with confidence scores.
+    operationId: businessSearch
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        JurisdictionOfIncorporation: $inputs.jurisdictionOfIncorporation
+        BusinessSearchInputFields:
+          BusinessName: $inputs.businessName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      topRegistrationNumber: $response.body#/Results/0/BusinessRegistrationNumber
+      topJurisdiction: $response.body#/Results/0/JurisdictionOfIncorporation
+  - stepId: verify
+    description: >-
+      Verify the strongest candidate business using its registration number and
+      jurisdiction of incorporation from the search results.
+    operationId: businessVerify
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        JurisdictionOfIncorporation: $steps.search.outputs.topJurisdiction
+        BusinessSearchInputFields:
+          BusinessName: $inputs.businessName
+          BusinessRegistrationNumber: $steps.search.outputs.topRegistrationNumber
+          JurisdictionOfIncorporation: $steps.search.outputs.topJurisdiction
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/TransactionID
+      record: $response.body#/Record
+      officers: $response.body#/Officers
+  outputs:
+    jurisdictions: $steps.getJurisdictions.outputs.jurisdictions
+    transactionId: $steps.verify.outputs.transactionId
+    record: $steps.verify.outputs.record
+    officers: $steps.verify.outputs.officers

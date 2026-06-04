@@ -203,6 +203,66 @@ apis:
       - url: capabilities/platform-workflows.yaml
         type: NaftikoCapability
 common:
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+    - url: arazzo/trulioo-async-verify-and-poll-status-workflow.yml
+      name: Trulioo Async Verify And Poll For Completion
+      summary: Submit an asynchronous verification, poll its status until complete, then read the result.
+    - url: arazzo/trulioo-business-registration-numbers-and-search-workflow.yml
+      name: Trulioo Discover Registration Number Types Then Search Business
+      summary: List a country's business registration number types, then search the registry by number.
+    - url: arazzo/trulioo-business-search-and-verify-workflow.yml
+      name: Trulioo Business Search Then Verify (KYB)
+      summary: Resolve a country's jurisdictions of incorporation, search for a business, then verify the best match.
+    - url: arazzo/trulioo-business-verify-and-download-report-workflow.yml
+      name: Trulioo Business Verify And Download Report (KYB)
+      summary: Verify a business by registration number, then download its registry report.
+    - url: arazzo/trulioo-configure-and-verify-person-workflow.yml
+      name: Trulioo Configure And Verify A Person
+      summary: Discover a country's accepted fields and consents, then run a KYC identity verification.
+    - url: arazzo/trulioo-detailed-consents-and-verify-workflow.yml
+      name: Trulioo Capture Detailed Consents And Verify
+      summary: Pull the full consent text to present to the end user, then verify with those consents recorded.
+    - url: arazzo/trulioo-discover-package-and-verify-workflow.yml
+      name: Trulioo Discover A Package And Verify
+      summary: List the customer's configured packages, resolve a package's supported countries, then verify a person.
+    - url: arazzo/trulioo-document-verification-with-liveness-workflow.yml
+      name: Trulioo Document Verification With Liveness
+      summary: Resolve supported document types for a country, then verify a captured ID against a liveness selfie.
+    - url: arazzo/trulioo-document-verify-and-download-evidence-workflow.yml
+      name: Trulioo Document Verify And Download Evidence Image
+      summary: Verify an identity document, then download a captured evidence image from the transaction.
+    - url: arazzo/trulioo-hosted-session-signed-url-workflow.yml
+      name: Trulioo Generate A Hosted Verification Session URL
+      summary: Authenticate, list available workflows, then generate a signed URL for an end-user hosted session.
+    - url: arazzo/trulioo-identity-and-fraud-risk-decision-workflow.yml
+      name: Trulioo Combined Identity Verify And Fraud Risk Decision
+      summary: Run a KYC identity verification and a Person Fraud risk check on the same person for a layered decision.
+    - url: arazzo/trulioo-known-faces-enroll-from-document-workflow.yml
+      name: Trulioo Enroll A Verified Face Into A Known Faces List
+      summary: Create a Known Faces watchlist, verify a document with a selfie, then enroll the transaction into the list.
+    - url: arazzo/trulioo-person-fraud-risk-check-workflow.yml
+      name: Trulioo Person Fraud Risk Check
+      summary: Resolve the Person Fraud field schema for a country, then run a fraud risk check.
+    - url: arazzo/trulioo-preflight-and-verify-workflow.yml
+      name: Trulioo Preflight Credentials Then Verify
+      summary: Confirm connectivity and credentials before spending a paid Verify call.
+    - url: arazzo/trulioo-recommended-fields-verify-workflow.yml
+      name: Trulioo Use Recommended Fields To Verify
+      summary: Fetch the recommended field combination for a country, list its datasources, then verify a person.
+    - url: arazzo/trulioo-sandbox-test-entity-verify-workflow.yml
+      name: Trulioo Verify A Sandbox Test Entity
+      summary: Pull a deterministic sandbox test entity for a country and run a Verify against it.
+    - url: arazzo/trulioo-subdivisions-and-verify-with-address-workflow.yml
+      name: Trulioo Resolve Subdivisions And Verify With Address
+      summary: Look up a country's state/province codes, verify a person with an address, then read the cleansed address.
+    - url: arazzo/trulioo-verify-person-and-fetch-record-workflow.yml
+      name: Trulioo Verify A Person And Fetch The Full Record
+      summary: Run a KYC verification, then pull the complete transaction record including datasource detail.
+    - url: arazzo/trulioo-workflow-studio-run-flow-workflow.yml
+      name: Trulioo Workflow Studio Drive A Flow
+      summary: Authenticate, initialize a user state, fetch the current step, submit step data, then read the profile.
   - type: Portal
     url: https://www.trulioo.com
   - type: Documentation

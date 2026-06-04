@@ -1,0 +1,87 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Business Verify And Download Report (KYB)
+  summary: Verify a business by registration number, then download its registry report.
+  description: >-
+    After verifying a legal entity, the underlying registry document is available
+    as a downloadable business report. This workflow verifies a business by its
+    registration number and jurisdiction, then downloads the associated business
+    report (with additional registry data) using the transaction identifier the
+    verify returned. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: businessVerificationApi
+  url: ../openapi/trulioo-business-verification-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: business-verify-and-download-report
+  summary: Verify a business, then download its registry report.
+  description: >-
+    Verifies a business by registration number and jurisdiction and downloads the
+    business report associated with the resulting transaction.
+  inputs:
+    type: object
+    required:
+    - configurationName
+    - countryCode
+    - businessRegistrationNumber
+    - jurisdictionOfIncorporation
+    properties:
+      configurationName:
+        type: string
+        description: Configured product/package name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      businessName:
+        type: string
+        description: Optional business name to accompany the registration number.
+      businessRegistrationNumber:
+        type: string
+        description: Registry-issued business registration number.
+      jurisdictionOfIncorporation:
+        type: string
+        description: Jurisdiction of incorporation for the business.
+  steps:
+  - stepId: verify
+    description: >-
+      Verify the business by its registration number and jurisdiction, capturing
+      the transaction identifier used to download the report.
+    operationId: businessVerify
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        JurisdictionOfIncorporation: $inputs.jurisdictionOfIncorporation
+        BusinessSearchInputFields:
+          BusinessName: $inputs.businessName
+          BusinessRegistrationNumber: $inputs.businessRegistrationNumber
+          JurisdictionOfIncorporation: $inputs.jurisdictionOfIncorporation
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/TransactionID
+      record: $response.body#/Record
+  - stepId: downloadReport
+    description: >-
+      Download the business registration report associated with the verify
+      transaction, requesting the additional registry data.
+    operationId: getBusinessReport
+    parameters:
+    - name: transactionRecordId
+      in: path
+      value: $steps.verify.outputs.transactionId
+    - name: additionalData
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      report: $response.body
+  outputs:
+    transactionId: $steps.verify.outputs.transactionId
+    record: $steps.verify.outputs.record
+    report: $steps.downloadReport.outputs.report

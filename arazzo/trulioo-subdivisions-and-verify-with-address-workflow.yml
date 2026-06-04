@@ -1,0 +1,97 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Resolve Subdivisions And Verify With Address
+  summary: Look up a country's state/province codes, verify a person with an address, then read the cleansed address.
+  description: >-
+    Address-based identity matching depends on supplying a valid subdivision
+    (state/province) code. This workflow resolves the country's subdivisions for
+    form validation, submits a Verify with CleansedAddress requested, and then
+    reads back the transaction record with the standardized address details.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/trulioo-configuration-api-openapi.yml
+  type: openapi
+- name: verificationsApi
+  url: ../openapi/trulioo-verifications-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: subdivisions-and-verify-with-address
+  summary: Resolve subdivisions, verify with a cleansed address, and read the address back.
+  description: >-
+    Lists the country's subdivisions, runs a Verify requesting a cleansed
+    address, and retrieves the transaction record with the standardized address.
+  inputs:
+    type: object
+    required:
+    - configurationName
+    - countryCode
+    - personInfo
+    - location
+    properties:
+      configurationName:
+        type: string
+        description: Configured product/package name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      personInfo:
+        type: object
+        description: PersonInfo block.
+      location:
+        type: object
+        description: Location block including a StateProvinceCode from the subdivision list.
+  steps:
+  - stepId: getCountrySubdivisions
+    description: >-
+      Retrieve the list of subdivisions (states/provinces) for the target country
+      so the StateProvinceCode in the address can be validated.
+    operationId: getCountrySubdivisions
+    parameters:
+    - name: countryCode
+      in: path
+      value: $inputs.countryCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      subdivisions: $response.body
+  - stepId: verify
+    description: >-
+      Submit the Verify request with CleansedAddress enabled so the response
+      carries a standardized address.
+    operationId: verifyPerson
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        CleansedAddress: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        DataFields:
+          PersonInfo: $inputs.personInfo
+          Location: $inputs.location
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionRecordId: $response.body#/Record/TransactionRecordID
+      recordStatus: $response.body#/Record/RecordStatus
+  - stepId: fetchRecordWithAddress
+    description: >-
+      Retrieve the transaction record including the cleansed-address details
+      produced by the verification.
+    operationId: getTransactionRecordWithAddress
+    parameters:
+    - name: transactionRecordId
+      in: path
+      value: $steps.verify.outputs.transactionRecordId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      record: $response.body#/Record
+      inputFields: $response.body#/InputFields
+  outputs:
+    subdivisions: $steps.getCountrySubdivisions.outputs.subdivisions
+    transactionRecordId: $steps.verify.outputs.transactionRecordId
+    recordStatus: $steps.verify.outputs.recordStatus

@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Use Recommended Fields To Verify
+  summary: Fetch the recommended field combination for a country, list its datasources, then verify a person.
+  description: >-
+    Match rates depend heavily on which fields are submitted. This workflow asks
+    Trulioo for the recommended (most likely to match) field set for a
+    configuration/country pair and the datasources backing it, then submits a
+    Verify built from the supplied data. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/trulioo-configuration-api-openapi.yml
+  type: openapi
+- name: verificationsApi
+  url: ../openapi/trulioo-verifications-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: recommended-fields-verify
+  summary: Resolve recommended fields and datasources, then verify a person.
+  description: >-
+    Reads the recommended field set and datasource list for the target country,
+    then runs a Verify and returns the record status.
+  inputs:
+    type: object
+    required:
+    - configurationName
+    - countryCode
+    - dataFields
+    properties:
+      configurationName:
+        type: string
+        description: Configured product/package name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      dataFields:
+        type: object
+        description: DataFields block aligned with the recommended fields.
+  steps:
+  - stepId: getRecommendedFields
+    description: >-
+      Retrieve the recommended field combination most likely to match for this
+      configuration and country.
+    operationId: getRecommendedFields
+    parameters:
+    - name: configurationName
+      in: path
+      value: $inputs.configurationName
+    - name: countryCode
+      in: path
+      value: $inputs.countryCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      recommendedFields: $response.body
+  - stepId: getDatasources
+    description: >-
+      List the datasources available for the configuration/country pair that back
+      the recommended fields.
+    operationId: getDatasources
+    parameters:
+    - name: configurationName
+      in: path
+      value: $inputs.configurationName
+    - name: countryCode
+      in: path
+      value: $inputs.countryCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      datasources: $response.body
+  - stepId: verify
+    description: >-
+      Submit the Verify request using the supplied data shaped to the recommended
+      field set.
+    operationId: verifyPerson
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        DataFields: $inputs.dataFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionRecordId: $response.body#/Record/TransactionRecordID
+      recordStatus: $response.body#/Record/RecordStatus
+  outputs:
+    recommendedFields: $steps.getRecommendedFields.outputs.recommendedFields
+    datasources: $steps.getDatasources.outputs.datasources
+    recordStatus: $steps.verify.outputs.recordStatus

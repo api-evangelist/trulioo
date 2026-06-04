@@ -1,0 +1,91 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Combined Identity Verify And Fraud Risk Decision
+  summary: Run a KYC identity verification and a Person Fraud risk check on the same person for a layered decision.
+  description: >-
+    A robust onboarding decision layers a deterministic identity match with a
+    probabilistic fraud verdict. This workflow first verifies the person's
+    identity (KYC) and, on a successful submission, runs a Person Fraud risk
+    check on the same identity payload, returning both the record status and the
+    fraud verdict so the caller can make a combined accept/review/decline
+    decision. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: verificationsApi
+  url: ../openapi/trulioo-verifications-api-openapi.yml
+  type: openapi
+- name: personFraudApi
+  url: ../openapi/trulioo-person-fraud-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: identity-and-fraud-risk-decision
+  summary: Verify identity, then risk-score the same person for a layered decision.
+  description: >-
+    Performs a KYC Verify and a Person Fraud risk check on the same identity,
+    returning the record status alongside the fraud verdict.
+  inputs:
+    type: object
+    required:
+    - identityConfigurationName
+    - fraudConfigurationName
+    - countryCode
+    - identityDataFields
+    - fraudDataFields
+    properties:
+      identityConfigurationName:
+        type: string
+        description: Configured product name for the identity verification.
+      fraudConfigurationName:
+        type: string
+        description: Configured product name for the Person Fraud check.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      identityDataFields:
+        type: object
+        description: DataFields block for the identity Verify.
+      fraudDataFields:
+        type: object
+        description: DataFields block for the Person Fraud check.
+  steps:
+  - stepId: verifyIdentity
+    description: >-
+      Run the KYC identity verification for the person and capture the record
+      status.
+    operationId: verifyPerson
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.identityConfigurationName
+        CountryCode: $inputs.countryCode
+        DataFields: $inputs.identityDataFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionRecordId: $response.body#/Record/TransactionRecordID
+      recordStatus: $response.body#/Record/RecordStatus
+  - stepId: riskCheck
+    description: >-
+      Run the Person Fraud risk check on the same person and capture the verdict
+      and score.
+    operationId: personFraudCheck
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.fraudConfigurationName
+        CountryCode: $inputs.countryCode
+        DataFields: $inputs.fraudDataFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      riskScore: $response.body#/RiskScore
+      riskVerdict: $response.body#/RiskVerdict
+      reasons: $response.body#/Reasons
+  outputs:
+    recordStatus: $steps.verifyIdentity.outputs.recordStatus
+    transactionRecordId: $steps.verifyIdentity.outputs.transactionRecordId
+    riskVerdict: $steps.riskCheck.outputs.riskVerdict
+    riskScore: $steps.riskCheck.outputs.riskScore

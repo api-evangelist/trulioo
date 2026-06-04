@@ -1,0 +1,102 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Preflight Credentials Then Verify
+  summary: Confirm connectivity and credentials before spending a paid Verify call.
+  description: >-
+    A defensive onboarding pattern: before exercising a billable verification,
+    confirm basic connectivity with an unauthenticated ping, validate the
+    caller's credentials with the authentication-test endpoint, confirm the
+    target country is supported by the configuration, and only then submit the
+    Verify. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: connectionApi
+  url: ../openapi/trulioo-connection-api-openapi.yml
+  type: openapi
+- name: configurationApi
+  url: ../openapi/trulioo-configuration-api-openapi.yml
+  type: openapi
+- name: verificationsApi
+  url: ../openapi/trulioo-verifications-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: preflight-and-verify
+  summary: Ping, test auth, confirm country support, then verify a person.
+  description: >-
+    Runs an unauthenticated ping, validates credentials, confirms the country is
+    supported by the configuration, and submits the Verify.
+  inputs:
+    type: object
+    required:
+    - callerName
+    - configurationName
+    - countryCode
+    - dataFields
+    properties:
+      callerName:
+        type: string
+        description: Caller name to include in the connectivity ping.
+      configurationName:
+        type: string
+        description: Configured product/package name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      dataFields:
+        type: object
+        description: DataFields block for the verification.
+  steps:
+  - stepId: sayHello
+    description: >-
+      Unauthenticated connectivity ping that returns a greeting string.
+    operationId: sayHello
+    parameters:
+    - name: name
+      in: path
+      value: $inputs.callerName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      greeting: $response.body
+  - stepId: testAuthentication
+    description: >-
+      Validate the caller's credentials before exercising a paid endpoint.
+    operationId: testAuthentication
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      authenticatedUser: $response.body
+  - stepId: confirmCountry
+    description: >-
+      Confirm the target country is supported by the configuration.
+    operationId: getCountryCodes
+    parameters:
+    - name: configurationName
+      in: path
+      value: $inputs.configurationName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      supportedCountries: $response.body
+  - stepId: verify
+    description: >-
+      Submit the Verify request now that connectivity, credentials, and country
+      support have all been confirmed.
+    operationId: verifyPerson
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        DataFields: $inputs.dataFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionRecordId: $response.body#/Record/TransactionRecordID
+      recordStatus: $response.body#/Record/RecordStatus
+  outputs:
+    authenticatedUser: $steps.testAuthentication.outputs.authenticatedUser
+    supportedCountries: $steps.confirmCountry.outputs.supportedCountries
+    recordStatus: $steps.verify.outputs.recordStatus

@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Async Verify And Poll For Completion
+  summary: Submit an asynchronous verification, poll its status until complete, then read the result.
+  description: >-
+    Some Trulioo verifications resolve asynchronously across slower local
+    datasources. This workflow submits a Verify with a CallBackUrl, then polls
+    the transaction-status endpoint with a retry loop until the status leaves the
+    "inprogress" state, and finally pulls the partial/final result for the
+    transaction record. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: verificationsApi
+  url: ../openapi/trulioo-verifications-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: async-verify-and-poll-status
+  summary: Submit a Verify, poll status to completion, and read the result.
+  description: >-
+    Kicks off an asynchronous verification, repeatedly checks the transaction
+    status until it is no longer in progress, then retrieves the result.
+  inputs:
+    type: object
+    required:
+    - configurationName
+    - countryCode
+    - dataFields
+    properties:
+      configurationName:
+        type: string
+        description: Configured product/package name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      dataFields:
+        type: object
+        description: DataFields block for the verification.
+      callBackUrl:
+        type: string
+        description: Webhook URL for asynchronous result delivery.
+  steps:
+  - stepId: verify
+    description: >-
+      Submit the Verify request with a callback URL to start an asynchronous
+      verification and capture both the TransactionID and TransactionRecordID.
+    operationId: verifyPerson
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        CallBackUrl: $inputs.callBackUrl
+        DataFields: $inputs.dataFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/TransactionID
+      transactionRecordId: $response.body#/Record/TransactionRecordID
+  - stepId: pollStatus
+    description: >-
+      Poll the transaction status until it is no longer "inprogress". The retry
+      action re-runs this step when the status is still in progress.
+    operationId: getTransactionStatus
+    parameters:
+    - name: transactionId
+      in: path
+      value: $steps.verify.outputs.transactionId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.Status != "inprogress"
+      type: jsonpath
+    onSuccess:
+    - name: statusResolved
+      type: goto
+      stepId: fetchResult
+      criteria:
+      - context: $response.body
+        condition: $.Status != "inprogress"
+        type: jsonpath
+    onFailure:
+    - name: stillInProgress
+      type: retry
+      retryAfter: 5
+      retryLimit: 12
+      criteria:
+      - context: $response.body
+        condition: $.Status == "inprogress"
+        type: jsonpath
+    outputs:
+      status: $response.body#/Status
+  - stepId: fetchResult
+    description: >-
+      Retrieve the partial/final transaction result now that the verification has
+      left the in-progress state.
+    operationId: getPartialTransactionResult
+    parameters:
+    - name: transactionRecordId
+      in: path
+      value: $steps.verify.outputs.transactionRecordId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      recordStatus: $response.body#/Record/RecordStatus
+      datasourceResults: $response.body#/Record/DatasourceResults
+  outputs:
+    transactionId: $steps.verify.outputs.transactionId
+    status: $steps.pollStatus.outputs.status
+    recordStatus: $steps.fetchResult.outputs.recordStatus

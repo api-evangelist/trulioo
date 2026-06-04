@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Document Verification With Liveness
+  summary: Resolve supported document types for a country, then verify a captured ID against a liveness selfie.
+  description: >-
+    Identity document verification pairs a captured government ID with an optional
+    liveness selfie. This workflow first lists the document types supported for
+    the target country so the client can validate the capture, then submits the
+    front/back images and live photo for classification, face match, and liveness
+    scoring. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: documentVerificationApi
+  url: ../openapi/trulioo-document-verification-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: document-verification-with-liveness
+  summary: List document types for a country, then verify an ID with a liveness selfie.
+  description: >-
+    Resolves the supported document types for the country, then submits the
+    captured document images and live photo for verification and reads the
+    classification, face-match, and liveness scores.
+  inputs:
+    type: object
+    required:
+    - configurationName
+    - countryCode
+    - documentFrontImage
+    - livePhoto
+    properties:
+      configurationName:
+        type: string
+        description: Configured product/package name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      documentFrontImage:
+        type: string
+        description: Base64-encoded front image of the identity document.
+      documentBackImage:
+        type: string
+        description: Optional base64-encoded back image of the identity document.
+      livePhoto:
+        type: string
+        description: Base64-encoded liveness selfie image.
+      documentType:
+        type: string
+        description: Document type identifier (from the supported list).
+  steps:
+  - stepId: getDocumentTypes
+    description: >-
+      List the document types supported for the target country so the captured
+      document type can be validated before submission.
+    operationId: getDocumentTypes
+    parameters:
+    - name: countryCode
+      in: path
+      value: $inputs.countryCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      documentTypes: $response.body
+  - stepId: verifyDocument
+    description: >-
+      Submit the captured document images and live photo for classification,
+      face match, and liveness scoring.
+    operationId: documentVerificationVerify
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        DataFields:
+          Document:
+            DocumentFrontImage: $inputs.documentFrontImage
+            DocumentBackImage: $inputs.documentBackImage
+            LivePhoto: $inputs.livePhoto
+            DocumentType: $inputs.documentType
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionRecordId: $response.body#/TransactionRecordID
+      documentClassification: $response.body#/DocumentClassification
+      faceMatchScore: $response.body#/FaceMatchScore
+      livenessScore: $response.body#/LivenessScore
+  outputs:
+    documentTypes: $steps.getDocumentTypes.outputs.documentTypes
+    transactionRecordId: $steps.verifyDocument.outputs.transactionRecordId
+    documentClassification: $steps.verifyDocument.outputs.documentClassification
+    faceMatchScore: $steps.verifyDocument.outputs.faceMatchScore
+    livenessScore: $steps.verifyDocument.outputs.livenessScore

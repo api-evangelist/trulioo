@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Discover Registration Number Types Then Search Business
+  summary: List a country's business registration number types, then search the registry by number.
+  description: >-
+    Different jurisdictions issue different kinds of business registration
+    numbers, so before searching by number an integrator needs to know which
+    types apply. This workflow lists the registration number metadata for a
+    country and then runs a business search using the supplied registration
+    number, returning the candidate match's confidence. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: businessVerificationApi
+  url: ../openapi/trulioo-business-verification-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: business-registration-numbers-and-search
+  summary: List registration number types, then search a business by number.
+  description: >-
+    Retrieves the business registration number types for the country and searches
+    the registry universe using the supplied registration number.
+  inputs:
+    type: object
+    required:
+    - configurationName
+    - countryCode
+    - businessRegistrationNumber
+    properties:
+      configurationName:
+        type: string
+        description: Configured product/package name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      businessRegistrationNumber:
+        type: string
+        description: Registration number to search the registry by.
+      jurisdictionOfIncorporation:
+        type: string
+        description: Optional jurisdiction of incorporation to scope the search.
+  steps:
+  - stepId: getRegistrationNumbers
+    description: >-
+      List the business registration number types supported for the country so
+      the supplied number can be classified.
+    operationId: getBusinessRegistrationNumbersByCountry
+    parameters:
+    - name: countryCode
+      in: path
+      value: $inputs.countryCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      registrationNumberTypes: $response.body
+  - stepId: search
+    description: >-
+      Search the registry universe by the supplied business registration number
+      and return the candidate match.
+    operationId: businessSearch
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        JurisdictionOfIncorporation: $inputs.jurisdictionOfIncorporation
+        BusinessSearchInputFields:
+          BusinessRegistrationNumber: $inputs.businessRegistrationNumber
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/TransactionID
+      topMatchName: $response.body#/Results/0/BusinessName
+      topConfidence: $response.body#/Results/0/ConfidenceScore
+  outputs:
+    registrationNumberTypes: $steps.getRegistrationNumbers.outputs.registrationNumberTypes
+    transactionId: $steps.search.outputs.transactionId
+    topMatchName: $steps.search.outputs.topMatchName
+    topConfidence: $steps.search.outputs.topConfidence

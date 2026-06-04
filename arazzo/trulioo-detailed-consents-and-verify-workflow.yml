@@ -1,0 +1,87 @@
+arazzo: 1.0.1
+info:
+  title: Trulioo Capture Detailed Consents And Verify
+  summary: Pull the full consent text to present to the end user, then verify with those consents recorded.
+  description: >-
+    Regulated identity verification often requires presenting specific consent
+    language to the end user before querying a datasource. This workflow fetches
+    the detailed consent metadata (name plus the legal text and summary) for a
+    country, then submits a Verify that records the named consents the user
+    agreed to. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/trulioo-configuration-api-openapi.yml
+  type: openapi
+- name: verificationsApi
+  url: ../openapi/trulioo-verifications-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: detailed-consents-and-verify
+  summary: Retrieve detailed consent text, then verify with consents recorded.
+  description: >-
+    Reads the detailed consent objects for a configuration/country pair so the
+    integrator can present the text to the user, then runs a Verify carrying the
+    list of consented datasource names.
+  inputs:
+    type: object
+    required:
+    - configurationName
+    - countryCode
+    - consentedDataSources
+    - dataFields
+    properties:
+      configurationName:
+        type: string
+        description: Configured product/package name.
+      countryCode:
+        type: string
+        description: Two-letter ISO 3166 country code.
+      consentedDataSources:
+        type: array
+        items:
+          type: string
+        description: Names of datasources the end user has explicitly consented to.
+      dataFields:
+        type: object
+        description: DataFields block for the verification.
+  steps:
+  - stepId: getDetailedConsents
+    description: >-
+      Retrieve detailed consent metadata, including the text and summary to
+      present to the end user for this configuration/country.
+    operationId: getDetailedConsents
+    parameters:
+    - name: configurationName
+      in: path
+      value: $inputs.configurationName
+    - name: countryCode
+      in: path
+      value: $inputs.countryCode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      detailedConsents: $response.body
+  - stepId: verify
+    description: >-
+      Submit the Verify request recording the datasources the end user consented
+      to after being shown the detailed consent text.
+    operationId: verifyPerson
+    requestBody:
+      contentType: application/json
+      payload:
+        AcceptTruliooTermsAndConditions: true
+        ConfigurationName: $inputs.configurationName
+        CountryCode: $inputs.countryCode
+        ConsentForDataSources: $inputs.consentedDataSources
+        DataFields: $inputs.dataFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionRecordId: $response.body#/Record/TransactionRecordID
+      recordStatus: $response.body#/Record/RecordStatus
+  outputs:
+    detailedConsents: $steps.getDetailedConsents.outputs.detailedConsents
+    transactionRecordId: $steps.verify.outputs.transactionRecordId
+    recordStatus: $steps.verify.outputs.recordStatus
