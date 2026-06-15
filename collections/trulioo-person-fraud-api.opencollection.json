@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Person Fraud API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Person Fraud",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Person Fraud Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/risk/v1/check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Perform a person-fraud risk check."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Country Codes For Person Fraud",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/risk/v1/configuration/countrycodes/:configurationName",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Country codes configured for the Person Fraud product."
+        },
+        {
+          "info": {
+            "name": "Get Fields For Person Fraud",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/risk/v1/configuration/fields/:configurationName/:countryCode",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Field schema for the Person Fraud product per country."
+        },
+        {
+          "info": {
+            "name": "Get Datasources For Person Fraud",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/risk/v1/configuration/datasources/:configurationName/:countryCode",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Available risk-data sources for the Person Fraud product per country."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,958 @@
+{
+  "item": [
+    {
+      "id": "c6a191b5-ccd8-403e-96a3-b7674c73b09a",
+      "name": "Verifications",
+      "description": {
+        "content": "Perform person verification and retrieve verification results.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4cb8a7e4-4116-489a-b754-c84ef6a50aaa",
+          "name": "Verify A Person",
+          "request": {
+            "name": "Verify A Person",
+            "description": {
+              "content": "Submit a Verify request to perform a KYC verification on a person. Trulioo selects the appropriate local datasources for the country specified in the `CountryCode` field, matches the supplied identity fields, and returns a normalized VerifyResult.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "verifications",
+                "verify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"FirstGivenName\": \"<string>\",\n      \"MiddleName\": \"<string>\",\n      \"FirstSurName\": \"<string>\",\n      \"SecondSurname\": \"<string>\",\n      \"DayOfBirth\": \"<integer>\",\n      \"MonthOfBirth\": \"<integer>\",\n      \"YearOfBirth\": \"<integer>\",\n      \"Gender\": \"<string>\"\n    },\n    \"Location\": {\n      \"BuildingNumber\": \"<string>\",\n      \"BuildingName\": \"<string>\",\n      \"UnitNumber\": \"<string>\",\n      \"StreetName\": \"<string>\",\n      \"StreetType\": \"<string>\",\n      \"City\": \"<string>\",\n      \"StateProvinceCode\": \"<string>\",\n      \"PostalCode\": \"<string>\",\n      \"Country\": \"<string>\"\n    },\n    \"Communication\": {\n      \"Telephone\": \"<string>\",\n      \"MobileNumber\": \"<string>\",\n      \"EmailAddress\": \"<string>\"\n    },\n    \"NationalIds\": [\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      },\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      }\n    ],\n    \"Document\": {\n      \"DocumentFrontImage\": \"<byte>\",\n      \"DocumentBackImage\": \"<byte>\",\n      \"LivePhoto\": \"<byte>\",\n      \"DocumentType\": \"<string>\"\n    }\n  },\n  \"CleansedAddress\": \"<boolean>\",\n  \"CustomerReferenceID\": \"<string>\",\n  \"ConsentForDataSources\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"CallBackUrl\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "62f78d84-19e9-4a86-b7bc-ec81c9528b38",
+              "name": "Verification result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": true,\n  \"CleansedAddress\": true,\n  \"ConfigurationName\": \"Identity Verification\",\n  \"CountryCode\": \"US\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"FirstGivenName\": \"John\",\n      \"MiddleName\": \"Q\",\n      \"FirstSurName\": \"Public\",\n      \"DayOfBirth\": 1,\n      \"MonthOfBirth\": 1,\n      \"YearOfBirth\": 1980\n    },\n    \"Location\": {\n      \"BuildingNumber\": \"123\",\n      \"StreetName\": \"Main\",\n      \"StreetType\": \"Street\",\n      \"City\": \"Anytown\",\n      \"StateProvinceCode\": \"NY\",\n      \"PostalCode\": \"10001\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TransactionID\": \"string\",\n  \"UploadedDt\": \"1967-03-16T12:21:40.789Z\",\n  \"CountryCode\": \"string\",\n  \"ProductName\": \"string\",\n  \"Record\": {\n    \"TransactionRecordID\": \"string\",\n    \"RecordStatus\": \"nomatch\",\n    \"DatasourceResults\": [\n      {\n        \"DatasourceName\": \"string\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          },\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          }\n        ]\n      },\n      {\n        \"DatasourceName\": \"string\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          },\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"Errors\": [\n      {\n        \"Code\": \"string\",\n        \"Message\": \"string\"\n      },\n      {\n        \"Code\": \"string\",\n        \"Message\": \"string\"\n      }\n    ],\n    \"Rule\": {\n      \"RuleName\": \"string\",\n      \"Note\": \"string\"\n    }\n  },\n  \"Errors\": [\n    {\n      \"Code\": \"string\",\n      \"Message\": \"string\"\n    },\n    {\n      \"Code\": \"string\",\n      \"Message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "344f8a80-4251-4c6b-a9a9-4f9ec4b0e11c",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": true,\n  \"CleansedAddress\": true,\n  \"ConfigurationName\": \"Identity Verification\",\n  \"CountryCode\": \"US\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"FirstGivenName\": \"John\",\n      \"MiddleName\": \"Q\",\n      \"FirstSurName\": \"Public\",\n      \"DayOfBirth\": 1,\n      \"MonthOfBirth\": 1,\n      \"YearOfBirth\": 1980\n    },\n    \"Location\": {\n      \"BuildingNumber\": \"123\",\n      \"StreetName\": \"Main\",\n      \"StreetType\": \"Street\",\n      \"City\": \"Anytown\",\n      \"StateProvinceCode\": \"NY\",\n      \"PostalCode\": \"10001\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": \"string\",\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab258f2b-35ae-46c1-a3a3-5d16c2ce8b69",
+              "name": "Authentication failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": true,\n  \"CleansedAddress\": true,\n  \"ConfigurationName\": \"Identity Verification\",\n  \"CountryCode\": \"US\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"FirstGivenName\": \"John\",\n      \"MiddleName\": \"Q\",\n      \"FirstSurName\": \"Public\",\n      \"DayOfBirth\": 1,\n      \"MonthOfBirth\": 1,\n      \"YearOfBirth\": 1980\n    },\n    \"Location\": {\n      \"BuildingNumber\": \"123\",\n      \"StreetName\": \"Main\",\n      \"StreetType\": \"Street\",\n      \"City\": \"Anytown\",\n      \"StateProvinceCode\": \"NY\",\n      \"PostalCode\": \"10001\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": \"string\",\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3021d704-a2a8-40d3-9f2a-62b47131ec55",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": true,\n  \"CleansedAddress\": true,\n  \"ConfigurationName\": \"Identity Verification\",\n  \"CountryCode\": \"US\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"FirstGivenName\": \"John\",\n      \"MiddleName\": \"Q\",\n      \"FirstSurName\": \"Public\",\n      \"DayOfBirth\": 1,\n      \"MonthOfBirth\": 1,\n      \"YearOfBirth\": 1980\n    },\n    \"Location\": {\n      \"BuildingNumber\": \"123\",\n      \"StreetName\": \"Main\",\n      \"StreetType\": \"Street\",\n      \"City\": \"Anytown\",\n      \"StateProvinceCode\": \"NY\",\n      \"PostalCode\": \"10001\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": \"string\",\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ed3bba6-109a-4a12-85ba-0a09742eceb4",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": true,\n  \"CleansedAddress\": true,\n  \"ConfigurationName\": \"Identity Verification\",\n  \"CountryCode\": \"US\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"FirstGivenName\": \"John\",\n      \"MiddleName\": \"Q\",\n      \"FirstSurName\": \"Public\",\n      \"DayOfBirth\": 1,\n      \"MonthOfBirth\": 1,\n      \"YearOfBirth\": 1980\n    },\n    \"Location\": {\n      \"BuildingNumber\": \"123\",\n      \"StreetName\": \"Main\",\n      \"StreetType\": \"Street\",\n      \"City\": \"Anytown\",\n      \"StateProvinceCode\": \"NY\",\n      \"PostalCode\": \"10001\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": \"string\",\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "573095b4-5c33-4692-8e39-59f9f4c067f2",
+      "name": "Transactions",
+      "description": {
+        "content": "Retrieve verification transactions and status.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "459d1937-6c77-49ad-945c-3e8ca77d0301",
+          "name": "Get Transaction Record",
+          "request": {
+            "name": "Get Transaction Record",
+            "description": {
+              "content": "Retrieve the full TransactionRecord for a previously executed Verify. Includes Record, DatasourceResults, and any AppendedFields returned by the datasources.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "verifications",
+                "transactionrecord",
+                ":transactionRecordId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "transactionRecordId",
+                  "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7af5d5d4-6f58-4ad9-b876-86b6d135b868",
+              "name": "Transaction record.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "transactionrecord",
+                    ":transactionRecordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "transactionRecordId",
+                      "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TransactionID\": \"string\",\n  \"CountryCode\": \"string\",\n  \"ProductName\": \"string\",\n  \"Record\": {\n    \"TransactionRecordID\": \"string\",\n    \"RecordStatus\": \"match\",\n    \"DatasourceResults\": [\n      {\n        \"DatasourceName\": \"string\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          },\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          }\n        ]\n      },\n      {\n        \"DatasourceName\": \"string\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          },\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"Errors\": [\n      {\n        \"Code\": \"string\",\n        \"Message\": \"string\"\n      },\n      {\n        \"Code\": \"string\",\n        \"Message\": \"string\"\n      }\n    ],\n    \"Rule\": {\n      \"RuleName\": \"string\",\n      \"Note\": \"string\"\n    }\n  },\n  \"InputFields\": [\n    {\n      \"FieldName\": \"string\",\n      \"Value\": \"string\"\n    },\n    {\n      \"FieldName\": \"string\",\n      \"Value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25525d04-fa3e-4b50-9574-64bafbc0eb3e",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "transactionrecord",
+                    ":transactionRecordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "transactionRecordId",
+                      "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Code\": \"string\",\n  \"Message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "168daecf-6dbd-4586-bc26-8cf5c4b6a1f5",
+          "name": "Get Transaction Record With Address",
+          "request": {
+            "name": "Get Transaction Record With Address",
+            "description": {
+              "content": "Retrieve a transaction record including cleansed-address details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "verifications",
+                "transactionrecord",
+                ":transactionRecordId",
+                "withaddress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "transactionRecordId",
+                  "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19f8fa82-8771-4fef-a22b-e1d97ea6ba7d",
+              "name": "Transaction record with address.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "transactionrecord",
+                    ":transactionRecordId",
+                    "withaddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "transactionRecordId",
+                      "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TransactionID\": \"string\",\n  \"CountryCode\": \"string\",\n  \"ProductName\": \"string\",\n  \"Record\": {\n    \"TransactionRecordID\": \"string\",\n    \"RecordStatus\": \"match\",\n    \"DatasourceResults\": [\n      {\n        \"DatasourceName\": \"string\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          },\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          }\n        ]\n      },\n      {\n        \"DatasourceName\": \"string\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          },\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"Errors\": [\n      {\n        \"Code\": \"string\",\n        \"Message\": \"string\"\n      },\n      {\n        \"Code\": \"string\",\n        \"Message\": \"string\"\n      }\n    ],\n    \"Rule\": {\n      \"RuleName\": \"string\",\n      \"Note\": \"string\"\n    }\n  },\n  \"InputFields\": [\n    {\n      \"FieldName\": \"string\",\n      \"Value\": \"string\"\n    },\n    {\n      \"FieldName\": \"string\",\n      \"Value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7533f890-95a4-4b35-b6b6-17c9543b6fdd",
+          "name": "Get Transaction Status",
+          "request": {
+            "name": "Get Transaction Status",
+            "description": {
+              "content": "Get the current status of an asynchronous verification transaction identified by its TransactionID.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "verifications",
+                "transaction",
+                ":transactionId",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "transactionId",
+                  "description": "(Required) TransactionID returned by a previous Verify call."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93994ccc-f51c-4b02-a60b-cc01fbff8e9f",
+              "name": "Transaction status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "transaction",
+                    ":transactionId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "transactionId",
+                      "description": "(Required) TransactionID returned by a previous Verify call."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TransactionID\": \"string\",\n  \"Status\": \"completed\",\n  \"TimestampUtc\": \"1967-03-08T15:34:57.193Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4b75bfd-9748-4dc9-b1e2-08ceba69f012",
+          "name": "Get Partial Transaction Result",
+          "request": {
+            "name": "Get Partial Transaction Result",
+            "description": {
+              "content": "Retrieve partial results from an in-flight verification — useful when some datasources have returned but others are still processing.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "verifications",
+                "transaction",
+                ":transactionRecordId",
+                "partialresult"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "transactionRecordId",
+                  "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c078025-77a5-406d-b67c-8200132c999f",
+              "name": "Partial transaction result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "transaction",
+                    ":transactionRecordId",
+                    "partialresult"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "transactionRecordId",
+                      "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TransactionID\": \"string\",\n  \"UploadedDt\": \"1967-03-16T12:21:40.789Z\",\n  \"CountryCode\": \"string\",\n  \"ProductName\": \"string\",\n  \"Record\": {\n    \"TransactionRecordID\": \"string\",\n    \"RecordStatus\": \"nomatch\",\n    \"DatasourceResults\": [\n      {\n        \"DatasourceName\": \"string\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          },\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          }\n        ]\n      },\n      {\n        \"DatasourceName\": \"string\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Status\": \"string\",\n            \"Data\": \"string\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          },\n          {\n            \"Code\": \"string\",\n            \"Message\": \"string\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          },\n          {\n            \"FieldName\": \"string\",\n            \"Data\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"Errors\": [\n      {\n        \"Code\": \"string\",\n        \"Message\": \"string\"\n      },\n      {\n        \"Code\": \"string\",\n        \"Message\": \"string\"\n      }\n    ],\n    \"Rule\": {\n      \"RuleName\": \"string\",\n      \"Note\": \"string\"\n    }\n  },\n  \"Errors\": [\n    {\n      \"Code\": \"string\",\n      \"Message\": \"string\"\n    },\n    {\n      \"Code\": \"string\",\n      \"Message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ebb2fc60-ddc5-41ba-8479-0c7bcc3272bc",
+      "name": "Documents",
+      "description": {
+        "content": "Download evidence documents from completed transactions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0789822e-1dfc-4edd-9715-817005ee8116",
+          "name": "Download Evidence Document",
+          "request": {
+            "name": "Download Evidence Document",
+            "description": {
+              "content": "Download an evidence document image (e.g. captured ID front, ID back, selfie) returned by a verification.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "verifications",
+                "documentdownload",
+                ":transactionRecordId",
+                ":fieldName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "transactionRecordId",
+                  "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fieldName",
+                  "description": "(Required) Name of the document field to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "44268f1c-079b-44fe-9c4a-ecfd7ad40751",
+              "name": "Document binary stream.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "documentdownload",
+                    ":transactionRecordId",
+                    ":fieldName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "transactionRecordId",
+                      "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fieldName",
+                      "description": "(Required) Name of the document field to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.trulioo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1c3e639f-c130-41a5-9db4-b79db070a223",
+    "name": "Trulioo Verifications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Trulioo's Normalized API for identity verification (KYC) and electronic identity verification (eIDV). Submit a Verify request with normalized PersonInfo, Communication, Location, NationalIds, and Documents fields and Trulioo's GlobalGateway routes the request across local data sources in 195+ countries. Returns a normalized VerifyResult with Record status, DatasourceResults, RecordStatus, and Errors. Companion endpoints retrieve transaction records, statuses, partial results, and downloadable document images.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+      "type": "text/plain"
+    }
+  }
+}

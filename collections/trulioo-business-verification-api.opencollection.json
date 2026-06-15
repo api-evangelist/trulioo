@@ -1,0 +1,178 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Business Verification API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Business Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Business Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/v3/business/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for a business by name, registration number, and jurisdiction-of-incorporation. Returns candidate matches with confidence scores.\n"
+        },
+        {
+          "info": {
+            "name": "Get Business Search Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/business/search/transactionrecord/:transactionRecordId",
+            "params": [
+              {
+                "name": "transactionRecordId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a previously executed Business Search by transaction ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Business Verification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Business Verify",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/v3/business/verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify a specific business by registration number and jurisdiction. Returns the canonical record plus officers, addresses, and other registry-supplied fields.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Business Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Business Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/business/report/:transactionRecordId",
+            "params": [
+              {
+                "name": "transactionRecordId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "additionalData",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Download the business registration document/report associated with a transaction."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Business Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Jurisdictions Of Incorporation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/business/countryJOI"
+          },
+          "docs": "List all supported jurisdictions of incorporation across all countries."
+        },
+        {
+          "info": {
+            "name": "Get Jurisdictions Of Incorporation Per Country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/business/countryJOI/:countryCode",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List the supported jurisdictions of incorporation within a single country."
+        },
+        {
+          "info": {
+            "name": "Get Business Registration Numbers For All Supported Countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/business/businessregistrationnumbers"
+          },
+          "docs": "List business registration number types for every supported country."
+        },
+        {
+          "info": {
+            "name": "Get Business Registration Numbers By Country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/business/businessregistrationnumbers/:countryCode",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List business registration number types for one country."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

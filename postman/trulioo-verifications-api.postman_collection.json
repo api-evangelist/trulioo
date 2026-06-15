@@ -1,0 +1,1025 @@
+{
+  "info": {
+    "_postman_id": "6ea0277c-1d3e-45af-9443-e0351026d30e",
+    "name": "Trulioo Verifications API",
+    "description": "Trulioo's Normalized API for identity verification (KYC) and electronic identity verification (eIDV). Submit a Verify request with normalized PersonInfo, Communication, Location, NationalIds, and Documents fields and Trulioo's GlobalGateway routes the request across local data sources in 195+ countries. Returns a normalized VerifyResult with Record status, DatasourceResults, RecordStatus, and Errors. Companion endpoints retrieve transaction records, statuses, partial results, and downloadable document images.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:01:59.000Z",
+    "updatedAt": "2026-06-05T15:01:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6ea0277c-1d3e-45af-9443-e0351026d30e"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "verifications",
+          "item": [
+            {
+              "name": "verify",
+              "item": [
+                {
+                  "name": "Verify A Person",
+                  "id": "e966bde6-5b76-4d81-b2d9-7595d277b381",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"FirstGivenName\": \"<string>\",\n      \"MiddleName\": \"<string>\",\n      \"FirstSurName\": \"<string>\",\n      \"SecondSurname\": \"<string>\",\n      \"DayOfBirth\": \"<integer>\",\n      \"MonthOfBirth\": \"<integer>\",\n      \"YearOfBirth\": \"<integer>\",\n      \"Gender\": \"<string>\"\n    },\n    \"Location\": {\n      \"BuildingNumber\": \"<string>\",\n      \"BuildingName\": \"<string>\",\n      \"UnitNumber\": \"<string>\",\n      \"StreetName\": \"<string>\",\n      \"StreetType\": \"<string>\",\n      \"City\": \"<string>\",\n      \"StateProvinceCode\": \"<string>\",\n      \"PostalCode\": \"<string>\",\n      \"Country\": \"<string>\"\n    },\n    \"Communication\": {\n      \"Telephone\": \"<string>\",\n      \"MobileNumber\": \"<string>\",\n      \"EmailAddress\": \"<string>\"\n    },\n    \"NationalIds\": [\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      },\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      }\n    ],\n    \"Document\": {\n      \"DocumentFrontImage\": \"<string>\",\n      \"DocumentBackImage\": \"<string>\",\n      \"LivePhoto\": \"<string>\",\n      \"DocumentType\": \"<string>\"\n    }\n  },\n  \"CleansedAddress\": \"<boolean>\",\n  \"CustomerReferenceID\": \"<string>\",\n  \"ConsentForDataSources\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"CallBackUrl\": \"<uri>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/verifications/verify",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "verifications",
+                        "verify"
+                      ]
+                    },
+                    "description": "Submit a Verify request to perform a KYC verification on a person. Trulioo selects the appropriate local datasources for the country specified in the `CountryCode` field, matches the supplied identity fields, and returns a normalized VerifyResult.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "520b1e11-7e6a-4265-8f70-f9e7792e244e",
+                      "name": "Verification result.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"FirstGivenName\": \"<string>\",\n      \"MiddleName\": \"<string>\",\n      \"FirstSurName\": \"<string>\",\n      \"SecondSurname\": \"<string>\",\n      \"DayOfBirth\": \"<integer>\",\n      \"MonthOfBirth\": \"<integer>\",\n      \"YearOfBirth\": \"<integer>\",\n      \"Gender\": \"<string>\"\n    },\n    \"Location\": {\n      \"BuildingNumber\": \"<string>\",\n      \"BuildingName\": \"<string>\",\n      \"UnitNumber\": \"<string>\",\n      \"StreetName\": \"<string>\",\n      \"StreetType\": \"<string>\",\n      \"City\": \"<string>\",\n      \"StateProvinceCode\": \"<string>\",\n      \"PostalCode\": \"<string>\",\n      \"Country\": \"<string>\"\n    },\n    \"Communication\": {\n      \"Telephone\": \"<string>\",\n      \"MobileNumber\": \"<string>\",\n      \"EmailAddress\": \"<string>\"\n    },\n    \"NationalIds\": [\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      },\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      }\n    ],\n    \"Document\": {\n      \"DocumentFrontImage\": \"<string>\",\n      \"DocumentBackImage\": \"<string>\",\n      \"LivePhoto\": \"<string>\",\n      \"DocumentType\": \"<string>\"\n    }\n  },\n  \"CleansedAddress\": \"<boolean>\",\n  \"CustomerReferenceID\": \"<string>\",\n  \"ConsentForDataSources\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"CallBackUrl\": \"<uri>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verifications/verify",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verifications",
+                            "verify"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"TransactionID\": \"<string>\",\n  \"UploadedDt\": \"<dateTime>\",\n  \"CountryCode\": \"<string>\",\n  \"ProductName\": \"<string>\",\n  \"Record\": {\n    \"TransactionRecordID\": \"<string>\",\n    \"RecordStatus\": \"nomatch\",\n    \"DatasourceResults\": [\n      {\n        \"DatasourceName\": \"<string>\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          },\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"DatasourceName\": \"<string>\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          },\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ]\n      }\n    ],\n    \"Errors\": [\n      {\n        \"Code\": \"<string>\",\n        \"Message\": \"<string>\"\n      },\n      {\n        \"Code\": \"<string>\",\n        \"Message\": \"<string>\"\n      }\n    ],\n    \"Rule\": {\n      \"RuleName\": \"<string>\",\n      \"Note\": \"<string>\"\n    }\n  },\n  \"Errors\": [\n    {\n      \"Code\": \"<string>\",\n      \"Message\": \"<string>\"\n    },\n    {\n      \"Code\": \"<string>\",\n      \"Message\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:02:00.000Z",
+                      "updatedAt": "2026-06-05T15:02:00.000Z",
+                      "uid": "35240-520b1e11-7e6a-4265-8f70-f9e7792e244e"
+                    },
+                    {
+                      "id": "e59a110e-673e-4a5a-a8ab-372c9df7b9a2",
+                      "name": "Invalid request.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"FirstGivenName\": \"<string>\",\n      \"MiddleName\": \"<string>\",\n      \"FirstSurName\": \"<string>\",\n      \"SecondSurname\": \"<string>\",\n      \"DayOfBirth\": \"<integer>\",\n      \"MonthOfBirth\": \"<integer>\",\n      \"YearOfBirth\": \"<integer>\",\n      \"Gender\": \"<string>\"\n    },\n    \"Location\": {\n      \"BuildingNumber\": \"<string>\",\n      \"BuildingName\": \"<string>\",\n      \"UnitNumber\": \"<string>\",\n      \"StreetName\": \"<string>\",\n      \"StreetType\": \"<string>\",\n      \"City\": \"<string>\",\n      \"StateProvinceCode\": \"<string>\",\n      \"PostalCode\": \"<string>\",\n      \"Country\": \"<string>\"\n    },\n    \"Communication\": {\n      \"Telephone\": \"<string>\",\n      \"MobileNumber\": \"<string>\",\n      \"EmailAddress\": \"<string>\"\n    },\n    \"NationalIds\": [\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      },\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      }\n    ],\n    \"Document\": {\n      \"DocumentFrontImage\": \"<string>\",\n      \"DocumentBackImage\": \"<string>\",\n      \"LivePhoto\": \"<string>\",\n      \"DocumentType\": \"<string>\"\n    }\n  },\n  \"CleansedAddress\": \"<boolean>\",\n  \"CustomerReferenceID\": \"<string>\",\n  \"ConsentForDataSources\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"CallBackUrl\": \"<uri>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verifications/verify",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verifications",
+                            "verify"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Code\": \"<string>\",\n  \"Message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:00.000Z",
+                      "updatedAt": "2026-06-05T15:02:00.000Z",
+                      "uid": "35240-e59a110e-673e-4a5a-a8ab-372c9df7b9a2"
+                    },
+                    {
+                      "id": "7c5d1994-b7c4-4596-80fe-b59321d9b21e",
+                      "name": "Authentication failed.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"FirstGivenName\": \"<string>\",\n      \"MiddleName\": \"<string>\",\n      \"FirstSurName\": \"<string>\",\n      \"SecondSurname\": \"<string>\",\n      \"DayOfBirth\": \"<integer>\",\n      \"MonthOfBirth\": \"<integer>\",\n      \"YearOfBirth\": \"<integer>\",\n      \"Gender\": \"<string>\"\n    },\n    \"Location\": {\n      \"BuildingNumber\": \"<string>\",\n      \"BuildingName\": \"<string>\",\n      \"UnitNumber\": \"<string>\",\n      \"StreetName\": \"<string>\",\n      \"StreetType\": \"<string>\",\n      \"City\": \"<string>\",\n      \"StateProvinceCode\": \"<string>\",\n      \"PostalCode\": \"<string>\",\n      \"Country\": \"<string>\"\n    },\n    \"Communication\": {\n      \"Telephone\": \"<string>\",\n      \"MobileNumber\": \"<string>\",\n      \"EmailAddress\": \"<string>\"\n    },\n    \"NationalIds\": [\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      },\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      }\n    ],\n    \"Document\": {\n      \"DocumentFrontImage\": \"<string>\",\n      \"DocumentBackImage\": \"<string>\",\n      \"LivePhoto\": \"<string>\",\n      \"DocumentType\": \"<string>\"\n    }\n  },\n  \"CleansedAddress\": \"<boolean>\",\n  \"CustomerReferenceID\": \"<string>\",\n  \"ConsentForDataSources\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"CallBackUrl\": \"<uri>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verifications/verify",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verifications",
+                            "verify"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Code\": \"<string>\",\n  \"Message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:00.000Z",
+                      "updatedAt": "2026-06-05T15:02:00.000Z",
+                      "uid": "35240-7c5d1994-b7c4-4596-80fe-b59321d9b21e"
+                    },
+                    {
+                      "id": "a3149003-48f4-4ffc-a75c-b79186427db2",
+                      "name": "Rate limit exceeded.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"FirstGivenName\": \"<string>\",\n      \"MiddleName\": \"<string>\",\n      \"FirstSurName\": \"<string>\",\n      \"SecondSurname\": \"<string>\",\n      \"DayOfBirth\": \"<integer>\",\n      \"MonthOfBirth\": \"<integer>\",\n      \"YearOfBirth\": \"<integer>\",\n      \"Gender\": \"<string>\"\n    },\n    \"Location\": {\n      \"BuildingNumber\": \"<string>\",\n      \"BuildingName\": \"<string>\",\n      \"UnitNumber\": \"<string>\",\n      \"StreetName\": \"<string>\",\n      \"StreetType\": \"<string>\",\n      \"City\": \"<string>\",\n      \"StateProvinceCode\": \"<string>\",\n      \"PostalCode\": \"<string>\",\n      \"Country\": \"<string>\"\n    },\n    \"Communication\": {\n      \"Telephone\": \"<string>\",\n      \"MobileNumber\": \"<string>\",\n      \"EmailAddress\": \"<string>\"\n    },\n    \"NationalIds\": [\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      },\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      }\n    ],\n    \"Document\": {\n      \"DocumentFrontImage\": \"<string>\",\n      \"DocumentBackImage\": \"<string>\",\n      \"LivePhoto\": \"<string>\",\n      \"DocumentType\": \"<string>\"\n    }\n  },\n  \"CleansedAddress\": \"<boolean>\",\n  \"CustomerReferenceID\": \"<string>\",\n  \"ConsentForDataSources\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"CallBackUrl\": \"<uri>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verifications/verify",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verifications",
+                            "verify"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Code\": \"<string>\",\n  \"Message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:00.000Z",
+                      "updatedAt": "2026-06-05T15:02:00.000Z",
+                      "uid": "35240-a3149003-48f4-4ffc-a75c-b79186427db2"
+                    },
+                    {
+                      "id": "c033c4da-8b3e-4cad-90df-e34bfdc1b950",
+                      "name": "Internal server error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"FirstGivenName\": \"<string>\",\n      \"MiddleName\": \"<string>\",\n      \"FirstSurName\": \"<string>\",\n      \"SecondSurname\": \"<string>\",\n      \"DayOfBirth\": \"<integer>\",\n      \"MonthOfBirth\": \"<integer>\",\n      \"YearOfBirth\": \"<integer>\",\n      \"Gender\": \"<string>\"\n    },\n    \"Location\": {\n      \"BuildingNumber\": \"<string>\",\n      \"BuildingName\": \"<string>\",\n      \"UnitNumber\": \"<string>\",\n      \"StreetName\": \"<string>\",\n      \"StreetType\": \"<string>\",\n      \"City\": \"<string>\",\n      \"StateProvinceCode\": \"<string>\",\n      \"PostalCode\": \"<string>\",\n      \"Country\": \"<string>\"\n    },\n    \"Communication\": {\n      \"Telephone\": \"<string>\",\n      \"MobileNumber\": \"<string>\",\n      \"EmailAddress\": \"<string>\"\n    },\n    \"NationalIds\": [\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      },\n      {\n        \"Number\": \"<string>\",\n        \"Type\": \"<string>\",\n        \"CountryCode\": \"<string>\"\n      }\n    ],\n    \"Document\": {\n      \"DocumentFrontImage\": \"<string>\",\n      \"DocumentBackImage\": \"<string>\",\n      \"LivePhoto\": \"<string>\",\n      \"DocumentType\": \"<string>\"\n    }\n  },\n  \"CleansedAddress\": \"<boolean>\",\n  \"CustomerReferenceID\": \"<string>\",\n  \"ConsentForDataSources\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"CallBackUrl\": \"<uri>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verifications/verify",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verifications",
+                            "verify"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Code\": \"<string>\",\n  \"Message\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:00.000Z",
+                      "updatedAt": "2026-06-05T15:02:00.000Z",
+                      "uid": "35240-c033c4da-8b3e-4cad-90df-e34bfdc1b950"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:02:00.000Z",
+                  "updatedAt": "2026-06-05T15:02:00.000Z",
+                  "uid": "35240-e966bde6-5b76-4d81-b2d9-7595d277b381"
+                }
+              ],
+              "id": "e60e76ff-838b-43e6-949d-fe43287eb404",
+              "createdAt": "2026-06-05T15:02:00.000Z",
+              "updatedAt": "2026-06-05T15:02:00.000Z",
+              "uid": "35240-e60e76ff-838b-43e6-949d-fe43287eb404"
+            },
+            {
+              "name": "transactionrecord",
+              "item": [
+                {
+                  "name": "{transactionRecordId}",
+                  "item": [
+                    {
+                      "name": "withaddress",
+                      "item": [
+                        {
+                          "name": "Get Transaction Record With Address",
+                          "id": "fba7831e-71fe-4561-b4a3-659c97914dd5",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verifications/transactionrecord/:transactionRecordId/withaddress",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verifications",
+                                "transactionrecord",
+                                ":transactionRecordId",
+                                "withaddress"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "15ec67e5-b552-46de-9c51-e30cc09b6765",
+                                  "key": "transactionRecordId",
+                                  "value": "<uuid>",
+                                  "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                                }
+                              ]
+                            },
+                            "description": "Retrieve a transaction record including cleansed-address details."
+                          },
+                          "response": [
+                            {
+                              "id": "250d7423-29c2-4fb6-905d-f05cdd383a2a",
+                              "name": "Transaction record with address.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/verifications/transactionrecord/:transactionRecordId/withaddress",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "verifications",
+                                    "transactionrecord",
+                                    ":transactionRecordId",
+                                    "withaddress"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "transactionRecordId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"TransactionID\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"ProductName\": \"<string>\",\n  \"Record\": {\n    \"TransactionRecordID\": \"<string>\",\n    \"RecordStatus\": \"nomatch\",\n    \"DatasourceResults\": [\n      {\n        \"DatasourceName\": \"<string>\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          },\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"DatasourceName\": \"<string>\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          },\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ]\n      }\n    ],\n    \"Errors\": [\n      {\n        \"Code\": \"<string>\",\n        \"Message\": \"<string>\"\n      },\n      {\n        \"Code\": \"<string>\",\n        \"Message\": \"<string>\"\n      }\n    ],\n    \"Rule\": {\n      \"RuleName\": \"<string>\",\n      \"Note\": \"<string>\"\n    }\n  },\n  \"InputFields\": [\n    {\n      \"FieldName\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"FieldName\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:02:00.000Z",
+                              "updatedAt": "2026-06-05T15:02:00.000Z",
+                              "uid": "35240-250d7423-29c2-4fb6-905d-f05cdd383a2a"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:00.000Z",
+                          "updatedAt": "2026-06-05T15:02:00.000Z",
+                          "uid": "35240-fba7831e-71fe-4561-b4a3-659c97914dd5"
+                        }
+                      ],
+                      "id": "9c4bcd7d-3858-4d14-b963-24f8ed9d3481",
+                      "createdAt": "2026-06-05T15:02:00.000Z",
+                      "updatedAt": "2026-06-05T15:02:00.000Z",
+                      "uid": "35240-9c4bcd7d-3858-4d14-b963-24f8ed9d3481"
+                    },
+                    {
+                      "name": "Get Transaction Record",
+                      "id": "27c31cc6-b19b-41df-8ad8-b9518a7ed925",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verifications/transactionrecord/:transactionRecordId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verifications",
+                            "transactionrecord",
+                            ":transactionRecordId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "cabbf888-b6a2-4bbc-96d9-c5d18565a44d",
+                              "key": "transactionRecordId",
+                              "value": "<uuid>",
+                              "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                            }
+                          ]
+                        },
+                        "description": "Retrieve the full TransactionRecord for a previously executed Verify. Includes Record, DatasourceResults, and any AppendedFields returned by the datasources.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "2071d864-1fd9-4867-b2d3-9b4acbab9922",
+                          "name": "Transaction record.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verifications/transactionrecord/:transactionRecordId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verifications",
+                                "transactionrecord",
+                                ":transactionRecordId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transactionRecordId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"TransactionID\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"ProductName\": \"<string>\",\n  \"Record\": {\n    \"TransactionRecordID\": \"<string>\",\n    \"RecordStatus\": \"nomatch\",\n    \"DatasourceResults\": [\n      {\n        \"DatasourceName\": \"<string>\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          },\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"DatasourceName\": \"<string>\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          },\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ]\n      }\n    ],\n    \"Errors\": [\n      {\n        \"Code\": \"<string>\",\n        \"Message\": \"<string>\"\n      },\n      {\n        \"Code\": \"<string>\",\n        \"Message\": \"<string>\"\n      }\n    ],\n    \"Rule\": {\n      \"RuleName\": \"<string>\",\n      \"Note\": \"<string>\"\n    }\n  },\n  \"InputFields\": [\n    {\n      \"FieldName\": \"<string>\",\n      \"Value\": \"<string>\"\n    },\n    {\n      \"FieldName\": \"<string>\",\n      \"Value\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:02:00.000Z",
+                          "updatedAt": "2026-06-05T15:02:00.000Z",
+                          "uid": "35240-2071d864-1fd9-4867-b2d3-9b4acbab9922"
+                        },
+                        {
+                          "id": "53e9380f-2b19-4dc6-a4e6-c6a681f16eb4",
+                          "name": "Resource not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verifications/transactionrecord/:transactionRecordId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verifications",
+                                "transactionrecord",
+                                ":transactionRecordId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "transactionRecordId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Code\": \"<string>\",\n  \"Message\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:00.000Z",
+                          "updatedAt": "2026-06-05T15:02:00.000Z",
+                          "uid": "35240-53e9380f-2b19-4dc6-a4e6-c6a681f16eb4"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:00.000Z",
+                      "updatedAt": "2026-06-05T15:02:00.000Z",
+                      "uid": "35240-27c31cc6-b19b-41df-8ad8-b9518a7ed925"
+                    }
+                  ],
+                  "id": "e03482c3-d416-4616-bdf1-bbc82bb185eb",
+                  "createdAt": "2026-06-05T15:02:00.000Z",
+                  "updatedAt": "2026-06-05T15:02:00.000Z",
+                  "uid": "35240-e03482c3-d416-4616-bdf1-bbc82bb185eb"
+                }
+              ],
+              "id": "8694e490-e28f-4244-bed8-dcc21a8707b6",
+              "createdAt": "2026-06-05T15:02:00.000Z",
+              "updatedAt": "2026-06-05T15:02:00.000Z",
+              "uid": "35240-8694e490-e28f-4244-bed8-dcc21a8707b6"
+            },
+            {
+              "name": "transaction",
+              "item": [
+                {
+                  "name": "{transactionId}",
+                  "item": [
+                    {
+                      "name": "status",
+                      "item": [
+                        {
+                          "name": "Get Transaction Status",
+                          "id": "427626fa-d410-42f1-92ae-7414292748c6",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verifications/transaction/:transactionId/status",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verifications",
+                                "transaction",
+                                ":transactionId",
+                                "status"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "9aae8c10-2180-47d6-bb15-9b249c818ebe",
+                                  "key": "transactionId",
+                                  "value": "<uuid>",
+                                  "description": "(Required) TransactionID returned by a previous Verify call."
+                                }
+                              ]
+                            },
+                            "description": "Get the current status of an asynchronous verification transaction identified by its TransactionID.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "974ee42e-00ca-4af0-b91f-dd064a4ca63f",
+                              "name": "Transaction status.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/verifications/transaction/:transactionId/status",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "verifications",
+                                    "transaction",
+                                    ":transactionId",
+                                    "status"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "transactionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"TransactionID\": \"<string>\",\n  \"Status\": \"completed\",\n  \"TimestampUtc\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:02:00.000Z",
+                              "updatedAt": "2026-06-05T15:02:00.000Z",
+                              "uid": "35240-974ee42e-00ca-4af0-b91f-dd064a4ca63f"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:00.000Z",
+                          "updatedAt": "2026-06-05T15:02:00.000Z",
+                          "uid": "35240-427626fa-d410-42f1-92ae-7414292748c6"
+                        }
+                      ],
+                      "id": "f80d9295-2593-4fa3-af83-663992f0c87a",
+                      "createdAt": "2026-06-05T15:02:00.000Z",
+                      "updatedAt": "2026-06-05T15:02:00.000Z",
+                      "uid": "35240-f80d9295-2593-4fa3-af83-663992f0c87a"
+                    }
+                  ],
+                  "id": "1f0131b6-776c-49b5-a77d-7d5d5d10d13b",
+                  "createdAt": "2026-06-05T15:02:00.000Z",
+                  "updatedAt": "2026-06-05T15:02:00.000Z",
+                  "uid": "35240-1f0131b6-776c-49b5-a77d-7d5d5d10d13b"
+                },
+                {
+                  "name": "{transactionRecordId}",
+                  "item": [
+                    {
+                      "name": "partialresult",
+                      "item": [
+                        {
+                          "name": "Get Partial Transaction Result",
+                          "id": "d9d54f9d-1c39-4c4e-9faa-c21e5009e4d4",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verifications/transaction/:transactionRecordId/partialresult",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verifications",
+                                "transaction",
+                                ":transactionRecordId",
+                                "partialresult"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "92a7280d-30fd-4f30-8241-0aaaaecfc1ea",
+                                  "key": "transactionRecordId",
+                                  "value": "<uuid>",
+                                  "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                                }
+                              ]
+                            },
+                            "description": "Retrieve partial results from an in-flight verification \u2014 useful when some datasources have returned but others are still processing.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "6f064cde-c635-4bf7-8e5b-c7c74315b649",
+                              "name": "Partial transaction result.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/verifications/transaction/:transactionRecordId/partialresult",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "verifications",
+                                    "transaction",
+                                    ":transactionRecordId",
+                                    "partialresult"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "transactionRecordId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"TransactionID\": \"<string>\",\n  \"UploadedDt\": \"<dateTime>\",\n  \"CountryCode\": \"<string>\",\n  \"ProductName\": \"<string>\",\n  \"Record\": {\n    \"TransactionRecordID\": \"<string>\",\n    \"RecordStatus\": \"nomatch\",\n    \"DatasourceResults\": [\n      {\n        \"DatasourceName\": \"<string>\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          },\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ]\n      },\n      {\n        \"DatasourceName\": \"<string>\",\n        \"DatasourceFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Status\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ],\n        \"Errors\": [\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          },\n          {\n            \"Code\": \"<string>\",\n            \"Message\": \"<string>\"\n          }\n        ],\n        \"AppendedFields\": [\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          },\n          {\n            \"FieldName\": \"<string>\",\n            \"Data\": \"<string>\"\n          }\n        ]\n      }\n    ],\n    \"Errors\": [\n      {\n        \"Code\": \"<string>\",\n        \"Message\": \"<string>\"\n      },\n      {\n        \"Code\": \"<string>\",\n        \"Message\": \"<string>\"\n      }\n    ],\n    \"Rule\": {\n      \"RuleName\": \"<string>\",\n      \"Note\": \"<string>\"\n    }\n  },\n  \"Errors\": [\n    {\n      \"Code\": \"<string>\",\n      \"Message\": \"<string>\"\n    },\n    {\n      \"Code\": \"<string>\",\n      \"Message\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:02:00.000Z",
+                              "updatedAt": "2026-06-05T15:02:00.000Z",
+                              "uid": "35240-6f064cde-c635-4bf7-8e5b-c7c74315b649"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:00.000Z",
+                          "updatedAt": "2026-06-05T15:02:00.000Z",
+                          "uid": "35240-d9d54f9d-1c39-4c4e-9faa-c21e5009e4d4"
+                        }
+                      ],
+                      "id": "8e58cc4f-de19-499a-b80d-bf1a29817b9a",
+                      "createdAt": "2026-06-05T15:02:00.000Z",
+                      "updatedAt": "2026-06-05T15:02:00.000Z",
+                      "uid": "35240-8e58cc4f-de19-499a-b80d-bf1a29817b9a"
+                    }
+                  ],
+                  "id": "1af919fd-5959-49c2-bfa8-65755047db66",
+                  "createdAt": "2026-06-05T15:02:00.000Z",
+                  "updatedAt": "2026-06-05T15:02:00.000Z",
+                  "uid": "35240-1af919fd-5959-49c2-bfa8-65755047db66"
+                }
+              ],
+              "id": "69c45a12-6a24-4933-8491-d11ad0805c94",
+              "createdAt": "2026-06-05T15:02:00.000Z",
+              "updatedAt": "2026-06-05T15:02:00.000Z",
+              "uid": "35240-69c45a12-6a24-4933-8491-d11ad0805c94"
+            },
+            {
+              "name": "documentdownload",
+              "item": [
+                {
+                  "name": "{transactionRecordId}",
+                  "item": [
+                    {
+                      "name": "{fieldName}",
+                      "item": [
+                        {
+                          "name": "Download Evidence Document",
+                          "id": "a80dc537-6b2f-49ee-96ea-97ea363159bc",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/octet-stream"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verifications/documentdownload/:transactionRecordId/:fieldName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verifications",
+                                "documentdownload",
+                                ":transactionRecordId",
+                                ":fieldName"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "21d471f8-1f7b-4c0b-bcfa-5b5c1d421141",
+                                  "key": "transactionRecordId",
+                                  "value": "<uuid>",
+                                  "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                                },
+                                {
+                                  "id": "e4bfd1d0-7e47-4ccb-9837-b2be37a97e4e",
+                                  "key": "fieldName",
+                                  "value": "<string>",
+                                  "description": "(Required) Name of the document field to retrieve."
+                                }
+                              ]
+                            },
+                            "description": "Download an evidence document image (e.g. captured ID front, ID back, selfie) returned by a verification.\n"
+                          },
+                          "response": [
+                            {
+                              "id": "d0dd7592-9b08-4ded-be13-cfe4df8a180d",
+                              "name": "Document binary stream.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/octet-stream"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/verifications/documentdownload/:transactionRecordId/:fieldName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "verifications",
+                                    "documentdownload",
+                                    ":transactionRecordId",
+                                    ":fieldName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "transactionRecordId"
+                                    },
+                                    {
+                                      "key": "fieldName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/octet-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<binary>",
+                              "createdAt": "2026-06-05T15:02:00.000Z",
+                              "updatedAt": "2026-06-05T15:02:00.000Z",
+                              "uid": "35240-d0dd7592-9b08-4ded-be13-cfe4df8a180d"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:00.000Z",
+                          "updatedAt": "2026-06-05T15:02:00.000Z",
+                          "uid": "35240-a80dc537-6b2f-49ee-96ea-97ea363159bc"
+                        }
+                      ],
+                      "id": "e068b07e-7907-437e-9549-527b8ea28fc5",
+                      "createdAt": "2026-06-05T15:02:00.000Z",
+                      "updatedAt": "2026-06-05T15:02:00.000Z",
+                      "uid": "35240-e068b07e-7907-437e-9549-527b8ea28fc5"
+                    }
+                  ],
+                  "id": "750b7e41-93b0-45e4-a666-64337d7b8fe5",
+                  "createdAt": "2026-06-05T15:02:00.000Z",
+                  "updatedAt": "2026-06-05T15:02:00.000Z",
+                  "uid": "35240-750b7e41-93b0-45e4-a666-64337d7b8fe5"
+                }
+              ],
+              "id": "c73c67af-ce37-4567-9a43-8a27de42e58a",
+              "createdAt": "2026-06-05T15:02:00.000Z",
+              "updatedAt": "2026-06-05T15:02:00.000Z",
+              "uid": "35240-c73c67af-ce37-4567-9a43-8a27de42e58a"
+            }
+          ],
+          "id": "27a69982-6224-4a32-a5ba-476fbfe959d6",
+          "createdAt": "2026-06-05T15:02:00.000Z",
+          "updatedAt": "2026-06-05T15:02:00.000Z",
+          "uid": "35240-27a69982-6224-4a32-a5ba-476fbfe959d6"
+        }
+      ],
+      "id": "e1651af5-4413-4d23-9e2d-437ea9353732",
+      "createdAt": "2026-06-05T15:02:00.000Z",
+      "updatedAt": "2026-06-05T15:02:00.000Z",
+      "uid": "35240-e1651af5-4413-4d23-9e2d-437ea9353732"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.trulioo.com"
+    }
+  ]
+}

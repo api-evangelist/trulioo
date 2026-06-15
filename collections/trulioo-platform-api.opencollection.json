@@ -1,0 +1,366 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Platform API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.trulioo.com/customer/v2/auth/customer",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Post Auth Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/auth/customer",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "grant_type",
+                  "value": ""
+                },
+                {
+                  "name": "client_id",
+                  "value": ""
+                },
+                {
+                  "name": "client_secret",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Exchange OAuth credentials for an access token to call the Platform API."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Flows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Current Step Or Initialize A Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/customer/v2/flow/:userStateId",
+            "params": [
+              {
+                "name": "userStateId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the current step for an existing flow identified by `userStateId`, or initializes a new flow.\n"
+        },
+        {
+          "info": {
+            "name": "Submit Data For The Current Step Of A Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/flow/:userStateId",
+            "params": [
+              {
+                "name": "userStateId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit JSON payload for the current step."
+        },
+        {
+          "info": {
+            "name": "Submit File For The Current Step Of A Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/flow/:userStateId/file",
+            "params": [
+              {
+                "name": "userStateId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Submit a file (e.g. document image) for the current flow step."
+        },
+        {
+          "info": {
+            "name": "Backward Step In The Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/flow/:userStateId/back",
+            "params": [
+              {
+                "name": "userStateId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Compute a backward step in the flow execution."
+        },
+        {
+          "info": {
+            "name": "Post Handoff",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/handoff",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Notify the platform that control of the flow is being handed off between user-facing capture and backend processing.\n"
+        },
+        {
+          "info": {
+            "name": "Create Or Update User State",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/init",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new user state ID or update an existing one with init data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workflows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Workflows From Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/customer/v2/workflows"
+          },
+          "docs": "List all workflows defined in the organization."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "End Clients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Profiles From Your Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/customer/v2/profiles"
+          },
+          "docs": "List end-client profiles in your workspace."
+        },
+        {
+          "info": {
+            "name": "Retrieve Profile Data From A Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/customer/v2/profiles/:clientId",
+            "params": [
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the full profile (and verification data) for an end client."
+        },
+        {
+          "info": {
+            "name": "Retrieve A File From A Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/customer/v2/profiles/:clientId/file/:fileId",
+            "params": [
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download a file stored on an end-client profile."
+        },
+        {
+          "info": {
+            "name": "Create A Link Between Two End Clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/endclients/link",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Establish a relationship link between two end-client profiles."
+        },
+        {
+          "info": {
+            "name": "Delete A Link Between Two End Clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.trulioo.com/customer/v2/endclients/link",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove a link between two end-client profiles."
+        },
+        {
+          "info": {
+            "name": "Delete End Clients In Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/endclients/bulkdelete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk delete end-client profiles."
+        },
+        {
+          "info": {
+            "name": "Update End Clients Status In Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/endclients/bulkstatus",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk update the status of end-client profiles."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Signed URL For User Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/signedurl",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a signed URL for an end-user to access a hosted workflow session.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Dispatch a webhook event from the platform. Used by the Event Dispatcher to deliver workflow lifecycle events.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

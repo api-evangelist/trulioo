@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Verifications API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Verifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Verify A Person",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/v3/verifications/verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a Verify request to perform a KYC verification on a person. Trulioo selects the appropriate local datasources for the country specified in the `CountryCode` field, matches the supplied identity fields, and returns a normalized VerifyResult.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Transaction Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/verifications/transactionrecord/:transactionRecordId",
+            "params": [
+              {
+                "name": "transactionRecordId",
+                "value": "",
+                "type": "path",
+                "description": "TransactionRecordID returned by a previous Verify call."
+              }
+            ]
+          },
+          "docs": "Retrieve the full TransactionRecord for a previously executed Verify. Includes Record, DatasourceResults, and any AppendedFields returned by the datasources.\n"
+        },
+        {
+          "info": {
+            "name": "Get Transaction Record With Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/verifications/transactionrecord/:transactionRecordId/withaddress",
+            "params": [
+              {
+                "name": "transactionRecordId",
+                "value": "",
+                "type": "path",
+                "description": "TransactionRecordID returned by a previous Verify call."
+              }
+            ]
+          },
+          "docs": "Retrieve a transaction record including cleansed-address details."
+        },
+        {
+          "info": {
+            "name": "Get Transaction Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/verifications/transaction/:transactionId/status",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "TransactionID returned by a previous Verify call."
+              }
+            ]
+          },
+          "docs": "Get the current status of an asynchronous verification transaction identified by its TransactionID.\n"
+        },
+        {
+          "info": {
+            "name": "Get Partial Transaction Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/verifications/transaction/:transactionRecordId/partialresult",
+            "params": [
+              {
+                "name": "transactionRecordId",
+                "value": "",
+                "type": "path",
+                "description": "TransactionRecordID returned by a previous Verify call."
+              }
+            ]
+          },
+          "docs": "Retrieve partial results from an in-flight verification — useful when some datasources have returned but others are still processing.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download Evidence Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/verifications/documentdownload/:transactionRecordId/:fieldName",
+            "params": [
+              {
+                "name": "transactionRecordId",
+                "value": "",
+                "type": "path",
+                "description": "TransactionRecordID returned by a previous Verify call."
+              },
+              {
+                "name": "fieldName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the document field to retrieve."
+              }
+            ]
+          },
+          "docs": "Download an evidence document image (e.g. captured ID front, ID back, selfie) returned by a verification.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

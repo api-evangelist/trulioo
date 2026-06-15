@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Connection API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connection",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Say Hello",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/connection/sayhello/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Caller name to include in the greeting."
+              }
+            ]
+          },
+          "docs": "Unauthenticated ping that returns a hello message. Use for connectivity checks."
+        },
+        {
+          "info": {
+            "name": "Test Authentication",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/connection/testauthentication"
+          },
+          "docs": "Validates the caller's credentials. Returns the authenticated username when credentials are valid; 401 otherwise.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

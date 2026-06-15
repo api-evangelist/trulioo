@@ -1,0 +1,787 @@
+{
+  "info": {
+    "_postman_id": "35dafb79-223a-4f47-a001-b536d750ff62",
+    "name": "Trulioo Identity Document Verification API",
+    "description": "Capture, classify, and verify government-issued identity documents (driver's license, passport, national ID) paired with optional liveness selfie checks. Used to authenticate documents, extract MRZ/barcode data, and match the document photo to a captured selfie. Returns extracted fields, classification confidence, fraud signals, and document images.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:02:27.000Z",
+    "updatedAt": "2026-06-05T15:02:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-35dafb79-223a-4f47-a001-b536d750ff62"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "verifications",
+          "item": [
+            {
+              "name": "documentverification",
+              "item": [
+                {
+                  "name": "verify",
+                  "item": [
+                    {
+                      "name": "Document Verification Verify",
+                      "id": "3d2b45d6-d205-4604-9722-11da33a1abc9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"Document\": {\n      \"DocumentFrontImage\": \"<string>\",\n      \"DocumentBackImage\": \"<string>\",\n      \"LivePhoto\": \"<string>\",\n      \"DocumentType\": \"<string>\"\n    }\n  },\n  \"CustomerReferenceID\": \"<string>\",\n  \"CallBackUrl\": \"<uri>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verifications/documentverification/verify",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verifications",
+                            "documentverification",
+                            "verify"
+                          ]
+                        },
+                        "description": "Submit captured ID document images and an optional selfie for verification."
+                      },
+                      "response": [
+                        {
+                          "id": "62ef6993-ded3-4ae1-bafa-d5d7905b14b4",
+                          "name": "Document verification result.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"Document\": {\n      \"DocumentFrontImage\": \"<string>\",\n      \"DocumentBackImage\": \"<string>\",\n      \"LivePhoto\": \"<string>\",\n      \"DocumentType\": \"<string>\"\n    }\n  },\n  \"CustomerReferenceID\": \"<string>\",\n  \"CallBackUrl\": \"<uri>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verifications/documentverification/verify",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verifications",
+                                "documentverification",
+                                "verify"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"TransactionID\": \"<string>\",\n  \"TransactionRecordID\": \"<string>\",\n  \"DocumentClassification\": \"<string>\",\n  \"DocumentFields\": {\n    \"fugiat_815\": false,\n    \"dolor_1\": false,\n    \"ut878\": \"voluptate tempor ea deserunt\"\n  },\n  \"FaceMatchScore\": \"<number>\",\n  \"LivenessScore\": \"<number>\",\n  \"Errors\": [\n    {\n      \"laborum_026\": true,\n      \"voluptatef\": 70033274.1151017,\n      \"dolor_24\": \"et\",\n      \"velit3_\": -62941428,\n      \"sed_05\": 92212449.08768296\n    },\n    {\n      \"Lorem_82\": -52182438.70030754,\n      \"elit_e\": 44865362\n    }\n  ]\n}",
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-62ef6993-ded3-4ae1-bafa-d5d7905b14b4"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-3d2b45d6-d205-4604-9722-11da33a1abc9"
+                    }
+                  ],
+                  "id": "c161f229-55be-4556-86fe-dc4d0a220e08",
+                  "createdAt": "2026-06-05T15:02:28.000Z",
+                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                  "uid": "35240-c161f229-55be-4556-86fe-dc4d0a220e08"
+                }
+              ],
+              "id": "867aeab6-4d46-4a05-9aa7-d65c1ac192d3",
+              "createdAt": "2026-06-05T15:02:28.000Z",
+              "updatedAt": "2026-06-05T15:02:28.000Z",
+              "uid": "35240-867aeab6-4d46-4a05-9aa7-d65c1ac192d3"
+            },
+            {
+              "name": "documenttypes",
+              "item": [
+                {
+                  "name": "{countryCode}",
+                  "item": [
+                    {
+                      "name": "Get Document Types",
+                      "id": "bb7a21bd-7133-4c04-a4a0-90fcbd68a1dd",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/verifications/documenttypes/:countryCode",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "verifications",
+                            "documenttypes",
+                            ":countryCode"
+                          ],
+                          "variable": [
+                            {
+                              "id": "a6a2e088-f856-473f-af4c-5729a32194b2",
+                              "key": "countryCode",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Document types supported for a given country."
+                      },
+                      "response": [
+                        {
+                          "id": "5f309631-e9ac-4d18-be7f-d7bf474d5127",
+                          "name": "List of document type identifiers.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/verifications/documenttypes/:countryCode",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "verifications",
+                                "documenttypes",
+                                ":countryCode"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "countryCode"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-5f309631-e9ac-4d18-be7f-d7bf474d5127"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-bb7a21bd-7133-4c04-a4a0-90fcbd68a1dd"
+                    }
+                  ],
+                  "id": "cf24b3da-084e-43d3-9aec-bb98a63c1f2a",
+                  "createdAt": "2026-06-05T15:02:28.000Z",
+                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                  "uid": "35240-cf24b3da-084e-43d3-9aec-bb98a63c1f2a"
+                }
+              ],
+              "id": "f3a580a3-6086-42b0-babc-3f93cb742786",
+              "createdAt": "2026-06-05T15:02:28.000Z",
+              "updatedAt": "2026-06-05T15:02:28.000Z",
+              "uid": "35240-f3a580a3-6086-42b0-babc-3f93cb742786"
+            }
+          ],
+          "id": "1601486c-2e9f-4aea-a87c-0970df40cac9",
+          "createdAt": "2026-06-05T15:02:28.000Z",
+          "updatedAt": "2026-06-05T15:02:28.000Z",
+          "uid": "35240-1601486c-2e9f-4aea-a87c-0970df40cac9"
+        },
+        {
+          "name": "knownfaces",
+          "item": [
+            {
+              "name": "lists",
+              "item": [
+                {
+                  "name": "{listId}",
+                  "item": [
+                    {
+                      "name": "transactions",
+                      "item": [
+                        {
+                          "name": "Get Known Faces List Transactions",
+                          "id": "6836320d-2a17-4962-904d-ab0c41a54872",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/knownfaces/lists/:listId/transactions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "knownfaces",
+                                "lists",
+                                ":listId",
+                                "transactions"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a5a84778-aa60-44ea-90b7-3c0fa4cf6cc3",
+                                  "key": "listId",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Retrieve transactions associated with a Known Faces list."
+                          },
+                          "response": [
+                            {
+                              "id": "6fef6357-ab13-480a-90f6-31e2c4d9fecb",
+                              "name": "Transactions.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/knownfaces/lists/:listId/transactions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "knownfaces",
+                                    "lists",
+                                    ":listId",
+                                    "transactions"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "listId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"culpa_c84\": -29117236,\n    \"proident8\": 39679841\n  },\n  {\n    \"infc\": \"incididunt sint non\",\n    \"proident_d\": -96118578,\n    \"voluptate_96\": \"Ut ut ad nisi\"\n  }\n]",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-6fef6357-ab13-480a-90f6-31e2c4d9fecb"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-6836320d-2a17-4962-904d-ab0c41a54872"
+                        },
+                        {
+                          "name": "Add Known Faces List Transaction",
+                          "id": "b102a0c6-cbb4-4e84-ac36-f4cec9f4cfd8",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"TransactionRecordId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/knownfaces/lists/:listId/transactions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "knownfaces",
+                                "lists",
+                                ":listId",
+                                "transactions"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "01ec59fa-698f-44c8-9fb4-293e95855e93",
+                                  "key": "listId",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Enroll a transaction into a Known Faces list."
+                          },
+                          "response": [
+                            {
+                              "id": "1b776fc0-33dc-48db-9f77-95a82c6955f5",
+                              "name": "Enrolled.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"TransactionRecordId\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/knownfaces/lists/:listId/transactions",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "knownfaces",
+                                    "lists",
+                                    ":listId",
+                                    "transactions"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "listId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-1b776fc0-33dc-48db-9f77-95a82c6955f5"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-b102a0c6-cbb4-4e84-ac36-f4cec9f4cfd8"
+                        }
+                      ],
+                      "id": "fc1b7164-7890-4874-a62d-3652c7163fe3",
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-fc1b7164-7890-4874-a62d-3652c7163fe3"
+                    },
+                    {
+                      "name": "Delete Known Faces List",
+                      "id": "706e43a9-7f82-4e30-a81d-fe64a8170f97",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/knownfaces/lists/:listId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "knownfaces",
+                            "lists",
+                            ":listId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "78cc76b6-9b7b-445c-bb15-4ff5d2d03791",
+                              "key": "listId",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Delete a Known Faces list."
+                      },
+                      "response": [
+                        {
+                          "id": "47095b3e-caf6-4503-92fd-6566401f8a0b",
+                          "name": "Deleted.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/knownfaces/lists/:listId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "knownfaces",
+                                "lists",
+                                ":listId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "listId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-47095b3e-caf6-4503-92fd-6566401f8a0b"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-706e43a9-7f82-4e30-a81d-fe64a8170f97"
+                    }
+                  ],
+                  "id": "c5cb1a35-466a-4bc4-836e-912e56de8f08",
+                  "createdAt": "2026-06-05T15:02:28.000Z",
+                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                  "uid": "35240-c5cb1a35-466a-4bc4-836e-912e56de8f08"
+                },
+                {
+                  "name": "Get Known Faces Lists",
+                  "id": "8fad9df4-2004-4fc6-ad5d-dfece78753b0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/knownfaces/lists",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "knownfaces",
+                        "lists"
+                      ]
+                    },
+                    "description": "List configured Known Faces watchlists."
+                  },
+                  "response": [
+                    {
+                      "id": "2b875d3d-ef9d-45a2-8c8e-f77ae43d7c97",
+                      "name": "Lists.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/knownfaces/lists",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "knownfaces",
+                            "lists"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"Id\": \"<string>\",\n    \"Name\": \"<string>\",\n    \"Description\": \"<string>\"\n  },\n  {\n    \"Id\": \"<string>\",\n    \"Name\": \"<string>\",\n    \"Description\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-2b875d3d-ef9d-45a2-8c8e-f77ae43d7c97"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:02:28.000Z",
+                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                  "uid": "35240-8fad9df4-2004-4fc6-ad5d-dfece78753b0"
+                },
+                {
+                  "name": "Post Known Faces List",
+                  "id": "c9d57d73-763b-4048-8564-a044cfbca806",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/knownfaces/lists",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "knownfaces",
+                        "lists"
+                      ]
+                    },
+                    "description": "Create a new Known Faces list."
+                  },
+                  "response": [
+                    {
+                      "id": "8e9937dd-3e4f-4f79-a828-97a3d4ddad1c",
+                      "name": "List created.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/knownfaces/lists",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "knownfaces",
+                            "lists"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-8e9937dd-3e4f-4f79-a828-97a3d4ddad1c"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:02:28.000Z",
+                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                  "uid": "35240-c9d57d73-763b-4048-8564-a044cfbca806"
+                }
+              ],
+              "id": "5b6a5923-86d1-49ee-8e62-a5f831acc25a",
+              "createdAt": "2026-06-05T15:02:28.000Z",
+              "updatedAt": "2026-06-05T15:02:28.000Z",
+              "uid": "35240-5b6a5923-86d1-49ee-8e62-a5f831acc25a"
+            }
+          ],
+          "id": "032ab957-dd06-4c20-94a2-655e55d53a45",
+          "createdAt": "2026-06-05T15:02:28.000Z",
+          "updatedAt": "2026-06-05T15:02:28.000Z",
+          "uid": "35240-032ab957-dd06-4c20-94a2-655e55d53a45"
+        }
+      ],
+      "id": "0b2a6df4-1021-428d-ba8e-a51549bdac4c",
+      "createdAt": "2026-06-05T15:02:28.000Z",
+      "updatedAt": "2026-06-05T15:02:28.000Z",
+      "uid": "35240-0b2a6df4-1021-428d-ba8e-a51549bdac4c"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.trulioo.com"
+    }
+  ]
+}

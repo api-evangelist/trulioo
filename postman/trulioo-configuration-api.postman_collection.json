@@ -1,0 +1,1217 @@
+{
+  "info": {
+    "_postman_id": "ae8d71a3-9ced-44d2-8f16-6e94c290f4e6",
+    "name": "Trulioo Configuration API",
+    "description": "Discovery endpoints for the Trulioo GlobalGateway. Use these endpoints to learn which countries, datasources, fields, document types, and consents are available for a configured product/package before submitting a Verify request. Returns metadata that drives client-side form generation and dynamic field selection.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:02:00.000Z",
+    "updatedAt": "2026-06-05T15:02:01.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ae8d71a3-9ced-44d2-8f16-6e94c290f4e6"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "configuration",
+          "item": [
+            {
+              "name": "packages",
+              "item": [
+                {
+                  "name": "Get List Of Packages",
+                  "id": "e969aebc-bafe-40d4-af3a-073d2c2e08ff",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/configuration/packages",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "configuration",
+                        "packages"
+                      ]
+                    },
+                    "description": "List all configured product packages available to the authenticated customer."
+                  },
+                  "response": [
+                    {
+                      "id": "7ee07468-0773-4225-8dcf-260a95437672",
+                      "name": "List of packages.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/configuration/packages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "configuration",
+                            "packages"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"ConfigurationName\": \"<string>\",\n    \"Description\": \"<string>\"\n  },\n  {\n    \"ConfigurationName\": \"<string>\",\n    \"Description\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:02:01.000Z",
+                      "updatedAt": "2026-06-05T15:02:01.000Z",
+                      "uid": "35240-7ee07468-0773-4225-8dcf-260a95437672"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:02:01.000Z",
+                  "updatedAt": "2026-06-05T15:02:01.000Z",
+                  "uid": "35240-e969aebc-bafe-40d4-af3a-073d2c2e08ff"
+                }
+              ],
+              "id": "f6e5ce2f-33f3-4631-bec9-ac4b167f83e9",
+              "createdAt": "2026-06-05T15:02:01.000Z",
+              "updatedAt": "2026-06-05T15:02:01.000Z",
+              "uid": "35240-f6e5ce2f-33f3-4631-bec9-ac4b167f83e9"
+            },
+            {
+              "name": "countrycodes",
+              "item": [
+                {
+                  "name": "{configurationName}",
+                  "item": [
+                    {
+                      "name": "Get Country Codes",
+                      "id": "0f5171f7-8bb7-4f12-b4ba-e04c0bf0e0c3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/configuration/countrycodes/:configurationName",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "configuration",
+                            "countrycodes",
+                            ":configurationName"
+                          ],
+                          "variable": [
+                            {
+                              "id": "6f63a335-f82c-4fe6-a9fc-9e31896c7c50",
+                              "key": "configurationName",
+                              "value": "<string>",
+                              "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                            }
+                          ]
+                        },
+                        "description": "Get the list of country codes supported by a given product configuration."
+                      },
+                      "response": [
+                        {
+                          "id": "b9c17f02-0103-4e4e-a7fd-f8b03bdb387c",
+                          "name": "List of ISO 3166 two-letter country codes.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/configuration/countrycodes/:configurationName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "configuration",
+                                "countrycodes",
+                                ":configurationName"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "configurationName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                          "createdAt": "2026-06-05T15:02:01.000Z",
+                          "updatedAt": "2026-06-05T15:02:01.000Z",
+                          "uid": "35240-b9c17f02-0103-4e4e-a7fd-f8b03bdb387c"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:01.000Z",
+                      "updatedAt": "2026-06-05T15:02:01.000Z",
+                      "uid": "35240-0f5171f7-8bb7-4f12-b4ba-e04c0bf0e0c3"
+                    }
+                  ],
+                  "id": "2547cbed-f761-44b9-b785-c9621970371e",
+                  "createdAt": "2026-06-05T15:02:01.000Z",
+                  "updatedAt": "2026-06-05T15:02:01.000Z",
+                  "uid": "35240-2547cbed-f761-44b9-b785-c9621970371e"
+                }
+              ],
+              "id": "26a3512b-d278-4c49-a570-87b6004ed7d1",
+              "createdAt": "2026-06-05T15:02:01.000Z",
+              "updatedAt": "2026-06-05T15:02:01.000Z",
+              "uid": "35240-26a3512b-d278-4c49-a570-87b6004ed7d1"
+            },
+            {
+              "name": "countrysubdivisions",
+              "item": [
+                {
+                  "name": "{countryCode}",
+                  "item": [
+                    {
+                      "name": "Get Country Subdivisions",
+                      "id": "7695d644-6938-402a-b017-cac6d22b2f54",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/configuration/countrysubdivisions/:countryCode",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "configuration",
+                            "countrysubdivisions",
+                            ":countryCode"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ca53842d-9c82-48d9-a3f7-e4b40f4941f7",
+                              "key": "countryCode",
+                              "value": "<string>",
+                              "description": "(Required) Two-letter ISO 3166 country code."
+                            }
+                          ]
+                        },
+                        "description": "Get the list of subdivisions (states/provinces) for a country."
+                      },
+                      "response": [
+                        {
+                          "id": "b7afc06f-aaef-4659-876c-bfea651d9d25",
+                          "name": "List of subdivisions.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/configuration/countrysubdivisions/:countryCode",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "configuration",
+                                "countrysubdivisions",
+                                ":countryCode"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "countryCode"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"Name\": \"<string>\",\n    \"Code\": \"<string>\"\n  },\n  {\n    \"Name\": \"<string>\",\n    \"Code\": \"<string>\"\n  }\n]",
+                          "createdAt": "2026-06-05T15:02:01.000Z",
+                          "updatedAt": "2026-06-05T15:02:01.000Z",
+                          "uid": "35240-b7afc06f-aaef-4659-876c-bfea651d9d25"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:01.000Z",
+                      "updatedAt": "2026-06-05T15:02:01.000Z",
+                      "uid": "35240-7695d644-6938-402a-b017-cac6d22b2f54"
+                    }
+                  ],
+                  "id": "a4defe11-4c24-4dc5-9fbf-f79fa72746ab",
+                  "createdAt": "2026-06-05T15:02:01.000Z",
+                  "updatedAt": "2026-06-05T15:02:01.000Z",
+                  "uid": "35240-a4defe11-4c24-4dc5-9fbf-f79fa72746ab"
+                }
+              ],
+              "id": "c29404a2-28fe-412a-9ab1-21a2e197d90a",
+              "createdAt": "2026-06-05T15:02:01.000Z",
+              "updatedAt": "2026-06-05T15:02:01.000Z",
+              "uid": "35240-c29404a2-28fe-412a-9ab1-21a2e197d90a"
+            },
+            {
+              "name": "fields",
+              "item": [
+                {
+                  "name": "{configurationName}",
+                  "item": [
+                    {
+                      "name": "{countryCode}",
+                      "item": [
+                        {
+                          "name": "recommended",
+                          "item": [
+                            {
+                              "name": "Get Recommended Fields",
+                              "id": "0238ab3d-428f-46b8-92a8-b882d404d6cf",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/configuration/fields/:configurationName/:countryCode/recommended",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "configuration",
+                                    "fields",
+                                    ":configurationName",
+                                    ":countryCode",
+                                    "recommended"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "e202e22a-f507-4801-88f4-11ef5a9216d1",
+                                      "key": "configurationName",
+                                      "value": "<string>",
+                                      "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                                    },
+                                    {
+                                      "id": "28f08821-5d20-48a4-8e58-f3c694a6fc11",
+                                      "key": "countryCode",
+                                      "value": "<string>",
+                                      "description": "(Required) Two-letter ISO 3166 country code."
+                                    }
+                                  ]
+                                },
+                                "description": "Get the recommended (most likely to match) field combination for a country/product."
+                              },
+                              "response": [
+                                {
+                                  "id": "d8481b29-72bb-43ab-a78a-ae6ba03fe07e",
+                                  "name": "Recommended field set.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: basic",
+                                        "key": "Authorization",
+                                        "value": "Basic <credentials>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v3/configuration/fields/:configurationName/:countryCode/recommended",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v3",
+                                        "configuration",
+                                        "fields",
+                                        ":configurationName",
+                                        ":countryCode",
+                                        "recommended"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "configurationName"
+                                        },
+                                        {
+                                          "key": "countryCode"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"cillum3\": true,\n  \"in_1\": -84963383\n}",
+                                  "createdAt": "2026-06-05T15:02:01.000Z",
+                                  "updatedAt": "2026-06-05T15:02:01.000Z",
+                                  "uid": "35240-d8481b29-72bb-43ab-a78a-ae6ba03fe07e"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:02:01.000Z",
+                              "updatedAt": "2026-06-05T15:02:01.000Z",
+                              "uid": "35240-0238ab3d-428f-46b8-92a8-b882d404d6cf"
+                            }
+                          ],
+                          "id": "04d0228d-82cf-4538-ba5d-c7b7d2e924a4",
+                          "createdAt": "2026-06-05T15:02:01.000Z",
+                          "updatedAt": "2026-06-05T15:02:01.000Z",
+                          "uid": "35240-04d0228d-82cf-4538-ba5d-c7b7d2e924a4"
+                        },
+                        {
+                          "name": "Get Fields",
+                          "id": "748cacee-33ca-4b3e-b7b3-0f41748398df",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/configuration/fields/:configurationName/:countryCode",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "configuration",
+                                "fields",
+                                ":configurationName",
+                                ":countryCode"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "076994bd-d4a1-4844-81ca-2751a41af161",
+                                  "key": "configurationName",
+                                  "value": "<string>",
+                                  "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                                },
+                                {
+                                  "id": "dd10a3f0-8e6a-4aed-90ad-c059d2367dcc",
+                                  "key": "countryCode",
+                                  "value": "<string>",
+                                  "description": "(Required) Two-letter ISO 3166 country code."
+                                }
+                              ]
+                            },
+                            "description": "Get the full set of accepted input fields for a country/product."
+                          },
+                          "response": [
+                            {
+                              "id": "62e36cc5-d20e-47de-9f9a-0a1e386949f4",
+                              "name": "JSON Schema describing accepted fields.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/configuration/fields/:configurationName/:countryCode",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "configuration",
+                                    "fields",
+                                    ":configurationName",
+                                    ":countryCode"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "configurationName"
+                                    },
+                                    {
+                                      "key": "countryCode"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"cillum3\": true,\n  \"in_1\": -84963383\n}",
+                              "createdAt": "2026-06-05T15:02:01.000Z",
+                              "updatedAt": "2026-06-05T15:02:01.000Z",
+                              "uid": "35240-62e36cc5-d20e-47de-9f9a-0a1e386949f4"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:01.000Z",
+                          "updatedAt": "2026-06-05T15:02:01.000Z",
+                          "uid": "35240-748cacee-33ca-4b3e-b7b3-0f41748398df"
+                        }
+                      ],
+                      "id": "8807f548-cf87-4c83-9058-480fabaccc09",
+                      "createdAt": "2026-06-05T15:02:01.000Z",
+                      "updatedAt": "2026-06-05T15:02:01.000Z",
+                      "uid": "35240-8807f548-cf87-4c83-9058-480fabaccc09"
+                    }
+                  ],
+                  "id": "8476baac-dff4-48e3-b06e-b4158ea7aede",
+                  "createdAt": "2026-06-05T15:02:01.000Z",
+                  "updatedAt": "2026-06-05T15:02:01.000Z",
+                  "uid": "35240-8476baac-dff4-48e3-b06e-b4158ea7aede"
+                }
+              ],
+              "id": "45040127-2af2-4eb5-b232-c0f4678f6426",
+              "createdAt": "2026-06-05T15:02:01.000Z",
+              "updatedAt": "2026-06-05T15:02:01.000Z",
+              "uid": "35240-45040127-2af2-4eb5-b232-c0f4678f6426"
+            },
+            {
+              "name": "datasources",
+              "item": [
+                {
+                  "name": "{configurationName}",
+                  "item": [
+                    {
+                      "name": "{countryCode}",
+                      "item": [
+                        {
+                          "name": "Get Datasources",
+                          "id": "4729ee34-f1f1-4861-ade8-6216d0563693",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/configuration/datasources/:configurationName/:countryCode",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "configuration",
+                                "datasources",
+                                ":configurationName",
+                                ":countryCode"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e26f1845-e6b0-48bf-a92d-39c54b069c29",
+                                  "key": "configurationName",
+                                  "value": "<string>",
+                                  "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                                },
+                                {
+                                  "id": "dc1cf5b6-3ee7-49b8-9606-d18988876496",
+                                  "key": "countryCode",
+                                  "value": "<string>",
+                                  "description": "(Required) Two-letter ISO 3166 country code."
+                                }
+                              ]
+                            },
+                            "description": "Get the list of available datasources for a country/product."
+                          },
+                          "response": [
+                            {
+                              "id": "8e346a22-9348-48d1-be2f-2365151609d5",
+                              "name": "List of datasource groups.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/configuration/datasources/:configurationName/:countryCode",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "configuration",
+                                    "datasources",
+                                    ":configurationName",
+                                    ":countryCode"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "configurationName"
+                                    },
+                                    {
+                                      "key": "countryCode"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"GroupName\": \"<string>\",\n    \"GroupCountry\": \"<string>\",\n    \"Datasources\": [\n      {\n        \"DatasourceName\": \"<string>\",\n        \"DatasourceFields\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"DatasourceName\": \"<string>\",\n        \"DatasourceFields\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  },\n  {\n    \"GroupName\": \"<string>\",\n    \"GroupCountry\": \"<string>\",\n    \"Datasources\": [\n      {\n        \"DatasourceName\": \"<string>\",\n        \"DatasourceFields\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"DatasourceName\": \"<string>\",\n        \"DatasourceFields\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  }\n]",
+                              "createdAt": "2026-06-05T15:02:01.000Z",
+                              "updatedAt": "2026-06-05T15:02:01.000Z",
+                              "uid": "35240-8e346a22-9348-48d1-be2f-2365151609d5"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:01.000Z",
+                          "updatedAt": "2026-06-05T15:02:01.000Z",
+                          "uid": "35240-4729ee34-f1f1-4861-ade8-6216d0563693"
+                        }
+                      ],
+                      "id": "c32001fc-c1aa-4b43-9398-d6eecf1d00ec",
+                      "createdAt": "2026-06-05T15:02:01.000Z",
+                      "updatedAt": "2026-06-05T15:02:01.000Z",
+                      "uid": "35240-c32001fc-c1aa-4b43-9398-d6eecf1d00ec"
+                    }
+                  ],
+                  "id": "1da084b7-c170-4831-9f17-6ca68333bbe2",
+                  "createdAt": "2026-06-05T15:02:01.000Z",
+                  "updatedAt": "2026-06-05T15:02:01.000Z",
+                  "uid": "35240-1da084b7-c170-4831-9f17-6ca68333bbe2"
+                }
+              ],
+              "id": "d0e17643-2711-44e1-83b8-f1f0cbe63c76",
+              "createdAt": "2026-06-05T15:02:01.000Z",
+              "updatedAt": "2026-06-05T15:02:01.000Z",
+              "uid": "35240-d0e17643-2711-44e1-83b8-f1f0cbe63c76"
+            },
+            {
+              "name": "consents",
+              "item": [
+                {
+                  "name": "{configurationName}",
+                  "item": [
+                    {
+                      "name": "{countryCode}",
+                      "item": [
+                        {
+                          "name": "detail",
+                          "item": [
+                            {
+                              "name": "Get Detailed Consents",
+                              "id": "28793011-a817-4f31-9a51-f105c8f58ea1",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/configuration/consents/:configurationName/:countryCode/detail",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "configuration",
+                                    "consents",
+                                    ":configurationName",
+                                    ":countryCode",
+                                    "detail"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "5cc777b6-2c74-4368-8a98-2f23b6327c75",
+                                      "key": "configurationName",
+                                      "value": "<string>",
+                                      "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                                    },
+                                    {
+                                      "id": "a5b24a83-32f9-4686-b22d-85f05ebbc3f3",
+                                      "key": "countryCode",
+                                      "value": "<string>",
+                                      "description": "(Required) Two-letter ISO 3166 country code."
+                                    }
+                                  ]
+                                },
+                                "description": "Detailed consent metadata including text to present to end-users."
+                              },
+                              "response": [
+                                {
+                                  "id": "6a875caa-d3af-4b77-889d-ecc2143c2098",
+                                  "name": "List of detailed consents.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: basic",
+                                        "key": "Authorization",
+                                        "value": "Basic <credentials>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v3/configuration/consents/:configurationName/:countryCode/detail",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v3",
+                                        "configuration",
+                                        "consents",
+                                        ":configurationName",
+                                        ":countryCode",
+                                        "detail"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "configurationName"
+                                        },
+                                        {
+                                          "key": "countryCode"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "[\n  {\n    \"Name\": \"<string>\",\n    \"Text\": \"<string>\",\n    \"TextSummary\": \"<string>\"\n  },\n  {\n    \"Name\": \"<string>\",\n    \"Text\": \"<string>\",\n    \"TextSummary\": \"<string>\"\n  }\n]",
+                                  "createdAt": "2026-06-05T15:02:01.000Z",
+                                  "updatedAt": "2026-06-05T15:02:01.000Z",
+                                  "uid": "35240-6a875caa-d3af-4b77-889d-ecc2143c2098"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:02:01.000Z",
+                              "updatedAt": "2026-06-05T15:02:01.000Z",
+                              "uid": "35240-28793011-a817-4f31-9a51-f105c8f58ea1"
+                            }
+                          ],
+                          "id": "da722755-f6ed-4c5a-b1c4-bf5080b7fc50",
+                          "createdAt": "2026-06-05T15:02:01.000Z",
+                          "updatedAt": "2026-06-05T15:02:01.000Z",
+                          "uid": "35240-da722755-f6ed-4c5a-b1c4-bf5080b7fc50"
+                        },
+                        {
+                          "name": "Get Consents",
+                          "id": "384e5abf-6cec-44a4-a952-a60c858f3f3a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/configuration/consents/:configurationName/:countryCode",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "configuration",
+                                "consents",
+                                ":configurationName",
+                                ":countryCode"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "92365ef8-267c-4f8d-94bd-ffef540b0286",
+                                  "key": "configurationName",
+                                  "value": "<string>",
+                                  "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                                },
+                                {
+                                  "id": "883d131f-3c87-47ec-bba8-842137f63ea8",
+                                  "key": "countryCode",
+                                  "value": "<string>",
+                                  "description": "(Required) Two-letter ISO 3166 country code."
+                                }
+                              ]
+                            },
+                            "description": "List datasources that require end-user consent for a country/product."
+                          },
+                          "response": [
+                            {
+                              "id": "7fee77d0-bb43-4546-9405-6589c783ff63",
+                              "name": "List of consent strings.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/configuration/consents/:configurationName/:countryCode",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "configuration",
+                                    "consents",
+                                    ":configurationName",
+                                    ":countryCode"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "configurationName"
+                                    },
+                                    {
+                                      "key": "countryCode"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                              "createdAt": "2026-06-05T15:02:01.000Z",
+                              "updatedAt": "2026-06-05T15:02:01.000Z",
+                              "uid": "35240-7fee77d0-bb43-4546-9405-6589c783ff63"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:01.000Z",
+                          "updatedAt": "2026-06-05T15:02:01.000Z",
+                          "uid": "35240-384e5abf-6cec-44a4-a952-a60c858f3f3a"
+                        }
+                      ],
+                      "id": "5957df27-c679-44c7-a07c-ab8814389ecf",
+                      "createdAt": "2026-06-05T15:02:01.000Z",
+                      "updatedAt": "2026-06-05T15:02:01.000Z",
+                      "uid": "35240-5957df27-c679-44c7-a07c-ab8814389ecf"
+                    }
+                  ],
+                  "id": "9d51d757-8888-4cd4-af22-115cb98d4d79",
+                  "createdAt": "2026-06-05T15:02:01.000Z",
+                  "updatedAt": "2026-06-05T15:02:01.000Z",
+                  "uid": "35240-9d51d757-8888-4cd4-af22-115cb98d4d79"
+                }
+              ],
+              "id": "44dbc98f-fb3e-4053-8543-7b4944954537",
+              "createdAt": "2026-06-05T15:02:01.000Z",
+              "updatedAt": "2026-06-05T15:02:01.000Z",
+              "uid": "35240-44dbc98f-fb3e-4053-8543-7b4944954537"
+            },
+            {
+              "name": "testentities",
+              "item": [
+                {
+                  "name": "{configurationName}",
+                  "item": [
+                    {
+                      "name": "{countryCode}",
+                      "item": [
+                        {
+                          "name": "Get Test Entities",
+                          "id": "a9b264e5-4da2-4b5a-97f3-5cd08d8ed0fe",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/configuration/testentities/:configurationName/:countryCode",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "configuration",
+                                "testentities",
+                                ":configurationName",
+                                ":countryCode"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "4933e073-c65f-4000-bd80-d5880101bc4f",
+                                  "key": "configurationName",
+                                  "value": "<string>",
+                                  "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                                },
+                                {
+                                  "id": "7741f8c9-2e58-45e0-84ea-6169b1dfd76c",
+                                  "key": "countryCode",
+                                  "value": "<string>",
+                                  "description": "(Required) Two-letter ISO 3166 country code."
+                                }
+                              ]
+                            },
+                            "description": "Pre-canned test entities that resolve deterministically in sandbox mode."
+                          },
+                          "response": [
+                            {
+                              "id": "4fdd6fac-bdab-468e-a95b-a7c69b298d05",
+                              "name": "List of test entities.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v3/configuration/testentities/:configurationName/:countryCode",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v3",
+                                    "configuration",
+                                    "testentities",
+                                    ":configurationName",
+                                    ":countryCode"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "configurationName"
+                                    },
+                                    {
+                                      "key": "countryCode"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"Profile\": \"<string>\",\n    \"Description\": \"<string>\",\n    \"Fields\": {\n      \"enim43\": true,\n      \"non_a\": false\n    }\n  },\n  {\n    \"Profile\": \"<string>\",\n    \"Description\": \"<string>\",\n    \"Fields\": {\n      \"esse_1\": true,\n      \"consectetur_c2\": true\n    }\n  }\n]",
+                              "createdAt": "2026-06-05T15:02:01.000Z",
+                              "updatedAt": "2026-06-05T15:02:01.000Z",
+                              "uid": "35240-4fdd6fac-bdab-468e-a95b-a7c69b298d05"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:01.000Z",
+                          "updatedAt": "2026-06-05T15:02:01.000Z",
+                          "uid": "35240-a9b264e5-4da2-4b5a-97f3-5cd08d8ed0fe"
+                        }
+                      ],
+                      "id": "3879d3cc-d7c5-4099-8dea-617c1414e268",
+                      "createdAt": "2026-06-05T15:02:01.000Z",
+                      "updatedAt": "2026-06-05T15:02:01.000Z",
+                      "uid": "35240-3879d3cc-d7c5-4099-8dea-617c1414e268"
+                    }
+                  ],
+                  "id": "431203c5-7de3-4a65-a096-e7c0453102aa",
+                  "createdAt": "2026-06-05T15:02:01.000Z",
+                  "updatedAt": "2026-06-05T15:02:01.000Z",
+                  "uid": "35240-431203c5-7de3-4a65-a096-e7c0453102aa"
+                }
+              ],
+              "id": "a52a0f9b-163d-4539-a47c-85f2de2a3656",
+              "createdAt": "2026-06-05T15:02:01.000Z",
+              "updatedAt": "2026-06-05T15:02:01.000Z",
+              "uid": "35240-a52a0f9b-163d-4539-a47c-85f2de2a3656"
+            },
+            {
+              "name": "documentTypes",
+              "item": [
+                {
+                  "name": "{countryCode}",
+                  "item": [
+                    {
+                      "name": "Get Document Types",
+                      "id": "60478003-aba3-4563-a283-3c9a4d8ab5d4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/configuration/documentTypes/:countryCode",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "configuration",
+                            "documentTypes",
+                            ":countryCode"
+                          ],
+                          "variable": [
+                            {
+                              "id": "eeac9e0b-0f17-4e51-8073-c64d9ef39f77",
+                              "key": "countryCode",
+                              "value": "<string>",
+                              "description": "(Required) Two-letter ISO 3166 country code."
+                            }
+                          ]
+                        },
+                        "description": "Document types supported for identity document verification per country."
+                      },
+                      "response": [
+                        {
+                          "id": "ec200818-a0fd-4724-8171-91d00feab29a",
+                          "name": "List of document type identifiers.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/configuration/documentTypes/:countryCode",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "configuration",
+                                "documentTypes",
+                                ":countryCode"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "countryCode"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                          "createdAt": "2026-06-05T15:02:01.000Z",
+                          "updatedAt": "2026-06-05T15:02:01.000Z",
+                          "uid": "35240-ec200818-a0fd-4724-8171-91d00feab29a"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:01.000Z",
+                      "updatedAt": "2026-06-05T15:02:01.000Z",
+                      "uid": "35240-60478003-aba3-4563-a283-3c9a4d8ab5d4"
+                    }
+                  ],
+                  "id": "296e38c7-c996-46ad-a711-a9f839e3199f",
+                  "createdAt": "2026-06-05T15:02:01.000Z",
+                  "updatedAt": "2026-06-05T15:02:01.000Z",
+                  "uid": "35240-296e38c7-c996-46ad-a711-a9f839e3199f"
+                }
+              ],
+              "id": "ae657142-867a-4898-871e-fec81ee10a4b",
+              "createdAt": "2026-06-05T15:02:01.000Z",
+              "updatedAt": "2026-06-05T15:02:01.000Z",
+              "uid": "35240-ae657142-867a-4898-871e-fec81ee10a4b"
+            }
+          ],
+          "id": "89b36099-958b-4450-b099-858106259097",
+          "createdAt": "2026-06-05T15:02:01.000Z",
+          "updatedAt": "2026-06-05T15:02:01.000Z",
+          "uid": "35240-89b36099-958b-4450-b099-858106259097"
+        }
+      ],
+      "id": "330705bd-fde6-4524-89af-bbc1ee8e9ff6",
+      "createdAt": "2026-06-05T15:02:01.000Z",
+      "updatedAt": "2026-06-05T15:02:01.000Z",
+      "uid": "35240-330705bd-fde6-4524-89af-bbc1ee8e9ff6"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.trulioo.com"
+    }
+  ]
+}

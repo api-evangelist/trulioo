@@ -1,0 +1,764 @@
+{
+  "item": [
+    {
+      "id": "48a03cf0-cb2b-4fc8-be6e-305ddb365384",
+      "name": "Document Verification",
+      "description": {
+        "content": "Submit and retrieve document verifications.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ef043979-e573-4c87-8bbb-f33cc0e94038",
+          "name": "Document Verification Verify",
+          "request": {
+            "name": "Document Verification Verify",
+            "description": {
+              "content": "Submit captured ID document images and an optional selfie for verification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "verifications",
+                "documentverification",
+                "verify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"Document\": {\n      \"DocumentFrontImage\": \"<byte>\",\n      \"DocumentBackImage\": \"<byte>\",\n      \"LivePhoto\": \"<byte>\",\n      \"DocumentType\": \"<string>\"\n    }\n  },\n  \"CustomerReferenceID\": \"<string>\",\n  \"CallBackUrl\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bdbd9a44-cac1-4836-83a2-de9994979e00",
+              "name": "Document verification result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "documentverification",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"Document\": {\n      \"DocumentFrontImage\": \"<byte>\",\n      \"DocumentBackImage\": \"<byte>\",\n      \"LivePhoto\": \"<byte>\",\n      \"DocumentType\": \"<string>\"\n    }\n  },\n  \"CustomerReferenceID\": \"<string>\",\n  \"CallBackUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TransactionID\": \"string\",\n  \"TransactionRecordID\": \"string\",\n  \"DocumentClassification\": \"string\",\n  \"DocumentFields\": {\n    \"key_0\": 3943.127955514292\n  },\n  \"FaceMatchScore\": 8715.167852245277,\n  \"LivenessScore\": 4120.893913522294,\n  \"Errors\": [\n    {\n      \"key_0\": true,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 2230.773455084876\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7afe9f07-a900-4717-a38f-8f5e7fc6344d",
+      "name": "Document Configuration",
+      "description": {
+        "content": "Discover document types per country.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5cec57a6-c0e2-4b8e-a216-e89ced403208",
+          "name": "Get Document Types",
+          "request": {
+            "name": "Get Document Types",
+            "description": {
+              "content": "Document types supported for a given country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "verifications",
+                "documenttypes",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "27297c80-8035-4759-804a-bc5cb7dfad55",
+              "name": "List of document type identifiers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "documenttypes",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "175d9d93-0041-4146-902b-b4d76dae3923",
+      "name": "Known Faces",
+      "description": {
+        "content": "Manage Known Faces lists for biometric watchlists.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c4dcd33e-f735-4118-9bdb-5b7636c3bee0",
+          "name": "Get Known Faces Lists",
+          "request": {
+            "name": "Get Known Faces Lists",
+            "description": {
+              "content": "List configured Known Faces watchlists.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "knownfaces",
+                "lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "411158c0-690f-4d6f-8ee2-0764bfa81e1b",
+              "name": "Lists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "knownfaces",
+                    "lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Id\": \"string\",\n    \"Name\": \"string\",\n    \"Description\": \"string\"\n  },\n  {\n    \"Id\": \"string\",\n    \"Name\": \"string\",\n    \"Description\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9301585a-06f1-4dbd-ae58-99000ee5abd4",
+          "name": "Post Known Faces List",
+          "request": {
+            "name": "Post Known Faces List",
+            "description": {
+              "content": "Create a new Known Faces list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "knownfaces",
+                "lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b3bd631-405c-429e-bde6-0d757ef2f8e8",
+              "name": "List created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "knownfaces",
+                    "lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Id\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Id\": \"string\",\n  \"Name\": \"string\",\n  \"Description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5acf0e19-aeae-4979-9608-ab5cbfaf5a50",
+          "name": "Delete Known Faces List",
+          "request": {
+            "name": "Delete Known Faces List",
+            "description": {
+              "content": "Delete a Known Faces list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "knownfaces",
+                "lists",
+                ":listId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34b16feb-7318-449e-98da-57a4d23d364f",
+              "name": "Deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "knownfaces",
+                    "lists",
+                    ":listId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20c00c74-9473-410f-b57e-15a098672bd9",
+          "name": "Get Known Faces List Transactions",
+          "request": {
+            "name": "Get Known Faces List Transactions",
+            "description": {
+              "content": "Retrieve transactions associated with a Known Faces list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "knownfaces",
+                "lists",
+                ":listId",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "feeb7067-8813-4479-8f27-224738f2b408",
+              "name": "Transactions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "knownfaces",
+                    "lists",
+                    ":listId",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": 7758,\n    \"key_1\": 447.01226096750867\n  },\n  {\n    \"key_0\": \"string\",\n    \"key_1\": true,\n    \"key_2\": false,\n    \"key_3\": \"string\",\n    \"key_4\": 4071.2994305263996\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f24f1448-3c22-4926-bd20-da7262f6a5f0",
+          "name": "Add Known Faces List Transaction",
+          "request": {
+            "name": "Add Known Faces List Transaction",
+            "description": {
+              "content": "Enroll a transaction into a Known Faces list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "knownfaces",
+                "lists",
+                ":listId",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"TransactionRecordId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "72bff93b-0a9e-44fe-997a-132ffbb18de2",
+              "name": "Enrolled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "knownfaces",
+                    "lists",
+                    ":listId",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TransactionRecordId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.trulioo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8baaac4b-ba00-4d9b-872e-ca1da836c1a3",
+    "name": "Trulioo Identity Document Verification API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Capture, classify, and verify government-issued identity documents (driver's license, passport, national ID) paired with optional liveness selfie checks. Used to authenticate documents, extract MRZ/barcode data, and match the document photo to a captured selfie. Returns extracted fields, classification confidence, fraud signals, and document images.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+      "type": "text/plain"
+    }
+  }
+}

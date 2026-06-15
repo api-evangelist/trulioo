@@ -1,0 +1,284 @@
+{
+  "info": {
+    "_postman_id": "8b37b110-cea6-4400-9a21-33d1c73d3c50",
+    "name": "Trulioo Connection API",
+    "description": "Health-check and authentication-test endpoints for the Trulioo platform. Use `sayhello` for a no-auth ping and `testauthentication` to verify your credentials before exercising paid endpoints.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:02:01.000Z",
+    "updatedAt": "2026-06-05T15:02:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8b37b110-cea6-4400-9a21-33d1c73d3c50"
+  },
+  "item": [
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "connection",
+          "item": [
+            {
+              "name": "sayhello",
+              "item": [
+                {
+                  "name": "{name}",
+                  "item": [
+                    {
+                      "name": "Say Hello",
+                      "id": "a0eb61a6-97f3-49ae-b47e-83db66eafafa",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/connection/sayhello/:name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "connection",
+                            "sayhello",
+                            ":name"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4cfd4034-49dd-4caf-93b3-3ddd7164ea64",
+                              "key": "name",
+                              "value": "<string>",
+                              "description": "(Required) Caller name to include in the greeting."
+                            }
+                          ]
+                        },
+                        "description": "Unauthenticated ping that returns a hello message. Use for connectivity checks."
+                      },
+                      "response": [
+                        {
+                          "id": "ca37c390-b446-404f-860a-acddfc9ec96d",
+                          "name": "Greeting string.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "text/plain"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/connection/sayhello/:name",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "connection",
+                                "sayhello",
+                                ":name"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "name"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "text/plain"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-06-05T15:02:02.000Z",
+                          "updatedAt": "2026-06-05T15:02:02.000Z",
+                          "uid": "35240-ca37c390-b446-404f-860a-acddfc9ec96d"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:02.000Z",
+                      "updatedAt": "2026-06-05T15:02:02.000Z",
+                      "uid": "35240-a0eb61a6-97f3-49ae-b47e-83db66eafafa"
+                    }
+                  ],
+                  "id": "165e1ccd-b1be-4d40-89ef-bfb08bb3208f",
+                  "createdAt": "2026-06-05T15:02:02.000Z",
+                  "updatedAt": "2026-06-05T15:02:02.000Z",
+                  "uid": "35240-165e1ccd-b1be-4d40-89ef-bfb08bb3208f"
+                }
+              ],
+              "id": "dd9d1ee7-e6b6-4bfb-8dd4-5c2661181742",
+              "createdAt": "2026-06-05T15:02:02.000Z",
+              "updatedAt": "2026-06-05T15:02:02.000Z",
+              "uid": "35240-dd9d1ee7-e6b6-4bfb-8dd4-5c2661181742"
+            },
+            {
+              "name": "testauthentication",
+              "item": [
+                {
+                  "name": "Test Authentication",
+                  "id": "c617b720-47c4-4d41-a716-af50b939d698",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/connection/testauthentication",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "connection",
+                        "testauthentication"
+                      ]
+                    },
+                    "description": "Validates the caller's credentials. Returns the authenticated username when credentials are valid; 401 otherwise.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "4831029e-a68d-4997-906b-62376f62a51f",
+                      "name": "Authenticated username.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/connection/testauthentication",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "connection",
+                            "testauthentication"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-06-05T15:02:02.000Z",
+                      "updatedAt": "2026-06-05T15:02:02.000Z",
+                      "uid": "35240-4831029e-a68d-4997-906b-62376f62a51f"
+                    },
+                    {
+                      "id": "1f544481-ca13-4029-a45a-ada7d487614b",
+                      "name": "Authentication failed.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/connection/testauthentication",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "connection",
+                            "testauthentication"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:02:02.000Z",
+                      "updatedAt": "2026-06-05T15:02:02.000Z",
+                      "uid": "35240-1f544481-ca13-4029-a45a-ada7d487614b"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:02:02.000Z",
+                  "updatedAt": "2026-06-05T15:02:02.000Z",
+                  "uid": "35240-c617b720-47c4-4d41-a716-af50b939d698"
+                }
+              ],
+              "id": "2201f4c2-6538-48a6-abc2-effb3b8d5262",
+              "createdAt": "2026-06-05T15:02:02.000Z",
+              "updatedAt": "2026-06-05T15:02:02.000Z",
+              "uid": "35240-2201f4c2-6538-48a6-abc2-effb3b8d5262"
+            }
+          ],
+          "id": "b366d0a4-12fb-4968-aaf6-e23078594d8e",
+          "createdAt": "2026-06-05T15:02:02.000Z",
+          "updatedAt": "2026-06-05T15:02:02.000Z",
+          "uid": "35240-b366d0a4-12fb-4968-aaf6-e23078594d8e"
+        }
+      ],
+      "id": "dedd6681-3b07-4a87-ba32-464bb095f95a",
+      "createdAt": "2026-06-05T15:02:02.000Z",
+      "updatedAt": "2026-06-05T15:02:02.000Z",
+      "uid": "35240-dedd6681-3b07-4a87-ba32-464bb095f95a"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.trulioo.com"
+    }
+  ]
+}

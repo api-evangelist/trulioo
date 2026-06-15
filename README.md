@@ -1,13 +1,26 @@
 # Trulioo (trulioo)
+
 Trulioo is a Vancouver-based global identity verification platform that operates GlobalGateway, a single-API gateway into 450+ data sources across 195+ countries for person verification (KYC), business verification (KYB), watchlist and PEP screening, identity document verification (DocV), biometric face match, and fraud-intelligence risk scoring. The Trulioo Platform layers Workflow Studio (hosted and low-code), reusable end-client profiles, event-driven webhooks, native mobile and web capture SDKs, and an MCP server on top of the underlying Verifications and Business APIs.
 
-**URL:** [Visit APIs.json](https://raw.githubusercontent.com/api-evangelist/trulioo/refs/heads/main/apis.yml)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/trulioo/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/trulioo/refs/heads/main/apis.yml)
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Scope
+
+- **Position:** Consuming
+- **Access:** 3rd-Party
 
 ## Tags
 
-- Identity Verification, KYC, KYB, AML, Watchlist Screening, Biometrics, Document Verification, Fraud Prevention, Compliance, Global Identity
+- Identity Verification
+- KYC
+- KYB
+- AML
+- Watchlist Screening
+- Biometrics
+- Document Verification
+- Fraud Prevention
+- Compliance
+- Global Identity
 
 ## Timestamps
 
@@ -17,137 +30,225 @@ Trulioo is a Vancouver-based global identity verification platform that operates
 ## APIs
 
 ### Trulioo Verifications API
+
 Normalized KYC / electronic identity verification API. Submit a Verify request with normalized PersonInfo, Communication, Location, NationalIds, and Documents fields and Trulioo's GlobalGateway routes the request across local data sources in 195+ countries. Companion endpoints retrieve transaction records, statuses, partial results, and downloadable document images.
 
-**Human URL:** [https://developer.trulioo.com/reference/identity-verifications](https://developer.trulioo.com/reference/identity-verifications)
+- **Human URL:** [https://developer.trulioo.com/reference/identity-verifications](https://developer.trulioo.com/reference/identity-verifications)
+- **Base URL:** `https://api.trulioo.com`
 
-**Base URL:** `https://api.trulioo.com`
+#### Tags
+
+- KYC
+- Identity Verification
+- Verifications
+- Transactions
+- Documents
+
+#### Properties
 
 - [Documentation](https://developer.trulioo.com/reference/identity-verifications)
 - [API Reference](https://developer.trulioo.com/reference/api-reference-overview)
-- [OpenAPI](openapi/trulioo-verifications-api-openapi.yml)
-- [JSON Schema — Verify Request](json-schema/trulioo-verify-request-schema.json)
-- [JSON Schema — Verify Result](json-schema/trulioo-verify-result-schema.json)
-- [JSON-LD](json-ld/trulioo-context.jsonld)
-- [Naftiko Capability — Verify](capabilities/verifications-verify.yaml)
-- [Naftiko Capability — Transactions](capabilities/verifications-transactions.yaml)
+- [OpenAPI](openapi/trulioo-verifications-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/trulioo-verifications-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/trulioo-verifications-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/trulioo-verify-request-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/trulioo-verify-result-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON-LD](json-ld/trulioo-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
 
 ### Trulioo Configuration API
+
 Discovery endpoints for the GlobalGateway. Learn which countries, datasources, fields, document types, consents, and test entities are available for a configured product / package before submitting a Verify request.
 
-**Human URL:** [https://developer.trulioo.com/reference/configuration-1](https://developer.trulioo.com/reference/configuration-1)
+- **Human URL:** [https://developer.trulioo.com/reference/configuration-1](https://developer.trulioo.com/reference/configuration-1)
+- **Base URL:** `https://api.trulioo.com`
 
-- [OpenAPI](openapi/trulioo-configuration-api-openapi.yml)
-- [Naftiko Capability — Configuration](capabilities/configuration-configuration.yaml)
+#### Tags
+
+- Configuration
+- Countries
+- Datasources
+- Fields
+- Consents
+
+#### Properties
+
+- [Documentation](https://developer.trulioo.com/reference/configuration-1)
+- [OpenAPI](openapi/trulioo-configuration-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/trulioo-configuration-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/trulioo-configuration-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Trulioo Connection API
+
 Health-check and authentication-test endpoints. `sayhello` is an unauthenticated ping; `testauthentication` verifies your credentials before exercising paid endpoints.
 
-**Human URL:** [https://developer.trulioo.com/reference/connection](https://developer.trulioo.com/reference/connection)
+- **Human URL:** [https://developer.trulioo.com/reference/connection](https://developer.trulioo.com/reference/connection)
+- **Base URL:** `https://api.trulioo.com`
 
-- [OpenAPI](openapi/trulioo-connection-api-openapi.yml)
-- [Naftiko Capability — Connection](capabilities/connection-connection.yaml)
+#### Tags
+
+- Connection
+- Health Check
+
+#### Properties
+
+- [Documentation](https://developer.trulioo.com/reference/connection)
+- [OpenAPI](openapi/trulioo-connection-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/trulioo-connection-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/trulioo-connection-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Trulioo Business Verification API
+
 Know Your Business (KYB) API for verifying legal entities, retrieving business registration data from official registries, listing officers and persons of significant control, and downloading business reports. Supports search-then-verify flows by name, registration number, and jurisdiction of incorporation.
 
-**Human URL:** [https://developer.trulioo.com/reference/kyb-business-verification](https://developer.trulioo.com/reference/kyb-business-verification)
+- **Human URL:** [https://developer.trulioo.com/reference/kyb-business-verification](https://developer.trulioo.com/reference/kyb-business-verification)
+- **Base URL:** `https://api.trulioo.com`
+
+#### Tags
+
+- KYB
+- Business Verification
+- Business Search
+- Business Reports
+- Jurisdiction Of Incorporation
+
+#### Properties
 
 - [Documentation](https://developer.trulioo.com/reference/kyb-business-verification)
-- [Guide — Business Verification](https://developer.trulioo.com/reference/guide-business-verification)
-- [OpenAPI](openapi/trulioo-business-verification-api-openapi.yml)
-- [JSON Schema — Business Record](json-schema/trulioo-business-record-schema.json)
-- [Naftiko Capability — Search](capabilities/business-verification-search.yaml)
-- [Naftiko Capability — Verify](capabilities/business-verification-verify.yaml)
+- [Guides](https://developer.trulioo.com/reference/guide-business-verification)
+- [OpenAPI](openapi/trulioo-business-verification-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/trulioo-business-verification-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/trulioo-business-verification-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/trulioo-business-record-schema.json) — [JSON Schema](https://json-schema.org/specification)
 
 ### Trulioo Person Fraud API
+
 Fraud Intelligence — Person Fraud risk scoring. Submit an identity payload and receive a risk verdict that aggregates third-party fraud signals, velocity checks, device intelligence, and identity-graph data.
 
-**Human URL:** [https://developer.trulioo.com/reference/fraud-intelligence-person-fraud](https://developer.trulioo.com/reference/fraud-intelligence-person-fraud)
+- **Human URL:** [https://developer.trulioo.com/reference/fraud-intelligence-person-fraud](https://developer.trulioo.com/reference/fraud-intelligence-person-fraud)
+- **Base URL:** `https://api.trulioo.com`
 
-- [OpenAPI](openapi/trulioo-person-fraud-api-openapi.yml)
-- [Naftiko Capability — Risk](capabilities/person-fraud-risk.yaml)
+#### Tags
+
+- Fraud Intelligence
+- Person Fraud
+- Risk Scoring
+
+#### Properties
+
+- [Documentation](https://developer.trulioo.com/reference/fraud-intelligence-person-fraud)
+- [OpenAPI](openapi/trulioo-person-fraud-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/trulioo-person-fraud-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/trulioo-person-fraud-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Trulioo Identity Document Verification API
+
 Capture, classify, and verify government-issued identity documents (driver's license, passport, national ID) paired with optional liveness selfie checks. Used to authenticate documents, extract MRZ / barcode data, match the document photo to a captured selfie, and manage Known Faces biometric watchlists.
 
-**Human URL:** [https://developer.trulioo.com/reference/identity-document-verification](https://developer.trulioo.com/reference/identity-document-verification)
+- **Human URL:** [https://developer.trulioo.com/reference/identity-document-verification](https://developer.trulioo.com/reference/identity-document-verification)
+- **Base URL:** `https://api.trulioo.com`
+
+#### Tags
+
+- Document Verification
+- DocV
+- Biometrics
+- Liveness
+- Known Faces
+
+#### Properties
 
 - [Documentation](https://developer.trulioo.com/reference/identity-document-verification)
-- [Documentation — Known Faces](https://developer.trulioo.com/reference/known-faces)
-- [OpenAPI](openapi/trulioo-document-verification-api-openapi.yml)
-- [Naftiko Capability — Verify](capabilities/document-verification-verify.yaml)
-- [Naftiko Capability — Known Faces](capabilities/document-verification-known-faces.yaml)
+- [Documentation](https://developer.trulioo.com/reference/known-faces)
+- [OpenAPI](openapi/trulioo-document-verification-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/trulioo-document-verification-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/trulioo-document-verification-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Trulioo Platform API
+
 Workflow Studio API. Drive hosted and embedded workflows: initialize a flow, submit data and files for each step, handle handoffs between user-facing capture and backend processing, and retrieve end-client profiles, files, workflow definitions, and transaction state. Backs both the Low-Code Workflow Studio and the API-first Workflow Studio integrations.
 
-**Human URL:** [https://developer.trulioo.com/reference/workflow-studio-api](https://developer.trulioo.com/reference/workflow-studio-api)
+- **Human URL:** [https://developer.trulioo.com/reference/workflow-studio-api](https://developer.trulioo.com/reference/workflow-studio-api)
+- **Base URL:** `https://api.trulioo.com`
 
-- [Documentation — Workflow Studio (API)](https://developer.trulioo.com/reference/workflow-studio-api)
-- [Documentation — Workflow Studio (Low-Code)](https://developer.trulioo.com/reference/workflow-studio-low-code)
-- [Webhooks — Event Dispatcher](https://developer.trulioo.com/reference/event-dispatcher)
-- [OpenAPI](openapi/trulioo-platform-api-openapi.yml)
-- [Naftiko Capability — Flows](capabilities/platform-flows.yaml)
-- [Naftiko Capability — End Clients](capabilities/platform-end-clients.yaml)
-- [Naftiko Capability — Workflows](capabilities/platform-workflows.yaml)
+#### Tags
 
-## Authentication
+- Workflow Studio
+- Platform
+- Flows
+- End Clients
+- Workflows
+- Sessions
+- Events
 
-Trulioo offers four authentication mechanisms:
+#### Properties
 
-- **HTTP Basic** — username/password supplied via the `Authorization: Basic` header. Used by the v3 Verifications, Configuration, Connection, Business, Document Verification, and Person Fraud APIs.
-- **OAuth 2.0 Client Credentials** — two-legged flow at `https://auth-api.trulioo.com/connect/token` (and `https://api.trulioo.com/customer/v2/auth/customer` for the Platform API). Used for the Workflow Studio / Platform API.
-- **HMAC** — request signing for additional integrity.
-- **Mutual TLS** — certificate-based authentication for enterprise customers.
-
-See: [Authentication](https://developer.trulioo.com/reference/authentication) · [HMAC](https://developer.trulioo.com/reference/hmac) · [Mutual TLS](https://developer.trulioo.com/reference/connecting-to-trulioos-api-using-mutual-tls)
-
-## SDKs
-
-| Language / Platform | Repo |
-|---|---|
-| C# (v3) | [trulioo/sdk-csharp-v3](https://github.com/trulioo/sdk-csharp-v3) |
-| Java (v3) | [trulioo/sdk-java-v3](https://github.com/trulioo/sdk-java-v3) |
-| C# (v1, legacy) | [trulioo/sdk-csharp-v1](https://github.com/trulioo/sdk-csharp-v1) |
-| Java (v1, legacy) | [trulioo/sdk-java-v1](https://github.com/trulioo/sdk-java-v1) |
-| iOS | [trulioo/trulioo-ios](https://github.com/trulioo/trulioo-ios) |
-| iOS Document Capture | [trulioo/kyc-documents-capture](https://github.com/trulioo/kyc-documents-capture) |
-| iOS DocV (legacy) | [trulioo/docv](https://github.com/trulioo/docv) |
-| Android Capture | [Android docs](https://developer.trulioo.com/reference/android) |
-| React Native Capture | [React Native docs](https://developer.trulioo.com/reference/react-native) |
-| Web Capture | [Web docs](https://developer.trulioo.com/reference/web) |
-| MCP Server (KYB) | [trulioo/mcp-server](https://github.com/trulioo/mcp-server) |
+- [Documentation](https://developer.trulioo.com/reference/workflow-studio-api)
+- [Documentation](https://developer.trulioo.com/reference/workflow-studio-low-code)
+- [Webhooks](https://developer.trulioo.com/reference/event-dispatcher)
+- [OpenAPI](openapi/trulioo-platform-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/trulioo-platform-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/trulioo-platform-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ## Common Properties
 
-- **Portal:** [https://www.trulioo.com](https://www.trulioo.com)
-- **Developer:** [https://developer.trulioo.com](https://developer.trulioo.com)
-- **API Reference:** [https://developer.trulioo.com/reference/api-reference-overview](https://developer.trulioo.com/reference/api-reference-overview)
-- **Getting Started:** [https://developer.trulioo.com/reference/getting-started-1](https://developer.trulioo.com/reference/getting-started-1)
-- **Multi-Region Hosting:** [https://developer.trulioo.com/reference/multi-region-hosting](https://developer.trulioo.com/reference/multi-region-hosting)
-- **Webhooks (Event Dispatcher):** [https://developer.trulioo.com/reference/event-dispatcher](https://developer.trulioo.com/reference/event-dispatcher)
-- **Changelog:** [https://developer.trulioo.com/docs/release-notes](https://developer.trulioo.com/docs/release-notes)
-- **Latest release (6.7):** [Platform Update 6.7](https://developer.trulioo.com/docs/platform-update-67)
-- **Knowledge Hub:** [https://knowledgehub.trulioo.com](https://knowledgehub.trulioo.com)
-- **Sandbox:** [Trulidemo](https://developer.trulioo.com/docs/trulidemo)
-- **Trust Center:** [https://www.trulioo.com/trust](https://www.trulioo.com/trust)
-- **llms.txt:** [https://developer.trulioo.com/llms.txt](https://developer.trulioo.com/llms.txt)
-- **GitHub:** [https://github.com/trulioo](https://github.com/trulioo)
-
-## Commercial Surface
-
-- [Plans / Pricing](plans/trulioo-plans-pricing.yml)
+- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
+- [Portal](https://www.trulioo.com)
+- [Documentation](https://developer.trulioo.com)
+- [Getting Started](https://developer.trulioo.com/reference/getting-started-1)
+- [API Reference](https://developer.trulioo.com/reference/api-reference-overview)
+- [Authentication](https://developer.trulioo.com/reference/authentication)
+- [Authentication](https://developer.trulioo.com/reference/hmac)
+- [Authentication](https://developer.trulioo.com/reference/connecting-to-trulioos-api-using-mutual-tls)
+- [Webhooks](https://developer.trulioo.com/reference/event-dispatcher)
+- [Changelog](https://developer.trulioo.com/docs/release-notes)
+- [Release Notes](https://developer.trulioo.com/docs/platform-update-67)
+- [Sandbox](https://developer.trulioo.com/docs/trulidemo)
+- [Support](https://support@trulioo.com)
+- [Support Portal](https://knowledgehub.trulioo.com)
+- [Status](https://status.trulioo.com)
+- [Trust Center](https://www.trulioo.com/trust)
+- [Security](https://www.trulioo.com/trust/security)
+- [Compliance](https://www.trulioo.com/trust/compliance)
+- [Privacy Policy](https://www.trulioo.com/legal/privacy-policy)
+- [Terms of Service](https://www.trulioo.com/legal/terms-of-service)
+- [Blog](https://www.trulioo.com/blog)
+- [Customers](https://www.trulioo.com/customers)
+- [Case Studies](https://www.trulioo.com/resource-library?type=case-studies)
+- [Resource Library](https://www.trulioo.com/resource-library)
+- [Pricing](https://www.trulioo.com/contact)
+- [Login](https://portal.trulioo.com)
+- [Sign Up](https://www.trulioo.com/contact-sales)
+- [Contact Sales](https://www.trulioo.com/contact-sales)
+- [Careers](https://www.trulioo.com/about-us/careers)
+- [About Us](https://www.trulioo.com/about-us)
+- [Leadership](https://www.trulioo.com/about-us/leadership)
+- [News](https://www.trulioo.com/news-and-events)
+- [GitHub Organization](https://github.com/trulioo)
+- [SDK](https://github.com/trulioo/sdk-csharp-v3)
+- [SDK](https://github.com/trulioo/sdk-java-v3)
+- [SDK](https://github.com/trulioo/sdk-csharp-v1)
+- [SDK](https://github.com/trulioo/sdk-java-v1)
+- [Mobile S D K](https://github.com/trulioo/trulioo-ios)
+- [Mobile S D K](https://github.com/trulioo/kyc-documents-capture)
+- [Mobile S D K](https://github.com/trulioo/docv)
+- [Mobile S D K](https://developer.trulioo.com/reference/android)
+- [Mobile S D K](https://developer.trulioo.com/reference/react-native)
+- [Web S D K](https://developer.trulioo.com/reference/web)
+- [M C P Server](https://github.com/trulioo/mcp-server)
+- [LinkedIn](https://www.linkedin.com/company/trulioo)
+- [Twitter](https://twitter.com/trulioo)
+- [Instagram](https://www.instagram.com/trulioo_global)
+- [Regions](https://developer.trulioo.com/reference/multi-region-hosting)
+- [Errors](https://developer.trulioo.com/reference/errors)
+- [Versioning](https://developer.trulioo.com/reference/api-reference-overview)
+- [llmstxt](https://developer.trulioo.com/llms.txt)
+- [Plans](plans/trulioo-plans-pricing.yml)
 - [Rate Limits](rate-limits/trulioo-rate-limits.yml)
-- [FinOps](finops/trulioo-finops.yml)
+- [Fin Ops](finops/trulioo-finops.yml)
+- [Features](undefined)
 
-## Spec Artifacts
+## Maintainers
 
-- [OpenAPI specs](openapi/) — 7 specs (Verifications, Configuration, Connection, Business Verification, Person Fraud, Document Verification, Platform)
-- [Naftiko Capabilities](capabilities/) — 11 capabilities across all seven APIs
-- [JSON Schema](json-schema/) — Verify Request, Verify Result, Business Record
-- [JSON Structure](json-structure/) — Verification result structure
-- [JSON-LD](json-ld/) — schema.org / trulioo vocab context
-- [Examples](examples/) — Verify, Business Search, Document Verify
-- [Spectral Rules](rules/) — `trulioo-rules.yml`
-- [Vocabulary](vocabulary/) — Operational vocabulary across products
+**FN:** Kin Lane
+**Email:** info@apievangelist.com
+**URL:** https://apievangelist.com

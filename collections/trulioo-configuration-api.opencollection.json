@@ -1,0 +1,243 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Configuration API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get List Of Packages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/configuration/packages"
+          },
+          "docs": "List all configured product packages available to the authenticated customer."
+        },
+        {
+          "info": {
+            "name": "Get Country Codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/configuration/countrycodes/:configurationName",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path",
+                "description": "Configured product/package name (e.g. \"Identity Verification\")."
+              }
+            ]
+          },
+          "docs": "Get the list of country codes supported by a given product configuration."
+        },
+        {
+          "info": {
+            "name": "Get Country Subdivisions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/configuration/countrysubdivisions/:countryCode",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "Two-letter ISO 3166 country code."
+              }
+            ]
+          },
+          "docs": "Get the list of subdivisions (states/provinces) for a country."
+        },
+        {
+          "info": {
+            "name": "Get Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/configuration/fields/:configurationName/:countryCode",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path",
+                "description": "Configured product/package name (e.g. \"Identity Verification\")."
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "Two-letter ISO 3166 country code."
+              }
+            ]
+          },
+          "docs": "Get the full set of accepted input fields for a country/product."
+        },
+        {
+          "info": {
+            "name": "Get Recommended Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/configuration/fields/:configurationName/:countryCode/recommended",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path",
+                "description": "Configured product/package name (e.g. \"Identity Verification\")."
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "Two-letter ISO 3166 country code."
+              }
+            ]
+          },
+          "docs": "Get the recommended (most likely to match) field combination for a country/product."
+        },
+        {
+          "info": {
+            "name": "Get Datasources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/configuration/datasources/:configurationName/:countryCode",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path",
+                "description": "Configured product/package name (e.g. \"Identity Verification\")."
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "Two-letter ISO 3166 country code."
+              }
+            ]
+          },
+          "docs": "Get the list of available datasources for a country/product."
+        },
+        {
+          "info": {
+            "name": "Get Consents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/configuration/consents/:configurationName/:countryCode",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path",
+                "description": "Configured product/package name (e.g. \"Identity Verification\")."
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "Two-letter ISO 3166 country code."
+              }
+            ]
+          },
+          "docs": "List datasources that require end-user consent for a country/product."
+        },
+        {
+          "info": {
+            "name": "Get Detailed Consents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/configuration/consents/:configurationName/:countryCode/detail",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path",
+                "description": "Configured product/package name (e.g. \"Identity Verification\")."
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "Two-letter ISO 3166 country code."
+              }
+            ]
+          },
+          "docs": "Detailed consent metadata including text to present to end-users."
+        },
+        {
+          "info": {
+            "name": "Get Test Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/configuration/testentities/:configurationName/:countryCode",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path",
+                "description": "Configured product/package name (e.g. \"Identity Verification\")."
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "Two-letter ISO 3166 country code."
+              }
+            ]
+          },
+          "docs": "Pre-canned test entities that resolve deterministically in sandbox mode."
+        },
+        {
+          "info": {
+            "name": "Get Document Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/configuration/documentTypes/:countryCode",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "Two-letter ISO 3166 country code."
+              }
+            ]
+          },
+          "docs": "Document types supported for identity document verification per country."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

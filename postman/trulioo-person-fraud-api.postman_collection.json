@@ -1,0 +1,552 @@
+{
+  "info": {
+    "_postman_id": "91b51c91-1fb4-4c91-9a4f-b58b6718282f",
+    "name": "Trulioo Person Fraud API",
+    "description": "Fraud Intelligence \u2014 Person Fraud risk scoring. Submit an identity payload and receive a risk verdict that aggregates third-party fraud signals, velocity checks, device intelligence, and identity-graph data.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:02:18.000Z",
+    "updatedAt": "2026-06-05T15:02:18.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-91b51c91-1fb4-4c91-9a4f-b58b6718282f"
+  },
+  "item": [
+    {
+      "name": "risk",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "check",
+              "item": [
+                {
+                  "name": "Person Fraud Check",
+                  "id": "aa43825c-f160-4eec-9040-17e4c8083985",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"culpa3\": true\n    },\n    \"Communication\": {\n      \"consectetur18\": -77216486,\n      \"culpad10\": \"irure magna culpa\",\n      \"Excepteur_86c\": false\n    },\n    \"Location\": {\n      \"id2_\": 82024227,\n      \"culpa_9_e\": true,\n      \"mollit4\": false,\n      \"dolore1c1\": \"mollit commodo ex et ut\"\n    },\n    \"Device\": {\n      \"eu_11\": -6588969.575015292,\n      \"proident2\": \"elit e\",\n      \"cillum_e9\": -37353455.097203135\n    }\n  },\n  \"CustomerReferenceID\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/risk/v1/check",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "risk",
+                        "v1",
+                        "check"
+                      ]
+                    },
+                    "description": "Perform a person-fraud risk check."
+                  },
+                  "response": [
+                    {
+                      "id": "002a9cd7-603b-406d-8494-37cd845e2cd2",
+                      "name": "Risk verdict.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"culpa3\": true\n    },\n    \"Communication\": {\n      \"consectetur18\": -77216486,\n      \"culpad10\": \"irure magna culpa\",\n      \"Excepteur_86c\": false\n    },\n    \"Location\": {\n      \"id2_\": 82024227,\n      \"culpa_9_e\": true,\n      \"mollit4\": false,\n      \"dolore1c1\": \"mollit commodo ex et ut\"\n    },\n    \"Device\": {\n      \"eu_11\": -6588969.575015292,\n      \"proident2\": \"elit e\",\n      \"cillum_e9\": -37353455.097203135\n    }\n  },\n  \"CustomerReferenceID\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/risk/v1/check",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "risk",
+                            "v1",
+                            "check"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"TransactionID\": \"<string>\",\n  \"RiskScore\": \"<number>\",\n  \"RiskVerdict\": \"pass\",\n  \"Reasons\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"DatasourceResults\": [\n    {\n      \"Duisb\": true\n    },\n    {\n      \"ad_1c\": -8289923,\n      \"commodo__49\": \"incididunt officia minim d\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:02:18.000Z",
+                      "updatedAt": "2026-06-05T15:02:18.000Z",
+                      "uid": "35240-002a9cd7-603b-406d-8494-37cd845e2cd2"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-aa43825c-f160-4eec-9040-17e4c8083985"
+                }
+              ],
+              "id": "56214e77-f91c-4a11-a572-a69192202ad2",
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-56214e77-f91c-4a11-a572-a69192202ad2"
+            },
+            {
+              "name": "configuration",
+              "item": [
+                {
+                  "name": "countrycodes",
+                  "item": [
+                    {
+                      "name": "{configurationName}",
+                      "item": [
+                        {
+                          "name": "Get Country Codes For Person Fraud",
+                          "id": "a6fb4c74-07ca-49ef-9eb3-b370b91cc23e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/risk/v1/configuration/countrycodes/:configurationName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "risk",
+                                "v1",
+                                "configuration",
+                                "countrycodes",
+                                ":configurationName"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "dbd529b2-a338-49b7-8673-cb6c8a911c2a",
+                                  "key": "configurationName",
+                                  "value": "<string>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Country codes configured for the Person Fraud product."
+                          },
+                          "response": [
+                            {
+                              "id": "dc77e4de-ea54-4e83-b78d-617e905d06ff",
+                              "name": "Country codes.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: basic",
+                                    "key": "Authorization",
+                                    "value": "Basic <credentials>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/risk/v1/configuration/countrycodes/:configurationName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "risk",
+                                    "v1",
+                                    "configuration",
+                                    "countrycodes",
+                                    ":configurationName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "configurationName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                              "createdAt": "2026-06-05T15:02:18.000Z",
+                              "updatedAt": "2026-06-05T15:02:18.000Z",
+                              "uid": "35240-dc77e4de-ea54-4e83-b78d-617e905d06ff"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:18.000Z",
+                          "updatedAt": "2026-06-05T15:02:18.000Z",
+                          "uid": "35240-a6fb4c74-07ca-49ef-9eb3-b370b91cc23e"
+                        }
+                      ],
+                      "id": "52e64bc7-9166-4a29-8ee3-236c8e911f81",
+                      "createdAt": "2026-06-05T15:02:18.000Z",
+                      "updatedAt": "2026-06-05T15:02:18.000Z",
+                      "uid": "35240-52e64bc7-9166-4a29-8ee3-236c8e911f81"
+                    }
+                  ],
+                  "id": "0b3f9fcc-bfcd-4b60-b66a-eab201150eab",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-0b3f9fcc-bfcd-4b60-b66a-eab201150eab"
+                },
+                {
+                  "name": "fields",
+                  "item": [
+                    {
+                      "name": "{configurationName}",
+                      "item": [
+                        {
+                          "name": "{countryCode}",
+                          "item": [
+                            {
+                              "name": "Get Fields For Person Fraud",
+                              "id": "3a814d4f-b182-4256-b930-fe873b92a6db",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/risk/v1/configuration/fields/:configurationName/:countryCode",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "risk",
+                                    "v1",
+                                    "configuration",
+                                    "fields",
+                                    ":configurationName",
+                                    ":countryCode"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "a98557ec-6961-4aa5-9a5b-3035772ae475",
+                                      "key": "configurationName",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "907e1cff-13b2-4cff-bab5-12fc5ba68c2b",
+                                      "key": "countryCode",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Field schema for the Person Fraud product per country."
+                              },
+                              "response": [
+                                {
+                                  "id": "f5a9dc7e-bab1-4731-a3df-c349a899ee2a",
+                                  "name": "Field schema.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: basic",
+                                        "key": "Authorization",
+                                        "value": "Basic <credentials>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/risk/v1/configuration/fields/:configurationName/:countryCode",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "risk",
+                                        "v1",
+                                        "configuration",
+                                        "fields",
+                                        ":configurationName",
+                                        ":countryCode"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "configurationName"
+                                        },
+                                        {
+                                          "key": "countryCode"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"aliquip8\": -63463601.27097883,\n  \"et_5a7\": -1892251\n}",
+                                  "createdAt": "2026-06-05T15:02:18.000Z",
+                                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                                  "uid": "35240-f5a9dc7e-bab1-4731-a3df-c349a899ee2a"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:02:18.000Z",
+                              "updatedAt": "2026-06-05T15:02:18.000Z",
+                              "uid": "35240-3a814d4f-b182-4256-b930-fe873b92a6db"
+                            }
+                          ],
+                          "id": "c5291450-0082-4d15-8af9-b9983ae93d3d",
+                          "createdAt": "2026-06-05T15:02:18.000Z",
+                          "updatedAt": "2026-06-05T15:02:18.000Z",
+                          "uid": "35240-c5291450-0082-4d15-8af9-b9983ae93d3d"
+                        }
+                      ],
+                      "id": "3514f512-f53d-4b95-9260-1e7b55194f8e",
+                      "createdAt": "2026-06-05T15:02:18.000Z",
+                      "updatedAt": "2026-06-05T15:02:18.000Z",
+                      "uid": "35240-3514f512-f53d-4b95-9260-1e7b55194f8e"
+                    }
+                  ],
+                  "id": "433cf6d7-26fa-42c1-912a-5422d9b5589c",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-433cf6d7-26fa-42c1-912a-5422d9b5589c"
+                },
+                {
+                  "name": "datasources",
+                  "item": [
+                    {
+                      "name": "{configurationName}",
+                      "item": [
+                        {
+                          "name": "{countryCode}",
+                          "item": [
+                            {
+                              "name": "Get Datasources For Person Fraud",
+                              "id": "66629eef-4b90-452c-a356-4945f7d1d68e",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/risk/v1/configuration/datasources/:configurationName/:countryCode",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "risk",
+                                    "v1",
+                                    "configuration",
+                                    "datasources",
+                                    ":configurationName",
+                                    ":countryCode"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "8a453453-4267-47c0-b7e0-6c1bd5e47981",
+                                      "key": "configurationName",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    },
+                                    {
+                                      "id": "6db536e1-3036-4475-b637-146e58d80848",
+                                      "key": "countryCode",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Available risk-data sources for the Person Fraud product per country."
+                              },
+                              "response": [
+                                {
+                                  "id": "55f5801f-5cd6-44d2-bfe0-5eb99ff71bb0",
+                                  "name": "List of datasources.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: basic",
+                                        "key": "Authorization",
+                                        "value": "Basic <credentials>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/risk/v1/configuration/datasources/:configurationName/:countryCode",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "risk",
+                                        "v1",
+                                        "configuration",
+                                        "datasources",
+                                        ":configurationName",
+                                        ":countryCode"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "configurationName"
+                                        },
+                                        {
+                                          "key": "countryCode"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "[\n  {\n    \"sit_4\": true\n  },\n  {\n    \"sitaf3\": 91452237\n  }\n]",
+                                  "createdAt": "2026-06-05T15:02:18.000Z",
+                                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                                  "uid": "35240-55f5801f-5cd6-44d2-bfe0-5eb99ff71bb0"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:02:18.000Z",
+                              "updatedAt": "2026-06-05T15:02:18.000Z",
+                              "uid": "35240-66629eef-4b90-452c-a356-4945f7d1d68e"
+                            }
+                          ],
+                          "id": "73b17b73-e281-40ae-88eb-1008ea9c3bb8",
+                          "createdAt": "2026-06-05T15:02:18.000Z",
+                          "updatedAt": "2026-06-05T15:02:18.000Z",
+                          "uid": "35240-73b17b73-e281-40ae-88eb-1008ea9c3bb8"
+                        }
+                      ],
+                      "id": "2532f6c4-1a01-4ab5-a550-cb0f64a596c5",
+                      "createdAt": "2026-06-05T15:02:18.000Z",
+                      "updatedAt": "2026-06-05T15:02:18.000Z",
+                      "uid": "35240-2532f6c4-1a01-4ab5-a550-cb0f64a596c5"
+                    }
+                  ],
+                  "id": "3c566761-531e-4cee-a136-a15728791f40",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-3c566761-531e-4cee-a136-a15728791f40"
+                }
+              ],
+              "id": "2dc75bef-0451-46b6-8f02-36361484e48d",
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-2dc75bef-0451-46b6-8f02-36361484e48d"
+            }
+          ],
+          "id": "e069a7d1-d72a-4b19-9f08-4c8ec6726f16",
+          "createdAt": "2026-06-05T15:02:18.000Z",
+          "updatedAt": "2026-06-05T15:02:18.000Z",
+          "uid": "35240-e069a7d1-d72a-4b19-9f08-4c8ec6726f16"
+        }
+      ],
+      "id": "fccefd18-2e8c-4f9e-abf7-c692aff98c6d",
+      "createdAt": "2026-06-05T15:02:18.000Z",
+      "updatedAt": "2026-06-05T15:02:18.000Z",
+      "uid": "35240-fccefd18-2e8c-4f9e-abf7-c692aff98c6d"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.trulioo.com"
+    }
+  ]
+}

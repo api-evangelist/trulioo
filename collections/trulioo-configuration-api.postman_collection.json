@@ -1,0 +1,1127 @@
+{
+  "item": [
+    {
+      "id": "17193f15-c0d8-47b6-95ab-f7de1b999396",
+      "name": "Configuration",
+      "description": {
+        "content": "Discover packages, countries, datasources, fields, and consents.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6ef9b46d-234f-44da-8d47-2a8b3a6b5f18",
+          "name": "Get List Of Packages",
+          "request": {
+            "name": "Get List Of Packages",
+            "description": {
+              "content": "List all configured product packages available to the authenticated customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "configuration",
+                "packages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dbd91333-8c98-4777-91a0-990a22b9572d",
+              "name": "List of packages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "configuration",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ConfigurationName\": \"string\",\n    \"Description\": \"string\"\n  },\n  {\n    \"ConfigurationName\": \"string\",\n    \"Description\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4ad9462-63ee-456e-9138-0227eb98278f",
+          "name": "Get Country Codes",
+          "request": {
+            "name": "Get Country Codes",
+            "description": {
+              "content": "Get the list of country codes supported by a given product configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "configuration",
+                "countrycodes",
+                ":configurationName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "configurationName",
+                  "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c6748b17-19ff-43c7-aeda-84cfcc9b6888",
+              "name": "List of ISO 3166 two-letter country codes.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "configuration",
+                    "countrycodes",
+                    ":configurationName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "configurationName",
+                      "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5434a099-7301-42ec-8073-421b012d209e",
+          "name": "Get Country Subdivisions",
+          "request": {
+            "name": "Get Country Subdivisions",
+            "description": {
+              "content": "Get the list of subdivisions (states/provinces) for a country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "configuration",
+                "countrysubdivisions",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) Two-letter ISO 3166 country code."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d05231a-f4f0-4653-a6b8-863a14e3ea0b",
+              "name": "List of subdivisions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "configuration",
+                    "countrysubdivisions",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) Two-letter ISO 3166 country code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"string\",\n    \"Code\": \"string\"\n  },\n  {\n    \"Name\": \"string\",\n    \"Code\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd561c86-5150-4e01-ac12-e33b8062df15",
+          "name": "Get Fields",
+          "request": {
+            "name": "Get Fields",
+            "description": {
+              "content": "Get the full set of accepted input fields for a country/product.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "configuration",
+                "fields",
+                ":configurationName",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "configurationName",
+                  "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) Two-letter ISO 3166 country code."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0546dfe-d6e8-488a-9a0b-905286063d82",
+              "name": "JSON Schema describing accepted fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "configuration",
+                    "fields",
+                    ":configurationName",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "configurationName",
+                      "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) Two-letter ISO 3166 country code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 9746,\n  \"key_1\": 8973,\n  \"key_2\": 4999.667031878979,\n  \"key_3\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5e59fef-bd1a-46e4-be87-312af127f4c2",
+          "name": "Get Recommended Fields",
+          "request": {
+            "name": "Get Recommended Fields",
+            "description": {
+              "content": "Get the recommended (most likely to match) field combination for a country/product.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "configuration",
+                "fields",
+                ":configurationName",
+                ":countryCode",
+                "recommended"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "configurationName",
+                  "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) Two-letter ISO 3166 country code."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2da105d-e6da-45e6-9d0a-f67d3c5ead6a",
+              "name": "Recommended field set.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "configuration",
+                    "fields",
+                    ":configurationName",
+                    ":countryCode",
+                    "recommended"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "configurationName",
+                      "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) Two-letter ISO 3166 country code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 9746,\n  \"key_1\": 8973,\n  \"key_2\": 4999.667031878979,\n  \"key_3\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88b368f2-2da7-4aa9-bc45-f30f040a6964",
+          "name": "Get Datasources",
+          "request": {
+            "name": "Get Datasources",
+            "description": {
+              "content": "Get the list of available datasources for a country/product.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "configuration",
+                "datasources",
+                ":configurationName",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "configurationName",
+                  "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) Two-letter ISO 3166 country code."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f0749330-8791-4787-988a-d0ab89749731",
+              "name": "List of datasource groups.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "configuration",
+                    "datasources",
+                    ":configurationName",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "configurationName",
+                      "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) Two-letter ISO 3166 country code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"GroupName\": \"string\",\n    \"GroupCountry\": \"string\",\n    \"Datasources\": [\n      {\n        \"DatasourceName\": \"string\",\n        \"DatasourceFields\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"DatasourceName\": \"string\",\n        \"DatasourceFields\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  {\n    \"GroupName\": \"string\",\n    \"GroupCountry\": \"string\",\n    \"Datasources\": [\n      {\n        \"DatasourceName\": \"string\",\n        \"DatasourceFields\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"DatasourceName\": \"string\",\n        \"DatasourceFields\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4af7b6f-8b18-445c-a00c-b819de390909",
+          "name": "Get Consents",
+          "request": {
+            "name": "Get Consents",
+            "description": {
+              "content": "List datasources that require end-user consent for a country/product.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "configuration",
+                "consents",
+                ":configurationName",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "configurationName",
+                  "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) Two-letter ISO 3166 country code."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cb4a7e23-2c14-48ae-bd43-0a2b8577ab6e",
+              "name": "List of consent strings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "configuration",
+                    "consents",
+                    ":configurationName",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "configurationName",
+                      "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) Two-letter ISO 3166 country code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7879c3b6-914e-4c05-8609-0b347c129cab",
+          "name": "Get Detailed Consents",
+          "request": {
+            "name": "Get Detailed Consents",
+            "description": {
+              "content": "Detailed consent metadata including text to present to end-users.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "configuration",
+                "consents",
+                ":configurationName",
+                ":countryCode",
+                "detail"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "configurationName",
+                  "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) Two-letter ISO 3166 country code."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd90f73d-2810-4e16-9c36-19d2b6c19d30",
+              "name": "List of detailed consents.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "configuration",
+                    "consents",
+                    ":configurationName",
+                    ":countryCode",
+                    "detail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "configurationName",
+                      "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) Two-letter ISO 3166 country code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"string\",\n    \"Text\": \"string\",\n    \"TextSummary\": \"string\"\n  },\n  {\n    \"Name\": \"string\",\n    \"Text\": \"string\",\n    \"TextSummary\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c84abd1b-75c8-47e1-bd48-92ce7497aa15",
+          "name": "Get Test Entities",
+          "request": {
+            "name": "Get Test Entities",
+            "description": {
+              "content": "Pre-canned test entities that resolve deterministically in sandbox mode.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "configuration",
+                "testentities",
+                ":configurationName",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "configurationName",
+                  "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) Two-letter ISO 3166 country code."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb0abbea-8498-4d80-80ce-90518d79ccbc",
+              "name": "List of test entities.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "configuration",
+                    "testentities",
+                    ":configurationName",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "configurationName",
+                      "description": "(Required) Configured product/package name (e.g. \"Identity Verification\")."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) Two-letter ISO 3166 country code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Profile\": \"string\",\n    \"Description\": \"string\",\n    \"Fields\": {\n      \"key_0\": 3582.7165715679143,\n      \"key_1\": \"string\",\n      \"key_2\": 2331\n    }\n  },\n  {\n    \"Profile\": \"string\",\n    \"Description\": \"string\",\n    \"Fields\": {\n      \"key_0\": 5074,\n      \"key_1\": true,\n      \"key_2\": 2769.518393788657\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f731a851-4745-4976-867f-f3c63e78b8fc",
+          "name": "Get Document Types",
+          "request": {
+            "name": "Get Document Types",
+            "description": {
+              "content": "Document types supported for identity document verification per country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "configuration",
+                "documentTypes",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) Two-letter ISO 3166 country code."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e423c9f3-1958-4f62-b372-fbc5dbcda843",
+              "name": "List of document type identifiers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "configuration",
+                    "documentTypes",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) Two-letter ISO 3166 country code."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.trulioo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e6ca2a83-c34d-44e6-a938-568ab077a257",
+    "name": "Trulioo Configuration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Discovery endpoints for the Trulioo GlobalGateway. Use these endpoints to learn which countries, datasources, fields, document types, and consents are available for a configured product/package before submitting a Verify request. Returns metadata that drives client-side form generation and dynamic field selection.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+      "type": "text/plain"
+    }
+  }
+}

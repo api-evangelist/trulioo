@@ -1,0 +1,158 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Identity Document Verification API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Verification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Document Verification Verify",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/v3/verifications/documentverification/verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit captured ID document images and an optional selfie for verification."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Document Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Document Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/verifications/documenttypes/:countryCode",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Document types supported for a given country."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Known Faces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Known Faces Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/knownfaces/lists"
+          },
+          "docs": "List configured Known Faces watchlists."
+        },
+        {
+          "info": {
+            "name": "Post Known Faces List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/v3/knownfaces/lists",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Known Faces list."
+        },
+        {
+          "info": {
+            "name": "Delete Known Faces List",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.trulioo.com/v3/knownfaces/lists/:listId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Known Faces list."
+        },
+        {
+          "info": {
+            "name": "Get Known Faces List Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/knownfaces/lists/:listId/transactions",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve transactions associated with a Known Faces list."
+        },
+        {
+          "info": {
+            "name": "Add Known Faces List Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/v3/knownfaces/lists/:listId/transactions",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enroll a transaction into a Known Faces list."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

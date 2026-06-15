@@ -1,0 +1,861 @@
+{
+  "item": [
+    {
+      "id": "c292c656-349f-4ea0-ac41-4bf66e1d4dc5",
+      "name": "Business Search",
+      "description": {
+        "content": "Search the Trulioo business registry universe.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3788ce9e-9bf4-49d0-98fa-c7437fbba02c",
+          "name": "Business Search",
+          "request": {
+            "name": "Business Search",
+            "description": {
+              "content": "Search for a business by name, registration number, and jurisdiction-of-incorporation. Returns candidate matches with confidence scores.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"BusinessSearchInputFields\": {\n    \"BusinessName\": \"<string>\",\n    \"BusinessRegistrationNumber\": \"<string>\",\n    \"JurisdictionOfIncorporation\": \"<string>\"\n  },\n  \"JurisdictionOfIncorporation\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f5582956-6976-4dfe-87b5-8ff2fe8c47ff",
+              "name": "Business search response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"BusinessSearchInputFields\": {\n    \"BusinessName\": \"string\",\n    \"BusinessRegistrationNumber\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\"\n  },\n  \"JurisdictionOfIncorporation\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TransactionID\": \"string\",\n  \"Results\": [\n    {\n      \"BusinessName\": \"string\",\n      \"BusinessRegistrationNumber\": \"string\",\n      \"JurisdictionOfIncorporation\": \"string\",\n      \"Status\": \"string\",\n      \"ConfidenceScore\": 5218.134795429996\n    },\n    {\n      \"BusinessName\": \"string\",\n      \"BusinessRegistrationNumber\": \"string\",\n      \"JurisdictionOfIncorporation\": \"string\",\n      \"Status\": \"string\",\n      \"ConfidenceScore\": 1024.8476071152645\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f3ef0c9-0fe7-4463-8679-1c0eece441eb",
+          "name": "Get Business Search Result",
+          "request": {
+            "name": "Get Business Search Result",
+            "description": {
+              "content": "Retrieve a previously executed Business Search by transaction ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "search",
+                "transactionrecord",
+                ":transactionRecordId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "transactionRecordId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8ecba0d5-7cb8-45c6-b900-881a3dd939db",
+              "name": "Business search response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "search",
+                    "transactionrecord",
+                    ":transactionRecordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "transactionRecordId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TransactionID\": \"string\",\n  \"Results\": [\n    {\n      \"BusinessName\": \"string\",\n      \"BusinessRegistrationNumber\": \"string\",\n      \"JurisdictionOfIncorporation\": \"string\",\n      \"Status\": \"string\",\n      \"ConfidenceScore\": 5218.134795429996\n    },\n    {\n      \"BusinessName\": \"string\",\n      \"BusinessRegistrationNumber\": \"string\",\n      \"JurisdictionOfIncorporation\": \"string\",\n      \"Status\": \"string\",\n      \"ConfidenceScore\": 1024.8476071152645\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e17cb331-0618-4f3c-b3af-603297e21432",
+      "name": "Business Verification",
+      "description": {
+        "content": "Verify a business and retrieve its registration record.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ec1de32e-05c0-4629-bb82-6711da5b7a59",
+          "name": "Business Verify",
+          "request": {
+            "name": "Business Verify",
+            "description": {
+              "content": "Verify a specific business by registration number and jurisdiction. Returns the canonical record plus officers, addresses, and other registry-supplied fields.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "verify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"BusinessSearchInputFields\": {\n    \"BusinessName\": \"<string>\",\n    \"BusinessRegistrationNumber\": \"<string>\",\n    \"JurisdictionOfIncorporation\": \"<string>\"\n  },\n  \"JurisdictionOfIncorporation\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9dce7c16-816e-4472-9f08-1fd02cd4725e",
+              "name": "Business verify result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"BusinessSearchInputFields\": {\n    \"BusinessName\": \"string\",\n    \"BusinessRegistrationNumber\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\"\n  },\n  \"JurisdictionOfIncorporation\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TransactionID\": \"string\",\n  \"Record\": {\n    \"BusinessName\": \"string\",\n    \"BusinessRegistrationNumber\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\",\n    \"Status\": \"string\",\n    \"ConfidenceScore\": 3495.15679518714\n  },\n  \"Officers\": [\n    {\n      \"key_0\": 7139.702393416204\n    },\n    {\n      \"key_0\": true,\n      \"key_1\": 5973\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a8fb73b3-c24a-48bc-9367-e490d6932b73",
+      "name": "Business Reports",
+      "description": {
+        "content": "Download business reports.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5afdcfc3-d3d7-4448-9cce-921d1f86a007",
+          "name": "Get Business Report",
+          "request": {
+            "name": "Get Business Report",
+            "description": {
+              "content": "Download the business registration document/report associated with a transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "report",
+                ":transactionRecordId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "additionalData",
+                  "value": "false"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "transactionRecordId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "32ff92fe-efb8-457c-a6cc-7a38732d5e91",
+              "name": "Report payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "report",
+                    ":transactionRecordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "additionalData",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "transactionRecordId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Document\": \"string\",\n  \"ContentType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "382dc580-fd86-4431-b24d-4edea0a4cb21",
+      "name": "Business Configuration",
+      "description": {
+        "content": "Discover JOIs and registration number requirements.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8a6fa587-3cdd-4e9b-a240-ea2be0adb209",
+          "name": "Get All Jurisdictions Of Incorporation",
+          "request": {
+            "name": "Get All Jurisdictions Of Incorporation",
+            "description": {
+              "content": "List all supported jurisdictions of incorporation across all countries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "countryJOI"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "29f925be-aa81-48f2-97bf-1d7f8ac95048",
+              "name": "List of country/subdivision JOIs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "countryJOI"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"string\",\n    \"Code\": \"string\"\n  },\n  {\n    \"Name\": \"string\",\n    \"Code\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f435ff16-1035-4873-8670-9a18a7107b23",
+          "name": "Get Jurisdictions Of Incorporation Per Country",
+          "request": {
+            "name": "Get Jurisdictions Of Incorporation Per Country",
+            "description": {
+              "content": "List the supported jurisdictions of incorporation within a single country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "countryJOI",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa627ed3-226f-49cb-9071-dd3bea9b8af0",
+              "name": "List of JOIs for the country.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "countryJOI",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"string\",\n    \"Code\": \"string\"\n  },\n  {\n    \"Name\": \"string\",\n    \"Code\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5f8ee25-eef6-45a6-a5d1-f638c35e0401",
+          "name": "Get Business Registration Numbers For All Supported Countries",
+          "request": {
+            "name": "Get Business Registration Numbers For All Supported Countries",
+            "description": {
+              "content": "List business registration number types for every supported country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "businessregistrationnumbers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "01e639f3-bba1-4299-913f-4c6dce31fad5",
+              "name": "List of registration number metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "businessregistrationnumbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"CountryCode\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\",\n    \"RegistrationNumberType\": \"string\",\n    \"Description\": \"string\"\n  },\n  {\n    \"CountryCode\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\",\n    \"RegistrationNumberType\": \"string\",\n    \"Description\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6dfc0dff-3bea-4096-a966-d766ef1eac1d",
+          "name": "Get Business Registration Numbers By Country",
+          "request": {
+            "name": "Get Business Registration Numbers By Country",
+            "description": {
+              "content": "List business registration number types for one country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "businessregistrationnumbers",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "92ede758-685c-4023-afb7-72a67e596d5f",
+              "name": "List of registration number metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "businessregistrationnumbers",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"CountryCode\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\",\n    \"RegistrationNumberType\": \"string\",\n    \"Description\": \"string\"\n  },\n  {\n    \"CountryCode\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\",\n    \"RegistrationNumberType\": \"string\",\n    \"Description\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.trulioo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ff197837-3f25-4d90-910d-9151fef6b786",
+    "name": "Trulioo Business Verification API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+      "type": "text/plain"
+    }
+  }
+}
