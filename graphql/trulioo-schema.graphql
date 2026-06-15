@@ -1,0 +1,924 @@
+"""
+Trulioo GraphQL Schema
+Conceptual schema derived from the Trulioo REST API covering identity
+verification (KYC), business verification (KYB), document verification,
+biometric matching, watchlist screening, fraud intelligence, and platform
+workflow orchestration.
+"""
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar DateTime
+scalar JSON
+scalar Upload
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum VerificationStatus {
+  MATCH
+  NO_MATCH
+  PENDING
+  NOMATCH
+  SKIPPED
+  INFO
+  ERROR
+}
+
+enum TransactionStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  EXPIRED
+}
+
+enum DocumentType {
+  PASSPORT
+  DRIVING_LICENSE
+  NATIONAL_ID
+  RESIDENCE_PERMIT
+  VISA
+  REFUGEE_DOCUMENT
+  TRAVEL_DOCUMENT
+  OTHER
+}
+
+enum BiometricCheckType {
+  FACE_MATCH
+  LIVENESS
+  PASSIVE_LIVENESS
+}
+
+enum FraudRiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+  VERY_HIGH
+  UNKNOWN
+}
+
+enum BusinessStatus {
+  ACTIVE
+  INACTIVE
+  DISSOLVED
+  SUSPENDED
+  UNKNOWN
+}
+
+enum WatchlistMatchStatus {
+  CLEAR
+  POTENTIAL_MATCH
+  CONFIRMED_MATCH
+}
+
+enum WorkflowStatus {
+  INITIALIZED
+  IN_PROGRESS
+  AWAITING_INPUT
+  PROCESSING
+  COMPLETED
+  FAILED
+  EXPIRED
+}
+
+enum ConsentStatus {
+  GIVEN
+  REFUSED
+  PENDING
+}
+
+enum DataSourceType {
+  CREDIT_BUREAU
+  GOVERNMENT
+  TELCO
+  UTILITY
+  BANK
+  THIRD_PARTY
+  DOCUMENT
+}
+
+enum RegionCode {
+  AMER
+  EMEA
+  APAC
+}
+
+enum AuthMethod {
+  BASIC
+  OAUTH2
+  HMAC
+  MUTUAL_TLS
+}
+
+# ---------------------------------------------------------------------------
+# Core Identity Types
+# ---------------------------------------------------------------------------
+
+"""Full name components for a person."""
+type PersonName {
+  firstName: String
+  middleName: String
+  lastName: String
+  suffix: String
+  fullName: String
+}
+
+"""Date of birth."""
+type DateOfBirth {
+  day: Int
+  month: Int
+  year: Int
+  asDate: String
+}
+
+"""Structured postal address."""
+type Address {
+  unitNumber: String
+  buildingNumber: String
+  buildingName: String
+  streetName: String
+  streetType: String
+  suburb: String
+  city: String
+  stateProvinceCode: String
+  postalCode: String
+  country: String
+  addressType: String
+  cleansed: Boolean
+}
+
+"""National or government-issued identifier."""
+type NationalId {
+  number: String
+  type: String
+  districtOfIssue: String
+  cityOfIssue: String
+  provinceOfIssue: String
+  countryOfIssue: String
+  dayOfExpiry: Int
+  monthOfExpiry: Int
+  yearOfExpiry: Int
+}
+
+"""Contact / communication details for a person."""
+type Communication {
+  mobileNumber: String
+  telephone: String
+  emailAddress: String
+}
+
+"""Normalised person identity payload used for KYC verification."""
+type PersonInfo {
+  name: PersonName
+  dateOfBirth: DateOfBirth
+  gender: String
+  nationality: String
+  placeOfBirth: String
+  language: String
+}
+
+# ---------------------------------------------------------------------------
+# Verification (KYC) Types
+# ---------------------------------------------------------------------------
+
+"""A single field-level verification result returned by a datasource."""
+type FieldResult {
+  fieldName: String!
+  status: VerificationStatus!
+}
+
+"""Result from a single datasource within a verification transaction."""
+type DatasourceResult {
+  datasourceName: String!
+  datasourceFields: [FieldResult!]!
+  errors: [DatasourceError!]
+  appendedFields: [AppendedField!]
+  returnedData: PersonInfo
+}
+
+"""Error reported by a datasource."""
+type DatasourceError {
+  code: String
+  message: String
+}
+
+"""Extra data returned by a datasource not originally submitted."""
+type AppendedField {
+  fieldName: String!
+  data: String
+}
+
+"""Top-level result of a KYC Verify call."""
+type VerificationResult {
+  transactionId: String!
+  uploadedDt: DateTime
+  countryCode: String!
+  productName: String
+  record: VerificationRecord
+  errors: [String!]
+}
+
+"""Overall record summary attached to a verification result."""
+type VerificationRecord {
+  transactionRecordId: String!
+  recordStatus: VerificationStatus!
+  datasourceResults: [DatasourceResult!]!
+  errors: [String!]
+}
+
+"""Full persisted transaction record."""
+type TransactionRecord {
+  transactionRecordId: String!
+  uploadedDt: DateTime
+  countryCode: String!
+  productName: String
+  recordStatus: VerificationStatus
+  datasourceResults: [DatasourceResult!]!
+  errors: [String!]
+}
+
+# ---------------------------------------------------------------------------
+# Document Verification Types
+# ---------------------------------------------------------------------------
+
+"""Result of verifying an identity document."""
+type DocumentVerificationResult {
+  transactionId: String!
+  status: VerificationStatus!
+  documentType: DocumentType
+  extractedData: ExtractedDocumentData
+  biometricResult: BiometricResult
+  errors: [String!]
+}
+
+"""Data extracted from the document."""
+type ExtractedDocumentData {
+  firstName: String
+  lastName: String
+  dateOfBirth: String
+  documentNumber: String
+  expiryDate: String
+  issuingCountry: String
+  mrzLine1: String
+  mrzLine2: String
+  mrzLine3: String
+  nationality: String
+  sex: String
+  barcodeData: JSON
+}
+
+"""Result of a biometric check."""
+type BiometricResult {
+  checkType: BiometricCheckType!
+  passed: Boolean!
+  confidence: Float
+  livenessScore: Float
+  faceMatchScore: Float
+}
+
+"""A document image captured during DocV."""
+type DocumentImage {
+  imageId: String!
+  transactionId: String!
+  imageType: String
+  mimeType: String
+  url: String
+  capturedAt: DateTime
+}
+
+"""An entry in the Known Faces biometric watchlist."""
+type KnownFaceEntry {
+  entryId: String!
+  listId: String!
+  enrolledAt: DateTime
+  sourceTransactionId: String
+  metadata: JSON
+}
+
+"""A Known Faces watchlist."""
+type KnownFaceList {
+  listId: String!
+  name: String!
+  description: String
+  createdAt: DateTime
+  entryCount: Int
+}
+
+# ---------------------------------------------------------------------------
+# Business Verification (KYB) Types
+# ---------------------------------------------------------------------------
+
+"""A legal business entity."""
+type BusinessEntity {
+  businessId: String!
+  businessName: String!
+  tradingName: String
+  registrationNumber: String
+  registrationDate: String
+  status: BusinessStatus
+  jurisdiction: String
+  countryCode: String
+  taxNumber: String
+  address: Address
+  officers: [BusinessOfficer!]
+  personsOfSignificantControl: [PersonOfSignificantControl!]
+}
+
+"""An officer or director of a business."""
+type BusinessOfficer {
+  officerId: String!
+  name: PersonName!
+  role: String
+  appointedDate: String
+  resignedDate: String
+  nationality: String
+  dateOfBirth: DateOfBirth
+}
+
+"""A person holding significant control over a business (UBO)."""
+type PersonOfSignificantControl {
+  pscId: String!
+  name: PersonName!
+  nationality: String
+  countryOfResidence: String
+  dateOfBirth: DateOfBirth
+  naturesOfControl: [String!]
+  notifiedDate: String
+}
+
+"""Result of a KYB business verification."""
+type BusinessVerificationResult {
+  transactionId: String!
+  status: VerificationStatus!
+  businessEntity: BusinessEntity
+  datasourceResults: [DatasourceResult!]
+  errors: [String!]
+}
+
+"""A business search result candidate."""
+type BusinessSearchResult {
+  businessId: String
+  businessName: String!
+  registrationNumber: String
+  status: BusinessStatus
+  jurisdiction: String
+  countryCode: String
+  confidence: Float
+}
+
+"""A downloadable business registry report."""
+type BusinessReport {
+  reportId: String!
+  transactionId: String!
+  reportType: String
+  format: String
+  downloadUrl: String
+  generatedAt: DateTime
+  expiresAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Watchlist & Screening Types
+# ---------------------------------------------------------------------------
+
+"""A watchlist / sanctions screening result."""
+type WatchlistResult {
+  screeningId: String!
+  status: WatchlistMatchStatus!
+  matchedEntries: [WatchlistEntry!]
+  screenedAt: DateTime
+}
+
+"""An individual entry matched in a watchlist."""
+type WatchlistEntry {
+  entryId: String!
+  listName: String!
+  listType: String
+  matchScore: Float
+  entityName: String
+  aliases: [String!]
+  dateOfBirth: String
+  nationality: String
+  positions: [String!]
+  sanctions: [String!]
+  adverseMedia: [String!]
+}
+
+# ---------------------------------------------------------------------------
+# Fraud Intelligence Types
+# ---------------------------------------------------------------------------
+
+"""Person fraud risk assessment result."""
+type PersonFraudResult {
+  assessmentId: String!
+  riskLevel: FraudRiskLevel!
+  riskScore: Float
+  verdict: String
+  signals: [FraudSignal!]
+  assessedAt: DateTime
+}
+
+"""An individual fraud signal contributing to the risk score."""
+type FraudSignal {
+  signalType: String!
+  category: String
+  severity: FraudRiskLevel
+  description: String
+  data: JSON
+}
+
+# ---------------------------------------------------------------------------
+# Configuration & Discovery Types
+# ---------------------------------------------------------------------------
+
+"""A country supported by the GlobalGateway."""
+type Country {
+  countryCode: String!
+  name: String!
+  hasDataSources: Boolean
+  supportedDocumentTypes: [DocumentType!]
+  subdivisions: [Subdivision!]
+  registrationNumberTypes: [RegistrationNumberType!]
+  jurisdictions: [String!]
+}
+
+"""A state/province/territory subdivision of a country."""
+type Subdivision {
+  code: String!
+  name: String!
+  countryCode: String!
+}
+
+"""A field definition describing accepted input for a given country/product."""
+type FieldDefinition {
+  fieldName: String!
+  type: String
+  required: Boolean
+  recommended: Boolean
+  maxLength: Int
+  validValues: [String!]
+  description: String
+}
+
+"""A datasource available for a country."""
+type Datasource {
+  name: String!
+  description: String
+  type: DataSourceType
+  countryCode: String
+  fields: [FieldDefinition!]
+}
+
+"""A consent entry required by a datasource."""
+type Consent {
+  name: String!
+  displayName: String
+  text: String
+  url: String
+}
+
+"""A verification product/package configured for the customer."""
+type Package {
+  packageName: String!
+  displayName: String
+  supportedCountries: [String!]
+}
+
+"""A registration number type used in business registry lookups."""
+type RegistrationNumberType {
+  code: String!
+  displayName: String
+  description: String
+}
+
+# ---------------------------------------------------------------------------
+# Platform / Workflow Studio Types
+# ---------------------------------------------------------------------------
+
+"""A workflow definition in Workflow Studio."""
+type WorkflowDefinition {
+  workflowId: String!
+  name: String!
+  description: String
+  steps: [WorkflowStep!]
+  version: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A single step within a workflow definition."""
+type WorkflowStep {
+  stepId: String!
+  name: String!
+  type: String
+  required: Boolean
+  inputFields: [FieldDefinition!]
+  nextSteps: [String!]
+}
+
+"""A running workflow session."""
+type WorkflowSession {
+  sessionId: String!
+  workflowId: String!
+  status: WorkflowStatus!
+  currentStepId: String
+  endClientId: String
+  signedUrl: String
+  signedUrlExpiresAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""State for a specific step in a running workflow session."""
+type WorkflowStepState {
+  stepId: String!
+  status: WorkflowStatus!
+  data: JSON
+  errors: [String!]
+  submittedAt: DateTime
+}
+
+"""A reusable end-client profile."""
+type EndClientProfile {
+  endClientId: String!
+  displayName: String
+  email: String
+  phone: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  verificationHistory: [VerificationRecord!]
+}
+
+"""A file attachment associated with a workflow session or transaction."""
+type SessionFile {
+  fileId: String!
+  sessionId: String
+  transactionId: String
+  fileType: String
+  mimeType: String
+  downloadUrl: String
+  uploadedAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Connection / Health Types
+# ---------------------------------------------------------------------------
+
+"""Health check response."""
+type HealthCheck {
+  status: String!
+  message: String
+  timestamp: DateTime
+}
+
+"""Authentication test response."""
+type AuthTestResult {
+  authenticated: Boolean!
+  accountId: String
+  message: String
+}
+
+# ---------------------------------------------------------------------------
+# Webhook / Event Types
+# ---------------------------------------------------------------------------
+
+"""A webhook event delivered by the Event Dispatcher."""
+type WebhookEvent {
+  eventId: String!
+  eventType: String!
+  transactionId: String
+  sessionId: String
+  status: String
+  payload: JSON
+  deliveredAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Pagination
+# ---------------------------------------------------------------------------
+
+"""Generic pagination info."""
+type PageInfo {
+  totalCount: Int!
+  page: Int!
+  pageSize: Int!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+"""Paginated list of transaction records."""
+type TransactionRecordPage {
+  records: [TransactionRecord!]!
+  pageInfo: PageInfo!
+}
+
+"""Paginated list of business search results."""
+type BusinessSearchPage {
+  results: [BusinessSearchResult!]!
+  pageInfo: PageInfo!
+}
+
+"""Paginated list of end-client profiles."""
+type EndClientProfilePage {
+  profiles: [EndClientProfile!]!
+  pageInfo: PageInfo!
+}
+
+# ---------------------------------------------------------------------------
+# Input Types
+# ---------------------------------------------------------------------------
+
+input PersonNameInput {
+  firstName: String
+  middleName: String
+  lastName: String
+  suffix: String
+}
+
+input DateOfBirthInput {
+  day: Int
+  month: Int
+  year: Int
+}
+
+input AddressInput {
+  unitNumber: String
+  buildingNumber: String
+  buildingName: String
+  streetName: String
+  streetType: String
+  suburb: String
+  city: String
+  stateProvinceCode: String
+  postalCode: String
+  country: String
+}
+
+input NationalIdInput {
+  number: String!
+  type: String
+  districtOfIssue: String
+  cityOfIssue: String
+  provinceOfIssue: String
+  countryOfIssue: String
+  dayOfExpiry: Int
+  monthOfExpiry: Int
+  yearOfExpiry: Int
+}
+
+input CommunicationInput {
+  mobileNumber: String
+  telephone: String
+  emailAddress: String
+}
+
+input PersonInfoInput {
+  name: PersonNameInput
+  dateOfBirth: DateOfBirthInput
+  gender: String
+  nationality: String
+  placeOfBirth: String
+}
+
+input VerifyPersonInput {
+  countryCode: String!
+  packageName: String
+  consents: [String!]
+  personInfo: PersonInfoInput!
+  location: AddressInput
+  communication: CommunicationInput
+  nationalIds: [NationalIdInput!]
+  callbackUrl: String
+}
+
+input BusinessSearchInput {
+  countryCode: String!
+  businessName: String
+  registrationNumber: String
+  jurisdiction: String
+  registrationNumberType: String
+  page: Int
+  pageSize: Int
+}
+
+input BusinessVerifyInput {
+  countryCode: String!
+  businessId: String
+  businessName: String
+  registrationNumber: String
+  jurisdiction: String
+  registrationNumberType: String
+}
+
+input DocumentVerifyInput {
+  countryCode: String!
+  documentType: DocumentType
+  frontImageBase64: String
+  backImageBase64: String
+  selfieImageBase64: String
+  biometricCheck: BiometricCheckType
+}
+
+input PersonFraudInput {
+  countryCode: String!
+  personInfo: PersonInfoInput!
+  location: AddressInput
+  communication: CommunicationInput
+  nationalIds: [NationalIdInput!]
+  deviceFingerprint: String
+}
+
+input WorkflowSessionInput {
+  workflowId: String!
+  endClientId: String
+  metadata: JSON
+  callbackUrl: String
+}
+
+input EndClientProfileInput {
+  displayName: String
+  email: String
+  phone: String
+}
+
+input KnownFaceEnrollInput {
+  listId: String!
+  sourceTransactionId: String!
+  metadata: JSON
+}
+
+# ---------------------------------------------------------------------------
+# Root Types
+# ---------------------------------------------------------------------------
+
+type Query {
+  """Check API connectivity (unauthenticated ping)."""
+  ping: HealthCheck!
+
+  """Verify authentication credentials."""
+  testAuthentication: AuthTestResult!
+
+  """Retrieve a verification transaction record by ID."""
+  transactionRecord(transactionRecordId: String!): TransactionRecord
+
+  """List verification transaction records with pagination."""
+  transactionRecords(
+    countryCode: String
+    from: DateTime
+    to: DateTime
+    status: VerificationStatus
+    page: Int
+    pageSize: Int
+  ): TransactionRecordPage!
+
+  """List all countries supported by the GlobalGateway."""
+  countries(packageName: String): [Country!]!
+
+  """Get detailed configuration for a specific country."""
+  country(countryCode: String!): Country
+
+  """List datasources available for a country and product."""
+  datasources(countryCode: String!, packageName: String): [Datasource!]!
+
+  """Get field definitions for a country/product/datasource combination."""
+  fields(
+    countryCode: String!
+    packageName: String
+    datasource: String
+  ): [FieldDefinition!]!
+
+  """Get recommended fields for a country."""
+  recommendedFields(countryCode: String!): [FieldDefinition!]!
+
+  """Get consent text required for a country/datasource."""
+  consents(countryCode: String!, packageName: String): [Consent!]!
+
+  """List verification packages configured for the account."""
+  packages: [Package!]!
+
+  """Get a specific package by name."""
+  package(packageName: String!): Package
+
+  """Search for businesses by name or registration number."""
+  searchBusinesses(input: BusinessSearchInput!): BusinessSearchPage!
+
+  """Retrieve a business entity by its ID."""
+  businessEntity(businessId: String!): BusinessEntity
+
+  """Get a downloadable business registry report."""
+  businessReport(transactionId: String!): BusinessReport
+
+  """Retrieve a document verification transaction."""
+  documentVerification(transactionId: String!): DocumentVerificationResult
+
+  """Download a document image from a DocV transaction."""
+  documentImage(transactionId: String!, imageId: String!): DocumentImage
+
+  """List Known Faces watchlists."""
+  knownFaceLists: [KnownFaceList!]!
+
+  """Get a specific Known Faces watchlist."""
+  knownFaceList(listId: String!): KnownFaceList
+
+  """List entries in a Known Faces watchlist."""
+  knownFaceEntries(listId: String!): [KnownFaceEntry!]!
+
+  """List available workflow definitions."""
+  workflowDefinitions: [WorkflowDefinition!]!
+
+  """Get a specific workflow definition."""
+  workflowDefinition(workflowId: String!): WorkflowDefinition
+
+  """Get the current state of a workflow session."""
+  workflowSession(sessionId: String!): WorkflowSession
+
+  """List end-client profiles."""
+  endClientProfiles(
+    page: Int
+    pageSize: Int
+  ): EndClientProfilePage!
+
+  """Get a specific end-client profile."""
+  endClientProfile(endClientId: String!): EndClientProfile
+
+  """List files attached to a session or transaction."""
+  sessionFiles(sessionId: String, transactionId: String): [SessionFile!]!
+
+  """Get a test entity for sandbox testing."""
+  sandboxTestEntity(countryCode: String!, packageName: String): PersonInfo
+
+  """List supported document types for a country."""
+  supportedDocumentTypes(countryCode: String!): [DocumentType!]!
+
+  """List subdivisions (states/provinces) for a country."""
+  subdivisions(countryCode: String!): [Subdivision!]!
+
+  """List registration number types for a country."""
+  registrationNumberTypes(countryCode: String!): [RegistrationNumberType!]!
+
+  """List jurisdictions of incorporation for a country."""
+  jurisdictions(countryCode: String!): [String!]!
+}
+
+type Mutation {
+  """Submit a KYC identity verification request."""
+  verifyPerson(input: VerifyPersonInput!): VerificationResult!
+
+  """Verify a business (KYB)."""
+  verifyBusiness(input: BusinessVerifyInput!): BusinessVerificationResult!
+
+  """Submit a document verification with optional biometric check."""
+  verifyDocument(input: DocumentVerifyInput!): DocumentVerificationResult!
+
+  """Run a Person Fraud risk assessment."""
+  assessPersonFraud(input: PersonFraudInput!): PersonFraudResult!
+
+  """Screen a person against watchlists."""
+  screenWatchlist(personInfo: PersonInfoInput!, countryCode: String): WatchlistResult!
+
+  """Initialize a Workflow Studio session."""
+  initializeWorkflowSession(input: WorkflowSessionInput!): WorkflowSession!
+
+  """Submit data for the current step in a workflow session."""
+  submitWorkflowStep(
+    sessionId: String!
+    stepId: String!
+    data: JSON
+    files: [Upload!]
+  ): WorkflowStepState!
+
+  """Generate a signed URL for a hosted Workflow Studio session."""
+  generateSignedSessionUrl(
+    sessionId: String!
+    expiresInSeconds: Int
+  ): WorkflowSession!
+
+  """Create a new end-client profile."""
+  createEndClientProfile(input: EndClientProfileInput!): EndClientProfile!
+
+  """Update an existing end-client profile."""
+  updateEndClientProfile(
+    endClientId: String!
+    input: EndClientProfileInput!
+  ): EndClientProfile!
+
+  """Create a Known Faces watchlist."""
+  createKnownFaceList(name: String!, description: String): KnownFaceList!
+
+  """Enroll a face from a DocV transaction into a Known Faces list."""
+  enrollKnownFace(input: KnownFaceEnrollInput!): KnownFaceEntry!
+
+  """Remove an entry from a Known Faces watchlist."""
+  removeKnownFaceEntry(listId: String!, entryId: String!): Boolean!
+
+  """Upload a file to a session."""
+  uploadSessionFile(
+    sessionId: String!
+    file: Upload!
+    fileType: String
+  ): SessionFile!
+}
