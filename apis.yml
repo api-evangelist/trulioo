@@ -175,6 +175,10 @@ apis:
   - url: openapi/trulioo-platform-api-openapi.yml
     type: OpenAPI
 common:
+- type: TrustCenter
+  url: security/trulioo-trust-center.yml
+- type: DomainSecurity
+  url: security/trulioo-domain-security.yml
 - type: Authentication
   url: authentication/trulioo-authentication.yml
 - type: OAuthScopes

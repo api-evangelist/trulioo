@@ -1,0 +1,36 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/trulioo-business-verification-api-openapi.yml, openapi/trulioo-configuration-api-openapi.yml,
+  openapi/trulioo-connection-api-openapi.yml, openapi/trulioo-document-verification-api-openapi.yml,
+  openapi/trulioo-person-fraud-api-openapi.yml, openapi/trulioo-platform-api-openapi.yml, openapi/trulioo-verifications-api-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: BasicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/trulioo-business-verification-api-openapi.yml
+  - openapi/trulioo-configuration-api-openapi.yml
+  - openapi/trulioo-connection-api-openapi.yml
+  - openapi/trulioo-document-verification-api-openapi.yml
+  - openapi/trulioo-person-fraud-api-openapi.yml
+  - openapi/trulioo-verifications-api-openapi.yml
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth-api.trulioo.com/connect/token
+    scopes: 0
+  sources:
+  - openapi/trulioo-business-verification-api-openapi.yml
+  - openapi/trulioo-configuration-api-openapi.yml
+  - openapi/trulioo-connection-api-openapi.yml
+  - openapi/trulioo-document-verification-api-openapi.yml
+  - openapi/trulioo-person-fraud-api-openapi.yml
+  - openapi/trulioo-platform-api-openapi.yml
+  - openapi/trulioo-verifications-api-openapi.yml
