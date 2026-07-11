@@ -1,0 +1,65 @@
+generated: '2026-07-11'
+method: searched
+docs: https://developer.trulioo.com/reference/authentication
+source: openapi/trulioo-business-verification-api-openapi.yml, openapi/trulioo-configuration-api-openapi.yml,
+  openapi/trulioo-connection-api-openapi.yml, openapi/trulioo-document-verification-api-openapi.yml,
+  openapi/trulioo-person-fraud-api-openapi.yml, openapi/trulioo-platform-api-openapi.yml, openapi/trulioo-verifications-api-openapi.yml
+schemes:
+- name: OAuth2
+  source: openapi/trulioo-business-verification-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth-api.trulioo.com/connect/token
+- name: OAuth2
+  source: openapi/trulioo-configuration-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth-api.trulioo.com/connect/token
+- name: OAuth2
+  source: openapi/trulioo-connection-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth-api.trulioo.com/connect/token
+- name: OAuth2
+  source: openapi/trulioo-document-verification-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth-api.trulioo.com/connect/token
+- name: OAuth2
+  source: openapi/trulioo-person-fraud-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth-api.trulioo.com/connect/token
+- name: OAuth2
+  source: openapi/trulioo-platform-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.trulioo.com/customer/v2/auth/customer
+- name: OAuth2
+  source: openapi/trulioo-verifications-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth-api.trulioo.com/connect/token
+  description: Two-legged client credentials OAuth2 flow.
+scopes:
+- scope: napi.api
+  description: Grants access to the Normalized API (NAPI v3 / GlobalGateway KYC verifications).
+    Set as the scope value alongside grant_type=client_credentials when requesting
+    a bearer token from https://auth-api.trulioo.com/connect/token.
+  sources:
+  - https://developer.trulioo.com/reference/authentication
+  - https://developer.trulioo.com/reference/authentication-recipe
+- scope: workflow.studio.api
+  description: Grants access to the Workflow Studio (Platform) API. Set as the scope
+    value with grant_type=client_credentials in the client-credentials token request.
+  sources:
+  - https://developer.trulioo.com/reference/authentication-recipe
+- scope: docv.api.us
+  description: Authorizes Identity Document Verification (DocV) operations in the
+    US region. Trulioo's DocV scope parameter specifies both the region and the service
+    the token may access.
+  sources:
+  - https://developer.trulioo.com/reference/authorization-2
+note: Trulioo uses the OAuth2 client_credentials flow with service- and region-scoped
+  values (for example docv.api.us for DocV in the US region); only the scopes above
+  are documented publicly, and no full scope catalog is published (https://developer.trulioo.com/reference/authorization-2).

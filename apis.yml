@@ -175,6 +175,10 @@ apis:
   - url: openapi/trulioo-platform-api-openapi.yml
     type: OpenAPI
 common:
+- type: Authentication
+  url: authentication/trulioo-authentication.yml
+- type: OAuthScopes
+  url: scopes/trulioo-scopes.yml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/trulioo/overview
 - type: Arazzo
