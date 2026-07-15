@@ -175,6 +175,8 @@ apis:
   - url: openapi/trulioo-platform-api-openapi.yml
     type: OpenAPI
 common:
+- type: AgenticAccess
+  url: agentic-access/trulioo-agentic-access.yml
 - type: TrustCenter
   url: security/trulioo-trust-center.yml
 - type: DomainSecurity
