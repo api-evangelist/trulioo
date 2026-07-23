@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Trulioo Authentication Business Verification API
+  title: Trulioo Business Verification Authentication Business Search API
   description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
 
     '
@@ -16,32 +16,56 @@ security:
 - BasicAuth: []
 - OAuth2: []
 tags:
-- name: Business Verification
-  description: Verify a business and retrieve its registration record.
+- name: Business Search
+  description: Search the Trulioo business registry universe.
 paths:
-  /v3/business/verify:
+  /v3/business/search:
     post:
-      summary: Business Verify
-      description: 'Verify a specific business by registration number and jurisdiction. Returns the canonical record plus officers, addresses, and other registry-supplied fields.
+      summary: Business Search
+      description: 'Search for a business by name, registration number, and jurisdiction-of-incorporation. Returns candidate matches with confidence scores.
 
         '
-      operationId: businessVerify
+      operationId: businessSearch
       tags:
-      - Business Verification
+      - Business Search
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BusinessVerifyRequest'
+              $ref: '#/components/schemas/BusinessSearchRequest'
       responses:
         '200':
-          description: Business verify result.
+          description: Business search response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BusinessVerifyResult'
+                $ref: '#/components/schemas/BusinessSearchResponse'
+  /v3/business/search/transactionrecord/{transactionRecordId}:
+    get:
+      summary: Get Business Search Result
+      description: Retrieve a previously executed Business Search by transaction ID.
+      operationId: getBusinessSearchResult
+      tags:
+      - Business Search
+      parameters:
+      - $ref: '#/components/parameters/TransactionRecordId'
+      responses:
+        '200':
+          description: Business search response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusinessSearchResponse'
 components:
+  parameters:
+    TransactionRecordId:
+      name: transactionRecordId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
   schemas:
     BusinessRecord:
       type: object
@@ -56,7 +80,16 @@ components:
           type: string
         ConfidenceScore:
           type: number
-    BusinessVerifyRequest:
+    BusinessInputFields:
+      type: object
+      properties:
+        BusinessName:
+          type: string
+        BusinessRegistrationNumber:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
+    BusinessSearchRequest:
       type: object
       required:
       - AcceptTruliooTermsAndConditions
@@ -74,27 +107,15 @@ components:
           type: string
         BusinessSearchInputFields:
           $ref: '#/components/schemas/BusinessInputFields'
-    BusinessInputFields:
-      type: object
-      properties:
-        BusinessName:
-          type: string
-        BusinessRegistrationNumber:
-          type: string
-        JurisdictionOfIncorporation:
-          type: string
-    BusinessVerifyResult:
+    BusinessSearchResponse:
       type: object
       properties:
         TransactionID:
           type: string
-        Record:
-          $ref: '#/components/schemas/BusinessRecord'
-        Officers:
+        Results:
           type: array
           items:
-            type: object
-            additionalProperties: true
+            $ref: '#/components/schemas/BusinessRecord'
   securitySchemes:
     BasicAuth:
       type: http

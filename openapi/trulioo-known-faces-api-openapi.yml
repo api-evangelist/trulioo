@@ -1,0 +1,143 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Business Verification Authentication Known Faces API
+  description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
+
+    '
+  version: '3.0'
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+servers:
+- url: https://api.trulioo.com
+  description: Production
+security:
+- BasicAuth: []
+- OAuth2: []
+tags:
+- name: Known Faces
+  description: Manage Known Faces lists for biometric watchlists.
+paths:
+  /v3/knownfaces/lists:
+    get:
+      summary: Get Known Faces Lists
+      description: List configured Known Faces watchlists.
+      operationId: getKnownFacesLists
+      tags:
+      - Known Faces
+      responses:
+        '200':
+          description: Lists.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnownFacesList'
+    post:
+      summary: Post Known Faces List
+      description: Create a new Known Faces list.
+      operationId: postKnownFacesList
+      tags:
+      - Known Faces
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KnownFacesList'
+      responses:
+        '201':
+          description: List created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnownFacesList'
+  /v3/knownfaces/lists/{listId}:
+    delete:
+      summary: Delete Known Faces List
+      description: Delete a Known Faces list.
+      operationId: deleteKnownFacesList
+      tags:
+      - Known Faces
+      parameters:
+      - name: listId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deleted.
+  /v3/knownfaces/lists/{listId}/transactions:
+    get:
+      summary: Get Known Faces List Transactions
+      description: Retrieve transactions associated with a Known Faces list.
+      operationId: getKnownFacesListTransactions
+      tags:
+      - Known Faces
+      parameters:
+      - name: listId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Transactions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+    post:
+      summary: Add Known Faces List Transaction
+      description: Enroll a transaction into a Known Faces list.
+      operationId: addKnownFacesListTransaction
+      tags:
+      - Known Faces
+      parameters:
+      - name: listId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                TransactionRecordId:
+                  type: string
+      responses:
+        '201':
+          description: Enrolled.
+components:
+  schemas:
+    KnownFacesList:
+      type: object
+      properties:
+        Id:
+          type: string
+        Name:
+          type: string
+        Description:
+          type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+externalDocs:
+  description: KYB - Business Verification
+  url: https://developer.trulioo.com/reference/kyb-business-verification

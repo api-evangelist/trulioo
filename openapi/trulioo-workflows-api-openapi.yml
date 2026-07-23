@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Business Verification Authentication Workflows API
+  description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
+
+    '
+  version: '3.0'
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+servers:
+- url: https://api.trulioo.com
+  description: Production
+security:
+- BasicAuth: []
+- OAuth2: []
+tags:
+- name: Workflows
+  description: Retrieve workflow definitions.
+paths:
+  /customer/v2/workflows:
+    get:
+      summary: Retrieve Workflows From Organization
+      description: List all workflows defined in the organization.
+      operationId: getWorkflows
+      tags:
+      - Workflows
+      responses:
+        '200':
+          description: List of workflows.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workflow'
+components:
+  schemas:
+    Workflow:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        version:
+          type: string
+        steps:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+externalDocs:
+  description: KYB - Business Verification
+  url: https://developer.trulioo.com/reference/kyb-business-verification

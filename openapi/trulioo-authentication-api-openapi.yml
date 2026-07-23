@@ -1,0 +1,74 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Business Verification Authentication API
+  description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
+
+    '
+  version: '3.0'
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+servers:
+- url: https://api.trulioo.com
+  description: Production
+security:
+- BasicAuth: []
+- OAuth2: []
+tags:
+- name: Authentication
+  description: OAuth2 client-credential token acquisition.
+paths:
+  /customer/v2/auth/customer:
+    post:
+      summary: Post Auth Customer
+      description: Exchange OAuth credentials for an access token to call the Platform API.
+      operationId: postAuthCustomer
+      tags:
+      - Authentication
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  example: client_credentials
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+      responses:
+        '200':
+          description: Access token response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+components:
+  schemas:
+    AccessToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+        expires_in:
+          type: integer
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+externalDocs:
+  description: KYB - Business Verification
+  url: https://developer.trulioo.com/reference/kyb-business-verification

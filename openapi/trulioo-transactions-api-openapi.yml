@@ -1,0 +1,269 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Business Verification Authentication Transactions API
+  description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
+
+    '
+  version: '3.0'
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+servers:
+- url: https://api.trulioo.com
+  description: Production
+security:
+- BasicAuth: []
+- OAuth2: []
+tags:
+- name: Transactions
+  description: Retrieve verification transactions and status.
+paths:
+  /v3/verifications/transactionrecord/{transactionRecordId}:
+    get:
+      summary: Get Transaction Record
+      description: 'Retrieve the full TransactionRecord for a previously executed Verify. Includes Record, DatasourceResults, and any AppendedFields returned by the datasources.
+
+        '
+      operationId: getTransactionRecord
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/TransactionRecordId'
+      responses:
+        '200':
+          description: Transaction record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionRecordResult'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v3/verifications/transactionrecord/{transactionRecordId}/withaddress:
+    get:
+      summary: Get Transaction Record With Address
+      description: Retrieve a transaction record including cleansed-address details.
+      operationId: getTransactionRecordWithAddress
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/TransactionRecordId'
+      responses:
+        '200':
+          description: Transaction record with address.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionRecordResult'
+  /v3/verifications/transaction/{transactionId}/status:
+    get:
+      summary: Get Transaction Status
+      description: 'Get the current status of an asynchronous verification transaction identified by its TransactionID.
+
+        '
+      operationId: getTransactionStatus
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/TransactionId'
+      responses:
+        '200':
+          description: Transaction status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionStatus'
+  /v3/verifications/transaction/{transactionRecordId}/partialresult:
+    get:
+      summary: Get Partial Transaction Result
+      description: 'Retrieve partial results from an in-flight verification — useful when some datasources have returned but others are still processing.
+
+        '
+      operationId: getPartialTransactionResult
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/TransactionRecordId'
+      responses:
+        '200':
+          description: Partial transaction result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyResult'
+components:
+  parameters:
+    TransactionRecordId:
+      name: transactionRecordId
+      in: path
+      required: true
+      description: TransactionRecordID returned by a previous Verify call.
+      schema:
+        type: string
+        format: uuid
+    TransactionId:
+      name: transactionId
+      in: path
+      required: true
+      description: TransactionID returned by a previous Verify call.
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    AppendedField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Data:
+          type: string
+    Error:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
+    InputField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Value:
+          type: string
+    TransactionStatus:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        Status:
+          type: string
+          enum:
+          - completed
+          - inprogress
+          - failed
+        TimestampUtc:
+          type: string
+          format: date-time
+    ServiceError:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
+    Rule:
+      type: object
+      properties:
+        RuleName:
+          type: string
+        Note:
+          type: string
+    DatasourceField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Status:
+          type: string
+        Data:
+          type: string
+    TransactionRecordResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        CountryCode:
+          type: string
+        ProductName:
+          type: string
+        Record:
+          $ref: '#/components/schemas/Record'
+        InputFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputField'
+    VerifyResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        UploadedDt:
+          type: string
+          format: date-time
+        CountryCode:
+          type: string
+        ProductName:
+          type: string
+        Record:
+          $ref: '#/components/schemas/Record'
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceError'
+    DatasourceResult:
+      type: object
+      properties:
+        DatasourceName:
+          type: string
+        DatasourceFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatasourceField'
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordError'
+        AppendedFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppendedField'
+    RecordError:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
+    Record:
+      type: object
+      properties:
+        TransactionRecordID:
+          type: string
+        RecordStatus:
+          type: string
+          enum:
+          - match
+          - nomatch
+          - partial
+          - error
+        DatasourceResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatasourceResult'
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordError'
+        Rule:
+          $ref: '#/components/schemas/Rule'
+  responses:
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+externalDocs:
+  description: KYB - Business Verification
+  url: https://developer.trulioo.com/reference/kyb-business-verification

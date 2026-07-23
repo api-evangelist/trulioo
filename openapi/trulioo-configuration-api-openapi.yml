@@ -1,32 +1,23 @@
 openapi: 3.1.0
 info:
-  title: Trulioo Configuration API
-  description: >
-    Discovery endpoints for the Trulioo GlobalGateway. Use these endpoints to
-    learn which countries, datasources, fields, document types, and consents
-    are available for a configured product/package before submitting a Verify
-    request. Returns metadata that drives client-side form generation and
-    dynamic field selection.
-  version: "3.0"
+  title: Trulioo Business Verification Authentication Configuration API
+  description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
+
+    '
+  version: '3.0'
   contact:
     name: Trulioo Support
     url: https://developer.trulioo.com
     email: support@trulioo.com
-  license:
-    name: Trulioo Terms of Service
-    url: https://www.trulioo.com/legal/terms-of-service
-externalDocs:
-  description: Configuration API guide
-  url: https://developer.trulioo.com/reference/configuration-1
 servers:
-  - url: https://api.trulioo.com
-    description: Production
+- url: https://api.trulioo.com
+  description: Production
 security:
-  - BasicAuth: []
-  - OAuth2: []
+- BasicAuth: []
+- OAuth2: []
 tags:
-  - name: Configuration
-    description: Discover packages, countries, datasources, fields, and consents.
+- name: Configuration
+  description: Discover packages, countries, datasources, fields, and consents.
 paths:
   /v3/configuration/packages:
     get:
@@ -34,9 +25,9 @@ paths:
       description: List all configured product packages available to the authenticated customer.
       operationId: getPackages
       tags:
-        - Configuration
+      - Configuration
       responses:
-        "200":
+        '200':
           description: List of packages.
           content:
             application/json:
@@ -50,11 +41,11 @@ paths:
       description: Get the list of country codes supported by a given product configuration.
       operationId: getCountryCodes
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/ConfigurationName'
       responses:
-        "200":
+        '200':
           description: List of ISO 3166 two-letter country codes.
           content:
             application/json:
@@ -68,11 +59,11 @@ paths:
       description: Get the list of subdivisions (states/provinces) for a country.
       operationId: getCountrySubdivisions
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - $ref: '#/components/parameters/CountryCode'
+      - $ref: '#/components/parameters/CountryCode'
       responses:
-        "200":
+        '200':
           description: List of subdivisions.
           content:
             application/json:
@@ -86,12 +77,12 @@ paths:
       description: Get the full set of accepted input fields for a country/product.
       operationId: getFields
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - $ref: '#/components/parameters/ConfigurationName'
-        - $ref: '#/components/parameters/CountryCode'
+      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/CountryCode'
       responses:
-        "200":
+        '200':
           description: JSON Schema describing accepted fields.
           content:
             application/json:
@@ -104,12 +95,12 @@ paths:
       description: Get the recommended (most likely to match) field combination for a country/product.
       operationId: getRecommendedFields
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - $ref: '#/components/parameters/ConfigurationName'
-        - $ref: '#/components/parameters/CountryCode'
+      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/CountryCode'
       responses:
-        "200":
+        '200':
           description: Recommended field set.
           content:
             application/json:
@@ -122,12 +113,12 @@ paths:
       description: Get the list of available datasources for a country/product.
       operationId: getDatasources
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - $ref: '#/components/parameters/ConfigurationName'
-        - $ref: '#/components/parameters/CountryCode'
+      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/CountryCode'
       responses:
-        "200":
+        '200':
           description: List of datasource groups.
           content:
             application/json:
@@ -141,12 +132,12 @@ paths:
       description: List datasources that require end-user consent for a country/product.
       operationId: getConsents
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - $ref: '#/components/parameters/ConfigurationName'
-        - $ref: '#/components/parameters/CountryCode'
+      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/CountryCode'
       responses:
-        "200":
+        '200':
           description: List of consent strings.
           content:
             application/json:
@@ -160,12 +151,12 @@ paths:
       description: Detailed consent metadata including text to present to end-users.
       operationId: getDetailedConsents
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - $ref: '#/components/parameters/ConfigurationName'
-        - $ref: '#/components/parameters/CountryCode'
+      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/CountryCode'
       responses:
-        "200":
+        '200':
           description: List of detailed consents.
           content:
             application/json:
@@ -179,12 +170,12 @@ paths:
       description: Pre-canned test entities that resolve deterministically in sandbox mode.
       operationId: getTestEntities
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - $ref: '#/components/parameters/ConfigurationName'
-        - $ref: '#/components/parameters/CountryCode'
+      - $ref: '#/components/parameters/ConfigurationName'
+      - $ref: '#/components/parameters/CountryCode'
       responses:
-        "200":
+        '200':
           description: List of test entities.
           content:
             application/json:
@@ -198,11 +189,11 @@ paths:
       description: Document types supported for identity document verification per country.
       operationId: getDocumentTypes
       tags:
-        - Configuration
+      - Configuration
       parameters:
-        - $ref: '#/components/parameters/CountryCode'
+      - $ref: '#/components/parameters/CountryCode'
       responses:
-        "200":
+        '200':
           description: List of document type identifiers.
           content:
             application/json:
@@ -210,69 +201,64 @@ paths:
                 type: array
                 items:
                   type: string
+  /risk/v1/configuration/countrycodes/{configurationName}:
+    get:
+      summary: Get Country Codes For Person Fraud
+      description: Country codes configured for the Person Fraud product.
+      operationId: getPersonFraudCountryCodes
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/ConfigurationName_2'
+      responses:
+        '200':
+          description: Country codes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /risk/v1/configuration/fields/{configurationName}/{countryCode}:
+    get:
+      summary: Get Fields For Person Fraud
+      description: Field schema for the Person Fraud product per country.
+      operationId: getPersonFraudFields
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/ConfigurationName_2'
+      - $ref: '#/components/parameters/CountryCode_2'
+      responses:
+        '200':
+          description: Field schema.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+  /risk/v1/configuration/datasources/{configurationName}/{countryCode}:
+    get:
+      summary: Get Datasources For Person Fraud
+      description: Available risk-data sources for the Person Fraud product per country.
+      operationId: getPersonFraudDatasources
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/ConfigurationName_2'
+      - $ref: '#/components/parameters/CountryCode_2'
+      responses:
+        '200':
+          description: List of datasources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
 components:
-  securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
-    OAuth2:
-      type: oauth2
-      flows:
-        clientCredentials:
-          tokenUrl: https://auth-api.trulioo.com/connect/token
-          scopes: {}
-  parameters:
-    ConfigurationName:
-      name: configurationName
-      in: path
-      required: true
-      description: Configured product/package name (e.g. "Identity Verification").
-      schema:
-        type: string
-    CountryCode:
-      name: countryCode
-      in: path
-      required: true
-      description: Two-letter ISO 3166 country code.
-      schema:
-        type: string
-        minLength: 2
-        maxLength: 2
   schemas:
-    Package:
-      type: object
-      properties:
-        ConfigurationName:
-          type: string
-        Description:
-          type: string
-    CountrySubdivision:
-      type: object
-      properties:
-        Name:
-          type: string
-        Code:
-          type: string
-    DatasourceGroup:
-      type: object
-      properties:
-        GroupName:
-          type: string
-        GroupCountry:
-          type: string
-        Datasources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Datasource'
-    Datasource:
-      type: object
-      properties:
-        DatasourceName:
-          type: string
-        DatasourceFields:
-          type: array
-          items:
-            type: string
     Consent:
       type: object
       properties:
@@ -292,3 +278,81 @@ components:
         Fields:
           type: object
           additionalProperties: true
+    DatasourceGroup:
+      type: object
+      properties:
+        GroupName:
+          type: string
+        GroupCountry:
+          type: string
+        Datasources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Datasource'
+    Package:
+      type: object
+      properties:
+        ConfigurationName:
+          type: string
+        Description:
+          type: string
+    Datasource:
+      type: object
+      properties:
+        DatasourceName:
+          type: string
+        DatasourceFields:
+          type: array
+          items:
+            type: string
+    CountrySubdivision:
+      type: object
+      properties:
+        Name:
+          type: string
+        Code:
+          type: string
+  parameters:
+    CountryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: Two-letter ISO 3166 country code.
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+    CountryCode_2:
+      name: countryCode
+      in: path
+      required: true
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+    ConfigurationName:
+      name: configurationName
+      in: path
+      required: true
+      description: Configured product/package name (e.g. "Identity Verification").
+      schema:
+        type: string
+    ConfigurationName_2:
+      name: configurationName
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+externalDocs:
+  description: KYB - Business Verification
+  url: https://developer.trulioo.com/reference/kyb-business-verification

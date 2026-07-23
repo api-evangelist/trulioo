@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Trulioo Business Verification Authentication Connection API
+  title: Trulioo Business Verification Authentication Business Reports API
   description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
 
     '
@@ -16,50 +16,53 @@ security:
 - BasicAuth: []
 - OAuth2: []
 tags:
-- name: Connection
-  description: Ping and authentication-test endpoints.
+- name: Business Reports
+  description: Download business reports.
 paths:
-  /v3/connection/sayhello/{name}:
+  /v3/business/report/{transactionRecordId}:
     get:
-      summary: Say Hello
-      description: Unauthenticated ping that returns a hello message. Use for connectivity checks.
-      operationId: sayHello
+      summary: Get Business Report
+      description: Download the business registration document/report associated with a transaction.
+      operationId: getBusinessReport
       tags:
-      - Connection
-      security: []
+      - Business Reports
       parameters:
-      - name: name
-        in: path
-        required: true
-        description: Caller name to include in the greeting.
+      - $ref: '#/components/parameters/TransactionRecordId'
+      - name: additionalData
+        in: query
+        required: false
         schema:
-          type: string
+          type: boolean
+          default: false
       responses:
         '200':
-          description: Greeting string.
+          description: Report payload.
           content:
-            text/plain:
+            application/pdf:
               schema:
                 type: string
-  /v3/connection/testauthentication:
-    get:
-      summary: Test Authentication
-      description: 'Validates the caller''s credentials. Returns the authenticated username when credentials are valid; 401 otherwise.
-
-        '
-      operationId: testAuthentication
-      tags:
-      - Connection
-      responses:
-        '200':
-          description: Authenticated username.
-          content:
-            text/plain:
+                format: binary
+            application/json:
               schema:
-                type: string
-        '401':
-          description: Authentication failed.
+                $ref: '#/components/schemas/DownloadDocument'
 components:
+  parameters:
+    TransactionRecordId:
+      name: transactionRecordId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    DownloadDocument:
+      type: object
+      properties:
+        Document:
+          type: string
+          format: byte
+        ContentType:
+          type: string
   securitySchemes:
     BasicAuth:
       type: http

@@ -1,0 +1,183 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Business Verification Authentication Flows API
+  description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
+
+    '
+  version: '3.0'
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+servers:
+- url: https://api.trulioo.com
+  description: Production
+security:
+- BasicAuth: []
+- OAuth2: []
+tags:
+- name: Flows
+  description: Initialize and drive a workflow flow.
+paths:
+  /customer/v2/flow/{userStateId}:
+    get:
+      summary: Get Current Step Or Initialize A Flow
+      description: 'Returns the current step for an existing flow identified by `userStateId`, or initializes a new flow.
+
+        '
+      operationId: getFlow
+      tags:
+      - Flows
+      parameters:
+      - $ref: '#/components/parameters/UserStateId'
+      responses:
+        '200':
+          description: Current flow step.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowStep'
+    post:
+      summary: Submit Data For The Current Step Of A Flow
+      description: Submit JSON payload for the current step.
+      operationId: submitFlowData
+      tags:
+      - Flows
+      parameters:
+      - $ref: '#/components/parameters/UserStateId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Next step.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowStep'
+  /customer/v2/flow/{userStateId}/file:
+    post:
+      summary: Submit File For The Current Step Of A Flow
+      description: Submit a file (e.g. document image) for the current flow step.
+      operationId: submitFlowFile
+      tags:
+      - Flows
+      parameters:
+      - $ref: '#/components/parameters/UserStateId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Next step.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowStep'
+  /customer/v2/flow/{userStateId}/back:
+    post:
+      summary: Backward Step In The Flow
+      description: Compute a backward step in the flow execution.
+      operationId: flowBack
+      tags:
+      - Flows
+      parameters:
+      - $ref: '#/components/parameters/UserStateId'
+      responses:
+        '200':
+          description: Previous step.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowStep'
+  /customer/v2/handoff:
+    post:
+      summary: Post Handoff
+      description: 'Notify the platform that control of the flow is being handed off between user-facing capture and backend processing.
+
+        '
+      operationId: postHandoff
+      tags:
+      - Flows
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Handoff acknowledged.
+  /customer/v2/init:
+    post:
+      summary: Create Or Update User State
+      description: Create a new user state ID or update an existing one with init data.
+      operationId: createOrUpdateUserState
+      tags:
+      - Flows
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: User state ID.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userStateId:
+                    type: string
+components:
+  schemas:
+    FlowStep:
+      type: object
+      properties:
+        userStateId:
+          type: string
+        stepId:
+          type: string
+        stepType:
+          type: string
+        inputs:
+          type: object
+          additionalProperties: true
+        outputs:
+          type: object
+          additionalProperties: true
+  parameters:
+    UserStateId:
+      name: userStateId
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+externalDocs:
+  description: KYB - Business Verification
+  url: https://developer.trulioo.com/reference/kyb-business-verification

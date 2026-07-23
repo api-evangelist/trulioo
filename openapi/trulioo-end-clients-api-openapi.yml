@@ -1,0 +1,184 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Business Verification Authentication End Clients API
+  description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
+
+    '
+  version: '3.0'
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+servers:
+- url: https://api.trulioo.com
+  description: Production
+security:
+- BasicAuth: []
+- OAuth2: []
+tags:
+- name: End Clients
+  description: Profiles, files, and bulk operations on end clients.
+paths:
+  /customer/v2/profiles:
+    get:
+      summary: Retrieve Profiles From Your Workspace
+      description: List end-client profiles in your workspace.
+      operationId: getProfiles
+      tags:
+      - End Clients
+      responses:
+        '200':
+          description: Profiles.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Profile'
+  /customer/v2/profiles/{clientId}:
+    get:
+      summary: Retrieve Profile Data From A Client
+      description: Get the full profile (and verification data) for an end client.
+      operationId: getProfile
+      tags:
+      - End Clients
+      parameters:
+      - $ref: '#/components/parameters/ClientId'
+      responses:
+        '200':
+          description: Profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+  /customer/v2/profiles/{clientId}/file/{fileId}:
+    get:
+      summary: Retrieve A File From A Client
+      description: Download a file stored on an end-client profile.
+      operationId: getClientFile
+      tags:
+      - End Clients
+      parameters:
+      - $ref: '#/components/parameters/ClientId'
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: File binary.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+  /customer/v2/endclients/link:
+    post:
+      summary: Create A Link Between Two End Clients
+      description: Establish a relationship link between two end-client profiles.
+      operationId: createLinkedLead
+      tags:
+      - End Clients
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '201':
+          description: Link created.
+    delete:
+      summary: Delete A Link Between Two End Clients
+      description: Remove a link between two end-client profiles.
+      operationId: deleteLinkedLead
+      tags:
+      - End Clients
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '204':
+          description: Link removed.
+  /customer/v2/endclients/bulkdelete:
+    post:
+      summary: Delete End Clients In Bulk
+      description: Bulk delete end-client profiles.
+      operationId: deleteEndClientsBulk
+      tags:
+      - End Clients
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clientIds:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Bulk delete result.
+  /customer/v2/endclients/bulkstatus:
+    post:
+      summary: Update End Clients Status In Bulk
+      description: Bulk update the status of end-client profiles.
+      operationId: updateEndClientsStatusBulk
+      tags:
+      - End Clients
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Status updated.
+components:
+  parameters:
+    ClientId:
+      name: clientId
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    Profile:
+      type: object
+      properties:
+        clientId:
+          type: string
+        status:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        data:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+externalDocs:
+  description: KYB - Business Verification
+  url: https://developer.trulioo.com/reference/kyb-business-verification

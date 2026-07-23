@@ -1,0 +1,131 @@
+openapi: 3.1.0
+info:
+  title: Trulioo Business Verification Authentication Business Configuration API
+  description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
+
+    '
+  version: '3.0'
+  contact:
+    name: Trulioo Support
+    url: https://developer.trulioo.com
+    email: support@trulioo.com
+servers:
+- url: https://api.trulioo.com
+  description: Production
+security:
+- BasicAuth: []
+- OAuth2: []
+tags:
+- name: Business Configuration
+  description: Discover JOIs and registration number requirements.
+paths:
+  /v3/business/countryJOI:
+    get:
+      summary: Get All Jurisdictions Of Incorporation
+      description: List all supported jurisdictions of incorporation across all countries.
+      operationId: getAllJurisdictionsOfIncorporation
+      tags:
+      - Business Configuration
+      responses:
+        '200':
+          description: List of country/subdivision JOIs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountrySubdivision'
+  /v3/business/countryJOI/{countryCode}:
+    get:
+      summary: Get Jurisdictions Of Incorporation Per Country
+      description: List the supported jurisdictions of incorporation within a single country.
+      operationId: getJurisdictionsOfIncorporationPerCountry
+      tags:
+      - Business Configuration
+      parameters:
+      - $ref: '#/components/parameters/CountryCode'
+      responses:
+        '200':
+          description: List of JOIs for the country.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountrySubdivision'
+  /v3/business/businessregistrationnumbers:
+    get:
+      summary: Get Business Registration Numbers For All Supported Countries
+      description: List business registration number types for every supported country.
+      operationId: getAllBusinessRegistrationNumbers
+      tags:
+      - Business Configuration
+      responses:
+        '200':
+          description: List of registration number metadata.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessRegistrationNumber'
+  /v3/business/businessregistrationnumbers/{countryCode}:
+    get:
+      summary: Get Business Registration Numbers By Country
+      description: List business registration number types for one country.
+      operationId: getBusinessRegistrationNumbersByCountry
+      tags:
+      - Business Configuration
+      parameters:
+      - $ref: '#/components/parameters/CountryCode'
+      responses:
+        '200':
+          description: List of registration number metadata.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusinessRegistrationNumber'
+components:
+  schemas:
+    BusinessRegistrationNumber:
+      type: object
+      properties:
+        CountryCode:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
+        RegistrationNumberType:
+          type: string
+        Description:
+          type: string
+    CountrySubdivision:
+      type: object
+      properties:
+        Name:
+          type: string
+        Code:
+          type: string
+  parameters:
+    CountryCode:
+      name: countryCode
+      in: path
+      required: true
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth-api.trulioo.com/connect/token
+          scopes: {}
+externalDocs:
+  description: KYB - Business Verification
+  url: https://developer.trulioo.com/reference/kyb-business-verification
