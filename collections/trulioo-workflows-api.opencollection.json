@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Trulioo Business Verification Authentication Person Fraud API",
+    "name": "Trulioo Business Verification Authentication Workflows API",
     "version": "3.0"
   },
   "request": {
@@ -14,24 +14,20 @@
   "items": [
     {
       "info": {
-        "name": "Person Fraud",
+        "name": "Workflows",
         "type": "folder"
       },
       "items": [
         {
           "info": {
-            "name": "Person Fraud Check",
+            "name": "Retrieve Workflows From Organization",
             "type": "http"
           },
           "http": {
-            "method": "POST",
-            "url": "https://api.trulioo.com/risk/v1/check",
-            "body": {
-              "type": "json",
-              "data": "{}"
-            }
+            "method": "GET",
+            "url": "https://api.trulioo.com/customer/v2/workflows"
           },
-          "docs": "Perform a person-fraud risk check."
+          "docs": "List all workflows defined in the organization."
         }
       ]
     }

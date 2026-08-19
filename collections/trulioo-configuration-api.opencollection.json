@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Trulioo Configuration API",
+    "name": "Trulioo Business Verification Authentication Configuration API",
     "version": "3.0"
   },
   "request": {
@@ -235,6 +235,70 @@
             ]
           },
           "docs": "Document types supported for identity document verification per country."
+        },
+        {
+          "info": {
+            "name": "Get Country Codes For Person Fraud",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/risk/v1/configuration/countrycodes/:configurationName",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Country codes configured for the Person Fraud product."
+        },
+        {
+          "info": {
+            "name": "Get Fields For Person Fraud",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/risk/v1/configuration/fields/:configurationName/:countryCode",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Field schema for the Person Fraud product per country."
+        },
+        {
+          "info": {
+            "name": "Get Datasources For Person Fraud",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/risk/v1/configuration/datasources/:configurationName/:countryCode",
+            "params": [
+              {
+                "name": "configurationName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Available risk-data sources for the Person Fraud product per country."
         }
       ]
     }

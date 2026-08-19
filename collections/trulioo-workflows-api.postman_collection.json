@@ -1,27 +1,27 @@
 {
   "item": [
     {
-      "id": "bbd3abeb-60bb-47cd-9f93-3bda344056a2",
-      "name": "Business Verification",
+      "id": "d5347835-784b-4b03-92a8-a7f937c38901",
+      "name": "Workflows",
       "description": {
-        "content": "Verify a business and retrieve its registration record.",
+        "content": "Retrieve workflow definitions.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "0658ad9a-ccb1-4707-bf49-cdfe81a32a06",
-          "name": "Business Verify",
+          "id": "85401b8c-5344-409e-a96d-c6e5f0d4db87",
+          "name": "Retrieve Workflows From Organization",
           "request": {
-            "name": "Business Verify",
+            "name": "Retrieve Workflows From Organization",
             "description": {
-              "content": "Verify a specific business by registration number and jurisdiction. Returns the canonical record plus officers, addresses, and other registry-supplied fields.\n",
+              "content": "List all workflows defined in the organization.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "v3",
-                "business",
-                "verify"
+                "customer",
+                "v2",
+                "workflows"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -31,36 +31,23 @@
             },
             "header": [
               {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"BusinessSearchInputFields\": {\n    \"BusinessName\": \"<string>\",\n    \"BusinessRegistrationNumber\": \"<string>\",\n    \"JurisdictionOfIncorporation\": \"<string>\"\n  },\n  \"JurisdictionOfIncorporation\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
+            "method": "GET",
+            "auth": null
           },
           "response": [
             {
-              "id": "807f9d00-fcef-41be-8fa6-8a2878d2c506",
-              "name": "Business verify result.",
+              "id": "7213f4ad-2bb4-45ab-9600-b02580524c06",
+              "name": "List of workflows.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v3",
-                    "business",
-                    "verify"
+                    "customer",
+                    "v2",
+                    "workflows"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -82,16 +69,8 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"BusinessSearchInputFields\": {\n    \"BusinessName\": \"string\",\n    \"BusinessRegistrationNumber\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\"\n  },\n  \"JurisdictionOfIncorporation\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "method": "GET",
+                "body": {}
               },
               "status": "OK",
               "code": 200,
@@ -101,7 +80,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"TransactionID\": \"string\",\n  \"Record\": {\n    \"BusinessName\": \"string\",\n    \"BusinessRegistrationNumber\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\",\n    \"Status\": \"string\",\n    \"ConfidenceScore\": 9560.093438103062\n  },\n  \"Officers\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": false\n    },\n    {\n      \"key_0\": 1625\n    }\n  ]\n}",
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"version\": \"string\",\n    \"steps\": [\n      {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      {\n        \"key_0\": 3026\n      }\n    ]\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"version\": \"string\",\n    \"steps\": [\n      {\n        \"key_0\": 3118.9310131834613,\n        \"key_1\": false\n      },\n      {\n        \"key_0\": 6816.24998750228,\n        \"key_1\": \"string\",\n        \"key_2\": true\n      }\n    ]\n  }\n]",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -137,8 +116,8 @@
     ]
   },
   "info": {
-    "_postman_id": "6de20bfa-a076-48df-9d84-a12bbe4f5678",
-    "name": "Trulioo Authentication Business Verification API",
+    "_postman_id": "de62cce2-1faf-46ab-a83f-980def4e9662",
+    "name": "Trulioo Business Verification Authentication Workflows API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",

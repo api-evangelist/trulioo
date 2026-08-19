@@ -1,0 +1,695 @@
+{
+  "item": [
+    {
+      "id": "4628a959-228e-40b1-b602-7359fe82c1ee",
+      "name": "Flows",
+      "description": {
+        "content": "Initialize and drive a workflow flow.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "060d91d6-0176-401b-879f-c9b079cff1c2",
+          "name": "Get Current Step Or Initialize A Flow",
+          "request": {
+            "name": "Get Current Step Or Initialize A Flow",
+            "description": {
+              "content": "Returns the current step for an existing flow identified by `userStateId`, or initializes a new flow.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "flow",
+                ":userStateId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userStateId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b8bb2958-6418-498c-8fc2-aabc4c89a4c9",
+              "name": "Current flow step.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "flow",
+                    ":userStateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userStateId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"userStateId\": \"string\",\n  \"stepId\": \"string\",\n  \"stepType\": \"string\",\n  \"inputs\": {\n    \"key_0\": 6785.439425309267\n  },\n  \"outputs\": {\n    \"key_0\": 7540,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb98954e-f224-4df2-be42-86787dccba4d",
+          "name": "Submit Data For The Current Step Of A Flow",
+          "request": {
+            "name": "Submit Data For The Current Step Of A Flow",
+            "description": {
+              "content": "Submit JSON payload for the current step.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "flow",
+                ":userStateId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userStateId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eb2074f6-bcad-4bdb-9a6e-8cca0d79697d",
+              "name": "Next step.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "flow",
+                    ":userStateId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userStateId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": false,\n  \"key_1\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"userStateId\": \"string\",\n  \"stepId\": \"string\",\n  \"stepType\": \"string\",\n  \"inputs\": {\n    \"key_0\": 6785.439425309267\n  },\n  \"outputs\": {\n    \"key_0\": 7540,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10d4f447-3da3-48db-ab6d-662de50c9009",
+          "name": "Submit File For The Current Step Of A Flow",
+          "request": {
+            "name": "Submit File For The Current Step Of A Flow",
+            "description": {
+              "content": "Submit a file (e.g. document image) for the current flow step.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "flow",
+                ":userStateId",
+                "file"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userStateId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a4bd76e5-2686-4b70-88dc-348f4e97d905",
+              "name": "Next step.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "flow",
+                    ":userStateId",
+                    "file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userStateId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"userStateId\": \"string\",\n  \"stepId\": \"string\",\n  \"stepType\": \"string\",\n  \"inputs\": {\n    \"key_0\": 6785.439425309267\n  },\n  \"outputs\": {\n    \"key_0\": 7540,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2d5daf2-bdc0-4028-9050-f17c7fcd7c37",
+          "name": "Backward Step In The Flow",
+          "request": {
+            "name": "Backward Step In The Flow",
+            "description": {
+              "content": "Compute a backward step in the flow execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "flow",
+                ":userStateId",
+                "back"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userStateId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b1941548-46c3-4da3-bc95-e3946642eff1",
+              "name": "Previous step.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "flow",
+                    ":userStateId",
+                    "back"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userStateId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"userStateId\": \"string\",\n  \"stepId\": \"string\",\n  \"stepType\": \"string\",\n  \"inputs\": {\n    \"key_0\": 6785.439425309267\n  },\n  \"outputs\": {\n    \"key_0\": 7540,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07176892-ed4d-46a0-afb1-d82770c808ba",
+          "name": "Post Handoff",
+          "request": {
+            "name": "Post Handoff",
+            "description": {
+              "content": "Notify the platform that control of the flow is being handed off between user-facing capture and backend processing.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "handoff"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "212c2c1b-38e5-4bd2-b358-a7be46220d09",
+              "name": "Handoff acknowledged.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "handoff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": false,\n  \"key_1\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b96924c0-ccdc-44f9-8529-f26872b774d2",
+          "name": "Create Or Update User State",
+          "request": {
+            "name": "Create Or Update User State",
+            "description": {
+              "content": "Create a new user state ID or update an existing one with init data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "init"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2b3f2318-d509-4201-bb3a-1769473c3651",
+              "name": "User state ID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": false,\n  \"key_1\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"userStateId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.trulioo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8cdf0c0f-da0b-45cf-b8b7-f18b6bb13fa1",
+    "name": "Trulioo Business Verification Authentication Flows API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+      "type": "text/plain"
+    }
+  }
+}

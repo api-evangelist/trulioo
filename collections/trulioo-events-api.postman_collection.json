@@ -1,27 +1,27 @@
 {
   "item": [
     {
-      "id": "8f5dc495-ab3d-418c-8981-a09db83d2e5d",
-      "name": "Person Fraud",
+      "id": "e824ed75-173a-45ca-8f01-78d91fa28f83",
+      "name": "Events",
       "description": {
-        "content": "Risk-score a person.",
+        "content": "Webhook event dispatch.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "82c30559-ad26-4705-9b3c-828feed60b4f",
-          "name": "Person Fraud Check",
+          "id": "bf8e6b63-f2b5-45cd-b8be-a33da9074df1",
+          "name": "Send Event",
           "request": {
-            "name": "Person Fraud Check",
+            "name": "Send Event",
             "description": {
-              "content": "Perform a person-fraud risk check.",
+              "content": "Dispatch a webhook event from the platform. Used by the Event Dispatcher to deliver workflow lifecycle events.\n",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "risk",
-                "v1",
-                "check"
+                "customer",
+                "v2",
+                "events"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -33,17 +33,13 @@
               {
                 "key": "Content-Type",
                 "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
               }
             ],
             "method": "POST",
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"key_0\": true,\n      \"key_1\": 1409\n    },\n    \"Communication\": {\n      \"key_0\": 1009.6707897360013,\n      \"key_1\": 6626\n    },\n    \"Location\": {\n      \"key_0\": false,\n      \"key_1\": true\n    },\n    \"Device\": {\n      \"key_0\": 9894.3026568971\n    }\n  },\n  \"CustomerReferenceID\": \"<string>\"\n}",
+              "raw": "{\n  \"key_0\": \"string\",\n  \"key_1\": \"string\",\n  \"key_2\": true\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -53,14 +49,14 @@
           },
           "response": [
             {
-              "id": "e01b7f04-1d9a-4d9a-858b-2348e161431a",
-              "name": "Risk verdict.",
+              "id": "75635900-6c06-4174-824e-236fe3023be6",
+              "name": "Event accepted for delivery.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "risk",
-                    "v1",
-                    "check"
+                    "customer",
+                    "v2",
+                    "events"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -76,16 +72,12 @@
                     },
                     "key": "Authorization",
                     "value": "Basic <credentials>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
                   }
                 ],
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"key_0\": 1064,\n      \"key_1\": \"string\",\n      \"key_2\": 6545,\n      \"key_3\": 4499.331798097984,\n      \"key_4\": 3686\n    },\n    \"Communication\": {\n      \"key_0\": 6463.020236592869,\n      \"key_1\": false\n    },\n    \"Location\": {\n      \"key_0\": true,\n      \"key_1\": false\n    },\n    \"Device\": {\n      \"key_0\": 1250,\n      \"key_1\": 4006.5364998493837\n    }\n  },\n  \"CustomerReferenceID\": \"<string>\"\n}",
+                  "raw": "{\n  \"key_0\": 3094.934557804423\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -93,17 +85,17 @@
                   }
                 }
               },
-              "status": "OK",
-              "code": 200,
+              "status": "Accepted",
+              "code": 202,
               "header": [
                 {
                   "key": "Content-Type",
-                  "value": "application/json"
+                  "value": "text/plain"
                 }
               ],
-              "body": "{\n  \"TransactionID\": \"string\",\n  \"RiskScore\": 6582.378936384436,\n  \"RiskVerdict\": \"pass\",\n  \"Reasons\": [\n    \"string\",\n    \"string\"\n  ],\n  \"DatasourceResults\": [\n    {\n      \"key_0\": true,\n      \"key_1\": 2885\n    },\n    {\n      \"key_0\": 2769.2200641358168\n    }\n  ]\n}",
+              "body": "",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "_postman_previewlanguage": "text"
             }
           ],
           "event": [],
@@ -137,8 +129,8 @@
     ]
   },
   "info": {
-    "_postman_id": "104fa4ec-b6e0-4cf6-8b39-2032d9fabff0",
-    "name": "Trulioo Business Verification Authentication Person Fraud API",
+    "_postman_id": "f16de629-8c0a-4cd6-98b2-2fc25defa6fa",
+    "name": "Trulioo Business Verification Authentication Events API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",

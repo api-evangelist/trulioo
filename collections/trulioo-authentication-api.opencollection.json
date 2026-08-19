@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Business Verification Authentication API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Post Auth Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/auth/customer",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "grant_type",
+                  "value": ""
+                },
+                {
+                  "name": "client_id",
+                  "value": ""
+                },
+                {
+                  "name": "client_secret",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Exchange OAuth credentials for an access token to call the Platform API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,161 @@
+{
+  "item": [
+    {
+      "id": "187b3f70-1ce8-4c76-b758-a041fe4e5e0c",
+      "name": "Documents",
+      "description": {
+        "content": "Download evidence documents from completed transactions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "200a2b89-0d9b-47aa-a1e6-024e113cd436",
+          "name": "Download Evidence Document",
+          "request": {
+            "name": "Download Evidence Document",
+            "description": {
+              "content": "Download an evidence document image (e.g. captured ID front, ID back, selfie) returned by a verification.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "verifications",
+                "documentdownload",
+                ":transactionRecordId",
+                ":fieldName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "transactionRecordId",
+                  "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fieldName",
+                  "description": "(Required) Name of the document field to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "62642451-b266-4cea-8cc8-973edfe039cd",
+              "name": "Document binary stream.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "verifications",
+                    "documentdownload",
+                    ":transactionRecordId",
+                    ":fieldName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "transactionRecordId",
+                      "description": "(Required) TransactionRecordID returned by a previous Verify call."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fieldName",
+                      "description": "(Required) Name of the document field to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.trulioo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "21c9bd48-56e3-4c7f-9b46-626f21baafee",
+    "name": "Trulioo Business Verification Authentication Documents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+      "type": "text/plain"
+    }
+  }
+}

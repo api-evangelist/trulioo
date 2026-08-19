@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Trulioo Connection API",
+    "name": "Trulioo Business Verification Authentication Connection API",
     "version": "3.0"
   },
   "request": {

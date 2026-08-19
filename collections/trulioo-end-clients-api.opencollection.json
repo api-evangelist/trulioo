@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Business Verification Authentication End Clients API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "End Clients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Profiles From Your Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/customer/v2/profiles"
+          },
+          "docs": "List end-client profiles in your workspace."
+        },
+        {
+          "info": {
+            "name": "Retrieve Profile Data From A Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/customer/v2/profiles/:clientId",
+            "params": [
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the full profile (and verification data) for an end client."
+        },
+        {
+          "info": {
+            "name": "Retrieve A File From A Client",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/customer/v2/profiles/:clientId/file/:fileId",
+            "params": [
+              {
+                "name": "clientId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download a file stored on an end-client profile."
+        },
+        {
+          "info": {
+            "name": "Create A Link Between Two End Clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/endclients/link",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Establish a relationship link between two end-client profiles."
+        },
+        {
+          "info": {
+            "name": "Delete A Link Between Two End Clients",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.trulioo.com/customer/v2/endclients/link",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove a link between two end-client profiles."
+        },
+        {
+          "info": {
+            "name": "Delete End Clients In Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/endclients/bulkdelete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk delete end-client profiles."
+        },
+        {
+          "info": {
+            "name": "Update End Clients Status In Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/endclients/bulkstatus",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk update the status of end-client profiles."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "17193f15-c0d8-47b6-95ab-f7de1b999396",
+      "id": "14d74d57-ef22-40ab-b61e-5a92b9c84dc6",
       "name": "Configuration",
       "description": {
         "content": "Discover packages, countries, datasources, fields, and consents.",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "6ef9b46d-234f-44da-8d47-2a8b3a6b5f18",
+          "id": "ad2239af-bc5f-4ed8-bcd0-568992071de0",
           "name": "Get List Of Packages",
           "request": {
             "name": "Get List Of Packages",
@@ -40,7 +40,7 @@
           },
           "response": [
             {
-              "id": "dbd91333-8c98-4777-91a0-990a22b9572d",
+              "id": "4bd07b59-d9be-4e12-803e-3437989d2e58",
               "name": "List of packages.",
               "originalRequest": {
                 "url": {
@@ -91,7 +91,7 @@
           }
         },
         {
-          "id": "f4ad9462-63ee-456e-9138-0227eb98278f",
+          "id": "0068169d-9497-4fe1-9484-e6fbadfb0bce",
           "name": "Get Country Codes",
           "request": {
             "name": "Get Country Codes",
@@ -131,7 +131,7 @@
           },
           "response": [
             {
-              "id": "c6748b17-19ff-43c7-aeda-84cfcc9b6888",
+              "id": "f0fbd3ab-862f-46eb-8a48-97b168385a99",
               "name": "List of ISO 3166 two-letter country codes.",
               "originalRequest": {
                 "url": {
@@ -191,7 +191,7 @@
           }
         },
         {
-          "id": "5434a099-7301-42ec-8073-421b012d209e",
+          "id": "4d220484-af6c-45b1-9f3f-855e76b547d4",
           "name": "Get Country Subdivisions",
           "request": {
             "name": "Get Country Subdivisions",
@@ -231,7 +231,7 @@
           },
           "response": [
             {
-              "id": "1d05231a-f4f0-4653-a6b8-863a14e3ea0b",
+              "id": "2662e9dd-e296-4f5d-8e9b-1ae7cbb38919",
               "name": "List of subdivisions.",
               "originalRequest": {
                 "url": {
@@ -291,7 +291,7 @@
           }
         },
         {
-          "id": "cd561c86-5150-4e01-ac12-e33b8062df15",
+          "id": "6f09cac3-120a-4580-86a5-045532abf4a0",
           "name": "Get Fields",
           "request": {
             "name": "Get Fields",
@@ -339,7 +339,7 @@
           },
           "response": [
             {
-              "id": "a0546dfe-d6e8-488a-9a0b-905286063d82",
+              "id": "b13ffdf7-6a0e-466d-afc2-f47a82d5ffd8",
               "name": "JSON Schema describing accepted fields.",
               "originalRequest": {
                 "url": {
@@ -396,7 +396,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"key_0\": 9746,\n  \"key_1\": 8973,\n  \"key_2\": 4999.667031878979,\n  \"key_3\": true\n}",
+              "body": "{\n  \"key_0\": true\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -407,7 +407,7 @@
           }
         },
         {
-          "id": "a5e59fef-bd1a-46e4-be87-312af127f4c2",
+          "id": "afb95464-1a56-4943-a3e9-baebcad99ce9",
           "name": "Get Recommended Fields",
           "request": {
             "name": "Get Recommended Fields",
@@ -456,7 +456,7 @@
           },
           "response": [
             {
-              "id": "a2da105d-e6da-45e6-9d0a-f67d3c5ead6a",
+              "id": "2bf627dd-d94c-46cb-b056-b65a99e24b20",
               "name": "Recommended field set.",
               "originalRequest": {
                 "url": {
@@ -514,7 +514,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"key_0\": 9746,\n  \"key_1\": 8973,\n  \"key_2\": 4999.667031878979,\n  \"key_3\": true\n}",
+              "body": "{\n  \"key_0\": true\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -525,7 +525,7 @@
           }
         },
         {
-          "id": "88b368f2-2da7-4aa9-bc45-f30f040a6964",
+          "id": "e0df4ab0-e3e2-41a1-a672-c755402ee58c",
           "name": "Get Datasources",
           "request": {
             "name": "Get Datasources",
@@ -573,7 +573,7 @@
           },
           "response": [
             {
-              "id": "f0749330-8791-4787-988a-d0ab89749731",
+              "id": "dc2b21d1-a47e-45cb-9754-2e343a25cf1c",
               "name": "List of datasource groups.",
               "originalRequest": {
                 "url": {
@@ -641,7 +641,7 @@
           }
         },
         {
-          "id": "b4af7b6f-8b18-445c-a00c-b819de390909",
+          "id": "9dc4d21b-7362-47ae-92aa-cd59734b1178",
           "name": "Get Consents",
           "request": {
             "name": "Get Consents",
@@ -689,7 +689,7 @@
           },
           "response": [
             {
-              "id": "cb4a7e23-2c14-48ae-bd43-0a2b8577ab6e",
+              "id": "38eac516-4d24-4a45-8e1b-441981fed87d",
               "name": "List of consent strings.",
               "originalRequest": {
                 "url": {
@@ -757,7 +757,7 @@
           }
         },
         {
-          "id": "7879c3b6-914e-4c05-8609-0b347c129cab",
+          "id": "609191dd-e32f-44ed-ad68-ba4d86ce21e7",
           "name": "Get Detailed Consents",
           "request": {
             "name": "Get Detailed Consents",
@@ -806,7 +806,7 @@
           },
           "response": [
             {
-              "id": "dd90f73d-2810-4e16-9c36-19d2b6c19d30",
+              "id": "07b69946-16c7-4055-9d89-bc457d7caf58",
               "name": "List of detailed consents.",
               "originalRequest": {
                 "url": {
@@ -875,7 +875,7 @@
           }
         },
         {
-          "id": "c84abd1b-75c8-47e1-bd48-92ce7497aa15",
+          "id": "3f888b88-26b7-4015-97c0-208a141fd2ca",
           "name": "Get Test Entities",
           "request": {
             "name": "Get Test Entities",
@@ -923,7 +923,7 @@
           },
           "response": [
             {
-              "id": "eb0abbea-8498-4d80-80ce-90518d79ccbc",
+              "id": "754864b4-d03f-4c5d-9e0a-fac9928b6839",
               "name": "List of test entities.",
               "originalRequest": {
                 "url": {
@@ -980,7 +980,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "[\n  {\n    \"Profile\": \"string\",\n    \"Description\": \"string\",\n    \"Fields\": {\n      \"key_0\": 3582.7165715679143,\n      \"key_1\": \"string\",\n      \"key_2\": 2331\n    }\n  },\n  {\n    \"Profile\": \"string\",\n    \"Description\": \"string\",\n    \"Fields\": {\n      \"key_0\": 5074,\n      \"key_1\": true,\n      \"key_2\": 2769.518393788657\n    }\n  }\n]",
+              "body": "[\n  {\n    \"Profile\": \"string\",\n    \"Description\": \"string\",\n    \"Fields\": {\n      \"key_0\": false\n    }\n  },\n  {\n    \"Profile\": \"string\",\n    \"Description\": \"string\",\n    \"Fields\": {\n      \"key_0\": 2402,\n      \"key_1\": 3754,\n      \"key_2\": \"string\"\n    }\n  }\n]",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -991,7 +991,7 @@
           }
         },
         {
-          "id": "f731a851-4745-4976-867f-f3c63e78b8fc",
+          "id": "7636be6f-5eb1-4c81-97bc-b686b9212257",
           "name": "Get Document Types",
           "request": {
             "name": "Get Document Types",
@@ -1031,7 +1031,7 @@
           },
           "response": [
             {
-              "id": "e423c9f3-1958-4f62-b372-fbc5dbcda843",
+              "id": "065f75c6-243f-4159-b3c4-5a8c8ef660ec",
               "name": "List of document type identifiers.",
               "originalRequest": {
                 "url": {
@@ -1089,6 +1089,344 @@
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           }
+        },
+        {
+          "id": "e1afca16-4809-41e1-b73c-fe7e5a790481",
+          "name": "Get Country Codes For Person Fraud",
+          "request": {
+            "name": "Get Country Codes For Person Fraud",
+            "description": {
+              "content": "Country codes configured for the Person Fraud product.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "risk",
+                "v1",
+                "configuration",
+                "countrycodes",
+                ":configurationName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "configurationName",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3a3c8679-c568-4e56-8d91-1fdf01b68616",
+              "name": "Country codes.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "v1",
+                    "configuration",
+                    "countrycodes",
+                    ":configurationName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "configurationName",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dbd085b6-a1e6-4fc7-816f-a0c1c5b3181c",
+          "name": "Get Fields For Person Fraud",
+          "request": {
+            "name": "Get Fields For Person Fraud",
+            "description": {
+              "content": "Field schema for the Person Fraud product per country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "risk",
+                "v1",
+                "configuration",
+                "fields",
+                ":configurationName",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "configurationName",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c4573e1a-5cab-43c8-8b42-0af156c53de3",
+              "name": "Field schema.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "v1",
+                    "configuration",
+                    "fields",
+                    ":configurationName",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "configurationName",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41ca1810-af9b-4db9-9ed8-e6ea51c5bc12",
+          "name": "Get Datasources For Person Fraud",
+          "request": {
+            "name": "Get Datasources For Person Fraud",
+            "description": {
+              "content": "Available risk-data sources for the Person Fraud product per country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "risk",
+                "v1",
+                "configuration",
+                "datasources",
+                ":configurationName",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "configurationName",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab71bcc5-f3f6-421c-8d7c-927113a13b73",
+              "name": "List of datasources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "risk",
+                    "v1",
+                    "configuration",
+                    "datasources",
+                    ":configurationName",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "configurationName",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": 3396.113860800426\n  },\n  {\n    \"key_0\": false,\n    \"key_1\": 805.941004414279,\n    \"key_2\": 839\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
       "event": []
@@ -1116,11 +1454,11 @@
     ]
   },
   "info": {
-    "_postman_id": "e6ca2a83-c34d-44e6-a938-568ab077a257",
-    "name": "Trulioo Configuration API",
+    "_postman_id": "664e09b0-b99b-45a7-98fc-feae167bf608",
+    "name": "Trulioo Business Verification Authentication Configuration API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "Discovery endpoints for the Trulioo GlobalGateway. Use these endpoints to learn which countries, datasources, fields, document types, and consents are available for a configured product/package before submitting a Verify request. Returns metadata that drives client-side form generation and dynamic field selection.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+      "content": "Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
       "type": "text/plain"
     }
   }

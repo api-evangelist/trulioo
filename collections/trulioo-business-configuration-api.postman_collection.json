@@ -1,0 +1,409 @@
+{
+  "item": [
+    {
+      "id": "06b3b08f-fb3b-4dc6-8153-031b276315bb",
+      "name": "Business Configuration",
+      "description": {
+        "content": "Discover JOIs and registration number requirements.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "de398f96-acaa-4ff2-99e7-b364f3824394",
+          "name": "Get All Jurisdictions Of Incorporation",
+          "request": {
+            "name": "Get All Jurisdictions Of Incorporation",
+            "description": {
+              "content": "List all supported jurisdictions of incorporation across all countries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "countryJOI"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7bfcb522-95f6-409d-813d-e8a8d463c63e",
+              "name": "List of country/subdivision JOIs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "countryJOI"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"string\",\n    \"Code\": \"string\"\n  },\n  {\n    \"Name\": \"string\",\n    \"Code\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb7c6141-9ccb-4365-a474-57e724c0e263",
+          "name": "Get Jurisdictions Of Incorporation Per Country",
+          "request": {
+            "name": "Get Jurisdictions Of Incorporation Per Country",
+            "description": {
+              "content": "List the supported jurisdictions of incorporation within a single country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "countryJOI",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "68b865b2-4299-4bef-bdf1-9833ed1dc8d6",
+              "name": "List of JOIs for the country.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "countryJOI",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"string\",\n    \"Code\": \"string\"\n  },\n  {\n    \"Name\": \"string\",\n    \"Code\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b94ee46-c87b-481f-a615-eb90920c568f",
+          "name": "Get Business Registration Numbers For All Supported Countries",
+          "request": {
+            "name": "Get Business Registration Numbers For All Supported Countries",
+            "description": {
+              "content": "List business registration number types for every supported country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "businessregistrationnumbers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "198493cf-f34b-4c8b-9f44-c6bed52d7740",
+              "name": "List of registration number metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "businessregistrationnumbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"CountryCode\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\",\n    \"RegistrationNumberType\": \"string\",\n    \"Description\": \"string\"\n  },\n  {\n    \"CountryCode\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\",\n    \"RegistrationNumberType\": \"string\",\n    \"Description\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d37d3780-0c27-4772-956a-a8e30f6d5438",
+          "name": "Get Business Registration Numbers By Country",
+          "request": {
+            "name": "Get Business Registration Numbers By Country",
+            "description": {
+              "content": "List business registration number types for one country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "businessregistrationnumbers",
+                ":countryCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "387c4903-65ee-4494-9c80-e8140a5c1e24",
+              "name": "List of registration number metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "businessregistrationnumbers",
+                    ":countryCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"CountryCode\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\",\n    \"RegistrationNumberType\": \"string\",\n    \"Description\": \"string\"\n  },\n  {\n    \"CountryCode\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\",\n    \"RegistrationNumberType\": \"string\",\n    \"Description\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.trulioo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "41d868a4-aa40-42e2-8e62-5e08881baf5b",
+    "name": "Trulioo Business Verification Authentication Business Configuration API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+      "type": "text/plain"
+    }
+  }
+}

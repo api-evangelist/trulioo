@@ -1,0 +1,733 @@
+{
+  "item": [
+    {
+      "id": "99fc4fda-ae06-484e-b018-74aadbdbd89e",
+      "name": "End Clients",
+      "description": {
+        "content": "Profiles, files, and bulk operations on end clients.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "21f439d4-ed52-472b-8b8f-97fae383ff79",
+          "name": "Retrieve Profiles From Your Workspace",
+          "request": {
+            "name": "Retrieve Profiles From Your Workspace",
+            "description": {
+              "content": "List end-client profiles in your workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6cebca5-8ccb-46e1-930b-679045b09273",
+              "name": "Profiles.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"clientId\": \"string\",\n    \"status\": \"string\",\n    \"createdAt\": \"1998-10-19T23:04:27.067Z\",\n    \"updatedAt\": \"2015-12-03T20:32:17.927Z\",\n    \"data\": {\n      \"key_0\": true,\n      \"key_1\": 1112.6886957593929,\n      \"key_2\": \"string\",\n      \"key_3\": 5426\n    }\n  },\n  {\n    \"clientId\": \"string\",\n    \"status\": \"string\",\n    \"createdAt\": \"2010-02-07T21:36:03.705Z\",\n    \"updatedAt\": \"2005-07-19T06:50:19.244Z\",\n    \"data\": {\n      \"key_0\": \"string\",\n      \"key_1\": 7711\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a85c6c4-5c56-4e8b-99ca-24b38b161da2",
+          "name": "Retrieve Profile Data From A Client",
+          "request": {
+            "name": "Retrieve Profile Data From A Client",
+            "description": {
+              "content": "Get the full profile (and verification data) for an end client.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "profiles",
+                ":clientId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clientId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b9bf212b-fc83-435f-a8e5-30c4f253d180",
+              "name": "Profile.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "profiles",
+                    ":clientId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clientId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"clientId\": \"string\",\n  \"status\": \"string\",\n  \"createdAt\": \"1988-09-16T18:14:21.343Z\",\n  \"updatedAt\": \"2004-01-24T21:18:53.659Z\",\n  \"data\": {\n    \"key_0\": true,\n    \"key_1\": 883.0350423161149\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae70a316-bf2c-4fd7-a5af-79ba5d754487",
+          "name": "Retrieve A File From A Client",
+          "request": {
+            "name": "Retrieve A File From A Client",
+            "description": {
+              "content": "Download a file stored on an end-client profile.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "profiles",
+                ":clientId",
+                "file",
+                ":fileId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clientId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fileId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb3bd44f-c8fc-4ca2-aa16-e18aecc58343",
+              "name": "File binary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "profiles",
+                    ":clientId",
+                    "file",
+                    ":fileId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clientId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fileId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "294146d5-f62f-4ccd-b952-3f9a3f1d7888",
+          "name": "Create A Link Between Two End Clients",
+          "request": {
+            "name": "Create A Link Between Two End Clients",
+            "description": {
+              "content": "Establish a relationship link between two end-client profiles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "endclients",
+                "link"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fb285ec7-4b79-4467-ae0d-9951651efaec",
+              "name": "Link created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "endclients",
+                    "link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 843,\n  \"key_1\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0143c327-4737-4137-a59b-33fa5ce3e233",
+          "name": "Delete A Link Between Two End Clients",
+          "request": {
+            "name": "Delete A Link Between Two End Clients",
+            "description": {
+              "content": "Remove a link between two end-client profiles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "endclients",
+                "link"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "20683b7b-4b8e-4120-9045-8e6dadb9ade0",
+              "name": "Link removed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "endclients",
+                    "link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 843,\n  \"key_1\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ae6a607-6963-4c23-8db6-ccdb031e3a36",
+          "name": "Delete End Clients In Bulk",
+          "request": {
+            "name": "Delete End Clients In Bulk",
+            "description": {
+              "content": "Bulk delete end-client profiles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "endclients",
+                "bulkdelete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a97e928a-64b0-4684-bec4-d444858e38ca",
+              "name": "Bulk delete result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "endclients",
+                    "bulkdelete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clientIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee521a19-e1a1-4827-a19e-ea81f8e40058",
+          "name": "Update End Clients Status In Bulk",
+          "request": {
+            "name": "Update End Clients Status In Bulk",
+            "description": {
+              "content": "Bulk update the status of end-client profiles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer",
+                "v2",
+                "endclients",
+                "bulkstatus"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c81df739-d17f-4fba-af00-1f70d3f775af",
+              "name": "Status updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer",
+                    "v2",
+                    "endclients",
+                    "bulkstatus"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 843,\n  \"key_1\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.trulioo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b86a7641-f542-4075-b724-6d8c68b4c51f",
+    "name": "Trulioo Business Verification Authentication End Clients API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+      "type": "text/plain"
+    }
+  }
+}

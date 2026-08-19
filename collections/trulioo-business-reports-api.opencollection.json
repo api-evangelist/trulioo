@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Business Verification Authentication Business Reports API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Business Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Business Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/business/report/:transactionRecordId",
+            "params": [
+              {
+                "name": "transactionRecordId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "additionalData",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Download the business registration document/report associated with a transaction."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

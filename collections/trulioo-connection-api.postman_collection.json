@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "9c54d16b-68d2-44da-8d31-8eb8b1a49230",
+      "id": "c4cf8b3a-7d63-41d7-a116-3b471db2667d",
       "name": "Connection",
       "description": {
         "content": "Ping and authentication-test endpoints.",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "0fdade56-578d-41bb-af19-651b8681c054",
+          "id": "e7f6bd37-e03b-43ed-9db1-b4bad06d6e1a",
           "name": "Say Hello",
           "request": {
             "name": "Say Hello",
@@ -49,7 +49,7 @@
           },
           "response": [
             {
-              "id": "5a8c181a-747e-43be-b423-eec00d8fbeab",
+              "id": "fb9cd177-6a37-467e-967a-0622eaebd51a",
               "name": "Greeting string.",
               "originalRequest": {
                 "url": {
@@ -109,7 +109,7 @@
           }
         },
         {
-          "id": "3ae6ce15-51f2-4eef-9a48-2517f5a84f91",
+          "id": "f141b95a-3416-4b65-8126-b96e7135e7d4",
           "name": "Test Authentication",
           "request": {
             "name": "Test Authentication",
@@ -140,7 +140,7 @@
           },
           "response": [
             {
-              "id": "2352847f-0c04-4290-a4b2-db503c453f9a",
+              "id": "d7eec475-0017-4b5f-8436-f7c15df0400d",
               "name": "Authenticated username.",
               "originalRequest": {
                 "url": {
@@ -185,7 +185,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "5ece1104-a619-4b07-93ac-adcbff4dc90b",
+              "id": "57d6334f-7f15-4bef-b842-24500dd21bff",
               "name": "Authentication failed.",
               "originalRequest": {
                 "url": {
@@ -257,11 +257,11 @@
     ]
   },
   "info": {
-    "_postman_id": "9cb82aae-3845-4fab-8aa6-8240759ec5dc",
-    "name": "Trulioo Connection API",
+    "_postman_id": "ee1952d2-1d61-494b-a1d4-162150e638b8",
+    "name": "Trulioo Business Verification Authentication Connection API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "Health-check and authentication-test endpoints for the Trulioo platform. Use `sayhello` for a no-auth ping and `testauthentication` to verify your credentials before exercising paid endpoints.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+      "content": "Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
       "type": "text/plain"
     }
   }

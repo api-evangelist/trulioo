@@ -1,0 +1,250 @@
+{
+  "item": [
+    {
+      "id": "f2286ae2-d157-4660-a4ce-796202e9eeb7",
+      "name": "Business Search",
+      "description": {
+        "content": "Search the Trulioo business registry universe.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ceb7abe9-2068-4562-b6a3-8d719e9abd7e",
+          "name": "Business Search",
+          "request": {
+            "name": "Business Search",
+            "description": {
+              "content": "Search for a business by name, registration number, and jurisdiction-of-incorporation. Returns candidate matches with confidence scores.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"BusinessSearchInputFields\": {\n    \"BusinessName\": \"<string>\",\n    \"BusinessRegistrationNumber\": \"<string>\",\n    \"JurisdictionOfIncorporation\": \"<string>\"\n  },\n  \"JurisdictionOfIncorporation\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "df5f6251-6f47-499e-b43b-00d5f6801d10",
+              "name": "Business search response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"BusinessSearchInputFields\": {\n    \"BusinessName\": \"string\",\n    \"BusinessRegistrationNumber\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\"\n  },\n  \"JurisdictionOfIncorporation\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TransactionID\": \"string\",\n  \"Results\": [\n    {\n      \"BusinessName\": \"string\",\n      \"BusinessRegistrationNumber\": \"string\",\n      \"JurisdictionOfIncorporation\": \"string\",\n      \"Status\": \"string\",\n      \"ConfidenceScore\": 9127.805717359366\n    },\n    {\n      \"BusinessName\": \"string\",\n      \"BusinessRegistrationNumber\": \"string\",\n      \"JurisdictionOfIncorporation\": \"string\",\n      \"Status\": \"string\",\n      \"ConfidenceScore\": 9435.622618128473\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a89495c-a1e9-4f5c-9f39-5d3e3735510b",
+          "name": "Get Business Search Result",
+          "request": {
+            "name": "Get Business Search Result",
+            "description": {
+              "content": "Retrieve a previously executed Business Search by transaction ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "business",
+                "search",
+                "transactionrecord",
+                ":transactionRecordId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "transactionRecordId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2344fc5d-a4bf-4cc0-b732-54b7ecf27ef9",
+              "name": "Business search response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "business",
+                    "search",
+                    "transactionrecord",
+                    ":transactionRecordId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "transactionRecordId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TransactionID\": \"string\",\n  \"Results\": [\n    {\n      \"BusinessName\": \"string\",\n      \"BusinessRegistrationNumber\": \"string\",\n      \"JurisdictionOfIncorporation\": \"string\",\n      \"Status\": \"string\",\n      \"ConfidenceScore\": 9127.805717359366\n    },\n    {\n      \"BusinessName\": \"string\",\n      \"BusinessRegistrationNumber\": \"string\",\n      \"JurisdictionOfIncorporation\": \"string\",\n      \"Status\": \"string\",\n      \"ConfidenceScore\": 9435.622618128473\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.trulioo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "503b3853-a4ec-4a2d-8d5e-d357ffa00dea",
+    "name": "Trulioo Business Verification Authentication Business Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",
+      "type": "text/plain"
+    }
+  }
+}

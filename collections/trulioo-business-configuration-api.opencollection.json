@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Business Verification Authentication Business Configuration API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Business Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Jurisdictions Of Incorporation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/business/countryJOI"
+          },
+          "docs": "List all supported jurisdictions of incorporation across all countries."
+        },
+        {
+          "info": {
+            "name": "Get Jurisdictions Of Incorporation Per Country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/business/countryJOI/:countryCode",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List the supported jurisdictions of incorporation within a single country."
+        },
+        {
+          "info": {
+            "name": "Get Business Registration Numbers For All Supported Countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/business/businessregistrationnumbers"
+          },
+          "docs": "List business registration number types for every supported country."
+        },
+        {
+          "info": {
+            "name": "Get Business Registration Numbers By Country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/business/businessregistrationnumbers/:countryCode",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List business registration number types for one country."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

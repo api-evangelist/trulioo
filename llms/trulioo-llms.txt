@@ -1,0 +1,270 @@
+# Trulioo Documentation
+
+> Quickly access our in-house verification services with our Identity Verification API. Call a single service, or combine services to suit your business needs.
+
+## Guides
+- [Platform Update 6.7](https://developer.trulioo.com/docs/release-notes.md): Release Date: April 8, 2026
+- [Platform Update 6.6](https://developer.trulioo.com/docs/platform-update-66.md): Release Date: January 7, 2026
+- [Platform Update 6.5](https://developer.trulioo.com/docs/platform-update-65.md): Release Date: October 1, 2025
+- [Platform Update 6.4](https://developer.trulioo.com/docs/platform-update-64.md): Release Date: July 1, 2025
+- [Platform Update 6.3](https://developer.trulioo.com/docs/platform-update-63.md): Release Date: April 2, 2025
+- [Platform Update 6.2](https://developer.trulioo.com/docs/platform-update-62.md): Release Date: January 15, 2025
+- [Platform Update 6.1](https://developer.trulioo.com/docs/platform-update-61.md): Release Date: October 9, 2024
+- [Platform Update 6.0](https://developer.trulioo.com/docs/platform-update-60.md): Release Date: July 2, 2024
+
+## API Reference
+- [Welcome](https://developer.trulioo.com/reference/welcome.md)
+- [Recipes and Examples - Overview](https://developer.trulioo.com/reference/working-with-recipes-and-examples.md)
+- [Authentication](https://developer.trulioo.com/reference/authentication-recipe.md)
+- [API Handshake](https://developer.trulioo.com/reference/api-handshake.md)
+- [HMAC](https://developer.trulioo.com/reference/hmac.md)
+- [Event Dispatcher](https://developer.trulioo.com/reference/event-dispatcher.md)
+- [Examples](https://developer.trulioo.com/reference/examples.md)
+- [Business Insights + Business Watchlist Screening](https://developer.trulioo.com/reference/business-insights-business-watchlist-screening.md)
+- [Person Match + Person Watchlist Screening](https://developer.trulioo.com/reference/person-match-person-watchlist-screening.md)
+- [ID Document Verification using the Customer API](https://developer.trulioo.com/reference/id-document-verification.md)
+- [API Guides - Overview](https://developer.trulioo.com/reference/overview-api-guides.md)
+- [Trulioo Platform API](https://developer.trulioo.com/reference/trulioo-platform-api.md)
+- [Uploading and Retrieving Workflow Documents](https://developer.trulioo.com/reference/uploading-and-retrieving-workflow-documents.md)
+- [Modifying Hosted Workflows via Query Parameter](https://developer.trulioo.com/reference/modifying-hosted-workflow-theme-via-query-parameter.md)
+- [Document Data Extraction](https://developer.trulioo.com/reference/document-data-extraction.md)
+- [Trulioo SDK Integration ](https://developer.trulioo.com/reference/trulioo-sdk.md)
+- [Trulioo SDK - Web Guide](https://developer.trulioo.com/reference/web-sdk-guide.md): The Trulioo web SDK lets you add identity verification to your web application. A standard integration collects device intelligence, optionally submits KYC data, and returns a final result you can act on.
+- [Trulioo SDK - iOS Guide](https://developer.trulioo.com/reference/ios-sdk-guide.md): The Trulioo iOS SDK lets you add identity verification to your iOS application. A standard integration collects device intelligence, optionally submits KYC subject data, and returns a terminal result you can act on.
+- [Trulioo SDK - Android Guide](https://developer.trulioo.com/reference/android-sdk-guide.md): The Trulioo Android SDK lets you add identity verification to your Android application. A standard integration collects device intelligence, optionally submits KYC subject data, and returns a terminal result you can act on.
+- [Trulioo KYC Documents Capture SDK — Web](https://developer.trulioo.com/reference/trulioo-kyc-documents-capture-web-guide.md)
+- [Trulioo KYC Documents Capture SDK — Android](https://developer.trulioo.com/reference/trulioo-kyc-documents-capture-sdk-android-guide.md)
+- [Trulioo KYC Documents Capture SDK — iOS](https://developer.trulioo.com/reference/trulioo-kyc-documents-capture-sdk-ios-guide.md)
+- [Identity Document Verification](https://developer.trulioo.com/reference/identity-document-verification.md)
+- [Getting Started](https://developer.trulioo.com/reference/getting-started-1.md)
+- [Webhook](https://developer.trulioo.com/reference/webhook.md)
+- [Android](https://developer.trulioo.com/reference/android.md)
+- [Migration Guide: DocV Android 2.x to KYC Documents Android](https://developer.trulioo.com/reference/migration-guide-docv-android-2x-to-kyc-documents-android.md)
+- [IOS](https://developer.trulioo.com/reference/ios.md)
+- [Migration Guide: DocV iOS 2.x to KYC Documents iOS](https://developer.trulioo.com/reference/migration-guide-docv-ios-2x-to-kyc-documents-ios.md)
+- [Web 3.0](https://developer.trulioo.com/reference/web-copy.md)
+- [Migration Guide - Docv 2.x to KYC Documents Web SDK](https://developer.trulioo.com/reference/web-migration-2x-to-3x.md): @trulioo/docv 2.x to @trulioo/kyc-documents
+- [Workflow Studio (Low-Code)](https://developer.trulioo.com/reference/workflow-studio-low-code.md)
+- [Workflow Studio (API)](https://developer.trulioo.com/reference/workflow-studio-api.md)
+- [Age Estimation](https://developer.trulioo.com/reference/age-estimation.md)
+- [Known Faces](https://developer.trulioo.com/reference/known-faces.md)
+- [React Native Capture SDK (Custom UX/UI)](https://developer.trulioo.com/reference/react-native.md)
+- [Normalized API](https://developer.trulioo.com/reference/normalized-api.md)
+- [Asynchronous Requests](https://developer.trulioo.com/reference/asynchronous-requests.md)
+- [Address Validation](https://developer.trulioo.com/reference/address-validation.md)
+- [Connecting to Trulioo's API using Mutual TLS - v3](https://developer.trulioo.com/reference/connecting-to-trulioos-api-using-mutual-tls-v3.md)
+- [Person Verification](https://developer.trulioo.com/reference/kyc-person-verification.md)
+- [Integration Guide](https://developer.trulioo.com/reference/integration-guide.md)
+- [API Integration](https://developer.trulioo.com/reference/api-integration.md)
+- [Understanding a Verify Response](https://developer.trulioo.com/reference/understanding-a-verify-response.md)
+- [Get Country Codes](https://developer.trulioo.com/reference/guide-get-country-codes.md)
+- [Get Fields](https://developer.trulioo.com/reference/guide-get-fields.md)
+- [Customer Consent](https://developer.trulioo.com/reference/customer-consent.md)
+- [Best Practices & Help Guide](https://developer.trulioo.com/reference/kyc-best-practices-help-guide.md): Best Practices and Help for Person Verification
+- [Fraud Intelligence - Person Fraud](https://developer.trulioo.com/reference/fraud-intelligence-person-fraud.md)
+- [Criminal Record Check ](https://developer.trulioo.com/reference/us-criminal-record-search.md)
+- [Person Screening](https://developer.trulioo.com/reference/kyc-person-screening.md)
+- [Business Verification](https://developer.trulioo.com/reference/guide-business-verification.md)
+- [Step 1: Say Hello](https://developer.trulioo.com/reference/business-verification-step1-say-hello.md)
+- [Step 2: Test Authentication](https://developer.trulioo.com/reference/business-verification-step2-test-authentication.md)
+- [Step 3: Retrieve Your Account Configuration](https://developer.trulioo.com/reference/business-verification-step3-get-account-configuration.md)
+- [Step 4: Selecting Your Flow](https://developer.trulioo.com/reference/business-verification-step4-selecting-flow.md)
+- [Step 5: Business Search](https://developer.trulioo.com/reference/business-verification-step5-business-search.md)
+- [Step 6: Verify](https://developer.trulioo.com/reference/business-verification-step6-verify.md)
+- [Step 7: Download Document](https://developer.trulioo.com/reference/business-verification-step7-download-document.md)
+- [Business Verification - Best Practices](https://developer.trulioo.com/reference/kyb-best-practices.md)
+- [Understanding Standardized Fields](https://developer.trulioo.com/reference/understanding-standardized-fields.md)
+- [KYB -  Field Content Standardization](https://developer.trulioo.com/reference/field-content-standardization.md)
+- [Verifying Additional Names & Addresses](https://developer.trulioo.com/reference/verifying-additional-names-addresses.md)
+- [Comprehensive View](https://developer.trulioo.com/reference/comprehensive-view.md)
+- [Matching on Persons of Significant Control](https://developer.trulioo.com/reference/matching-on-persons-of-significant-control.md)
+- [Partial Results](https://developer.trulioo.com/reference/partial-results.md)
+- [Language Intelligence](https://developer.trulioo.com/reference/language-intelligence.md)
+- [UBO Discovery](https://developer.trulioo.com/reference/ubo-discovery.md)
+- [Business Screening](https://developer.trulioo.com/reference/kyb-business-screening.md)
+- [Business (KYB) Monitoring](https://developer.trulioo.com/reference/business-kyb-monitoring.md)
+- [KYB Web Insights](https://developer.trulioo.com/reference/kyb-web-insights.md)
+- [KYB Prefill](https://developer.trulioo.com/reference/kyb-prefill.md)
+- [Business Credit and Financial Insights](https://developer.trulioo.com/reference/business-credit-and-financial-insights.md)
+- [Credit and Financial Insights - Data Dictionary](https://developer.trulioo.com/reference/credit-and-financial-insights-data-dictionary.md)
+- [Normalized API 1.0 (Legacy)](https://developer.trulioo.com/reference/normalized-api-10-legacy.md)
+- [v1 - Introduction](https://developer.trulioo.com/reference/introduction.md)
+- [v1 - Getting Started](https://developer.trulioo.com/reference/getting-started.md)
+- [Sandbox vs. Live Environment - v1](https://developer.trulioo.com/reference/v1-sandbox-vs-live-environment.md)
+- [v1 - Keys and Authentication](https://developer.trulioo.com/reference/keys-and-authentication-2.md)
+- [Connecting to Trulioo's API using Mutual TLS - v1](https://developer.trulioo.com/reference/connecting-to-trulioos-api-using-mutual-tls.md)
+- [v1 - Asynchronous Requests](https://developer.trulioo.com/reference/asynchronous-requests-3.md)
+- [v1 - What is Address Validation?](https://developer.trulioo.com/reference/what-is-address-validation-2.md)
+- [v1 - Identity Verification](https://developer.trulioo.com/reference/identity-verification-2.md)
+- [v1 - API Integration](https://developer.trulioo.com/reference/api-integration-4.md)
+- [v1 - Understanding a Verify Response](https://developer.trulioo.com/reference/v1-understanding-a-verify-response.md)
+- [v1 - Get Country Codes](https://developer.trulioo.com/reference/get-country-codes-2.md)
+- [v1 - Get Fields](https://developer.trulioo.com/reference/get-fields-1.md)
+- [v1 - Customer Consent](https://developer.trulioo.com/reference/customer-consent-1.md)
+- [v1 - Best Practices & Help Guide](https://developer.trulioo.com/reference/best-practices-help-guide-2.md)
+- [v1 - What Fields am I configured for?](https://developer.trulioo.com/reference/what-fields-am-i-configured-for-1.md)
+- [v1 - My Previous Transactions](https://developer.trulioo.com/reference/my-previous-transactions-1.md)
+- [v1 - National IDs: Supported Types](https://developer.trulioo.com/reference/national-ids-supported-types-2.md)
+- [v1 - What is Address Cleansing?](https://developer.trulioo.com/reference/what-is-address-cleansing-2.md)
+- [v1 - International Watchlist](https://developer.trulioo.com/reference/v1-international-watchlist.md)
+- [v1 - Person Screening](https://developer.trulioo.com/reference/kyc-person-screening-1.md)
+- [v1 - Watchlist Screening](https://developer.trulioo.com/reference/watchlist-screening-3.md)
+- [v1 - Identity Document Verification](https://developer.trulioo.com/reference/identity-document-verification-2.md)
+- [v1 - Mobile SDK - iOS](https://developer.trulioo.com/reference/mobile-sdk-ios.md)
+- [v1 - Mobile SDK - Android](https://developer.trulioo.com/reference/mobile-sdk-android.md)
+- [v1 - Document Verification](https://developer.trulioo.com/reference/legacy-document-verification.md)
+- [v1 - Document Verification Overview](https://developer.trulioo.com/reference/overview-3.md)
+- [v1 - Improving Document Capture Results](https://developer.trulioo.com/reference/improving-document-capture-results.md)
+- [v1 - Step 1: Say Hello](https://developer.trulioo.com/reference/v1-docverification-step1-say-hello.md)
+- [v1 - Step 2: Test Authentication](https://developer.trulioo.com/reference/step-2-test-authentication.md)
+- [v1 - Step 3: Get Country Codes](https://developer.trulioo.com/reference/step-3-get-country-codes.md)
+- [v1 - Step 4: SDK token request optional](https://developer.trulioo.com/reference/step-4-sdk-token-request-optional.md)
+- [v1 - Step 5: Get Document Types](https://developer.trulioo.com/reference/step-5-sdk-token-request-optional.md)
+- [v1 - Step 6: Image Capture SDK](https://developer.trulioo.com/reference/step-6-image-capture-sdk.md)
+- [v1 - Step 7: Async Verify](https://developer.trulioo.com/reference/step-7-async-verify.md)
+- [v1 - Step 8: Synch Verify](https://developer.trulioo.com/reference/step-8-synch-verify.md)
+- [v1 - Country Codes](https://developer.trulioo.com/reference/country-codes.md)
+- [v1 - Document Types](https://developer.trulioo.com/reference/document-types.md)
+- [v1 - Verify](https://developer.trulioo.com/reference/verify.md)
+- [v1 - Business Verification](https://developer.trulioo.com/reference/v1-business-verification-overview.md)
+- [v1 - Important Concepts](https://developer.trulioo.com/reference/important-concepts-1.md)
+- [v1 - KYB Quick Start](https://developer.trulioo.com/reference/quick-start-copy.md)
+- [v1 - Step 1: Say Hello](https://developer.trulioo.com/reference/step-1-say-hello.md)
+- [v1 - Step 2: Test Authentication](https://developer.trulioo.com/reference/step-2-test-authentication-3.md)
+- [v1 - Step 3: Retrieve Your Account Configuration](https://developer.trulioo.com/reference/step-3-retrieve-your-account-configuration-1.md)
+- [v1 - Step 4: Selecting Your Flow](https://developer.trulioo.com/reference/step-4-selecting-your-flow-2.md)
+- [v1 - Step 5: Business Search](https://developer.trulioo.com/reference/step-5-business-search.md)
+- [v1 - Step 6: Verify](https://developer.trulioo.com/reference/step-4b-verify-2.md)
+- [v1 - Step 7: Download Document](https://developer.trulioo.com/reference/step-5-sdk-token-request-optional-1.md)
+- [v1 - Next Steps](https://developer.trulioo.com/reference/next-steps-3.md)
+- [v1 - Business Screening](https://developer.trulioo.com/reference/business-screening.md)
+- [v1 - Business Watchlist Screening](https://developer.trulioo.com/reference/business-watchlist-screening.md)
+- [v1 - Best Practices](https://developer.trulioo.com/reference/best-practices.md)
+- [v1 - Using Search and Verify APIs](https://developer.trulioo.com/reference/using-search-and-verify-apis-1.md)
+- [v1 - View Previous Transactions](https://developer.trulioo.com/reference/view-previous-transactions-1.md)
+- [v1 - Document Availability](https://developer.trulioo.com/reference/document-availability-1.md)
+- [v1 - Document Request Time](https://developer.trulioo.com/reference/document-request-time-1.md)
+- [v1 - Understanding Standardized Fields](https://developer.trulioo.com/reference/understanding-standardized-fields-2.md)
+- [v1 - Standardized Business Verification Content](https://developer.trulioo.com/reference/standardized-business-verification-content-1.md)
+- [v1 - Verifying Additional Names & Addresses](https://developer.trulioo.com/reference/verifying-additional-names-addresses-2.md)
+- [v1 - Comprehensive View](https://developer.trulioo.com/reference/comprehensive-view-2.md)
+- [v1 - Matching on Persons of Significant Control](https://developer.trulioo.com/reference/matching-on-persons-of-significant-control-2.md)
+- [v1 - Partial Results](https://developer.trulioo.com/reference/partial-results-2.md)
+- [v1 - Language Intelligence](https://developer.trulioo.com/reference/language-intelligence-2.md)
+- [v1 - Errors](https://developer.trulioo.com/reference/errors-1.md)
+- [v1 - HTTP Errors](https://developer.trulioo.com/reference/http-errors-1.md)
+- [v1 - Trulioo Service/DataSource Level Errors](https://developer.trulioo.com/reference/trulioo-servicedatasource-level-errors-1.md)
+- [v1 - Validation Codes](https://developer.trulioo.com/reference/validation-codes.md)
+- [v1 - Record Level Errors](https://developer.trulioo.com/reference/record-level-errors-1.md)
+- [v1 - Get Transaction Record Errors](https://developer.trulioo.com/reference/get-transaction-record-errors-1.md)
+- [Multi-Region Hosting](https://developer.trulioo.com/reference/multi-region-hosting.md)
+- [API Reference - Overview](https://developer.trulioo.com/reference/api-reference-overview.md)
+- [Errors](https://developer.trulioo.com/reference/errors.md)
+- [Trulioo Platform API Endpoints](https://developer.trulioo.com/reference/trulioo-platform-api-endpoints.md)
+- [Get current step or initialize a flow](https://developer.trulioo.com/reference/flow.md)
+- [Submit data for the current step of a flow](https://developer.trulioo.com/reference/submit.md)
+- [Submit file for the current step of a flow](https://developer.trulioo.com/reference/submitfile.md)
+- [Computes a backward step in the flow execution.](https://developer.trulioo.com/reference/xback.md)
+- [Receiving Events](https://developer.trulioo.com/reference/sendevent.md)
+- [Retrieve workflows from organization v2](https://developer.trulioo.com/reference/getflows.md): Retrieve all workflows from your organization
+- [Retrieve profiles from your workspace v2](https://developer.trulioo.com/reference/retrieve-profiles.md): Retrieve workflows user submissions. This is different from events because it contains the whole data submitted by a user.The parameters `before` and `after` can be passed to define a time range for your search
+- [Retrieve profile data from a client v2](https://developer.trulioo.com/reference/getclientdata.md): Retrieve workflows user submissions. A user can submit data through multiple workflows, that is aggregated here.
+- [Retrieve a file from a client v2](https://developer.trulioo.com/reference/getclientfile.md): Download files from a client based on the file key. The key can be found in the response from the 'query client by id' call. It will be available in the flowData object, under the flow ID in whichthe end client uploaded the file, part of the the fileData attribute.
+- [Create a link between two end clients](https://developer.trulioo.com/reference/createlinkedlead.md)
+- [Delete a link between two end clients](https://developer.trulioo.com/reference/deletelinkedlead.md)
+- [Get init data for a flow](https://developer.trulioo.com/reference/init_get.md)
+- [Create a new user state ID or update an existing one with some initialization data](https://developer.trulioo.com/reference/init.md)
+- [Delete end clients in bulk](https://developer.trulioo.com/reference/deleteendclientsmanually.md)
+- [Update end clients status in bulk](https://developer.trulioo.com/reference/updateendclientsstatusmanually.md)
+- [Generate Signed URL for User Session](https://developer.trulioo.com/reference/signed_url.md)
+- [Send an email notification to a lead to start or continue a workflow](https://developer.trulioo.com/reference/sendemailnotification.md): Sends an email containing a signed link allowing the recipient to resume the workflow. When the lead status is IN_PROGRESS and the flow has abandonment timer configured, the abandonment timer is reset by default; set resetAbandonmentTimer to false in the request body to suppress this. For NOT_STARTED leads, the timer reset toggle is ignored.
+- [Deprecated](https://developer.trulioo.com/reference/deprecated.md)
+- [Client Credential Flow (2-legged OAuth)](https://developer.trulioo.com/reference/accesstoken.md): Each application (workflow) is assigned a unique Client ID and Client Secret.   A successful access token request returns a JSON object containing the bearer token and the number of seconds until the token expires. Access tokens are issued with a 60 minute lifespan. You can request a new token once your current token expires.
+- [Retrieve workflows from organization v1](https://developer.trulioo.com/reference/getflows_1.md): Retrieve all workflows from your organization
+- [Retrieve a file from a client v1](https://developer.trulioo.com/reference/getclientfile_1.md): Download files from a client based on the file key. The key can be found in the response from the 'query client by id' call. It will be available in the flowData object, under the flow ID in whichthe end client uploaded the file, part of the the fileData attribute.
+- [Retrieve profiles from your workspace v1](https://developer.trulioo.com/reference/query_1.md): Retrieve workflows user submissions. This is different from events because it contains the whole data submitted by a user.The parameters `before` and `after` can be passed to define a time range for your search
+- [Retrieve profile data from a client v1](https://developer.trulioo.com/reference/getclientdata_1.md): Retrieve workflows user submissions. A user can submit data through multiple workflows, that is aggregated here.
+- [Normalized API (NAPI)](https://developer.trulioo.com/reference/all-products.md)
+- [Configuration](https://developer.trulioo.com/reference/configuration-1.md)
+- [Get Country Code](https://developer.trulioo.com/reference/get_v3-configuration-countrycodes-packageid.md): Calling this method will perform fetch all country codes from its packageID.
+- [Get Recommended Fields](https://developer.trulioo.com/reference/get_v3-configuration-fields-packageid-countrycode-recommended.md)
+- [Get Detailed Consents](https://developer.trulioo.com/reference/get_v3-configuration-consents-packageid-countrycode-detail.md)
+- [Get Consents](https://developer.trulioo.com/reference/get_v3-configuration-consents-packageid-countrycode.md): This method retrieves the consents required for data sources currently configured in your account configuration.  The response for this method contains a collection of strings that Verify method's ConsentForDataSources field expects to perform a verification using those data sources.  A failure to provide an element from the string collection will lead to a <a class='link-to-api' href='#errors'>1005</a> service error.
+- [Get Test Entities](https://developer.trulioo.com/reference/get_v3-configuration-testentities-packageid-countrycode.md): Gets the test entities configured for your product and country.
+- [Get List of packages](https://developer.trulioo.com/reference/get_v3-account-packages.md): Calling this method will perform fetch all packages by account
+- [Get Country Subdivisions](https://developer.trulioo.com/reference/get_v3-configuration-countrysubdivisions-countrycode.md): Calling this method will perform fetch all country subdiviions by countryCode.
+- [Get Fields](https://developer.trulioo.com/reference/get_v3-configuration-fields-packageid-countrycode.md)
+- [Get Datasources](https://developer.trulioo.com/reference/get_v3-configuration-datasources-packageid-countrycode.md): Gets datasource groups configured for your product and country.
+- [Connection](https://developer.trulioo.com/reference/connection.md)
+- [Say Hello](https://developer.trulioo.com/reference/get_v3-connection-sayhello-name.md): This method enables you to check if your system can connect to our system. You can even use a web browser to verify a connection to our system. Applied a maximum length for the name parameter of 100 via a route constraint.
+- [Test Authentication](https://developer.trulioo.com/reference/get_v3-connection-testauthentication.md): This method enables you to check if your credentials are valid. You will need to provide a valid token to ensure a successful response.
+- [Verifications](https://developer.trulioo.com/reference/all-products-verifications.md)
+- [Get Transaction Record](https://developer.trulioo.com/reference/get_v3-verifications-transactionrecord-transactionrecordid.md): This endpoint will provide the final results once the transaction completes. The response will have match signals per Name and Address fields and notify if the individual is verified. It may take a few minutes for the transaction to complete.Once the results are available, the callback status updates to “Success”. The Transaction Record ID (TRID) will be sent to the callback URL provided.
+- [Get Transaction Status](https://developer.trulioo.com/reference/get_v3-verifications-transaction-transactionid-status.md): This method is used to retrieve the processing status of an asynchronous transaction. The response for this method includes the processing status of the verification, the TransactionID, the TransactionRecordID as well as whether the verification request has timed out.
+- [KYC - Person Verification](https://developer.trulioo.com/reference/identity-verification-verifications.md)
+- [Verify](https://developer.trulioo.com/reference/post_v3-verifications-verify.md): Calling this method will perform a verification. You can query configuration to get what fields are available to you in each each country. It is also possible to get sample requests from the customer portal.
+- [KYB - Business Verification](https://developer.trulioo.com/reference/kyb-business-verification.md)
+- [Get all Jurisdictions of Incorporation](https://developer.trulioo.com/reference/get_v3-business-countryjoi.md): Gets Jurisdication of Incorporation values for all supported countries
+- [Get Jurisdictions of Incorporation per country](https://developer.trulioo.com/reference/get_v3-business-countryjoi-countrycode.md): Gets the jurisdictions of incorporation for a requested country
+- [Get Business Registration Numbers for all supported countries](https://developer.trulioo.com/reference/get_v3-business-businessregistrationnumbers.md): This method provides a list of Business Identifiers for all supported countries in a single request
+- [Get Business Registration Numbers by Country](https://developer.trulioo.com/reference/get_v3-business-businessregistrationnumbers-countrycode.md): This method provides a list of Business Identifiers for a specified country
+- [Get Business Registration Numbers by Country w/JOI](https://developer.trulioo.com/reference/get_v3-business-businessregistrationnumbers-countrycode-jurisdictioncode.md): This method provides a list of Business Identifiers for a country and a supplied jurisdiction
+- [Business Search](https://developer.trulioo.com/reference/post_v3-business-search.md): Calling this method will perform a business search.
+- [GetBusinessSearchResult](https://developer.trulioo.com/reference/get_v3-business-search-transactionrecord-id.md): This method retrieves a business search result.
+- [Verify](https://developer.trulioo.com/reference/post_v3-business-verify.md): Calling this method will perform a Business Verification.
+- [DocumentDownload](https://developer.trulioo.com/reference/get_v3-verifications-documentdownload-transactionrecordid-fieldname.md): Download Document
+- [Get Trulioo Business Summary Report](https://developer.trulioo.com/reference/get_v3-business-report-transactionrecordid.md): Retrieves the Trulioo Generated Business Report for a given TRID
+- [Get Partial Transaction Result](https://developer.trulioo.com/reference/get_v3-verifications-transaction-transactionid-partialresult.md): Returns a partially completed KYB Transaction Result
+- [Normalized API 1.0 (Legacy)](https://developer.trulioo.com/reference/normalized-api-v1-legacy.md)
+- [Connection Endpoints (Legacy)](https://developer.trulioo.com/reference/v1connectionendpoints.md)
+- [Configuration Endpoints (Legacy)](https://developer.trulioo.com/reference/v1configurationendpoints.md)
+- [Verification Endpoints (Legacy)](https://developer.trulioo.com/reference/verifications.md)
+- [Identity Verification Endpoints (Legacy)](https://developer.trulioo.com/reference/identity-verifications.md)
+- [Document Verification Endpoints (Legacy)](https://developer.trulioo.com/reference/legacy-document-verification-1.md)
+- [Business Verification Endpoints - (Legacy)](https://developer.trulioo.com/reference/business-verification-1.md)
+- [Identity Document Verification](https://developer.trulioo.com/reference/version-25.md)
+- [Create a new KnownFaces list](https://developer.trulioo.com/reference/post-knownfaces-list.md): Creates a new KnownFaces list
+- [List all KnownFaces list](https://developer.trulioo.com/reference/get-knownfaces-lists.md): Lists all KnownFaces list
+- [Get all transactions tagged to the specified list](https://developer.trulioo.com/reference/get-knownfaces-list-transactions.md): Lists all transactions under a list
+- [Delete a KnownFaces list](https://developer.trulioo.com/reference/delete-knownfaces-list.md)
+- [Add transactions to a list](https://developer.trulioo.com/reference/add-knownfaces-list-transaction.md)
+- [Delete a transaction from a list](https://developer.trulioo.com/reference/delete-knownfaces-list-transaction.md)
+- [Update list metadata](https://developer.trulioo.com/reference/update-knownfaces-list-transaction.md)
+- [Upload a selfie](https://developer.trulioo.com/reference/enroll-selfie.md): Submit one or more selfies in Base64 encoding for enrolment. It accepts images in PNG, WEBP, and JPG formats.
+- [Upload a selfie with external unique person identifier](https://developer.trulioo.com/reference/enroll-selfie-external-id.md): Submit one or more selfies in Base64 encoding for enrolment, attaching a unique identifier with context in a system external to Trulioo. It accepts images in PNG and JPG format and PDF files.
+- [Enrol selfie from an old transaction](https://developer.trulioo.com/reference/transaction-id.md): Enrol selfie image that is available from old transaction
+- [Create a short code for SDK handoff](https://developer.trulioo.com/reference/posthandoff.md): Generates a single-use short code (valid for 5 minutes) to continue the verification flow in an SDK. The short code locks the workflow to the same transaction identifier that was generated during authorization.
+- [Create and configure a transaction](https://developer.trulioo.com/reference/posttransactions.md): Creates a transaction with configuration options for document verification, selfie liveness verification, biometric verification, and optional SDK configuration for client-side capture.
+- [Upload a document or selfie image](https://developer.trulioo.com/reference/uploaddocument.md): Upload file(s) for a verification process. Accepts: - JPEG (`image/jpeg`) - PNG (`image/png`) - PDF (`application/pdf`)  Maximum file size: 10 MB. Minimum: 20 KB.
+- [Start verification for the current transaction](https://developer.trulioo.com/reference/verifytransaction.md): Starts the verification process and returns the status.
+- [Get transaction data](https://developer.trulioo.com/reference/gettransactiondata.md): Retrieves detailed information for a verification process by transaction identifier.
+- [Authorize and generate access tokens](https://developer.trulioo.com/reference/post-auth-customer.md): Required initial endpoint before starting the document verification process. It generates the access tokens to be used in subsequent endpoints. Access token expire in 60 minutes.
+- [Create a shortcode for handoff to a SDK](https://developer.trulioo.com/reference/post-handoff.md): Short code provides an option to pass the rest of the verification workflow to an SDK. The short code is a unique, single use code and it is valid for only 5 minutes. The verification will continue on SDK side starting with authorization using the short code. The short code locks the workflow to the same transaction identifier as the one generated earlier during authorization.
+- [Create and Configure Transactions](https://developer.trulioo.com/reference/post-transactions.md): Creates a transaction with configuration options for document and/or selfie liveness verification.
+- [Upload a document](https://developer.trulioo.com/reference/upload_document.md): Upload file(s) for a verification process. It accepts images in PNG and JPG format and PDF files. Maximum file size is 10 megabytes, and the minimum is 20 kilobytes.
+- [Start to verify a transaction](https://developer.trulioo.com/reference/verify_transaction.md): Starts the verification process and returns the status.
+- [Get the data of a transaction](https://developer.trulioo.com/reference/get_transaction_data.md): Retrieves the detailed information of a verification process specified by a transaction identifier.
+- [Get an image](https://developer.trulioo.com/reference/get_presigned_url.md): Retrieves an image of the transaction by providing the transaction identifier, the image identifier and the access token obtained from the GET /transactions/{transactionId} endpoint.
+- [Authorize and generate access tokens](https://developer.trulioo.com/reference/post-auth-customer-1.md): Required initial endpoint before starting the document verification process. It generates the access tokens to be used in subsequent endpoints. Access token expire in 60 minutes.
+- [Create a shortcode for handoff to a SDK](https://developer.trulioo.com/reference/post-handoff-1.md): Short code provides an option to pass the rest of the verification workflow to an SDK. The short code is a unique, single use code and it is valid for only 5 minutes. The verification will continue on SDK side starting with authorization using the short code. The short code locks the workflow to the same transaction identifier as the one generated earlier during authorization.
+- [Create and Configure Transactions](https://developer.trulioo.com/reference/post-transactions-1.md): Creates a transaction with configuration options for document and/or selfie liveness verification.
+- [Upload a document](https://developer.trulioo.com/reference/upload_document-1.md): Uploads an image for a verification process. It accepts images in PNG and JPG format. Maximum file size is 10 megabytes, and the minimum is 20 kilobytes.
+- [Start to verify a transaction](https://developer.trulioo.com/reference/verify_transaction-1.md): Starts the verification process and returns the status.
+- [Get the data of a transaction](https://developer.trulioo.com/reference/get_transaction_data-1.md): Retrieves the detailed information of a verification process specified by a transaction identifier.
+- [Get an image](https://developer.trulioo.com/reference/get_presigned_url-1.md): Retrieves an image of the transaction by providing the transaction identifier, the image identifier and the access token obtained from the GET /transactions/{transactionId} endpoint.
+- [Enroll Business](https://developer.trulioo.com/reference/post_enrollment-enrollwithkyb.md)
+- [Retrieve Latest Monitoring Result](https://developer.trulioo.com/reference/get_enrollment-monitoringresult-enrollmentid.md)
+- [Refresh Enrollment Date](https://developer.trulioo.com/reference/post_enrollment-id-refresh.md)
+- [Get Enrollment Details](https://developer.trulioo.com/reference/get_enrollment-id.md)
+- [Delete Enrollment](https://developer.trulioo.com/reference/delete_enrollment-id.md)
+- [Trulioo SDK License](https://developer.trulioo.com/reference/trulioo-sdk-license.md)
+- [Get transaction device detail](https://developer.trulioo.com/reference/gettransactiondevices.md): Returns the current transaction-scoped device result for the authenticated organization. The response includes normalized device data, observed signals, and evaluation context.  Poll this endpoint while it returns `202 Accepted`. When processing is complete, it returns `200 OK`.  Source risk fields are normalized into the Trulioo `evaluation` returned by this API. Use `evaluation.riskBand` for programmatic categorization, `evaluation.riskLevel` for display text, and `evaluation.riskScore` for numeric ordering or comparison. Do not treat the normalized score as an unmodified source score. For compatibility, when an evaluation is present, `device.risk.riskScore` and `device.risk.riskLevel` repeat the corresponding public `evaluation` values; they are not separate raw source values.
+- [Get EID verification result](https://developer.trulioo.com/reference/geteidresult.md): Returns the full electronic identity verification result, including match, outcome, decision, Level of Assurance, and verified identity fields.  Call `GET /transactions/{transactionId}/eid` to poll the EID session first. This endpoint returns `202 Accepted` while the session is still processing and `200 OK` when the result is available.
+
+## Recipes
+- [API handshake](https://developer.trulioo.com/recipes/api-handshake.md)
+- [Authentication](https://developer.trulioo.com/recipes/authentication.md)
+- [Event Dispatcher](https://developer.trulioo.com/recipes/event-dispatcher.md)
+- [HMAC event verification](https://developer.trulioo.com/recipes/hmac-event-verification-1.md)
+- [Quick Start with API](https://developer.trulioo.com/recipes/quick-start-with-api.md)
+- [Verify](https://developer.trulioo.com/recipes/verify.md)

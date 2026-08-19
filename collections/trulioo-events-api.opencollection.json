@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Trulioo Business Verification Authentication Person Fraud API",
+    "name": "Trulioo Business Verification Authentication Events API",
     "version": "3.0"
   },
   "request": {
@@ -14,24 +14,24 @@
   "items": [
     {
       "info": {
-        "name": "Person Fraud",
+        "name": "Events",
         "type": "folder"
       },
       "items": [
         {
           "info": {
-            "name": "Person Fraud Check",
+            "name": "Send Event",
             "type": "http"
           },
           "http": {
             "method": "POST",
-            "url": "https://api.trulioo.com/risk/v1/check",
+            "url": "https://api.trulioo.com/customer/v2/events",
             "body": {
               "type": "json",
               "data": "{}"
             }
           },
-          "docs": "Perform a person-fraud risk check."
+          "docs": "Dispatch a webhook event from the platform. Used by the Event Dispatcher to deliver workflow lifecycle events.\n"
         }
       ]
     }

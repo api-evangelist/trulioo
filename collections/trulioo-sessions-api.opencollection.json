@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Trulioo Business Verification Authentication Person Fraud API",
+    "name": "Trulioo Business Verification Authentication Sessions API",
     "version": "3.0"
   },
   "request": {
@@ -14,24 +14,24 @@
   "items": [
     {
       "info": {
-        "name": "Person Fraud",
+        "name": "Sessions",
         "type": "folder"
       },
       "items": [
         {
           "info": {
-            "name": "Person Fraud Check",
+            "name": "Generate Signed URL For User Session",
             "type": "http"
           },
           "http": {
             "method": "POST",
-            "url": "https://api.trulioo.com/risk/v1/check",
+            "url": "https://api.trulioo.com/customer/v2/signedurl",
             "body": {
               "type": "json",
               "data": "{}"
             }
           },
-          "docs": "Perform a person-fraud risk check."
+          "docs": "Generate a signed URL for an end-user to access a hosted workflow session.\n"
         }
       ]
     }

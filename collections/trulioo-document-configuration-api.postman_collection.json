@@ -1,72 +1,77 @@
 {
   "item": [
     {
-      "id": "bbd3abeb-60bb-47cd-9f93-3bda344056a2",
-      "name": "Business Verification",
+      "id": "1718eef6-0ef1-4287-a3be-d9053a4b20b3",
+      "name": "Document Configuration",
       "description": {
-        "content": "Verify a business and retrieve its registration record.",
+        "content": "Discover document types per country.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "0658ad9a-ccb1-4707-bf49-cdfe81a32a06",
-          "name": "Business Verify",
+          "id": "b934bd12-fd5c-4a6f-989d-9cf510ad6ea7",
+          "name": "Get Document Types",
           "request": {
-            "name": "Business Verify",
+            "name": "Get Document Types",
             "description": {
-              "content": "Verify a specific business by registration number and jurisdiction. Returns the canonical record plus officers, addresses, and other registry-supplied fields.\n",
+              "content": "Document types supported for a given country.",
               "type": "text/plain"
             },
             "url": {
               "path": [
                 "v3",
-                "business",
-                "verify"
+                "verifications",
+                "documenttypes",
+                ":countryCode"
               ],
               "host": [
                 "{{baseUrl}}"
               ],
               "query": [],
-              "variable": []
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) "
+                }
+              ]
             },
             "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"BusinessSearchInputFields\": {\n    \"BusinessName\": \"<string>\",\n    \"BusinessRegistrationNumber\": \"<string>\",\n    \"JurisdictionOfIncorporation\": \"<string>\"\n  },\n  \"JurisdictionOfIncorporation\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
+            "method": "GET",
+            "auth": null
           },
           "response": [
             {
-              "id": "807f9d00-fcef-41be-8fa6-8a2878d2c506",
-              "name": "Business verify result.",
+              "id": "1b207a5c-0853-4e6c-a678-a867e0d8a540",
+              "name": "List of document type identifiers.",
               "originalRequest": {
                 "url": {
                   "path": [
                     "v3",
-                    "business",
-                    "verify"
+                    "verifications",
+                    "documenttypes",
+                    ":countryCode"
                   ],
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "query": [],
-                  "variable": []
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) "
+                    }
+                  ]
                 },
                 "header": [
                   {
@@ -82,16 +87,8 @@
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"BusinessSearchInputFields\": {\n    \"BusinessName\": \"string\",\n    \"BusinessRegistrationNumber\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\"\n  },\n  \"JurisdictionOfIncorporation\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "method": "GET",
+                "body": {}
               },
               "status": "OK",
               "code": 200,
@@ -101,7 +98,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"TransactionID\": \"string\",\n  \"Record\": {\n    \"BusinessName\": \"string\",\n    \"BusinessRegistrationNumber\": \"string\",\n    \"JurisdictionOfIncorporation\": \"string\",\n    \"Status\": \"string\",\n    \"ConfidenceScore\": 9560.093438103062\n  },\n  \"Officers\": [\n    {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": false\n    },\n    {\n      \"key_0\": 1625\n    }\n  ]\n}",
+              "body": "[\n  \"string\",\n  \"string\"\n]",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -137,8 +134,8 @@
     ]
   },
   "info": {
-    "_postman_id": "6de20bfa-a076-48df-9d84-a12bbe4f5678",
-    "name": "Trulioo Authentication Business Verification API",
+    "_postman_id": "953fda5f-b468-4695-a4eb-92220db83a86",
+    "name": "Trulioo Business Verification Authentication Document Configuration API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",

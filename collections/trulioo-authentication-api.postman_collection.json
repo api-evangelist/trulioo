@@ -1,27 +1,28 @@
 {
   "item": [
     {
-      "id": "8f5dc495-ab3d-418c-8981-a09db83d2e5d",
-      "name": "Person Fraud",
+      "id": "605dda54-57b4-456f-be6e-80ca87cab684",
+      "name": "Authentication",
       "description": {
-        "content": "Risk-score a person.",
+        "content": "OAuth2 client-credential token acquisition.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "82c30559-ad26-4705-9b3c-828feed60b4f",
-          "name": "Person Fraud Check",
+          "id": "efb0b925-b974-42c1-b562-f7d0437200fd",
+          "name": "Post Auth Customer",
           "request": {
-            "name": "Person Fraud Check",
+            "name": "Post Auth Customer",
             "description": {
-              "content": "Perform a person-fraud risk check.",
+              "content": "Exchange OAuth credentials for an access token to call the Platform API.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "risk",
-                "v1",
-                "check"
+                "customer",
+                "v2",
+                "auth",
+                "customer"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -32,7 +33,7 @@
             "header": [
               {
                 "key": "Content-Type",
-                "value": "application/json"
+                "value": "application/x-www-form-urlencoded"
               },
               {
                 "key": "Accept",
@@ -42,25 +43,37 @@
             "method": "POST",
             "auth": null,
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"key_0\": true,\n      \"key_1\": 1409\n    },\n    \"Communication\": {\n      \"key_0\": 1009.6707897360013,\n      \"key_1\": 6626\n    },\n    \"Location\": {\n      \"key_0\": false,\n      \"key_1\": true\n    },\n    \"Device\": {\n      \"key_0\": 9894.3026568971\n    }\n  },\n  \"CustomerReferenceID\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "grant_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "client_secret",
+                  "value": "<string>"
                 }
-              }
+              ]
             }
           },
           "response": [
             {
-              "id": "e01b7f04-1d9a-4d9a-858b-2348e161431a",
-              "name": "Risk verdict.",
+              "id": "3cef9a6c-57bc-4376-be95-d91a47f08245",
+              "name": "Access token response.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "risk",
-                    "v1",
-                    "check"
+                    "customer",
+                    "v2",
+                    "auth",
+                    "customer"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -84,13 +97,24 @@
                 ],
                 "method": "POST",
                 "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"AcceptTruliooTermsAndConditions\": \"<boolean>\",\n  \"ConfigurationName\": \"<string>\",\n  \"CountryCode\": \"<string>\",\n  \"DataFields\": {\n    \"PersonInfo\": {\n      \"key_0\": 1064,\n      \"key_1\": \"string\",\n      \"key_2\": 6545,\n      \"key_3\": 4499.331798097984,\n      \"key_4\": 3686\n    },\n    \"Communication\": {\n      \"key_0\": 6463.020236592869,\n      \"key_1\": false\n    },\n    \"Location\": {\n      \"key_0\": true,\n      \"key_1\": false\n    },\n    \"Device\": {\n      \"key_0\": 1250,\n      \"key_1\": 4006.5364998493837\n    }\n  },\n  \"CustomerReferenceID\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "client_secret",
+                      "value": "<string>"
                     }
-                  }
+                  ]
                 }
               },
               "status": "OK",
@@ -101,7 +125,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"TransactionID\": \"string\",\n  \"RiskScore\": 6582.378936384436,\n  \"RiskVerdict\": \"pass\",\n  \"Reasons\": [\n    \"string\",\n    \"string\"\n  ],\n  \"DatasourceResults\": [\n    {\n      \"key_0\": true,\n      \"key_1\": 2885\n    },\n    {\n      \"key_0\": 2769.2200641358168\n    }\n  ]\n}",
+              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"string\",\n  \"expires_in\": 4456\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -137,8 +161,8 @@
     ]
   },
   "info": {
-    "_postman_id": "104fa4ec-b6e0-4cf6-8b39-2032d9fabff0",
-    "name": "Trulioo Business Verification Authentication Person Fraud API",
+    "_postman_id": "397ef7bc-b635-4697-b325-22e2aefb289d",
+    "name": "Trulioo Business Verification Authentication API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.\n\n\nContact Support:\n Name: Trulioo Support\n Email: support@trulioo.com",

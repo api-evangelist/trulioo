@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Business Verification Authentication Transactions API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Transaction Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/verifications/transactionrecord/:transactionRecordId",
+            "params": [
+              {
+                "name": "transactionRecordId",
+                "value": "",
+                "type": "path",
+                "description": "TransactionRecordID returned by a previous Verify call."
+              }
+            ]
+          },
+          "docs": "Retrieve the full TransactionRecord for a previously executed Verify. Includes Record, DatasourceResults, and any AppendedFields returned by the datasources.\n"
+        },
+        {
+          "info": {
+            "name": "Get Transaction Record With Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/verifications/transactionrecord/:transactionRecordId/withaddress",
+            "params": [
+              {
+                "name": "transactionRecordId",
+                "value": "",
+                "type": "path",
+                "description": "TransactionRecordID returned by a previous Verify call."
+              }
+            ]
+          },
+          "docs": "Retrieve a transaction record including cleansed-address details."
+        },
+        {
+          "info": {
+            "name": "Get Transaction Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/verifications/transaction/:transactionId/status",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "TransactionID returned by a previous Verify call."
+              }
+            ]
+          },
+          "docs": "Get the current status of an asynchronous verification transaction identified by its TransactionID.\n"
+        },
+        {
+          "info": {
+            "name": "Get Partial Transaction Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/verifications/transaction/:transactionRecordId/partialresult",
+            "params": [
+              {
+                "name": "transactionRecordId",
+                "value": "",
+                "type": "path",
+                "description": "TransactionRecordID returned by a previous Verify call."
+              }
+            ]
+          },
+          "docs": "Retrieve partial results from an in-flight verification — useful when some datasources have returned but others are still processing.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Business Verification Authentication Business Search API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Business Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Business Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/v3/business/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for a business by name, registration number, and jurisdiction-of-incorporation. Returns candidate matches with confidence scores.\n"
+        },
+        {
+          "info": {
+            "name": "Get Business Search Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/v3/business/search/transactionrecord/:transactionRecordId",
+            "params": [
+              {
+                "name": "transactionRecordId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a previously executed Business Search by transaction ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

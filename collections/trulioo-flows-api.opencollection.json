@@ -1,0 +1,141 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trulioo Business Verification Authentication Flows API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Flows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Current Step Or Initialize A Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trulioo.com/customer/v2/flow/:userStateId",
+            "params": [
+              {
+                "name": "userStateId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the current step for an existing flow identified by `userStateId`, or initializes a new flow.\n"
+        },
+        {
+          "info": {
+            "name": "Submit Data For The Current Step Of A Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/flow/:userStateId",
+            "params": [
+              {
+                "name": "userStateId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit JSON payload for the current step."
+        },
+        {
+          "info": {
+            "name": "Submit File For The Current Step Of A Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/flow/:userStateId/file",
+            "params": [
+              {
+                "name": "userStateId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Submit a file (e.g. document image) for the current flow step."
+        },
+        {
+          "info": {
+            "name": "Backward Step In The Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/flow/:userStateId/back",
+            "params": [
+              {
+                "name": "userStateId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Compute a backward step in the flow execution."
+        },
+        {
+          "info": {
+            "name": "Post Handoff",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/handoff",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Notify the platform that control of the flow is being handed off between user-facing capture and backend processing.\n"
+        },
+        {
+          "info": {
+            "name": "Create Or Update User State",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trulioo.com/customer/v2/init",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new user state ID or update an existing one with init data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
