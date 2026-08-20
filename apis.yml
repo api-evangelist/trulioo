@@ -51,6 +51,12 @@ apis:
   tags:
   - KYC
   - Identity Verification
+  - Verification
+  - Transaction
+  - Documents
+  tags_raw:
+  - KYC
+  - Identity Verification
   - Verifications
   - Transactions
   - Documents
@@ -78,6 +84,12 @@ apis:
   humanURL: https://developer.trulioo.com/reference/configuration-1
   baseURL: https://api.trulioo.com
   tags:
+  - Configuration
+  - Countries
+  - Data Sources
+  - Fields
+  - Consents
+  tags_raw:
   - Configuration
   - Countries
   - Datasources
@@ -282,6 +294,8 @@ apis:
   humanURL: https://developer.trulioo.com/reference/identity-verifications
   baseURL: https://api.trulioo.com
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -346,6 +360,8 @@ apis:
   humanURL: https://developer.trulioo.com/reference/identity-verifications
   baseURL: https://api.trulioo.com
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
