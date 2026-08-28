@@ -12,8 +12,11 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: businessVerificationApi
-  url: ../openapi/trulioo-business-verification-api-openapi.yml
+- name: businessConfigurationApi
+  url: ../openapi/trulioo-business-configuration-api-openapi.yml
+  type: openapi
+- name: businessSearchApi
+  url: ../openapi/trulioo-business-search-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: business-registration-numbers-and-search

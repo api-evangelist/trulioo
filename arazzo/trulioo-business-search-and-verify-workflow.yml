@@ -10,6 +10,12 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
+- name: businessConfigurationApi
+  url: ../openapi/trulioo-business-configuration-api-openapi.yml
+  type: openapi
+- name: businessSearchApi
+  url: ../openapi/trulioo-business-search-api-openapi.yml
+  type: openapi
 - name: businessVerificationApi
   url: ../openapi/trulioo-business-verification-api-openapi.yml
   type: openapi

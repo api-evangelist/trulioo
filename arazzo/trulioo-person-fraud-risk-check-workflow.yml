@@ -11,6 +11,9 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/trulioo-configuration-api-openapi.yml
+  type: openapi
 - name: personFraudApi
   url: ../openapi/trulioo-person-fraud-api-openapi.yml
   type: openapi

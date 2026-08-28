@@ -12,11 +12,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: verificationsApi
-  url: ../openapi/trulioo-verifications-api-openapi.yml
-  type: openapi
 - name: personFraudApi
   url: ../openapi/trulioo-person-fraud-api-openapi.yml
+  type: openapi
+- name: verificationsApi
+  url: ../openapi/trulioo-verifications-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: identity-and-fraud-risk-decision

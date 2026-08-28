@@ -14,8 +14,8 @@ sourceDescriptions:
 - name: documentVerificationApi
   url: ../openapi/trulioo-document-verification-api-openapi.yml
   type: openapi
-- name: verificationsApi
-  url: ../openapi/trulioo-verifications-api-openapi.yml
+- name: documentsApi
+  url: ../openapi/trulioo-documents-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: document-verify-and-download-evidence

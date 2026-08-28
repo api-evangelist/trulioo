@@ -11,11 +11,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: connectionApi
-  url: ../openapi/trulioo-connection-api-openapi.yml
-  type: openapi
 - name: configurationApi
   url: ../openapi/trulioo-configuration-api-openapi.yml
+  type: openapi
+- name: connectionApi
+  url: ../openapi/trulioo-connection-api-openapi.yml
   type: openapi
 - name: verificationsApi
   url: ../openapi/trulioo-verifications-api-openapi.yml

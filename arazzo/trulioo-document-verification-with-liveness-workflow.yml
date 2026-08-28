@@ -11,6 +11,9 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
+- name: configurationApi
+  url: ../openapi/trulioo-configuration-api-openapi.yml
+  type: openapi
 - name: documentVerificationApi
   url: ../openapi/trulioo-document-verification-api-openapi.yml
   type: openapi

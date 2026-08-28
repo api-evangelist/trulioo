@@ -11,8 +11,14 @@ info:
     can be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: platformApi
-  url: ../openapi/trulioo-platform-api-openapi.yml
+- name: authenticationApi
+  url: ../openapi/trulioo-authentication-api-openapi.yml
+  type: openapi
+- name: endClientsApi
+  url: ../openapi/trulioo-end-clients-api-openapi.yml
+  type: openapi
+- name: flowsApi
+  url: ../openapi/trulioo-flows-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: workflow-studio-run-flow

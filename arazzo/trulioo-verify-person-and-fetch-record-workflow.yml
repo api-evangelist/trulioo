@@ -12,6 +12,9 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
+- name: transactionsApi
+  url: ../openapi/trulioo-transactions-api-openapi.yml
+  type: openapi
 - name: verificationsApi
   url: ../openapi/trulioo-verifications-api-openapi.yml
   type: openapi

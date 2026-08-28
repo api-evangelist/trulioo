@@ -14,6 +14,9 @@ sourceDescriptions:
 - name: configurationApi
   url: ../openapi/trulioo-configuration-api-openapi.yml
   type: openapi
+- name: transactionsApi
+  url: ../openapi/trulioo-transactions-api-openapi.yml
+  type: openapi
 - name: verificationsApi
   url: ../openapi/trulioo-verifications-api-openapi.yml
   type: openapi

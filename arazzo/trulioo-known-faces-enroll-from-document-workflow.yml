@@ -15,6 +15,9 @@ sourceDescriptions:
 - name: documentVerificationApi
   url: ../openapi/trulioo-document-verification-api-openapi.yml
   type: openapi
+- name: knownFacesApi
+  url: ../openapi/trulioo-known-faces-api-openapi.yml
+  type: openapi
 workflows:
 - workflowId: known-faces-enroll-from-document
   summary: Create a Known Faces list, verify a face, and enroll it.
