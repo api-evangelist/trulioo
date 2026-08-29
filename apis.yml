@@ -10,6 +10,18 @@ description: Trulioo is a Vancouver-based global identity verification platform 
   (hosted and low-code), reusable end-client profiles, event-driven webhooks, native
   mobile and web capture SDKs, and an MCP server on top of the underlying Verifications
   and Business APIs.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
