@@ -1,7 +1,7 @@
 {
   "provider": "trulioo",
   "sources": [
-    "trulioo-authentication-api-openapi.yml",
+    "_original/trulioo-platform-api-openapi.yml",
     "trulioo-business-configuration-api-openapi.yml",
     "trulioo-business-reports-api-openapi.yml",
     "trulioo-business-search-api-openapi.yml",
@@ -11,18 +11,18 @@
     "trulioo-document-configuration-api-openapi.yml",
     "trulioo-document-verification-api-openapi.yml",
     "trulioo-documents-api-openapi.yml",
-    "trulioo-end-clients-api-openapi.yml",
-    "trulioo-events-api-openapi.yml",
-    "trulioo-flows-api-openapi.yml",
     "trulioo-known-faces-api-openapi.yml",
     "trulioo-person-fraud-api-openapi.yml",
-    "trulioo-sessions-api-openapi.yml",
     "trulioo-transactions-api-openapi.yml",
-    "trulioo-verifications-api-openapi.yml",
-    "trulioo-workflows-api-openapi.yml"
+    "trulioo-verifications-api-openapi.yml"
   ],
   "outputs": [
     "trulioo-authentication-api-openapi.yml",
+    "trulioo-end-clients-api-openapi.yml",
+    "trulioo-events-api-openapi.yml",
+    "trulioo-flows-api-openapi.yml",
+    "trulioo-sessions-api-openapi.yml",
+    "trulioo-workflows-api-openapi.yml",
     "trulioo-business-configuration-api-openapi.yml",
     "trulioo-business-reports-api-openapi.yml",
     "trulioo-business-search-api-openapi.yml",
@@ -32,19 +32,39 @@
     "trulioo-document-configuration-api-openapi.yml",
     "trulioo-document-verification-api-openapi.yml",
     "trulioo-documents-api-openapi.yml",
-    "trulioo-end-clients-api-openapi.yml",
-    "trulioo-events-api-openapi.yml",
-    "trulioo-flows-api-openapi.yml",
     "trulioo-known-faces-api-openapi.yml",
     "trulioo-person-fraud-api-openapi.yml",
-    "trulioo-sessions-api-openapi.yml",
     "trulioo-transactions-api-openapi.yml",
-    "trulioo-verifications-api-openapi.yml",
-    "trulioo-workflows-api-openapi.yml"
+    "trulioo-verifications-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
-  "notes": [],
-  "skipped": []
+  "warnings": [
+    "trulioo-business-configuration-api-openapi.yml: previously refined output kept for 4 operation(s) no archived document covers (e.g. /v3/business/businessregistrationnumbers get, /v3/business/businessregistrationnumbers/{countryCode} get, /v3/business/countryJOI get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "trulioo-business-reports-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /v3/business/report/{transactionRecordId} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "trulioo-business-search-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /v3/business/search post, /v3/business/search/transactionrecord/{transactionRecordId} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "trulioo-business-verification-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /v3/business/verify post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "trulioo-configuration-api-openapi.yml: previously refined output kept for 13 operation(s) no archived document covers (e.g. /risk/v1/configuration/countrycodes/{configurationName} get, /risk/v1/configuration/datasources/{configurationName}/{countryCode} get, /risk/v1/configuration/fields/{configurationName}/{countryCode} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "trulioo-connection-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /v3/connection/sayhello/{name} get, /v3/connection/testauthentication get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "trulioo-document-configuration-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /v3/verifications/documenttypes/{countryCode} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "trulioo-document-verification-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /v3/verifications/documentverification/verify post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "trulioo-documents-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /v3/verifications/documentdownload/{transactionRecordId}/{fieldName} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "trulioo-known-faces-api-openapi.yml: previously refined output kept for 5 operation(s) no archived document covers (e.g. /v3/knownfaces/lists get, /v3/knownfaces/lists post, /v3/knownfaces/lists/{listId} delete); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "trulioo-person-fraud-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /risk/v1/check post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "trulioo-transactions-api-openapi.yml: previously refined output kept for 4 operation(s) no archived document covers (e.g. /v3/verifications/transaction/{transactionId}/status get, /v3/verifications/transaction/{transactionRecordId}/partialresult get, /v3/verifications/transactionrecord/{transactionRecordId} get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "trulioo-verifications-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /v3/verifications/verify post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "trulioo-platform-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "trulioo-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trulioo-end-clients-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trulioo-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trulioo-flows-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trulioo-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trulioo-workflows-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,9 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Trulioo Business Verification Authentication Document Verification API
-  description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
-
-    '
+  title: Trulioo Business Verification Authentication Document……
+  description: Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
   version: '3.0'
   contact:
     name: Trulioo Support

@@ -1,9 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Trulioo Business Verification Authentication Verifications API
-  description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
-
-    '
+  title: Trulioo Business Verification Authentication ……
+  description: Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
   version: '3.0'
   contact:
     name: Trulioo Support
@@ -22,9 +20,7 @@ paths:
   /v3/verifications/verify:
     post:
       summary: Verify A Person
-      description: 'Submit a Verify request to perform a KYC verification on a person. Trulioo selects the appropriate local datasources for the country specified in the `CountryCode` field, matches the supplied identity fields, and returns a normalized VerifyResult.
-
-        '
+      description: Submit a Verify request to perform a KYC verification on a person. Trulioo selects the appropriate local datasources for the country specified in the `CountryCode` field, matches the supplied identity fields, and returns a normalized VerifyResult.
       operationId: verifyPerson
       tags:
       - Verifications
@@ -71,34 +67,6 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        Code:
-          type: string
-        Message:
-          type: string
-    Location:
-      type: object
-      properties:
-        BuildingNumber:
-          type: string
-        BuildingName:
-          type: string
-        UnitNumber:
-          type: string
-        StreetName:
-          type: string
-        StreetType:
-          type: string
-        City:
-          type: string
-        StateProvinceCode:
-          type: string
-        PostalCode:
-          type: string
-        Country:
-          type: string
     ServiceError:
       type: object
       properties:
@@ -106,46 +74,6 @@ components:
           type: string
         Message:
           type: string
-    NationalId:
-      type: object
-      properties:
-        Number:
-          type: string
-        Type:
-          type: string
-        CountryCode:
-          type: string
-    Document:
-      type: object
-      properties:
-        DocumentFrontImage:
-          type: string
-          format: byte
-        DocumentBackImage:
-          type: string
-          format: byte
-        LivePhoto:
-          type: string
-          format: byte
-        DocumentType:
-          type: string
-    DatasourceResult:
-      type: object
-      properties:
-        DatasourceName:
-          type: string
-        DatasourceFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatasourceField'
-        Errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecordError'
-        AppendedFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppendedField'
     DataFields:
       type: object
       properties:
@@ -161,6 +89,22 @@ components:
             $ref: '#/components/schemas/NationalId'
         Document:
           $ref: '#/components/schemas/Document'
+    Error:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
+    NationalId:
+      type: object
+      properties:
+        Number:
+          type: string
+        Type:
+          type: string
+        CountryCode:
+          type: string
     Record:
       type: object
       properties:
@@ -183,6 +127,108 @@ components:
             $ref: '#/components/schemas/RecordError'
         Rule:
           $ref: '#/components/schemas/Rule'
+    Location:
+      type: object
+      properties:
+        BuildingNumber:
+          type: string
+        BuildingName:
+          type: string
+        UnitNumber:
+          type: string
+        StreetName:
+          type: string
+        StreetType:
+          type: string
+        City:
+          type: string
+        StateProvinceCode:
+          type: string
+        PostalCode:
+          type: string
+        Country:
+          type: string
+    VerifyResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        UploadedDt:
+          type: string
+          format: date-time
+        CountryCode:
+          type: string
+        ProductName:
+          type: string
+        Record:
+          $ref: '#/components/schemas/Record'
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceError'
+    Communication:
+      type: object
+      properties:
+        Telephone:
+          type: string
+        MobileNumber:
+          type: string
+        EmailAddress:
+          type: string
+    RecordError:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
+    PersonInfo:
+      type: object
+      properties:
+        FirstGivenName:
+          type: string
+        MiddleName:
+          type: string
+        FirstSurName:
+          type: string
+        SecondSurname:
+          type: string
+        DayOfBirth:
+          type: integer
+        MonthOfBirth:
+          type: integer
+        YearOfBirth:
+          type: integer
+        Gender:
+          type: string
+    Rule:
+      type: object
+      properties:
+        RuleName:
+          type: string
+        Note:
+          type: string
+    Document:
+      type: object
+      properties:
+        DocumentFrontImage:
+          type: string
+          format: byte
+        DocumentBackImage:
+          type: string
+          format: byte
+        LivePhoto:
+          type: string
+          format: byte
+        DocumentType:
+          type: string
+    AppendedField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Data:
+          type: string
     VerifyRequest:
       type: object
       required:
@@ -217,73 +263,23 @@ components:
           type: string
           format: uri
           description: Webhook URL for asynchronous result delivery.
-    Rule:
+    DatasourceResult:
       type: object
       properties:
-        RuleName:
+        DatasourceName:
           type: string
-        Note:
-          type: string
-    Communication:
-      type: object
-      properties:
-        Telephone:
-          type: string
-        MobileNumber:
-          type: string
-        EmailAddress:
-          type: string
-    VerifyResult:
-      type: object
-      properties:
-        TransactionID:
-          type: string
-        UploadedDt:
-          type: string
-          format: date-time
-        CountryCode:
-          type: string
-        ProductName:
-          type: string
-        Record:
-          $ref: '#/components/schemas/Record'
+        DatasourceFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatasourceField'
         Errors:
           type: array
           items:
-            $ref: '#/components/schemas/ServiceError'
-    RecordError:
-      type: object
-      properties:
-        Code:
-          type: string
-        Message:
-          type: string
-    AppendedField:
-      type: object
-      properties:
-        FieldName:
-          type: string
-        Data:
-          type: string
-    PersonInfo:
-      type: object
-      properties:
-        FirstGivenName:
-          type: string
-        MiddleName:
-          type: string
-        FirstSurName:
-          type: string
-        SecondSurname:
-          type: string
-        DayOfBirth:
-          type: integer
-        MonthOfBirth:
-          type: integer
-        YearOfBirth:
-          type: integer
-        Gender:
-          type: string
+            $ref: '#/components/schemas/RecordError'
+        AppendedFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppendedField'
     DatasourceField:
       type: object
       properties:
@@ -294,14 +290,8 @@ components:
         Data:
           type: string
   responses:
-    Unauthorized:
-      description: Authentication failed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ServerError:
-      description: Internal server error.
+    TooManyRequests:
+      description: Rate limit exceeded.
       content:
         application/json:
           schema:
@@ -312,8 +302,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded.
+    Unauthorized:
+      description: Authentication failed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Internal server error.
       content:
         application/json:
           schema:

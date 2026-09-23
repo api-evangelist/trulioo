@@ -1,9 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Trulioo Business Verification Authentication Business Search API
-  description: 'Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
-
-    '
+  title: Trulioo Business Verification Authentication Business……
+  description: Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
   version: '3.0'
   contact:
     name: Trulioo Support
@@ -22,9 +20,7 @@ paths:
   /v3/business/search:
     post:
       summary: Business Search
-      description: 'Search for a business by name, registration number, and jurisdiction-of-incorporation. Returns candidate matches with confidence scores.
-
-        '
+      description: Search for a business by name, registration number, and jurisdiction-of-incorporation. Returns candidate matches with confidence scores.
       operationId: businessSearch
       tags:
       - Business Search
@@ -80,15 +76,6 @@ components:
           type: string
         ConfidenceScore:
           type: number
-    BusinessInputFields:
-      type: object
-      properties:
-        BusinessName:
-          type: string
-        BusinessRegistrationNumber:
-          type: string
-        JurisdictionOfIncorporation:
-          type: string
     BusinessSearchRequest:
       type: object
       required:
@@ -107,6 +94,15 @@ components:
           type: string
         BusinessSearchInputFields:
           $ref: '#/components/schemas/BusinessInputFields'
+    BusinessInputFields:
+      type: object
+      properties:
+        BusinessName:
+          type: string
+        BusinessRegistrationNumber:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
     BusinessSearchResponse:
       type: object
       properties:
