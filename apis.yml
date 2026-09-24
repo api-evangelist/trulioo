@@ -85,8 +85,6 @@ apis:
     type: JSONSchema
   - url: json-ld/trulioo-context.jsonld
     type: JSONLD
-  - url: graphql/trulioo-graphql.md
-    type: GraphQL
 - aid: trulioo:trulioo-configuration-api
   name: Trulioo Configuration API
   description: >-
