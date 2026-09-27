@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Trulioo Business Verification Authentication … Person Fraud…
+  title: Trulioo Business Verification Authentication … … Person…
   description: Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
   version: '3.0'
   contact:
@@ -39,6 +39,28 @@ paths:
                 $ref: '#/components/schemas/RiskVerifyResult'
 components:
   schemas:
+    RiskVerifyResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        RiskScore:
+          type: number
+        RiskVerdict:
+          type: string
+          enum:
+          - pass
+          - review
+          - fail
+        Reasons:
+          type: array
+          items:
+            type: string
+        DatasourceResults:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
     RiskVerifyRequest:
       type: object
       required:
@@ -70,28 +92,6 @@ components:
             Device:
               type: object
               additionalProperties: true
-    RiskVerifyResult:
-      type: object
-      properties:
-        TransactionID:
-          type: string
-        RiskScore:
-          type: number
-        RiskVerdict:
-          type: string
-          enum:
-          - pass
-          - review
-          - fail
-        Reasons:
-          type: array
-          items:
-            type: string
-        DatasourceResults:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
   securitySchemes:
     BasicAuth:
       type: http

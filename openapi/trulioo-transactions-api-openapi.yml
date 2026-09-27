@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Trulioo Business Verification Authentication … Transactions…
+  title: Trulioo Business Verification Authentication … ……
   description: Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
   version: '3.0'
   contact:
@@ -85,76 +85,6 @@ paths:
                 $ref: '#/components/schemas/VerifyResult'
 components:
   schemas:
-    AppendedField:
-      type: object
-      properties:
-        FieldName:
-          type: string
-        Data:
-          type: string
-    VerifyResult:
-      type: object
-      properties:
-        TransactionID:
-          type: string
-        UploadedDt:
-          type: string
-          format: date-time
-        CountryCode:
-          type: string
-        ProductName:
-          type: string
-        Record:
-          $ref: '#/components/schemas/Record'
-        Errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceError'
-    RecordError:
-      type: object
-      properties:
-        Code:
-          type: string
-        Message:
-          type: string
-    ServiceError:
-      type: object
-      properties:
-        Code:
-          type: string
-        Message:
-          type: string
-    Rule:
-      type: object
-      properties:
-        RuleName:
-          type: string
-        Note:
-          type: string
-    Error:
-      type: object
-      properties:
-        Code:
-          type: string
-        Message:
-          type: string
-    DatasourceResult:
-      type: object
-      properties:
-        DatasourceName:
-          type: string
-        DatasourceFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/DatasourceField'
-        Errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecordError'
-        AppendedFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppendedField'
     TransactionStatus:
       type: object
       properties:
@@ -169,6 +99,22 @@ components:
         TimestampUtc:
           type: string
           format: date-time
+    DatasourceField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Status:
+          type: string
+        Data:
+          type: string
+    ServiceError:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
     Record:
       type: object
       properties:
@@ -191,6 +137,41 @@ components:
             $ref: '#/components/schemas/RecordError'
         Rule:
           $ref: '#/components/schemas/Rule'
+    InputField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Value:
+          type: string
+    Error:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
+    AppendedField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Data:
+          type: string
+    Rule:
+      type: object
+      properties:
+        RuleName:
+          type: string
+        Note:
+          type: string
+    RecordError:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
     TransactionRecordResult:
       type: object
       properties:
@@ -206,36 +187,55 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InputField'
-    DatasourceField:
+    VerifyResult:
       type: object
       properties:
-        FieldName:
+        TransactionID:
           type: string
-        Status:
+        UploadedDt:
           type: string
-        Data:
+          format: date-time
+        CountryCode:
           type: string
-    InputField:
+        ProductName:
+          type: string
+        Record:
+          $ref: '#/components/schemas/Record'
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceError'
+    DatasourceResult:
       type: object
       properties:
-        FieldName:
+        DatasourceName:
           type: string
-        Value:
-          type: string
+        DatasourceFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatasourceField'
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordError'
+        AppendedFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppendedField'
   parameters:
-    TransactionRecordId:
-      name: transactionRecordId
-      in: path
-      required: true
-      description: TransactionRecordID returned by a previous Verify call.
-      schema:
-        type: string
-        format: uuid
     TransactionId:
       name: transactionId
       in: path
       required: true
       description: TransactionID returned by a previous Verify call.
+      schema:
+        type: string
+        format: uuid
+    TransactionRecordId:
+      name: transactionRecordId
+      in: path
+      required: true
+      description: TransactionRecordID returned by a previous Verify call.
       schema:
         type: string
         format: uuid

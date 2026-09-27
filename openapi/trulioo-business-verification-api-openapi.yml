@@ -69,15 +69,6 @@ components:
           type: string
         BusinessSearchInputFields:
           $ref: '#/components/schemas/BusinessInputFields'
-    BusinessInputFields:
-      type: object
-      properties:
-        BusinessName:
-          type: string
-        BusinessRegistrationNumber:
-          type: string
-        JurisdictionOfIncorporation:
-          type: string
     BusinessRecord:
       type: object
       properties:
@@ -91,6 +82,15 @@ components:
           type: string
         ConfidenceScore:
           type: number
+    BusinessInputFields:
+      type: object
+      properties:
+        BusinessName:
+          type: string
+        BusinessRegistrationNumber:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
   securitySchemes:
     BasicAuth:
       type: http
