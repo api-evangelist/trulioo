@@ -39,31 +39,6 @@ paths:
                 $ref: '#/components/schemas/BusinessVerifyResult'
 components:
   schemas:
-    BusinessVerifyResult:
-      type: object
-      properties:
-        TransactionID:
-          type: string
-        Record:
-          $ref: '#/components/schemas/BusinessRecord'
-        Officers:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-    BusinessRecord:
-      type: object
-      properties:
-        BusinessName:
-          type: string
-        BusinessRegistrationNumber:
-          type: string
-        JurisdictionOfIncorporation:
-          type: string
-        Status:
-          type: string
-        ConfidenceScore:
-          type: number
     BusinessVerifyRequest:
       type: object
       required:
@@ -82,6 +57,19 @@ components:
           type: string
         BusinessSearchInputFields:
           $ref: '#/components/schemas/BusinessInputFields'
+    BusinessRecord:
+      type: object
+      properties:
+        BusinessName:
+          type: string
+        BusinessRegistrationNumber:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
+        Status:
+          type: string
+        ConfidenceScore:
+          type: number
     BusinessInputFields:
       type: object
       properties:
@@ -91,6 +79,18 @@ components:
           type: string
         JurisdictionOfIncorporation:
           type: string
+    BusinessVerifyResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        Record:
+          $ref: '#/components/schemas/BusinessRecord'
+        Officers:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
   securitySchemes:
     BasicAuth:
       type: http

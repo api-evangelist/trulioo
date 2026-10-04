@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Trulioo Business Verification Authentication …………
+  title: Trulioo Business Verification Authentication ……………
   description: Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
   version: '3.0'
   contact:
@@ -74,52 +74,6 @@ components:
           type: string
         Note:
           type: string
-    Document:
-      type: object
-      properties:
-        DocumentFrontImage:
-          type: string
-          format: byte
-        DocumentBackImage:
-          type: string
-          format: byte
-        LivePhoto:
-          type: string
-          format: byte
-        DocumentType:
-          type: string
-    ServiceError:
-      type: object
-      properties:
-        Code:
-          type: string
-        Message:
-          type: string
-    AppendedField:
-      type: object
-      properties:
-        FieldName:
-          type: string
-        Data:
-          type: string
-    VerifyResult:
-      type: object
-      properties:
-        TransactionID:
-          type: string
-        UploadedDt:
-          type: string
-          format: date-time
-        CountryCode:
-          type: string
-        ProductName:
-          type: string
-        Record:
-          $ref: '#/components/schemas/Record'
-        Errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceError'
     Location:
       type: object
       properties:
@@ -141,6 +95,25 @@ components:
           type: string
         Country:
           type: string
+    PersonInfo:
+      type: object
+      properties:
+        FirstGivenName:
+          type: string
+        MiddleName:
+          type: string
+        FirstSurName:
+          type: string
+        SecondSurname:
+          type: string
+        DayOfBirth:
+          type: integer
+        MonthOfBirth:
+          type: integer
+        YearOfBirth:
+          type: integer
+        Gender:
+          type: string
     DatasourceResult:
       type: object
       properties:
@@ -158,6 +131,38 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AppendedField'
+    VerifyResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        UploadedDt:
+          type: string
+          format: date-time
+        CountryCode:
+          type: string
+        ProductName:
+          type: string
+        Record:
+          $ref: '#/components/schemas/Record'
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceError'
+    Document:
+      type: object
+      properties:
+        DocumentFrontImage:
+          type: string
+          format: byte
+        DocumentBackImage:
+          type: string
+          format: byte
+        LivePhoto:
+          type: string
+          format: byte
+        DocumentType:
+          type: string
     VerifyRequest:
       type: object
       required:
@@ -192,6 +197,15 @@ components:
           type: string
           format: uri
           description: Webhook URL for asynchronous result delivery.
+    NationalId:
+      type: object
+      properties:
+        Number:
+          type: string
+        Type:
+          type: string
+        CountryCode:
+          type: string
     Communication:
       type: object
       properties:
@@ -207,6 +221,44 @@ components:
         Code:
           type: string
         Message:
+          type: string
+    DataFields:
+      type: object
+      properties:
+        PersonInfo:
+          $ref: '#/components/schemas/PersonInfo'
+        Location:
+          $ref: '#/components/schemas/Location'
+        Communication:
+          $ref: '#/components/schemas/Communication'
+        NationalIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/NationalId'
+        Document:
+          $ref: '#/components/schemas/Document'
+    ServiceError:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
+    DatasourceField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Status:
+          type: string
+        Data:
+          type: string
+    AppendedField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Data:
           type: string
     Record:
       type: object
@@ -230,39 +282,6 @@ components:
             $ref: '#/components/schemas/RecordError'
         Rule:
           $ref: '#/components/schemas/Rule'
-    DatasourceField:
-      type: object
-      properties:
-        FieldName:
-          type: string
-        Status:
-          type: string
-        Data:
-          type: string
-    NationalId:
-      type: object
-      properties:
-        Number:
-          type: string
-        Type:
-          type: string
-        CountryCode:
-          type: string
-    DataFields:
-      type: object
-      properties:
-        PersonInfo:
-          $ref: '#/components/schemas/PersonInfo'
-        Location:
-          $ref: '#/components/schemas/Location'
-        Communication:
-          $ref: '#/components/schemas/Communication'
-        NationalIds:
-          type: array
-          items:
-            $ref: '#/components/schemas/NationalId'
-        Document:
-          $ref: '#/components/schemas/Document'
     RecordError:
       type: object
       properties:
@@ -270,28 +289,9 @@ components:
           type: string
         Message:
           type: string
-    PersonInfo:
-      type: object
-      properties:
-        FirstGivenName:
-          type: string
-        MiddleName:
-          type: string
-        FirstSurName:
-          type: string
-        SecondSurname:
-          type: string
-        DayOfBirth:
-          type: integer
-        MonthOfBirth:
-          type: integer
-        YearOfBirth:
-          type: integer
-        Gender:
-          type: string
   responses:
-    BadRequest:
-      description: Invalid request.
+    Unauthorized:
+      description: Authentication failed.
       content:
         application/json:
           schema:
@@ -308,8 +308,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed.
+    BadRequest:
+      description: Invalid request.
       content:
         application/json:
           schema:

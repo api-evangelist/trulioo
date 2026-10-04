@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Trulioo Business Verification Authentication … ………
+  title: Trulioo Business Verification Authentication … …………
   description: Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
   version: '3.0'
   contact:
@@ -84,24 +84,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/VerifyResult'
 components:
-  parameters:
-    TransactionId:
-      name: transactionId
-      in: path
-      required: true
-      description: TransactionID returned by a previous Verify call.
-      schema:
-        type: string
-        format: uuid
-    TransactionRecordId:
-      name: transactionRecordId
-      in: path
-      required: true
-      description: TransactionRecordID returned by a previous Verify call.
-      schema:
-        type: string
-        format: uuid
   schemas:
+    RecordError:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
+    Rule:
+      type: object
+      properties:
+        RuleName:
+          type: string
+        Note:
+          type: string
+    DatasourceField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Status:
+          type: string
+        Data:
+          type: string
     DatasourceResult:
       type: object
       properties:
@@ -119,15 +125,53 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AppendedField'
-    DatasourceField:
+    TransactionStatus:
       type: object
       properties:
-        FieldName:
+        TransactionID:
           type: string
         Status:
           type: string
-        Data:
+          enum:
+          - completed
+          - inprogress
+          - failed
+        TimestampUtc:
           type: string
+          format: date-time
+    TransactionRecordResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        CountryCode:
+          type: string
+        ProductName:
+          type: string
+        Record:
+          $ref: '#/components/schemas/Record'
+        InputFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputField'
+    VerifyResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        UploadedDt:
+          type: string
+          format: date-time
+        CountryCode:
+          type: string
+        ProductName:
+          type: string
+        Record:
+          $ref: '#/components/schemas/Record'
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceError'
     InputField:
       type: object
       properties:
@@ -135,12 +179,19 @@ components:
           type: string
         Value:
           type: string
-    Rule:
+    AppendedField:
       type: object
       properties:
-        RuleName:
+        FieldName:
           type: string
-        Note:
+        Data:
+          type: string
+    ServiceError:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
           type: string
     Record:
       type: object
@@ -164,49 +215,6 @@ components:
             $ref: '#/components/schemas/RecordError'
         Rule:
           $ref: '#/components/schemas/Rule'
-    TransactionRecordResult:
-      type: object
-      properties:
-        TransactionID:
-          type: string
-        CountryCode:
-          type: string
-        ProductName:
-          type: string
-        Record:
-          $ref: '#/components/schemas/Record'
-        InputFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/InputField'
-    RecordError:
-      type: object
-      properties:
-        Code:
-          type: string
-        Message:
-          type: string
-    TransactionStatus:
-      type: object
-      properties:
-        TransactionID:
-          type: string
-        Status:
-          type: string
-          enum:
-          - completed
-          - inprogress
-          - failed
-        TimestampUtc:
-          type: string
-          format: date-time
-    ServiceError:
-      type: object
-      properties:
-        Code:
-          type: string
-        Message:
-          type: string
     Error:
       type: object
       properties:
@@ -214,31 +222,23 @@ components:
           type: string
         Message:
           type: string
-    AppendedField:
-      type: object
-      properties:
-        FieldName:
-          type: string
-        Data:
-          type: string
-    VerifyResult:
-      type: object
-      properties:
-        TransactionID:
-          type: string
-        UploadedDt:
-          type: string
-          format: date-time
-        CountryCode:
-          type: string
-        ProductName:
-          type: string
-        Record:
-          $ref: '#/components/schemas/Record'
-        Errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceError'
+  parameters:
+    TransactionRecordId:
+      name: transactionRecordId
+      in: path
+      required: true
+      description: TransactionRecordID returned by a previous Verify call.
+      schema:
+        type: string
+        format: uuid
+    TransactionId:
+      name: transactionId
+      in: path
+      required: true
+      description: TransactionID returned by a previous Verify call.
+      schema:
+        type: string
+        format: uuid
   responses:
     NotFound:
       description: Resource not found.

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Trulioo Business Verification Authentication …………
+  title: Trulioo Business Verification Authentication ……………
   description: Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
   version: '3.0'
   contact:
@@ -256,6 +256,37 @@ paths:
                   type: object
                   additionalProperties: true
 components:
+  parameters:
+    CountryCode_2:
+      name: countryCode
+      in: path
+      required: true
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+    ConfigurationName:
+      name: configurationName
+      in: path
+      required: true
+      description: Configured product/package name (e.g. "Identity Verification").
+      schema:
+        type: string
+    CountryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: Two-letter ISO 3166 country code.
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+    ConfigurationName_2:
+      name: configurationName
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
     CountrySubdivision:
       type: object
@@ -263,13 +294,6 @@ components:
         Name:
           type: string
         Code:
-          type: string
-    Package:
-      type: object
-      properties:
-        ConfigurationName:
-          type: string
-        Description:
           type: string
     DatasourceGroup:
       type: object
@@ -282,15 +306,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Datasource'
-    Consent:
-      type: object
-      properties:
-        Name:
-          type: string
-        Text:
-          type: string
-        TextSummary:
-          type: string
     Datasource:
       type: object
       properties:
@@ -310,37 +325,22 @@ components:
         Fields:
           type: object
           additionalProperties: true
-  parameters:
-    ConfigurationName:
-      name: configurationName
-      in: path
-      required: true
-      description: Configured product/package name (e.g. "Identity Verification").
-      schema:
-        type: string
-    ConfigurationName_2:
-      name: configurationName
-      in: path
-      required: true
-      schema:
-        type: string
-    CountryCode:
-      name: countryCode
-      in: path
-      required: true
-      description: Two-letter ISO 3166 country code.
-      schema:
-        type: string
-        minLength: 2
-        maxLength: 2
-    CountryCode_2:
-      name: countryCode
-      in: path
-      required: true
-      schema:
-        type: string
-        minLength: 2
-        maxLength: 2
+    Consent:
+      type: object
+      properties:
+        Name:
+          type: string
+        Text:
+          type: string
+        TextSummary:
+          type: string
+    Package:
+      type: object
+      properties:
+        ConfigurationName:
+          type: string
+        Description:
+          type: string
   securitySchemes:
     BasicAuth:
       type: http
