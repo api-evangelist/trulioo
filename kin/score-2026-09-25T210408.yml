@@ -1,46 +1,52 @@
-# Kin Score artifact — trulioo — 2026-09-02T211804
+# Kin Score artifact — trulioo — 2026-09-25T210408
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: trulioo
-  schema_version: 0.18.0
-  scored_at: '2026-09-02'
-  run_ts: 2026-09-02T211804
-  composite: 55.9
+  schema_version: 0.23.0
+  scored_at: '2026-09-25'
+  run_ts: 2026-09-25T210408
+  composite: 54.9
   band: strong
   facets:
-    discoverability: 75.9
-    contract_quality: 69.8
-    governance: 13.6
-    operational_transparency: 46.1
-    developer_ergonomics: 59.5
-    commercial_clarity: 56.6
+    discoverability: 76.7
+    contract_quality: 60.1
     contract_governance: 13.6
-    access_clarity: 56.6
+    operational_transparency: 42.9
+    developer_ergonomics: 56.0
+    access_clarity: 53.4
   agent_readiness:
-    score: 35.8
+    score: 53.9
     band: agent-ready
+    band_gated_from: agent-native
     dimensions:
       spec_presence: true
       agentic_access: derived
       reversibility_documented: false
-      mcp_server: documented
-      auth_clarity: negotiable
+      mcp_server: verified
+      auth_clarity: served
       idempotency: false
       error_semantics: documented
       openapi_examples: partial
       rate_limit_signal: documented
-      event_surface_described: true
+      event_surface_described: unknown
       agent_skills: false
       well_known_catalog: false
       consent_identity: false
       agent_card: false
       dry_run_mode: false
-      delegated_identity: false
-      protected_resource_metadata: false
-      dynamic_client_registration: false
+      delegated_identity: served
+      protected_resource_metadata: verified
+      dynamic_client_registration: true
       agentic_commerce: false
+  regulatory:
+    applies: true
+    regime: Horizontal (data, software, accessibility, platform)
+    regime_id: horizontal
+    score: 26.5
+    matched_via: fallback
   provenance:
+    mcp: first-party
     agentic_access: derived
     contracts:
       total: 19
