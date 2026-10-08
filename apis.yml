@@ -2,14 +2,11 @@ aid: trulioo
 url: https://raw.githubusercontent.com/api-evangelist/trulioo/refs/heads/main/apis.yml
 name: Trulioo
 kind: company
-description: Trulioo is a Vancouver-based global identity verification platform that
-  operates GlobalGateway, a single-API gateway into 450+ data sources across 195+
-  countries for person verification (KYC), business verification (KYB), watchlist
-  and PEP screening, identity document verification (DocV), biometric face match,
-  and fraud-intelligence risk scoring. The Trulioo Platform layers Workflow Studio
-  (hosted and low-code), reusable end-client profiles, event-driven webhooks, native
-  mobile and web capture SDKs, and an MCP server on top of the underlying Verifications
-  and Business APIs.
+description: Trulioo is a Vancouver-based global identity verification platform that operates GlobalGateway, a single-API
+  gateway into 450+ data sources across 195+ countries for person verification (KYC), business verification (KYB), watchlist
+  and PEP screening, identity document verification (DocV), biometric face match, and fraud-intelligence risk scoring. The
+  Trulioo Platform layers Workflow Studio (hosted and low-code), reusable end-client profiles, event-driven webhooks, native
+  mobile and web capture SDKs, and an MCP server on top of the underlying Verifications and Business APIs.
 deliveryModel:
   model: saas
   open_source: false
@@ -48,359 +45,68 @@ tags:
 - Compliance
 - Global Identity
 created: '2026-05-25'
-modified: '2026-05-25'
+modified: '2026-10-08'
 specificationVersion: '0.23'
-apis:
-- aid: trulioo:trulioo-verifications-api
-  name: Trulioo Verifications API
-  description: >-
-    Normalized KYC / electronic identity verification API. Submit a Verify request with normalized PersonInfo,
-    Communication, Location, NationalIds, and Documents fields and Trulioo's GlobalGateway routes the
-    request across local data sources in 195+ countries. Companion endpoints retrieve transaction records,
-    statuses, partial results, and downloadable document images.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - KYC
-  - Identity Verification
-  - Verification
-  - Transaction
-  - Documents
-  tags_raw:
-  - KYC
-  - Identity Verification
-  - Verifications
-  - Transactions
-  - Documents
-  properties:
-  - url: https://developer.trulioo.com/reference/identity-verifications
-    type: Documentation
-  - url: https://developer.trulioo.com/reference/api-reference-overview
-    type: APIReference
-  - url: openapi/trulioo-verifications-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/trulioo-verify-request-schema.json
-    type: JSONSchema
-  - url: json-schema/trulioo-verify-result-schema.json
-    type: JSONSchema
-  - url: json-ld/trulioo-context.jsonld
-    type: JSONLD
-- aid: trulioo:trulioo-configuration-api
-  name: Trulioo Configuration API
-  description: >-
-    Discovery endpoints for the GlobalGateway. Learn which countries, datasources, fields, document types,
-    consents, and test entities are available for a configured product / package before submitting a Verify
-    request.
-  humanURL: https://developer.trulioo.com/reference/configuration-1
-  baseURL: https://api.trulioo.com
-  tags:
-  - Configuration
-  - Countries
-  - Data Sources
-  - Fields
-  - Consents
-  tags_raw:
-  - Configuration
-  - Countries
-  - Datasources
-  - Fields
-  - Consents
-  properties:
-  - url: https://developer.trulioo.com/reference/configuration-1
-    type: Documentation
-  - url: openapi/trulioo-configuration-api-openapi.yml
-    type: OpenAPI
-- aid: trulioo:trulioo-connection-api
-  name: Trulioo Connection API
-  description: >-
-    Health-check and authentication-test endpoints. `sayhello` is an unauthenticated ping; `testauthentication`
-    verifies your credentials before exercising paid endpoints.
-  humanURL: https://developer.trulioo.com/reference/connection
-  baseURL: https://api.trulioo.com
-  tags:
-  - Connection
-  - Health Check
-  properties:
-  - url: https://developer.trulioo.com/reference/connection
-    type: Documentation
-  - url: openapi/trulioo-connection-api-openapi.yml
-    type: OpenAPI
-- aid: trulioo:trulioo-business-verification-api
-  name: Trulioo Business Verification API
-  description: >-
-    Know Your Business (KYB) API for verifying legal entities, retrieving business registration data from
-    official registries, listing officers and persons of significant control, and downloading business
-    reports. Supports search-then-verify flows by name, registration number, and jurisdiction of incorporation.
-  humanURL: https://developer.trulioo.com/reference/kyb-business-verification
-  baseURL: https://api.trulioo.com
-  tags:
-  - KYB
-  - Business Verification
-  - Business Search
-  - Business Reports
-  - Jurisdiction Of Incorporation
-  properties:
-  - url: https://developer.trulioo.com/reference/kyb-business-verification
-    type: Documentation
-  - url: https://developer.trulioo.com/reference/guide-business-verification
-    type: Guides
-  - url: openapi/trulioo-business-verification-api-openapi.yml
-    type: OpenAPI
-  - url: json-schema/trulioo-business-record-schema.json
-    type: JSONSchema
-- aid: trulioo:trulioo-person-fraud-api
-  name: Trulioo Person Fraud API
-  description: >-
-    Fraud Intelligence — Person Fraud risk scoring. Submit an identity payload and receive a risk verdict
-    that aggregates third-party fraud signals, velocity checks, device intelligence, and identity-graph
-    data.
-  humanURL: https://developer.trulioo.com/reference/fraud-intelligence-person-fraud
-  baseURL: https://api.trulioo.com
-  tags:
-  - Fraud Intelligence
-  - Person Fraud
-  - Risk Scoring
-  properties:
-  - url: https://developer.trulioo.com/reference/fraud-intelligence-person-fraud
-    type: Documentation
-  - url: openapi/trulioo-person-fraud-api-openapi.yml
-    type: OpenAPI
-- aid: trulioo:trulioo-document-verification-api
-  name: Trulioo Identity Document Verification API
-  description: >-
-    Capture, classify, and verify government-issued identity documents (driver's license, passport, national
-    ID) paired with optional liveness selfie checks. Used to authenticate documents, extract MRZ / barcode
-    data, match the document photo to a captured selfie, and manage Known Faces biometric watchlists.
-  humanURL: https://developer.trulioo.com/reference/identity-document-verification
-  baseURL: https://api.trulioo.com
-  tags:
-  - Document Verification
-  - DocV
-  - Biometrics
-  - Liveness
-  - Known Faces
-  properties:
-  - url: https://developer.trulioo.com/reference/identity-document-verification
-    type: Documentation
-  - url: https://developer.trulioo.com/reference/known-faces
-    type: Documentation
-  - url: openapi/trulioo-document-verification-api-openapi.yml
-    type: OpenAPI
-- aid: trulioo:trulioo-authentication-api
-  name: Trulioo Authentication API
-  description: OAuth2 client-credential token acquisition.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - Authentication
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-authentication-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
-- aid: trulioo:trulioo-business-configuration-api
-  name: Trulioo Business Configuration API
-  description: Discover JOIs and registration number requirements.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - Business Configuration
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-business-configuration-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
-- aid: trulioo:trulioo-business-reports-api
-  name: Trulioo Business Reports API
-  description: Download business reports.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - Business Reports
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-business-reports-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
-- aid: trulioo:trulioo-business-search-api
-  name: Trulioo Business Search API
-  description: Search the Trulioo business registry universe.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - Business Search
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-business-search-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
-- aid: trulioo:trulioo-document-configuration-api
-  name: Trulioo Document Configuration API
-  description: Discover document types per country.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - Document Configuration
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-document-configuration-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
-- aid: trulioo:trulioo-documents-api
-  name: Trulioo Documents API
-  description: Download evidence documents from completed transactions.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - Documents
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-documents-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
-- aid: trulioo:trulioo-end-clients-api
-  name: Trulioo End Clients API
-  description: Profiles, files, and bulk operations on end clients.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - End Clients
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-end-clients-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
-- aid: trulioo:trulioo-events-api
-  name: Trulioo Events API
-  description: Webhook event dispatch.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - Event
-  tags_raw:
-  - Events
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-events-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
-- aid: trulioo:trulioo-flows-api
-  name: Trulioo Flows API
-  description: Initialize and drive a workflow flow.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - Flow
-  tags_raw:
-  - Flows
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-flows-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
-- aid: trulioo:trulioo-known-faces-api
-  name: Trulioo Known Faces API
-  description: Manage Known Faces lists for biometric watchlists.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - Known Faces
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-known-faces-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
-- aid: trulioo:trulioo-sessions-api
-  name: Trulioo Sessions API
-  description: Generate signed URLs for user sessions.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - Sessions
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-sessions-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
-- aid: trulioo:trulioo-transactions-api
-  name: Trulioo Transactions API
-  description: Retrieve verification transactions and status.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - Transaction
-  tags_raw:
-  - Transactions
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-transactions-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
-- aid: trulioo:trulioo-workflows-api
-  name: Trulioo Workflows API
-  description: Retrieve workflow definitions.
-  humanURL: https://developer.trulioo.com/reference/identity-verifications
-  baseURL: https://api.trulioo.com
-  tags:
-  - Workflows
-  properties:
-  - type: OpenAPI
-    url: openapi/trulioo-workflows-api-openapi.yml
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-api
-  - type: Documentation
-    url: https://developer.trulioo.com/reference/workflow-studio-low-code
-  - type: Webhooks
-    url: https://developer.trulioo.com/reference/event-dispatcher
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+  X: apievangelist
+  url: https://apievangelist.com
+position: Consuming
+access: 3rd-Party
 common:
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Webhooks
+  url: asyncapi/trulioo-webhooks.yml
+- type: Components
+  url: components/trulioo-components.yml
+- type: ChangeLog
+  url: changelog/trulioo-changelog.yml
+- type: Conventions
+  url: conventions/trulioo-conventions.yml
+- type: Sandbox
+  url: sandbox/trulioo-sandbox.yml
+- type: VulnerabilityDisclosure
+  url: security/trulioo-vulnerability-disclosure.yml
+- type: Lifecycle
+  url: lifecycle/trulioo-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/trulioo-error-codes.yml
+- type: Overlay
+  url: overlays/trulioo-authentication-api-overlay.yaml
+- type: LLMsTxt
+  url: llms/trulioo-mcp-llms.txt
+- type: LLMsTxt
+  url: llms/trulioo-mcp-developer-llms.txt
+- type: ToolCrosswalk
+  url: mcp/trulioo-tool-crosswalk.yml
+- type: Packages
+  url: packages/trulioo-packages.yml
+- type: Spectral
+  url: rules/trulioo-rules.yml
+- type: Spectral
+  url: rules/trulioo-jsonschema-spectral-rules.yml
+- type: Vocabulary
+  url: vocabulary/trulioo-vocabulary.yml
+- type: DataModel
+  url: data-model/trulioo-data-model.yml
+- type: Compliance
+  url: https://www.trulioo.com/compliance
+- type: ErrorCatalog
+  url: errors/trulioo-problem-types.yml
+- type: Conformance
+  url: conformance/trulioo-conformance.yml
+- type: LLMsTxt
+  url: llms/trulioo-llms.txt
+- type: WellKnown
+  url: well-known/trulioo-well-known.yml
+- type: Hosts
+  url: hosts/trulioo-hosts.yml
+- type: Vendors
+  url: vendors/trulioo-vendors.yml
+- type: StatusPage
+  url: https://status.trulioo.com/access/login
 - type: Website
   url: https://www.trulioo.com/
 - type: AgenticAccess
@@ -472,8 +178,6 @@ common:
 - type: Arazzo
   url: arazzo/trulioo-workflow-studio-run-flow-workflow.yml
   name: Trulioo Workflow Studio Drive A Flow
-- type: Portal
-  url: https://www.trulioo.com
 - type: Documentation
   url: https://developer.trulioo.com
 - type: GettingStarted
@@ -492,54 +196,15 @@ common:
   url: https://developer.trulioo.com/reference/event-dispatcher
 - type: ChangeLog
   url: https://developer.trulioo.com/docs/release-notes
-- type: ReleaseNotes
-  url: https://developer.trulioo.com/docs/platform-update-67
-  name: Platform Update 6.7
-- type: Sandbox
-  url: https://developer.trulioo.com/docs/trulidemo
-  name: Trulidemo
-- type: Support
-  url: https://support@trulioo.com
 - type: SupportPortal
   url: https://knowledgehub.trulioo.com
   name: Trulioo Knowledge Hub
 - type: Status
   url: https://status.trulioo.com
-- type: TrustCenter
-  url: https://www.trulioo.com/trust
-- type: Security
-  url: https://www.trulioo.com/trust/security
-- type: Compliance
-  url: https://www.trulioo.com/trust/compliance
-- type: PrivacyPolicy
-  url: https://www.trulioo.com/legal/privacy-policy
-- type: TermsOfService
-  url: https://www.trulioo.com/legal/terms-of-service
 - type: Blog
   url: https://www.trulioo.com/blog
-- type: Customers
-  url: https://www.trulioo.com/customers
-- type: CaseStudies
-  url: https://www.trulioo.com/resource-library?type=case-studies
-- type: ResourceLibrary
-  url: https://www.trulioo.com/resource-library
-- type: Pricing
-  url: https://www.trulioo.com/contact
-  name: Contact for pricing
 - type: Login
   url: https://portal.trulioo.com
-- type: Signup
-  url: https://www.trulioo.com/contact-sales
-- type: ContactSales
-  url: https://www.trulioo.com/contact-sales
-- type: Careers
-  url: https://www.trulioo.com/about-us/careers
-- type: AboutUs
-  url: https://www.trulioo.com/about-us
-- type: Leadership
-  url: https://www.trulioo.com/about-us/leadership
-- type: News
-  url: https://www.trulioo.com/news-and-events
 - type: GitHubOrganization
   url: https://github.com/trulioo
 - type: SDKs
@@ -573,7 +238,7 @@ common:
   url: https://developer.trulioo.com/reference/web
   name: Web Capture SDK
 - type: MCPServer
-  url: https://github.com/trulioo/mcp-server
+  url: mcp/trulioo-mcp.yml
   name: Trulioo MCP Server (KYB)
 - type: LinkedIn
   url: https://www.linkedin.com/company/trulioo
@@ -596,42 +261,481 @@ common:
   url: rate-limits/trulioo-rate-limits.yml
 - type: FinOps
   url: finops/trulioo-finops.yml
-- type: Features
-  data:
-  - GlobalGateway — single API into 450+ data sources across 195+ countries
-  - Normalized KYC verification (Verifications API) with watchlist and PEP screening
-  - KYB business verification with official registry data, officers, and persons of
-    significant control
-  - Identity Document Verification (DocV) with MRZ / barcode extraction and liveness
-    checks
-  - Biometric face match plus Known Faces biometric watchlists
-  - Fraud Intelligence — Person Fraud risk scoring with third-party signal aggregation
-  - Watchlist screening (sanctions, PEPs, adverse media) and ongoing AML monitoring
-  - Address validation, cleansing, and standardization
-  - Workflow Studio — low-code orchestrator for verification flows
-  - Workflow Studio (API) — programmatic flow control with hand-offs and signed-URL
-    sessions
-  - Reusable end-client profiles and bulk client management
-  - Multi-region data residency (AMER, EMEA, APAC) for sovereign deployments
-  - Webhook event delivery via the Event Dispatcher
-  - Authentication via Basic, OAuth2 client-credential, HMAC, and Mutual TLS
-  - Sandbox (Trulidemo) with deterministic test entities per country
-  - Mobile SDKs (iOS, Android, React Native) and Web Capture SDK
-  - Backend SDKs in C# (v3) and Java (v3) plus legacy v1 SDKs
-  - MCP Server for agentic KYB integrations
-  - Customer consent capture per datasource with retrievable consent text
-  - Configuration API for runtime form generation and field discovery
-  sources:
-  - https://www.trulioo.com
-  - https://developer.trulioo.com
-  - https://developer.trulioo.com/reference/api-reference-overview
-  - https://developer.trulioo.com/docs/platform-update-67
-  - https://github.com/trulioo
-  updated: '2026-05-25'
-maintainers:
-- FN: Kin Lane
-  email: info@apievangelist.com
-  X: apievangelist
-  url: https://apievangelist.com
-position: Consuming
-access: 3rd-Party
+- type: DeveloperPortal
+  url: https://developer.trulioo.com/
+- type: Documentation
+  url: https://developer.trulioo.com/docs
+- type: Support
+  url: https://www.trulioo.com/company/contact-us
+- type: ContactSales
+  url: https://www.trulioo.com/lp/contact/book-a-demo
+- type: PrivacyPolicy
+  url: https://www.trulioo.com/privacy
+- type: CookiePolicy
+  url: https://www.trulioo.com/cookie-policy
+- type: Legal
+  url: https://www.trulioo.com/legal
+- type: DataProcessingAgreement
+  url: https://www.trulioo.com/legal/dpa
+- type: Security
+  url: https://www.trulioo.com/company/security-compliance
+- type: AboutUs
+  url: https://www.trulioo.com/company/about-us
+- type: Careers
+  url: https://www.trulioo.com/company/careers
+- type: Leadership
+  url: https://www.trulioo.com/company/leadership
+- type: Newsroom
+  url: https://www.trulioo.com/company/newsroom
+- type: Partners
+  url: https://www.trulioo.com/company/partners
+- type: ResourceLibrary
+  url: https://www.trulioo.com/resources
+- type: CaseStudies
+  url: https://www.trulioo.com/resources/case-studies
+- type: Documentation
+  url: https://mcp.trulioo.com/developer/
+- type: LlmsText
+  url: https://mcp.trulioo.com/llms.txt
+- type: SourceCode
+  url: https://github.com/Trulioo/trulioo-mcp
+- type: DataResidency
+  url: https://developer.trulioo.com/reference/multi-region-hosting
+- type: IncidentNotification
+  url: https://www.trulioo.com/legal/dpa
+- type: SupportLifetime
+  url: https://github.com/Trulioo/trulioo-mcp/blob/main/SECURITY.md
+- type: Deprecation
+  url: https://developer.trulioo.com/reference/deprecated
+apis:
+- aid: trulioo:trulioo-verifications-api
+  name: Trulioo Verifications API
+  description: Normalized KYC / electronic identity verification API. Submit a Verify request with normalized PersonInfo,
+    Communication, Location, NationalIds, and Documents fields and Trulioo's GlobalGateway routes the request across local
+    data sources in 195+ countries. Companion endpoints retrieve transaction records, statuses, partial results, and downloadable
+    document images.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - KYC
+  - Identity Verification
+  - Verification
+  - Transaction
+  - Documents
+  tags_raw:
+  - KYC
+  - Identity Verification
+  - Verifications
+  - Transactions
+  - Documents
+  properties:
+  - url: https://developer.trulioo.com/reference/identity-verifications
+    type: Documentation
+  - url: https://developer.trulioo.com/reference/api-reference-overview
+    type: APIReference
+  - url: openapi/trulioo-verifications-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/trulioo-verify-request-schema.json
+    type: JSONSchema
+  - url: json-schema/trulioo-verify-result-schema.json
+    type: JSONSchema
+  - url: json-ld/trulioo-context.jsonld
+    type: JSONLD
+- aid: trulioo:trulioo-configuration-api
+  name: Trulioo Configuration API
+  description: Discovery endpoints for the GlobalGateway. Learn which countries, datasources, fields, document types, consents,
+    and test entities are available for a configured product / package before submitting a Verify request.
+  humanURL: https://developer.trulioo.com/reference/configuration-1
+  baseURL: https://api.trulioo.com
+  tags:
+  - Configuration
+  - Countries
+  - Data Sources
+  - Fields
+  - Consents
+  tags_raw:
+  - Configuration
+  - Countries
+  - Datasources
+  - Fields
+  - Consents
+  properties:
+  - url: https://developer.trulioo.com/reference/configuration-1
+    type: Documentation
+  - url: openapi/trulioo-configuration-api-openapi.yml
+    type: OpenAPI
+  - type: JSONSchema
+    url: json-schema/trulioo-datasource-group-schema.json
+  - type: JSONSchema
+    url: json-schema/trulioo-test-entity-schema.json
+  - type: JSONSchema
+    url: json-schema/trulioo-consent-schema.json
+  - type: JSONSchema
+    url: json-schema/trulioo-package-schema.json
+  - type: JSONSchema
+    url: json-schema/trulioo-country-subdivision-schema.json
+- aid: trulioo:trulioo-connection-api
+  name: Trulioo Connection API
+  description: Health-check and authentication-test endpoints. `sayhello` is an unauthenticated ping; `testauthentication`
+    verifies your credentials before exercising paid endpoints.
+  humanURL: https://developer.trulioo.com/reference/connection
+  baseURL: https://api.trulioo.com
+  tags:
+  - Connection
+  - Health Check
+  properties:
+  - url: https://developer.trulioo.com/reference/connection
+    type: Documentation
+  - url: openapi/trulioo-connection-api-openapi.yml
+    type: OpenAPI
+- aid: trulioo:trulioo-business-verification-api
+  name: Trulioo Business Verification API
+  description: Know Your Business (KYB) API for verifying legal entities, retrieving business registration data from official
+    registries, listing officers and persons of significant control, and downloading business reports. Supports search-then-verify
+    flows by name, registration number, and jurisdiction of incorporation.
+  humanURL: https://developer.trulioo.com/reference/kyb-business-verification
+  baseURL: https://api.trulioo.com
+  tags:
+  - KYB
+  - Business Verification
+  - Business Search
+  - Business Reports
+  - Jurisdiction Of Incorporation
+  properties:
+  - url: https://developer.trulioo.com/reference/kyb-business-verification
+    type: Documentation
+  - url: https://developer.trulioo.com/reference/guide-business-verification
+    type: Guides
+  - url: openapi/trulioo-business-verification-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/trulioo-business-record-schema.json
+    type: JSONSchema
+- aid: trulioo:trulioo-person-fraud-api
+  name: Trulioo Person Fraud API
+  description: Fraud Intelligence — Person Fraud risk scoring. Submit an identity payload and receive a risk verdict that
+    aggregates third-party fraud signals, velocity checks, device intelligence, and identity-graph data.
+  humanURL: https://developer.trulioo.com/reference/fraud-intelligence-person-fraud
+  baseURL: https://api.trulioo.com
+  tags:
+  - Fraud Intelligence
+  - Person Fraud
+  - Risk Scoring
+  properties:
+  - url: https://developer.trulioo.com/reference/fraud-intelligence-person-fraud
+    type: Documentation
+  - url: openapi/trulioo-person-fraud-api-openapi.yml
+    type: OpenAPI
+  - type: JSONSchema
+    url: json-schema/trulioo-risk-verify-request-schema.json
+  - type: JSONSchema
+    url: json-schema/trulioo-risk-verify-result-schema.json
+- aid: trulioo:trulioo-document-verification-api
+  name: Trulioo Identity Document Verification API
+  description: Capture, classify, and verify government-issued identity documents (driver's license, passport, national ID)
+    paired with optional liveness selfie checks. Used to authenticate documents, extract MRZ / barcode data, match the document
+    photo to a captured selfie, and manage Known Faces biometric watchlists.
+  humanURL: https://developer.trulioo.com/reference/identity-document-verification
+  baseURL: https://api.trulioo.com
+  tags:
+  - Document Verification
+  - DocV
+  - Biometrics
+  - Liveness
+  - Known Faces
+  properties:
+  - url: https://developer.trulioo.com/reference/identity-document-verification
+    type: Documentation
+  - url: https://developer.trulioo.com/reference/known-faces
+    type: Documentation
+  - url: openapi/trulioo-document-verification-api-openapi.yml
+    type: OpenAPI
+  - type: JSONSchema
+    url: json-schema/trulioo-document-verify-request-schema.json
+  - type: JSONSchema
+    url: json-schema/trulioo-document-verify-result-schema.json
+- aid: trulioo:trulioo-authentication-api
+  name: Trulioo Authentication API
+  description: OAuth2 client-credential token acquisition.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+  - type: JSONSchema
+    url: json-schema/trulioo-access-token-schema.json
+- aid: trulioo:trulioo-business-configuration-api
+  name: Trulioo Business Configuration API
+  description: Discover JOIs and registration number requirements.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - Business Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-business-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+  - type: JSONSchema
+    url: json-schema/trulioo-business-registration-number-schema.json
+  - type: JSONSchema
+    url: json-schema/trulioo-country-subdivision-schema.json
+- aid: trulioo:trulioo-business-reports-api
+  name: Trulioo Business Reports API
+  description: Download business reports.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - Business Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-business-reports-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+  - type: JSONSchema
+    url: json-schema/trulioo-download-document-schema.json
+- aid: trulioo:trulioo-business-search-api
+  name: Trulioo Business Search API
+  description: Search the Trulioo business registry universe.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - Business Search
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-business-search-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+  - type: JSONSchema
+    url: json-schema/trulioo-business-search-request-schema.json
+  - type: JSONSchema
+    url: json-schema/trulioo-business-search-response-schema.json
+- aid: trulioo:trulioo-document-configuration-api
+  name: Trulioo Document Configuration API
+  description: Discover document types per country.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - Document Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-document-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+- aid: trulioo:trulioo-documents-api
+  name: Trulioo Documents API
+  description: Download evidence documents from completed transactions.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-documents-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+- aid: trulioo:trulioo-end-clients-api
+  name: Trulioo End Clients API
+  description: Profiles, files, and bulk operations on end clients.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - End Clients
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-end-clients-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+  - type: JSONSchema
+    url: json-schema/trulioo-profile-schema.json
+- aid: trulioo:trulioo-events-api
+  name: Trulioo Events API
+  description: Webhook event dispatch.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - Event
+  tags_raw:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-events-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+- aid: trulioo:trulioo-flows-api
+  name: Trulioo Flows API
+  description: Initialize and drive a workflow flow.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - Flow
+  tags_raw:
+  - Flows
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-flows-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+  - type: JSONSchema
+    url: json-schema/trulioo-flow-step-schema.json
+- aid: trulioo:trulioo-known-faces-api
+  name: Trulioo Known Faces API
+  description: Manage Known Faces lists for biometric watchlists.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - Known Faces
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-known-faces-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+  - type: JSONSchema
+    url: json-schema/trulioo-known-faces-list-schema.json
+- aid: trulioo:trulioo-sessions-api
+  name: Trulioo Sessions API
+  description: Generate signed URLs for user sessions.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+- aid: trulioo:trulioo-transactions-api
+  name: Trulioo Transactions API
+  description: Retrieve verification transactions and status.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - Transaction
+  tags_raw:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+  - type: JSONSchema
+    url: json-schema/trulioo-verify-result-schema.json
+  - type: JSONSchema
+    url: json-schema/trulioo-transaction-record-result-schema.json
+  - type: JSONSchema
+    url: json-schema/trulioo-transaction-status-schema.json
+- aid: trulioo:trulioo-workflows-api
+  name: Trulioo Workflows API
+  description: Retrieve workflow definitions.
+  humanURL: https://developer.trulioo.com/reference/identity-verifications
+  baseURL: https://api.trulioo.com
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/trulioo-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-api
+  - type: Documentation
+    url: https://developer.trulioo.com/reference/workflow-studio-low-code
+  - type: Webhooks
+    url: https://developer.trulioo.com/reference/event-dispatcher
+  - type: JSONSchema
+    url: json-schema/trulioo-workflow-schema.json
+- aid: trulioo:trulioo-mcp-server
+  name: Trulioo MCP Server
+  description: Hosted Model Context Protocol server (streamable HTTP) at https://mcp.trulioo.com/mcp exposing typed KYC person
+    verification, KYB business search/verification/reporting, AML screening, document verification sessions, age assurance,
+    business monitoring, account analytics and Know Your Agent (KYA) tools, with workflow prompts and resources. Sandbox sessions
+    use OAuth 2.1 + PKCE with dynamic client registration; approved live accounts exchange client credentials at /oauth/token.
+    An anonymous synthetic endpoint at /mock/mcp answers tools/list without credentials. Distributed as a signed Agent Plugins
+    1.0.0 bundle (github.com/Trulioo/trulioo-mcp) for Claude Code, Codex, ChatGPT and Claude Desktop.
+  humanURL: https://mcp.trulioo.com/developer/
+  baseURL: https://mcp.trulioo.com/mcp
+  tags:
+  - MCP
+  - Agents
+  - KYC
+  - KYB
+  - Know Your Agent
+  properties:
+  - type: Documentation
+    url: https://mcp.trulioo.com/developer/
+  - type: Documentation
+    url: https://mcp.trulioo.com/kya
+  - type: LlmsText
+    url: https://mcp.trulioo.com/developer/llms.txt
+  - type: MCPServer
+    url: https://mcp.trulioo.com/mcp
+  - type: OAuthAuthorizationServer
+    url: https://mcp.trulioo.com/.well-known/oauth-authorization-server
+  - type: OAuthProtectedResource
+    url: https://mcp.trulioo.com/.well-known/oauth-protected-resource/mcp
+  - type: AgentSkills
+    url: https://mcp.trulioo.com/.well-known/skills/index.json
+  - type: JWKS
+    url: https://identity.trulioo.com/.well-known/jwks.json
+  - type: Specification
+    url: https://identity.trulioo.com/a2a/kya/v1
+  - type: LlmsText
+    url: https://kya.trulioo.com/llms.txt
+  - type: SourceCode
+    url: https://github.com/Trulioo/trulioo-mcp
+  - type: SourceCode
+    url: https://github.com/trulioo/mcp-server
+x-enrichment:
+  date: '2026-10-08'
+  status: enriched
+  artifacts_added: 71
+  pass: local-v5
