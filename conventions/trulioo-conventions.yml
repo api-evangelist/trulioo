@@ -1,0 +1,135 @@
+generated: '2026-10-08'
+method: searched
+source:
+- https://developer.trulioo.com/reference/api-reference-overview.md
+- https://developer.trulioo.com/reference/authentication.md
+- https://developer.trulioo.com/reference/webhook.md
+- https://developer.trulioo.com/reference/hmac.md
+- https://developer.trulioo.com/reference/errors.md
+- https://mcp.trulioo.com/developer/index.md
+- openapi/trulioo-*.yml (53 operations, 20 mutating)
+name: Trulioo API conventions
+provider: Trulioo
+providerId: trulioo
+authentication:
+  style: OAuth 2.0 bearer token (client_credentials)
+  rest: 'POST https://auth-api.trulioo.com/connect/token with client_id, client_secret, grant_type=client_credentials,
+    scope=napi.api; send Authorization: Bearer on every request. Platform (/customer/v2) calls obtain a token from
+    POST /customer/v2/auth/customer (postAuthCustomer); access tokens expire in one hour with a refresh endpoint
+    for the same transaction.'
+  mtls: https://developer.trulioo.com/reference/connecting-to-trulioos-api-using-mutual-tls
+  mcp: OAuth 2.1 + PKCE (sandbox) or client_credentials at https://mcp.trulioo.com/oauth/token (live)
+  docs: authentication/trulioo-authentication.yml
+idempotency:
+  coverage: none
+  mechanism: null
+  header: null
+  retention: null
+  docs: https://developer.trulioo.com/reference/webhook
+  note: 'No Idempotency-Key or client-reference replay protection is documented on any of the 20 mutating REST operations
+    (verifyPerson, businessVerify, documentVerificationVerify, personFraudCheck, the Known Faces and End Client
+    writes). The idempotency guidance Trulioo publishes is on the consumer side of webhooks: "We guarantee at-least-once
+    delivery of webhooks ... You should treat events as idempotent". On the MCP surface kya_record_spend de-duplicates
+    on settlement_id (a replay with the same amount returns recorded: false; the same id with a different amount
+    is refused 409) and sandbox_seed_scenario is content-addressed, but those are KYA/sandbox tools, not the verification
+    writes.'
+reversibility:
+  grade: documented
+  summary: Verification transactions (verifyPerson, businessVerify, documentVerificationVerify, personFraudCheck)
+    are consumed data-source queries with no cancel, void or refund operation; a transaction cannot be reversed
+    once submitted. Reversal paths exist only on side resources, with no stated window.
+  surfaces:
+  - write: verifyPerson / businessVerify / documentVerificationVerify / personFraudCheck
+    reversal: null
+    window: null
+    note: No reversal operation; sandbox credentials are the only way to run a transaction that is not chargeable
+  - write: postKnownFacesList / addKnownFacesListTransaction
+    reversal: deleteKnownFacesList (DELETE /v3/knownfaces/lists/{listId})
+    window: null
+    note: Delete only; no restore documented
+  - write: createLinkedLead
+    reversal: deleteLinkedLead (DELETE /customer/v2/endclients/link)
+    window: null
+  - write: end-client profiles
+    reversal: deleteEndClientsBulk (POST /customer/v2/endclients/bulkdelete) / updateEndClientsStatusBulk
+    window: null
+    note: Bulk delete and status change; no undelete documented
+  - write: docv_create_session (MCP, per-account family)
+    reversal: docv_cancel_session
+    window: null
+    docs: https://mcp.trulioo.com/developer/index.md
+  - write: monitoring_enroll (MCP, per-account family)
+    reversal: monitoring_cancel
+    window: null
+    docs: https://mcp.trulioo.com/developer/index.md
+  - write: kya_issue_mandate / kya_publish_artifact (MCP KYA)
+    reversal: kya_revoke_mandate (with a recorded reason) / kya_revoke_artifact ("permanently revoke an immutable
+      Agentic Release") / kya_retire_agent
+    window: null
+    docs: https://mcp.trulioo.com/developer/index.md
+    note: Revocation is permanent per the docs; kya_supersede_agent rotates rather than reverses
+  note: No reversal window is stated anywhere in the docs, so no surface reaches the verified grade.
+pagination:
+  style: none
+  note: No list endpoint in the contract takes page, offset, cursor or limit parameters; configuration lookups return
+    complete lists and getProfiles returns the profile set for the account. MCP analytics_query takes a result limit
+    from 1 to 100 with a series_truncated flag.
+versioning:
+  style: URL path (v1 legacy, v3, /customer/v2, /risk/v1)
+  docs: lifecycle/trulioo-lifecycle.yml
+  compatibility: New fields may be added as the API evolves; clients must not rely on the order of data in JSON
+    responses and should not treat the output JSON as a fixed schema.
+error_envelope:
+  shape: HTTP status plus a JSON body; service-, record- and field-level errors are carried inside the verification
+    record as numbered codes
+  families:
+    http: 400 BadRequest, 401 Unauthorized, 408 Request Timeout, 415 Unsupported Media Type, 500 Internal Server
+      Error, 503 Service Unavailable (reference/errors#http-errors)
+    service_errors: 1000-1xxx codes in Record.DatasourceResults (Provider Error, Missing Required Field, Datasource
+      Unavailable, Datasource Error, Missing Consent...)
+    validation_codes: 3000-3xxx address validation codes
+    record_level: 1002, 1006, 1007, 1008 ... on the record
+    platform_errors: 4000-4xxx Workflow Studio codes (Flow not found, Node not found, Missing data for required
+      element...)
+    get_transaction_record: 2004 Transaction Not Available, 2005 Authentication Error
+  docs: https://developer.trulioo.com/reference/errors
+  artifact: errors/trulioo-error-codes.yml
+  mcp: Errors are returned as typed results, not thrown; branch on status (match | review | nomatch), is_terminal
+    and next_action.
+request_tracing:
+  ids:
+  - TransactionID (returned by verify; used for status polling)
+  - TransactionRecordID (used to fetch the record and documents)
+  header: null
+  note: No request-id header is documented.
+content_negotiation:
+  request: 'Content-Type: application/json; charset=utf-8'
+  compression: 'Include Accept-Encoding: gzip, deflate to receive compressed data'
+  transport: HTTPS only; all requests must be SSL/TLS compliant
+rate_limit_signaling:
+  rest:
+    headers: null
+    status: null
+    docs_statement: Trulioo's API rate limits are designed to be very accommodating and flexible, allowing most
+      clients to use the service without any issues. If you ever find yourself needing more capacity, our customer
+      support team is here to help adjust the limits to better fit your needs.
+    docs: https://developer.trulioo.com/reference/api-reference-overview
+  mcp:
+    field: retry_after_seconds in the tool result
+    docs_statement: Usage limits apply during early access. If a result includes retry_after_seconds, wait for that
+      interval before retrying. Contact Trulioo before increasing production traffic.
+    docs: https://mcp.trulioo.com/developer/index.md
+  artifact: rate-limits/trulioo-rate-limits.yml
+async_pattern:
+  rest: verifyPerson may return Status inprogress; poll getTransactionStatus until it is no longer inprogress, then
+    getTransactionRecord (arazzo/trulioo-async-verify-and-poll-status-workflow.yml)
+  mcp: is_terminal:false means poll (kyb_get_partial_result / kyc_get_status) and follow next_action; do not retry
+    the original call
+webhooks:
+  signature_header: x-trulioo-signature
+  algorithm: HMAC-SHA256 over the payload with a shared secret, hex encoded
+  acknowledgement: respond with an HTTP 20x response within 10 seconds
+  delivery: at-least-once; events may arrive out of order; treat events as idempotent
+  artifact: asyncapi/trulioo-webhooks.yml
+field_expansion: null
+metadata: null

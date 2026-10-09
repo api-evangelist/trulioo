@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Trulioo Business Verification Authentication …………
+  title: Trulioo Business Verification Authentication ……………
   description: Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
   version: '3.0'
   contact:
@@ -67,97 +67,37 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    Rule:
+    NationalId:
       type: object
       properties:
-        RuleName:
+        Number:
           type: string
-        Note:
+        Type:
           type: string
-    Document:
-      type: object
-      properties:
-        DocumentFrontImage:
-          type: string
-          format: byte
-        DocumentBackImage:
-          type: string
-          format: byte
-        LivePhoto:
-          type: string
-          format: byte
-        DocumentType:
-          type: string
-    ServiceError:
-      type: object
-      properties:
-        Code:
-          type: string
-        Message:
-          type: string
-    AppendedField:
-      type: object
-      properties:
-        FieldName:
-          type: string
-        Data:
-          type: string
-    VerifyResult:
-      type: object
-      properties:
-        TransactionID:
-          type: string
-        UploadedDt:
-          type: string
-          format: date-time
         CountryCode:
           type: string
-        ProductName:
-          type: string
-        Record:
-          $ref: '#/components/schemas/Record'
-        Errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceError'
-    Location:
+    Record:
       type: object
       properties:
-        BuildingNumber:
+        TransactionRecordID:
           type: string
-        BuildingName:
+        RecordStatus:
           type: string
-        UnitNumber:
-          type: string
-        StreetName:
-          type: string
-        StreetType:
-          type: string
-        City:
-          type: string
-        StateProvinceCode:
-          type: string
-        PostalCode:
-          type: string
-        Country:
-          type: string
-    DatasourceResult:
-      type: object
-      properties:
-        DatasourceName:
-          type: string
-        DatasourceFields:
+          enum:
+          - match
+          - nomatch
+          - partial
+          - error
+        DatasourceResults:
           type: array
           items:
-            $ref: '#/components/schemas/DatasourceField'
+            $ref: '#/components/schemas/DatasourceResult'
         Errors:
           type: array
           items:
             $ref: '#/components/schemas/RecordError'
-        AppendedFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppendedField'
+        Rule:
+          $ref: '#/components/schemas/Rule'
     VerifyRequest:
       type: object
       required:
@@ -192,44 +132,37 @@ components:
           type: string
           format: uri
           description: Webhook URL for asynchronous result delivery.
-    Communication:
+    DatasourceResult:
       type: object
       properties:
-        Telephone:
+        DatasourceName:
           type: string
-        MobileNumber:
-          type: string
-        EmailAddress:
-          type: string
-    Error:
-      type: object
-      properties:
-        Code:
-          type: string
-        Message:
-          type: string
-    Record:
-      type: object
-      properties:
-        TransactionRecordID:
-          type: string
-        RecordStatus:
-          type: string
-          enum:
-          - match
-          - nomatch
-          - partial
-          - error
-        DatasourceResults:
+        DatasourceFields:
           type: array
           items:
-            $ref: '#/components/schemas/DatasourceResult'
+            $ref: '#/components/schemas/DatasourceField'
         Errors:
           type: array
           items:
             $ref: '#/components/schemas/RecordError'
-        Rule:
-          $ref: '#/components/schemas/Rule'
+        AppendedFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppendedField'
+    AppendedField:
+      type: object
+      properties:
+        FieldName:
+          type: string
+        Data:
+          type: string
+    Rule:
+      type: object
+      properties:
+        RuleName:
+          type: string
+        Note:
+          type: string
     DatasourceField:
       type: object
       properties:
@@ -238,15 +171,6 @@ components:
         Status:
           type: string
         Data:
-          type: string
-    NationalId:
-      type: object
-      properties:
-        Number:
-          type: string
-        Type:
-          type: string
-        CountryCode:
           type: string
     DataFields:
       type: object
@@ -263,12 +187,67 @@ components:
             $ref: '#/components/schemas/NationalId'
         Document:
           $ref: '#/components/schemas/Document'
+    Communication:
+      type: object
+      properties:
+        Telephone:
+          type: string
+        MobileNumber:
+          type: string
+        EmailAddress:
+          type: string
+    Error:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
+    VerifyResult:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        UploadedDt:
+          type: string
+          format: date-time
+        CountryCode:
+          type: string
+        ProductName:
+          type: string
+        Record:
+          $ref: '#/components/schemas/Record'
+        Errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceError'
+    ServiceError:
+      type: object
+      properties:
+        Code:
+          type: string
+        Message:
+          type: string
     RecordError:
       type: object
       properties:
         Code:
           type: string
         Message:
+          type: string
+    Document:
+      type: object
+      properties:
+        DocumentFrontImage:
+          type: string
+          format: byte
+        DocumentBackImage:
+          type: string
+          format: byte
+        LivePhoto:
+          type: string
+          format: byte
+        DocumentType:
           type: string
     PersonInfo:
       type: object
@@ -289,15 +268,36 @@ components:
           type: integer
         Gender:
           type: string
+    Location:
+      type: object
+      properties:
+        BuildingNumber:
+          type: string
+        BuildingName:
+          type: string
+        UnitNumber:
+          type: string
+        StreetName:
+          type: string
+        StreetType:
+          type: string
+        City:
+          type: string
+        StateProvinceCode:
+          type: string
+        PostalCode:
+          type: string
+        Country:
+          type: string
   responses:
-    BadRequest:
-      description: Invalid request.
+    ServerError:
+      description: Internal server error.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    ServerError:
-      description: Internal server error.
+    Unauthorized:
+      description: Authentication failed.
       content:
         application/json:
           schema:
@@ -308,8 +308,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed.
+    BadRequest:
+      description: Invalid request.
       content:
         application/json:
           schema:

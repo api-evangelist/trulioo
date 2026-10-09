@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/trulioo/main/json-schema/trulioo-risk-verify-result-schema.json",
+  "title": "RiskVerifyResult",
+  "x-generated": "2026-10-08",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/trulioo-person-fraud-api-openapi.yml#/components/schemas/RiskVerifyResult",
+  "type": "object",
+  "properties": {
+    "TransactionID": {
+      "type": "string"
+    },
+    "RiskScore": {
+      "type": "number"
+    },
+    "RiskVerdict": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "review",
+        "fail"
+      ]
+    },
+    "Reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "DatasourceResults": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  }
+}

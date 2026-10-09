@@ -1,0 +1,69 @@
+generated: '2026-10-08'
+method: searched
+source:
+- https://developer.trulioo.com/reference/trulioo-sdk.md
+- https://developer.trulioo.com/reference/web-sdk-guide.md
+- https://developer.trulioo.com/reference/web
+- https://registry.npmjs.org/@trulioo%2Fkyc-documents
+- https://mcp.trulioo.com/developer/index.md (Interactive UI)
+- openapi/trulioo-sessions-api-openapi.yml (generateSignedUrl)
+- openapi/trulioo-flows-api-openapi.yml (postHandoff)
+name: Trulioo embeddable components
+provider: Trulioo
+providerId: trulioo
+families:
+- family: Web SDK (npm)
+  description: Browser packages that render Trulioo capture and verification UI into the host page
+  components:
+  - name: '@trulioo/kyc-documents'
+    kind: hosted document verification UI (SDK-owned)
+    integration: The host initializes the flow, launches into an existing DOM element, and handles callbacks through
+      ListenerCallback and EventBuilder; desktop-to-mobile workflow documented
+    version: 4.0.0
+    published: '2026-09-03'
+  - name: '@trulioo/kyc-documents-capture'
+    kind: camera capture component (host-owned shell)
+    integration: The host renders the camera into an existing DOM element; cleanup clearSession()
+    version: 4.0.0
+    published: '2026-09-03'
+  - name: '@trulioo/trulioo'
+    kind: base session client (Device Intelligence, KYC Data, eID)
+    integration: Promises and callback registration; explicit or configured auto-collection of device telemetry
+    version: 4.0.0
+    published: '2026-09-03'
+  - name: '@trulioo/docv / @trulioo/docv-capture-web'
+    kind: previous-generation DocV web components
+    version: 2.15.7
+    published: '2026-06-23'
+    note: Migration guides to KYC Documents 3.x/4.x are published
+  loader: npm packages, with documented CDN options for web packages
+  docs: https://developer.trulioo.com/reference/web
+- family: Mobile SDK
+  description: 'Native iOS (Swift Package Manager) and Android (Maven, fused AARs) packages: Trulioo, TruliooKYCDocumentsCapture,
+    TruliooKYCDocuments; plus React Native'
+  components:
+  - name: Trulioo (iOS/Android base)
+  - name: TruliooKYCDocumentsCapture
+  - name: TruliooKYCDocuments
+  - name: React Native
+    docs: https://developer.trulioo.com/reference/react-native
+  docs:
+  - https://developer.trulioo.com/reference/ios-sdk-guide
+  - https://developer.trulioo.com/reference/android-sdk-guide
+- family: Hosted Workflow Studio sessions
+  description: Trulioo-hosted end-client flows launched by URL rather than embedded code
+  components:
+  - name: Signed URL user session
+    operation: generateSignedUrl (POST /customer/v2/signedurl)
+    note: Themes and redirects can be configured per session via query parameters on the launch URL (Platform Update
+      6.6)
+  - name: SDK handoff short code
+    operation: postHandoff (POST /customer/v2/handoff)
+    note: Single-use short code (valid for 5 minutes) to hand the rest of a transaction to a mobile/web SDK
+- family: MCP Apps UI
+  description: Host-rendered verdict card for MCP clients that support MCP Apps
+  components:
+  - name: render_app_verdict
+    kind: ui:// verdict card
+    note: Per account (SEP-1865); listed in the MCP developer tools reference
+  docs: https://mcp.trulioo.com/developer/

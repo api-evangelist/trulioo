@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/trulioo/main/json-schema/trulioo-business-search-response-schema.json",
+  "title": "BusinessSearchResponse",
+  "x-generated": "2026-10-08",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/trulioo-business-search-api-openapi.yml#/components/schemas/BusinessSearchResponse",
+  "type": "object",
+  "properties": {
+    "TransactionID": {
+      "type": "string"
+    },
+    "Results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/BusinessRecord"
+      }
+    }
+  },
+  "$defs": {
+    "BusinessRecord": {
+      "type": "object",
+      "properties": {
+        "BusinessName": {
+          "type": "string"
+        },
+        "BusinessRegistrationNumber": {
+          "type": "string"
+        },
+        "JurisdictionOfIncorporation": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "ConfidenceScore": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

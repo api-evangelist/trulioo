@@ -2,13 +2,11 @@ arazzo: 1.0.1
 info:
   title: Trulioo Async Verify And Poll For Completion
   summary: Submit an asynchronous verification, poll its status until complete, then read the result.
-  description: >-
-    Some Trulioo verifications resolve asynchronously across slower local
-    datasources. This workflow submits a Verify with a CallBackUrl, then polls
-    the transaction-status endpoint with a retry loop until the status leaves the
-    "inprogress" state, and finally pulls the partial/final result for the
-    transaction record. Every step spells out its request inline so the flow can
-    be read and executed without opening the underlying OpenAPI description.
+  description: Some Trulioo verifications resolve asynchronously across slower local datasources. This workflow
+    submits a Verify with a CallBackUrl, then polls the transaction-status endpoint with a retry loop until the
+    status leaves the "inprogress" state, and finally pulls the partial/final result for the transaction record.
+    Every step spells out its request inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
 - name: transactionsApi
@@ -20,9 +18,8 @@ sourceDescriptions:
 workflows:
 - workflowId: async-verify-and-poll-status
   summary: Submit a Verify, poll status to completion, and read the result.
-  description: >-
-    Kicks off an asynchronous verification, repeatedly checks the transaction
-    status until it is no longer in progress, then retrieves the result.
+  description: Kicks off an asynchronous verification, repeatedly checks the transaction status until it is no longer
+    in progress, then retrieves the result.
   inputs:
     type: object
     required:
@@ -44,9 +41,8 @@ workflows:
         description: Webhook URL for asynchronous result delivery.
   steps:
   - stepId: verify
-    description: >-
-      Submit the Verify request with a callback URL to start an asynchronous
-      verification and capture both the TransactionID and TransactionRecordID.
+    description: Submit the Verify request with a callback URL to start an asynchronous verification and capture
+      both the TransactionID and TransactionRecordID.
     operationId: verifyPerson
     requestBody:
       contentType: application/json
@@ -62,9 +58,8 @@ workflows:
       transactionId: $response.body#/TransactionID
       transactionRecordId: $response.body#/Record/TransactionRecordID
   - stepId: pollStatus
-    description: >-
-      Poll the transaction status until it is no longer "inprogress". The retry
-      action re-runs this step when the status is still in progress.
+    description: Poll the transaction status until it is no longer "inprogress". The retry action re-runs this step
+      when the status is still in progress.
     operationId: getTransactionStatus
     parameters:
     - name: transactionId
@@ -92,12 +87,12 @@ workflows:
       - context: $response.body
         condition: $.Status == "inprogress"
         type: jsonpath
+      stepId: pollStatus
     outputs:
       status: $response.body#/Status
   - stepId: fetchResult
-    description: >-
-      Retrieve the partial/final transaction result now that the verification has
-      left the in-progress state.
+    description: Retrieve the partial/final transaction result now that the verification has left the in-progress
+      state.
     operationId: getPartialTransactionResult
     parameters:
     - name: transactionRecordId

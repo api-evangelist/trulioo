@@ -39,18 +39,15 @@ paths:
                 $ref: '#/components/schemas/BusinessVerifyResult'
 components:
   schemas:
-    BusinessVerifyResult:
+    BusinessInputFields:
       type: object
       properties:
-        TransactionID:
+        BusinessName:
           type: string
-        Record:
-          $ref: '#/components/schemas/BusinessRecord'
-        Officers:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
+        BusinessRegistrationNumber:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
     BusinessRecord:
       type: object
       properties:
@@ -82,15 +79,18 @@ components:
           type: string
         BusinessSearchInputFields:
           $ref: '#/components/schemas/BusinessInputFields'
-    BusinessInputFields:
+    BusinessVerifyResult:
       type: object
       properties:
-        BusinessName:
+        TransactionID:
           type: string
-        BusinessRegistrationNumber:
-          type: string
-        JurisdictionOfIncorporation:
-          type: string
+        Record:
+          $ref: '#/components/schemas/BusinessRecord'
+        Officers:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
   securitySchemes:
     BasicAuth:
       type: http

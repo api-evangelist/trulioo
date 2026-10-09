@@ -1,0 +1,290 @@
+generated: '2026-10-08'
+method: searched
+source:
+- https://registry.npmjs.org/-/v1/search?text=trulioo
+- https://pypi.org/pypi/trulioo-sdk/json
+- https://search.maven.org/solrsearch/select?q=g:com.trulioo
+- https://azuresearch-usnc.nuget.org/query?q=trulioo
+- https://rubygems.org/api/v1/search.json?query=trulioo
+- https://packagist.org/search.json?q=trulioo
+- https://crates.io/api/v1/crates?q=trulioo (none)
+- https://proxy.golang.org/github.com/!trulioo/sdk-go/@latest (404, no Go module)
+- https://api.github.com/orgs/trulioo/repos
+- https://developer.trulioo.com/reference/trulioo-sdk.md
+name: Trulioo client packages
+provider: Trulioo
+providerId: trulioo
+note: 'Two generations: the current mobile/web SDK family (@trulioo/trulioo, kyc-documents, kyc-documents-capture, released 2026-09-03 across
+  npm, Maven and SPM) and the Normalized API client libraries (.NET Trulioo.Client.V3 updated 2026-01-19; Java normalizedapi-v3 last 2023-09-25;
+  the 2021 JavaScript/Python/Ruby/PHP trulioo-sdk packages have had no release since May 2021). The documented Android base packages (com.trulioo:trulioo,
+  kyc-documents, kyc-documents-capture) were not found on Maven Central and carry version null.'
+packages:
+- name: '@trulioo/trulioo'
+  registry: npm
+  url: https://www.npmjs.com/package/@trulioo/trulioo
+  language: JavaScript
+  official: true
+  version: 4.0.0
+  published: '2026-09-03'
+  source: https://registry.npmjs.org/@trulioo%2Ftrulioo
+  note: Trulioo SDK base client for Web (session bootstrap, Device Intelligence, KYC Data, eID); publisher trulioo.npm; documented at https://developer.trulioo.com/reference/trulioo-sdk
+  ownership_audit: metadata names trulioo.com
+- name: '@trulioo/kyc-documents'
+  registry: npm
+  url: https://www.npmjs.com/package/@trulioo/kyc-documents
+  language: JavaScript
+  official: true
+  version: 4.0.0
+  published: '2026-09-03'
+  source: https://registry.npmjs.org/@trulioo%2Fkyc-documents
+  note: Hosted Trulioo KYC Documents web SDK (SDK-owned document verification UI)
+  ownership_audit: metadata names trulioo.com
+- name: '@trulioo/kyc-documents-capture'
+  registry: npm
+  url: https://www.npmjs.com/package/@trulioo/kyc-documents-capture
+  language: JavaScript
+  official: true
+  version: 4.0.0
+  published: '2026-09-03'
+  source: https://registry.npmjs.org/@trulioo%2Fkyc-documents-capture
+  note: KYC Documents Capture web SDK (host-owned camera composition)
+  ownership_audit: metadata names trulioo.com
+- name: '@trulioo/docv'
+  registry: npm
+  url: https://www.npmjs.com/package/@trulioo/docv
+  language: JavaScript
+  official: true
+  version: 2.15.7
+  published: '2026-06-23'
+  source: https://registry.npmjs.org/@trulioo%2Fdocv
+  note: Trulioo DocV JavaScript SDK (previous-generation document verification web SDK)
+  ownership_audit: metadata names trulioo.com
+- name: '@trulioo/docv-capture-web'
+  registry: npm
+  url: https://www.npmjs.com/package/@trulioo/docv-capture-web
+  language: JavaScript
+  official: true
+  version: 2.15.7
+  published: '2026-06-23'
+  source: https://registry.npmjs.org/@trulioo%2Fdocv-capture-web
+  note: Trulioo DocVCapture Web SDK
+  ownership_audit: metadata names trulioo.com
+- name: '@trulioo/docv-capture'
+  registry: npm
+  url: https://www.npmjs.com/package/@trulioo/docv-capture
+  language: JavaScript
+  official: true
+  version: 2.15.3
+  published: '2025-05-17'
+  source: https://registry.npmjs.org/-/v1/search?text=trulioo
+  note: Trulioo DocV capture package (publisher trulioo.npm)
+  ownership_audit: metadata names trulioo.com
+- name: trulioo-sdk
+  registry: npm
+  url: https://www.npmjs.com/package/trulioo-sdk
+  language: JavaScript
+  official: true
+  version: 1.0.3
+  published: '2021-05-26'
+  source: https://registry.npmjs.org/-/v1/search?text=trulioo
+  note: Normalized API (NAPI v1) client published by trulioo-rd-devops; repository github.com/Trulioo/sdk-javascript; last release 2021
+  ownership_audit: metadata names trulioo.com
+- name: trulioo-sdk
+  registry: pypi
+  url: https://pypi.org/project/trulioo-sdk/
+  language: Python
+  official: true
+  version: 1.0.4
+  published: '2021-05-26'
+  source: https://pypi.org/pypi/trulioo-sdk/json
+  note: Author Trulioo; homepage github.com/Trulioo/sdk-python; last release 2021
+  ownership_audit: metadata names trulioo.com
+- name: com.trulioo:normalizedapi-v3
+  registry: maven
+  url: https://central.sonatype.com/artifact/com.trulioo/normalizedapi-v3
+  language: Java
+  official: true
+  version: 3.0.4
+  published: '2023-09-25'
+  source: https://search.maven.org/solrsearch/select?q=g:com.trulioo&rows=20&wt=json
+  note: Java client for the Normalized API v3; source github.com/Trulioo/sdk-java-v3 (api/openapi.yaml ships with it)
+- name: com.trulioo:normalizedapi
+  registry: maven
+  url: https://central.sonatype.com/artifact/com.trulioo/normalizedapi
+  language: Java
+  official: true
+  version: 1.0.11
+  published: '2023-09-25'
+  source: https://search.maven.org/solrsearch/select?q=g:com.trulioo&rows=20&wt=json
+  note: Java client for the Normalized API v1; source github.com/Trulioo/sdk-java-v1
+- name: com.trulioo:trulioo-sdk
+  registry: maven
+  url: https://central.sonatype.com/artifact/com.trulioo/trulioo-sdk
+  language: Java
+  official: true
+  version: 1.0.3
+  published: '2021-05-26'
+  source: https://search.maven.org/solrsearch/select?q=g:com.trulioo&rows=20&wt=json
+  note: 2021-era generated Java SDK
+- name: com.trulioo:docv-capture
+  registry: maven
+  url: https://central.sonatype.com/artifact/com.trulioo/docv-capture
+  language: Kotlin/Java (Android)
+  official: true
+  version: 2.15.3
+  published: '2025-05-16'
+  source: https://search.maven.org/solrsearch/select?q=g:com.trulioo&rows=20&wt=json
+  note: Android DocV capture SDK
+- name: com.trulioo:docv
+  registry: maven
+  url: https://central.sonatype.com/artifact/com.trulioo/docv
+  language: Kotlin/Java (Android)
+  official: true
+  version: 2.14.0
+  published: '2024-11-21'
+  source: https://search.maven.org/solrsearch/select?q=g:com.trulioo&rows=20&wt=json
+  note: Android DocV SDK
+- name: com.trulioo:trulioo
+  registry: maven
+  url: https://developer.trulioo.com/reference/android-sdk-guide
+  language: Kotlin/Java (Android)
+  official: true
+  version: null
+  published: null
+  source: https://developer.trulioo.com/reference/trulioo-sdk.md
+  note: Documented in the SDK family summary (https://developer.trulioo.com/reference/trulioo-sdk) as the Android base package, but not found
+    on Maven Central (search g:com.trulioo on 2026-10-08); distribution is via Maven artifacts per the docs, so the artifact likely lives on a
+    Trulioo-hosted repository
+- name: com.trulioo:kyc-documents
+  registry: maven
+  url: https://developer.trulioo.com/reference/android-sdk-guide
+  language: Kotlin/Java (Android)
+  official: true
+  version: null
+  published: null
+  source: https://developer.trulioo.com/reference/trulioo-sdk.md
+  note: Documented Android package (fused AAR); not found on Maven Central on 2026-10-08
+- name: com.trulioo:kyc-documents-capture
+  registry: maven
+  url: https://developer.trulioo.com/reference/android-sdk-guide
+  language: Kotlin/Java (Android)
+  official: true
+  version: null
+  published: null
+  source: https://developer.trulioo.com/reference/trulioo-sdk.md
+  note: Documented Android package (fused AAR); not found on Maven Central on 2026-10-08
+- name: Trulioo.Client.V3
+  registry: nuget
+  url: https://www.nuget.org/packages/Trulioo.Client.V3
+  language: C#
+  official: false
+  version: 1.0.36
+  published: '2026-01-19'
+  source: https://api.nuget.org/v3/registration5-semver1/trulioo.client.v3/index.json
+  note: Author Trulioo Inc.; source github.com/trulioo/sdk-csharp-v3
+  ownership_audit: 'registry metadata names neither the provider''s domain nor its GitHub org: official downgraded (harvest-packages.py --audit)'
+- name: Trulioo.V1.Client.NET
+  registry: nuget
+  url: https://www.nuget.org/packages/Trulioo.V1.Client.NET
+  language: C#
+  official: false
+  version: 3.0.44
+  published: '2025-12-02'
+  source: https://api.nuget.org/v3/registration5-semver1/trulioo.v1.client.net/index.json
+  note: Author Trulioo Inc.; source github.com/trulioo/sdk-csharp-v1
+  ownership_audit: 'registry metadata names neither the provider''s domain nor its GitHub org: official downgraded (harvest-packages.py --audit)'
+- name: Trulioo.SDK
+  registry: nuget
+  url: https://www.nuget.org/packages/Trulioo.SDK
+  language: C#
+  official: false
+  version: 4.0.0
+  published: '2021-06-25'
+  source: https://api.nuget.org/v3/registration5-semver1/trulioo.sdk/index.json
+  note: Author Trulioo; 2021-era generated SDK
+  ownership_audit: 'registry metadata names neither the provider''s domain nor its GitHub org: official downgraded (harvest-packages.py --audit)'
+- name: trulioo_sdk
+  registry: rubygems
+  url: https://rubygems.org/gems/trulioo_sdk
+  language: Ruby
+  official: false
+  version: 1.0.3
+  published: '2021-05-31'
+  source: https://rubygems.org/api/v1/gems/trulioo_sdk.json
+  note: Author Trulioo; source github.com/Trulioo/sdk-ruby; last release 2021
+  ownership_audit: 'registry metadata names neither the provider''s domain nor its GitHub org: official downgraded (harvest-packages.py --audit)'
+- name: trulioo/trulioo-sdk
+  registry: packagist
+  url: https://packagist.org/packages/trulioo/trulioo-sdk
+  language: PHP
+  official: false
+  version: 1.0.3
+  published: '2021-05-25'
+  source: https://packagist.org/packages/trulioo/trulioo-sdk.json
+  note: Repository github.com/Trulioo/sdk-php; last release 2021
+  ownership_audit: 'registry metadata names neither the provider''s domain nor its GitHub org: official downgraded (harvest-packages.py --audit)'
+- name: Trulioo (trulioo-ios)
+  registry: github
+  url: https://github.com/trulioo/trulioo-ios
+  language: Swift
+  official: true
+  version: null
+  published: null
+  source: https://api.github.com/orgs/trulioo/repos
+  note: iOS base SDK distributed via Swift Package Manager from the GitHub repo (pushed 2026-09-03); no registry metadata endpoint, release tag
+    not read
+- name: TruliooKYCDocumentsCapture (kyc-documents-capture)
+  registry: github
+  url: https://github.com/trulioo/kyc-documents-capture
+  language: Swift
+  official: true
+  version: null
+  published: null
+  source: https://api.github.com/orgs/trulioo/repos
+  note: iOS KYC Documents Capture SDK via Swift Package Manager (pushed 2026-09-03)
+- name: TruliooKYCDocuments (kyc-documents)
+  registry: github
+  url: https://github.com/trulioo/kyc-documents
+  language: Swift
+  official: true
+  version: null
+  published: null
+  source: https://api.github.com/orgs/trulioo/repos
+  note: iOS KYC Documents SDK via Swift Package Manager (pushed 2026-09-03)
+- name: docv (iOS)
+  registry: github
+  url: https://github.com/trulioo/docv
+  language: Objective-C/Swift
+  official: true
+  version: null
+  published: null
+  source: https://api.github.com/orgs/trulioo/repos
+  note: Trulioo Document Verification SDK for iOS (pushed 2025-07-15)
+- name: trulioo-mcp (Agent Plugin)
+  registry: github
+  url: https://github.com/Trulioo/trulioo-mcp
+  language: JavaScript
+  official: true
+  version: 0.7.5
+  published: '2026-10-07'
+  source: https://raw.githubusercontent.com/trulioo/trulioo-mcp/HEAD/server.json
+  note: Signed Agent Plugins 1.0.0 bundle for Claude Code / Codex / ChatGPT / Claude Desktop connecting to the hosted MCP server; version from
+    server.json; repo pushed 2026-10-07; Apache-2.0
+- name: Soenneker.Trulioo.OpenApiClient
+  registry: nuget
+  url: https://www.nuget.org/packages/Soenneker.Trulioo.OpenApiClient
+  language: C#
+  official: false
+  version: 4.0.34
+  published: null
+  source: https://azuresearch-usnc.nuget.org/query?q=trulioo
+  note: Third-party (Jake Soenneker) generated client; listed for completeness, not first-party
+- name: trulioo
+  registry: rubygems
+  url: https://rubygems.org/gems/trulioo
+  language: Ruby
+  official: false
+  version: 0.2.3
+  published: null
+  source: https://rubygems.org/api/v1/search.json?query=trulioo
+  note: Third-party gem (Dave Nguyen); not first-party

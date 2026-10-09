@@ -142,6 +142,13 @@ paths:
         '200':
           description: Status updated.
 components:
+  parameters:
+    ClientId:
+      name: clientId
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
     Profile:
       type: object
@@ -159,13 +166,6 @@ components:
         data:
           type: object
           additionalProperties: true
-  parameters:
-    ClientId:
-      name: clientId
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     OAuth2:
       type: oauth2

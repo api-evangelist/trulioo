@@ -1,0 +1,98 @@
+generated: '2026-10-08'
+method: searched
+source:
+- https://developer.trulioo.com/reference/webhook.md
+- https://developer.trulioo.com/reference/event-dispatcher.md
+- https://developer.trulioo.com/reference/sendevent.md
+- https://developer.trulioo.com/reference/hmac.md
+name: Trulioo Platform webhooks (Event Dispatcher)
+provider: Trulioo
+providerId: trulioo
+description: Workflow Studio flows push JSON events to one customer Callback URL configured through the Export API
+  step in the builder (one callback per workflow; route further on your server). Events cover the end-client journey
+  through a hosted flow (flow start/end, step and service submissions, DocV intermediate events, abandonment) and
+  Client Manager manual actions (accept, reject, pending review, notes, tasks). Event payloads for Person Match,
+  DocV and UBO/PSC connector transactions are shown in the Event Dispatcher reference. The REST verification APIs
+  (v3) are request/response with status polling and publish no webhook of their own. No AsyncAPI document is published.
+asyncapi_published: false
+docs: https://developer.trulioo.com/reference/event-dispatcher
+delivery:
+  transport: HTTPS POST, JSON body, to the configured Callback URL
+  signature:
+    header: x-trulioo-signature
+    algorithm: HMAC-SHA256 of the webhook message using the shared secret key, hex encoded
+    secret: obtained from the Trulioo team (support@trulioo.com); not self-serve
+    docs: https://developer.trulioo.com/reference/hmac
+  acknowledgement: Upon receiving a webhook notification, you should acknowledge success by responding with an HTTP
+    20x response within 10 seconds.
+  retries: 'Retry schedule is not published; the payload carries a retry counter ("retry": 0) and delivery is at-least-once'
+  duplicates: We guarantee at-least-once delivery of webhooks, which means that in rare occasions you may receive
+    duplicate events. You should treat events as idempotent to avoid unwanted effects in your application.
+  ordering: Trulioo doesn't guarantee order when delivering events. As a result, you may receive an event before
+    another event that was created earlier.
+  ip_allowlist: mentioned as an alternative to signature validation (allow requests from Trulioo's IP address);
+    the IP list itself is not on the public docs
+subscription: Callback URL(s) subscribe to event types; the list of event types "can be enriched at any moment,
+  without prior notice"
+events:
+- name: FLOW_START
+  description: The flow was started. A new end client session was generated
+  category: end-client flow
+- name: STEP_INIT
+  description: The form node was initiated; Form elements were returned to the client
+  category: end-client flow
+- name: STEP_SUBMIT
+  description: The form node was submitted. The event contains the form data that was entered by the end client
+  category: end-client flow
+- name: SERVICE_INIT
+  description: The interactive service was initiated
+  category: end-client flow
+- name: INTERMEDIATE_EVENT_RECEIVED
+  description: An intermediate event was received from DocV
+  category: end-client flow
+- name: SERVICE_SUBMIT
+  description: Service data is available for the executed service
+  category: end-client flow
+- name: INSTANT_SERVICE_SUBMIT
+  description: Service data is available for the executed service instantly when configured
+  category: end-client flow
+- name: SERVICE_TIMEOUT
+  description: The service was marked as timeout
+  category: end-client flow
+- name: FLOW_END
+  description: The flow was finished
+  category: end-client flow
+- name: ABANDONED
+  description: The end client was automatically marked as abandoned based on the workflow settings
+  category: end-client flow
+- name: MANUALLY_ACCEPTED
+  description: The end client was manually accepted
+  category: manual action (Client Manager)
+- name: MANUALLY_REJECTED
+  description: The end client was manually rejected
+  category: manual action (Client Manager)
+- name: MANUALLY_PENDING_REVIEW
+  description: The end client was manually marked as pending review
+  category: manual action (Client Manager)
+- name: MANUALLY_ABANDONED
+  description: The end client was manually marked as abandoned
+  category: manual action (Client Manager)
+- name: NOTE_ADDED
+  description: A note was added
+  category: manual action (Client Manager)
+- name: TASK_ADDED
+  description: A task was added
+  category: manual action (Client Manager)
+- name: TASK_DONE
+  description: A task was marked as done
+  category: manual action (Client Manager)
+- name: TASK_UNDONE
+  description: A task was marked as undone
+  category: manual action (Client Manager)
+event_count: 18
+payload_examples:
+- Person Match transaction
+- DocV transaction
+- UBO/PSC Connector transaction (all at https://developer.trulioo.com/reference/event-dispatcher)
+related_operations:
+- sendEvent (POST /customer/v2/events)

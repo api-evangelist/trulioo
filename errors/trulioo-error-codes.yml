@@ -1,0 +1,602 @@
+generated: '2026-10-08'
+method: searched
+source: https://developer.trulioo.com/reference/errors.md
+docs: https://developer.trulioo.com/reference/errors
+name: Trulioo error reference
+provider: Trulioo
+providerId: trulioo
+format: custom
+envelope:
+  http: standard HTTP status codes; 4xx for request content/structure problems, 5xx for Trulioo-side problems
+  record: Service, record-level and validation codes are numeric codes carried inside the verification Record (DatasourceResults
+    / Errors) of a 200 response, not HTTP statuses
+  platform: Workflow Studio (/customer/v2) errors use 4xxx codes with a message
+families:
+  http: HTTP errors (400/401/408/415/500/503)
+  service: 1000-series Service / DataSource level errors
+  validation: 3000-series address Validation Codes
+  record: Record Level Errors
+  platform: 4000-series Workflow Studio Platform Errors
+  transaction-record: Get Transaction Record errors (2004, 2005)
+  verify-response: Verify Response Errors
+problem_count: 80
+problems:
+- code: '400'
+  status: 400
+  title: BadRequest -Account not configured for this product
+  type: http
+  family: http
+  description: Ensure you are configured properly with the Get Country Codes request to see the countries you are
+    configured for.
+  remediation: Ensure you are configured properly with the Get Country Codes request to see the countries you are
+    configured for.
+- code: '400'
+  status: 400
+  title: BadRequest -Unable to find account
+  type: http
+  family: http
+  description: Email Trulioo support to ensure there are no issues with your account.
+  remediation: Email Trulioo support to ensure there are no issues with your account.
+- code: '400'
+  status: 400
+  title: BadRequest -Transaction not available
+  type: http
+  family: http
+  description: Make sure that you are sending the correct TransactionRecordID and that the verify was sent from
+    this same request.
+  remediation: Make sure that you are sending the correct TransactionRecordID and that the verify was sent from
+    this same request.
+- code: '400'
+  status: 400
+  title: BadRequest -Account not configured for this country.
+  type: http
+  family: http
+  description: Try the Get Country Codes request to see the countries you are configured for.
+  remediation: Try the Get Country Codes request to see the countries you are configured for.
+- code: '401'
+  status: 401
+  title: Unauthorized
+  type: http
+  family: http
+  description: The token you provided is not valid or you are using an account that is not enabled. Make a call
+    to Test Authentication with your token. If you do not see your token echoed back at you, you are using an invalid
+    token. Missing authorization header
+  remediation: The token you provided is not valid or you are using an account that is not enabled. Make a call
+    to Test Authentication with your token. If you do not see your token echoed back at you, you are using an invalid
+    token. Missing authorization header
+- code: '413'
+  status: 413
+  title: Request Entity Too Large
+  type: http
+  family: http
+  description: If the request you sent is over the current limit.
+  remediation: If the request you sent is over the current limit.
+- code: '415'
+  status: 415
+  title: UnsupportedMediaType
+  type: http
+  family: http
+  description: 'You asked for a media type that we do not support. Make sure your request includes a Content-Type:
+    application/json header.'
+  remediation: 'You asked for a media type that we do not support. Make sure your request includes a Content-Type:
+    application/json header.'
+- code: '500'
+  status: 500
+  title: Error
+  type: http
+  family: http
+  description: An error happened on the server without a specific message. These are very rare, and should be handled
+    by emailing Trulioo support.
+  remediation: An error happened on the server without a specific message. These are very rare, and should be handled
+    by emailing Trulioo support.
+- code: '500'
+  status: 500
+  title: Configuration name not valid
+  type: http
+  family: http
+  description: For now, you should always send "Identity Verification" for the configuration name parameter.
+  remediation: For now, you should always send "Identity Verification" for the configuration name parameter.
+- code: '409'
+  status: 409
+  title: Error
+  type: http
+  family: http
+  description: The API requests have gone over the limit set for your account (not applicable for Enterprise users).
+  remediation: The API requests have gone over the limit set for your account (not applicable for Enterprise users).
+- code: '403'
+  status: 403
+  title: Error
+  type: http
+  family: http
+  description: The API key provided is invalid or expired.
+  remediation: The API key provided is invalid or expired.
+- code: '404'
+  status: 404
+  title: Error
+  type: http
+  family: http
+  description: Cannot find the experience transaction for a given experience ID. Either the transaction ID does
+    not exist or the entered one is incorrect.
+  remediation: Cannot find the experience transaction for a given experience ID. Either the transaction ID does
+    not exist or the entered one is incorrect.
+- code: '1000'
+  status: null
+  title: Provider Error - There was an error connecting to the source
+  type: service-error
+  family: service
+  description: One of the datasources your account is configured for may be experiencing an outage and was unreachable.
+    The support team of Trulioo constantly monitors the datasources for such issues. This error only means that
+    a single datasource could not be reached, so the requests to the other sources on your account should go through
+    as normal.
+- code: '1001'
+  status: null
+  title: Missing Required Field
+  type: service-error
+  family: service
+  description: By running Get Fields you can see which fields are required for a specific country. This list of
+    required fields is made up of a combination of mandatory fields across multiple datasources.
+- code: '1002'
+  status: null
+  title: Datasource Unavailable - the source did not respond
+  type: service-error
+  family: service
+  description: This error only means that a single datasource has failed to respond, so the requests to the other
+    sources on your account should go through as normal.One of the datasources your account is configured for may
+    have had an error and hasn't responded to Trulioo's request. Trulioo's support team is constantly monitoring
+    datasources for such outages.
+- code: '1003'
+  status: null
+  title: Datasource Error - The source returned an error
+  type: service-error
+  family: service
+  description: This error only means that a single datasource could not be reached, so the requests to the other
+    sources on your account should go through as normal.One of the datasources your account is configured for has
+    returned an error in response to Trulioo's request. This happens on occasion and the support team of Trulioo
+    constantly monitors the datasources for such errors. The vendor of that particular datasource will be contacted
+    to understand and fix the issue.
+- code: '1004'
+  status: null
+  title: State not supported (AU Driver license)
+  type: service-error
+  family: service
+  description: Relevant to datasource AU (Australian) Driver license only. The state provided in the request is
+    not supported by the datasource. Use the Get Country Subdivisions call to get a list of valid states/provinces/regions
+    of a specific country.
+- code: '1005'
+  status: null
+  title: Missing consent - consent not sent for the source
+  type: service-error
+  family: service
+  description: Due to the nature of some of our datasources, you may need to acquire the consent from your customer
+    for their data to be sent to this particular source. Use Get Consents to see which datasources require consent
+    for a specific country. This will give you a list of datasource names that need consent in that country. If
+    applicable, you will need to obtain these consents from your customer and provide them in the "ConsentForDataSources''
+    field of the Verify request.
+- code: '1006'
+  status: null
+  title: Unrecognized Field Name
+  type: service-error
+  family: service
+  description: ''
+- code: '1008'
+  status: null
+  title: Invalid Field Format
+  type: service-error
+  family: service
+  description: The fields in a Verify request need to be of a specific data type. For example, FirstGivenName must
+    be a UTF-8 string and DayOfBirth must be an Integer.
+- code: '1009'
+  status: null
+  title: Unrecognized Field group
+  type: service-error
+  family: service
+  description: ''
+- code: '1010'
+  status: null
+  title: Request Timed Out
+  type: service-error
+  family: service
+  description: This error occurs when the transaction times out or the connection drops before completion. If you
+    disconnect before the default 120-second timeout, adjust your timeout settings to your preferred duration. If
+    transactions expire before reaching the backend, you may have set the timeout too short or are being rate limited.
+    For long-running transactions, we recommend using asynchronous transactions.
+- code: '1011'
+  status: null
+  title: Duplicate Field received
+  type: service-error
+  family: service
+  description: ''
+- code: '1015'
+  status: null
+  title: Non Blocking Invalid Field Format
+  type: service-error
+  family: service
+  description: The field which had the formatting issue was dropped and not sent to the specific datasource. The
+    source was still called with the other data.
+- code: '2000'
+  status: null
+  title: Unrecognized Error
+  type: service-error
+  family: service
+  description: This is a catchall for other errors - contact Trulioo support for a resolution.
+- code: '3000'
+  status: null
+  title: Address Corrected
+  type: service-error
+  family: service
+  description: The address you sent cannot be validated by our address validation service. As a result the uncorrected
+    address information provided in the original request will be sent to all other datasources. This address information
+    may be incomplete or incorrect, which increases the likelihood of receiving a service error from one of the
+    other datasources and reduces the likelihood of receiving a match on address values.
+- code: '3001'
+  status: null
+  title: State Province Changed
+  type: service-error
+  family: service
+  description: ''
+- code: '3002'
+  status: null
+  title: City Changed
+  type: service-error
+  family: service
+  description: ''
+- code: '3003'
+  status: null
+  title: Street Info Changed
+  type: service-error
+  family: service
+  description: ''
+- code: '3004'
+  status: null
+  title: Postal Code Changed
+  type: service-error
+  family: service
+  description: ''
+- code: '3005'
+  status: null
+  title: Missing Address Info
+  type: service-error
+  family: service
+  description: ''
+- code: '3008'
+  status: null
+  title: Cannot validate address
+  type: service-error
+  family: service
+  description: ''
+- code: '3009'
+  status: null
+  title: Address validation is not available
+  type: service-error
+  family: service
+  description: ''
+- code: '4001'
+  status: null
+  title: 'Missing Required Field: MobileNumber'
+  type: service-error
+  family: service
+  description: ''
+- code: '4002'
+  status: null
+  title: Invalid Mobile Number
+  type: service-error
+  family: service
+  description: ''
+- code: '4003'
+  status: null
+  title: Mobile Carrier Not Supported
+  type: service-error
+  family: service
+  description: ''
+- code: '3000'
+  status: null
+  title: Address Verification Level
+  type: validation-code
+  family: validation
+  description: 'This error indicates which level provided address was verified to. If any address values were changed
+    or added, the corresponding `3001-3005` validation codes will be returned along with the code `3000`. Address
+    Verification Level can be one of the following: * Fully Validated to unit * Fully Validated to building * Partially
+    Validated to building * Partially Validated to street * Partially Validated to city * Partially Validated to
+    state/province * Address Corrected This code is only visible when reviewing transactions in our API-Direct portal.'
+- code: '3001'
+  status: null
+  title: State / Province / County changed, please check Address validation fields for additional information
+  type: validation-code
+  family: validation
+  description: The state/province/region in the provided address was found to be incorrect, given the other address
+    values such as city or postal code, and has been updated to a new value.
+- code: '3002'
+  status: null
+  title: One or more of City, Municipality, Suburb have been changed please check Address Validation fields for
+    additional information
+  type: validation-code
+  family: validation
+  description: The city in the provided address was found to be incorrect, given other address values such as postal
+    code, and has been updated to a new value.
+- code: '3003'
+  status: null
+  title: One or more of Unit Number, Building Number, or Street have been changed please check Address Validation
+    fields for additional
+  type: validation-code
+  family: validation
+  description: The street in the provided address has been updated with a new value based upon the other address
+    data given.
+- code: '3004'
+  status: null
+  title: Postal Code changed, please check Address Validation fields for additional information
+  type: validation-code
+  family: validation
+  description: The postal code in the provided address has been updated with a new value based upon the other address
+    data given.
+- code: '3005'
+  status: null
+  title: One or more of Unit Number, Building Number, or Street are either invalid or missing
+  type: validation-code
+  family: validation
+  description: The street level data for the address is incomplete or invalid and will impact address validation’s
+    ability to validate down to the street, building, or unit level.
+- code: '3008'
+  status: null
+  title: Cannot validate address
+  type: validation-code
+  family: validation
+  description: The address you sent cannot be validated by our address validation service. As a result the uncorrected
+    address information provided in the original request will be sent to all other datasources. This address information
+    may be incomplete or incorrect, which increases the likelihood of receiving a service error from one of the
+    other datasources and reduces the likelihood of receiving a match on address values. This code can be returned
+    both as a datasource level error Trulioo Service/DataSource Level Errors and a record level error Record Level
+    Errors when it occurs.
+- code: '3100'
+  status: null
+  title: Blurry Image
+  type: validation-code
+  family: validation
+  description: Relevant to Document Verification only. When trying to verify a document, image quality is highly
+    important. This error code indicates that the provided image was too blurry to verify. Please retake the image-in-focus
+    and resend the verification request with the new image.
+- code: '3101'
+  status: null
+  title: Glare Image
+  type: validation-code
+  family: validation
+  description: Relevant to Document Verification only. When trying to verify a document, image quality is highly
+    important. This error code indicates that the provided image was too blurry to verify. Please retake the image
+    in good lighting without flash and resend the verification request with the new image. All text on the ID should
+    be readable and not obstructed by a glare spot.
+- code: '4001'
+  status: null
+  title: Missing Required Field Mobile Number
+  type: validation-code
+  family: validation
+  description: Relevant to MobileID only. This error occurs if a mobile number is not present in the request. Make
+    sure that at least one of the Mobile related fields (Mobile Number or Telephone) are entered.
+- code: '4002'
+  status: null
+  title: Invalid Mobile Number
+  type: validation-code
+  family: validation
+  description: Relevant to Mobile ID only. This error occurs if the mobile number entered in the request is not
+    valid. Make sure that the number has been entered correctly and is in the correct format for the given country.
+- code: '4003'
+  status: null
+  title: Mobile Carrier Not Supported
+  type: validation-code
+  family: validation
+  description: Relevant to Mobile ID only. This error occurs if the mobile number entered is from a carrier that
+    is not supported.
+- code: '1002'
+  status: null
+  title: Datasource Unavailable
+  type: record-level-error
+  family: record
+  description: The source did not respond -One of the datasources your account is configured for may have had an
+    error and hasn't responded to Trulioo's request. The support team of Trulioo constantly monitors the datasources
+    for such outages.
+- code: '1006'
+  status: null
+  title: Unrecognized Field Name
+  type: record-level-error
+  family: record
+  description: One or more field names used in your request were not recognized. Possible reasons are that you are
+    using fields from a different country than the one specified in your request, or that there is a simple spelling
+    mistake in the body of the request. Use Get Fields to see which field names are available for a specific country
+    and compare with the request you sent to Trulioo.
+- code: '1007'
+  status: null
+  title: Consent Datasource Not Recognized
+  type: record-level-error
+  family: record
+  description: As explained in the description for Error 1005, if a datasource requires consent, but the provided
+    consent string is in any way different than what's expected, then an Error 1007 is returned. Use Get Consents
+    to get a list of consents needed for a country, and double-check for typos in your request.
+- code: '1008'
+  status: null
+  title: Invalid Field Format
+  type: record-level-error
+  family: record
+  description: The fields in a ‘Verify’ request need to be of a specific data type. For example, ‘FirstGivenName’
+    must be a UTF-8 string and DayOfBirth must be an Integer. This error may be thrown at Datasource Level or Record
+    Level. Use Get Fields to see the data type of every field in a specific country.
+- code: '1011'
+  status: null
+  title: Duplicate Field received
+  type: record-level-error
+  family: record
+  description: There may have been a copy paste error or a bug that generated an input field twice. Simply remove
+    the second value and resend the request.
+- code: '2000'
+  status: null
+  title: Unrecognized Error
+  type: record-level-error
+  family: record
+  description: This is a catchall for other errors. Please contact Trulioo support for a resolution.
+- code: '3008'
+  status: null
+  title: Cannot validate address
+  type: record-level-error
+  family: record
+  description: The address you sent cannot be validated by our address validation service. As a result the uncorrected
+    address information provided in the original request will be sent to all other datasources. This address information
+    may be incomplete or incorrect, which increases the likelihood of receiving a service error from one of the
+    other datasources and reduces the likelihood of receiving a match on address values.
+- code: '4000'
+  status: null
+  title: Flow not found
+  type: workflow-studio-error
+  family: platform
+  description: Not applicable in production. Only happens with test URL.
+- code: '4001'
+  status: null
+  title: Flow theme not found
+  type: workflow-studio-error
+  family: platform
+  description: The theme you’ve set for your hosted workflow doesn’t exist.
+- code: '4002'
+  status: null
+  title: Node not found
+  type: workflow-studio-error
+  family: platform
+  description: A node has been removed and the workflow republished while an end user is currently on that node.
+- code: '4003'
+  status: null
+  title: Flow is empty
+  type: workflow-studio-error
+  family: platform
+  description: This only occurs while testing before any element has been added to the flow.
+- code: '4006'
+  status: null
+  title: Missing data for required element
+  type: workflow-studio-error
+  family: platform
+  description: The required fields have not been included in the Workflow payload.
+- code: '4007'
+  status: null
+  title: Submitted data is malformed
+  type: workflow-studio-error
+  family: platform
+  description: The field input doesn’t match the field type. For example, a string has been submitted for a "number
+    only" field.
+- code: '4008'
+  status: null
+  title: Failed validation for submitted data
+  type: workflow-studio-error
+  family: platform
+  description: This can occur with string, number and date fields when Min and Max are defined.
+- code: '4009'
+  status: null
+  title: Service execution failed
+  type: workflow-studio-error
+  family: platform
+  description: The Trulioo service you’ve called in the workflow has returned an error.
+- code: '4013'
+  status: null
+  title: Flow already finished
+  type: workflow-studio-error
+  family: platform
+  description: The form your are submitting has already been submitted.
+- code: '4014'
+  status: null
+  title: Invalid submit data
+  type: workflow-studio-error
+  family: platform
+  description: This occurs for a specific service like eID.
+- code: '4050'
+  status: null
+  title: Invalid credentials
+  type: workflow-studio-error
+  family: platform
+  description: This occurs when there is an internal error for a specific service. Reach out to <support@trulioo.com>  and
+    include the EndClient_ID
+- code: '4100'
+  status: null
+  title: Client not found
+  type: workflow-studio-error
+  family: platform
+  description: The Session ID is invalid.
+- code: '4101'
+  status: null
+  title: Client has no flow with given ID
+  type: workflow-studio-error
+  family: platform
+  description: The Session ID is invalid because workflow you are trying to access has been deleted.
+- code: '4103'
+  status: null
+  title: Illegal back action
+  type: workflow-studio-error
+  family: platform
+  description: This error only occurs if you use the back button to return to the Document Verification Service
+    after submitting the document. You can also encounter this error via API if you trigger /back/\{\{flowID}} either
+    at the start of the workflow or after completing the workflow.
+- code: '4109'
+  status: null
+  title: EndClient marked as abandoned
+  type: workflow-studio-error
+  family: platform
+  description: The form submission has occurred for an abandoned session ID
+- code: '4110'
+  status: null
+  title: Could not retrieve full end client data
+  type: workflow-studio-error
+  family: platform
+  description: Occurs when WFS cannot retrieve data from services and only happens for authenticated workflows if
+    "End Lead Service Data" is enabled.
+- code: '4200'
+  status: null
+  title: Service not configured
+  type: workflow-studio-error
+  family: platform
+  description: Trulioo service has not been activated. Check all the services and republish.
+- code: '4201'
+  status: null
+  title: Service not configured for country
+  type: workflow-studio-error
+  family: platform
+  description: The country data being submitted is not defined at the service level.
+- code: '5300'
+  status: null
+  title: Invalid Twilio code
+  type: workflow-studio-error
+  family: platform
+  description: Integration with Twilio is required
+- code: '5301'
+  status: null
+  title: Failed to send SMS to phone number
+  type: workflow-studio-error
+  family: platform
+  description: KYB workflow connector with SMS has been chosen as communication type
+- code: '5302'
+  status: null
+  title: Twilio internal error
+  type: workflow-studio-error
+  family: platform
+  description: Integration with Twilio is required
+- code: '6504'
+  status: null
+  title: Service has timed out
+  type: workflow-studio-error
+  family: platform
+  description: The service hasn't responded within the expected timeframe. This error can occur when submitting
+    the flow if the service is not responsive.
+- code: '2004'
+  status: null
+  title: Transaction Not Available
+  type: get-transaction-record-error
+  family: transaction-record
+  description: Trulioo was not able to find a transaction for the ID you provided. Ensure the ID is a TransactionRecordID
+    (as opposed to TransactionID) and is correct.
+- code: '2005'
+  status: null
+  title: Authentication Error
+  type: get-transaction-record-error
+  family: transaction-record
+  description: The account that ran the original transaction is not the same as the account running this request.
+    Ensure you are using the same credentials as the account that ran the verify request you are looking for.
+- code: '500'
+  status: 500
+  title: Failed to get information from processedRecord.
+  type: verify-response-error
+  family: verify-response
+  description: Information could not be retrieved from the processed record, so no processed Record is available
+    in the response.
+note: Transcribed from the provider error reference; the derived errors/trulioo-problem-types.yml holds what the
+  contract declares per operation.

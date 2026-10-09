@@ -1,0 +1,59 @@
+generated: '2026-10-08'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/trulioo-authentication-api-openapi.yml
+- openapi/trulioo-business-configuration-api-openapi.yml
+- openapi/trulioo-business-reports-api-openapi.yml
+- openapi/trulioo-business-search-api-openapi.yml
+- openapi/trulioo-business-verification-api-openapi.yml
+- openapi/trulioo-configuration-api-openapi.yml
+- openapi/trulioo-connection-api-openapi.yml
+- openapi/trulioo-document-configuration-api-openapi.yml
+- openapi/trulioo-document-verification-api-openapi.yml
+- openapi/trulioo-documents-api-openapi.yml
+- openapi/trulioo-end-clients-api-openapi.yml
+- openapi/trulioo-events-api-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: Error
+coverage:
+  operations: 54
+  statuses_declared: 5
+problems:
+- status: 400
+  title: Bad Request
+  description: Invalid request.
+  operations: 1
+  media_types:
+  - application/json
+  schema: Error
+- status: 401
+  title: Unauthorized
+  description: Authentication failed.
+  operations: 2
+  media_types:
+  - application/json
+  schema: Error
+- status: 404
+  title: Not Found
+  description: Resource not found.
+  operations: 1
+  media_types:
+  - application/json
+  schema: Error
+- status: 429
+  title: Too Many Requests
+  description: Rate limit exceeded.
+  operations: 1
+  media_types:
+  - application/json
+  schema: Error
+- status: 500
+  title: Internal Server Error
+  description: Internal server error.
+  operations: 1
+  media_types:
+  - application/json
+  schema: Error

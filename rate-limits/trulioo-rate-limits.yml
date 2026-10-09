@@ -1,65 +1,69 @@
+method: searched
+generated: '2026-10-08'
+source: https://mcp.trulioo.com/developer/index.md
+sources:
+- https://developer.trulioo.com/reference/api-reference-overview.md
+- https://mcp.trulioo.com/developer/index.md
+- https://mcp.trulioo.com/developer/llms.txt
 specification: API Commons Rate Limits
 specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+name: Trulioo rate and usage limits
 provider: Trulioo
 providerId: trulioo
 created: '2026-05-25'
-modified: '2026-05-25'
-reconciled: false
-description: >-
-  Trulioo does not publish a public rate-limit schedule for the GlobalGateway
-  APIs; limits are negotiated per-customer alongside contracted volumes.
-  Documented patterns include synchronous transaction throughput, asynchronous
-  callback windows, and per-IP throttling on the developer portal sandbox.
-sources:
-  - https://developer.trulioo.com/reference/asynchronous-requests
-  - https://developer.trulioo.com/reference/api-reference-overview
-  - https://developer.trulioo.com/docs/trulidemo
-
+modified: '2026-10-08'
+description: 'The REST API publishes no numeric rate limit: the API reference overview says only that "rate limits
+  are designed to be very accommodating and flexible" and that support will adjust them on request, and no rate-limit
+  response header or 429 behaviour is documented. The hosted MCP server publishes early-access usage limits signalled
+  by a retry_after_seconds field in the tool result, plus hard caps on sandbox scenarios and on the analytics query.
+  The rows below quote those caps verbatim from the MCP developer index.'
+rest_statement:
+  limit_text: Trulioo's API rate limits are designed to be very accommodating and flexible, allowing most clients
+    to use the service without any issues. If you ever find yourself needing more capacity, our customer support
+    team is here to help adjust the limits to better fit your needs.
+  source: https://developer.trulioo.com/reference/api-reference-overview
+  numeric_limit_published: false
+limit_count: 5
 limits:
-  - id: trulioo-platform-default
-    name: Platform default
-    description: >-
-      Contracted per-customer concurrency and per-second throughput on the
-      Trulioo GlobalGateway. Customers exceeding contracted throughput receive
-      HTTP 429 responses with Retry-After. Hard limits are not published.
-    scope: per-customer
-    metric: requests-per-second
-    limit: contact-sales
-    burst: contact-sales
-    enforcement: 429-retry-after
-    headers:
-      - Retry-After
-
-  - id: trulioo-async-callback
-    name: Asynchronous callback window
-    description: >-
-      Verifications submitted with a CallBackUrl are processed asynchronously.
-      Callback delivery retries follow Trulioo's Event Dispatcher policy with
-      exponential backoff. Subscribers should respond within 15 seconds.
-    scope: per-webhook
-    metric: response-time-seconds
-    limit: 15
-    enforcement: retry-with-backoff
-
-  - id: trulioo-sandbox
-    name: Trulidemo sandbox
-    description: >-
-      The Trulidemo sandbox enforces lower per-IP throughput than production
-      to prevent abuse. Use the configured Test Entities for deterministic
-      results without consuming production volume.
-    scope: per-ip
-    metric: requests-per-minute
-    limit: contact-support
-    enforcement: 429-retry-after
-
-quota:
-  - id: trulioo-contracted-volume
-    name: Contracted monthly volume
-    description: >-
-      Each customer commits to a contracted monthly verification volume per
-      product (KYC, KYB, DocV, Fraud, Screening). Overages are typically
-      billed at a contracted overage rate or rolled into a tier upgrade.
-    metric: verifications-per-month
-    limit: contact-sales
-    overage: contact-sales
+- name: MCP early-access usage limit
+  limit_text: Usage limits apply during early access
+  scope: per-connection (MCP)
+  signal: retry_after_seconds field in the tool result
+  kind: usage
+  endpoint: https://mcp.trulioo.com/mcp
+  note: If a result includes retry_after_seconds, wait for that interval before retrying. Contact Trulioo before
+    increasing production traffic.
+- name: Sandbox scenario body size
+  limit_text: bodies cap at 16 KiB
+  scope: per-request (sandbox_seed_scenario)
+  max: 16
+  unit: KiB
+  kind: payload
+  endpoint: sandbox_seed_scenario
+- name: Sandbox scenarios per caller
+  limit_text: 50 per caller
+  scope: per-caller (sandbox credentials)
+  max: 50
+  kind: quota
+  endpoint: sandbox_seed_scenario
+- name: Sandbox scenario expiry
+  limit_text: 15-minute expiry
+  scope: per-scenario
+  window: 15 minutes
+  max: 1
+  kind: ttl
+  endpoint: sandbox_seed_scenario
+- name: Analytics query bounds
+  limit_text: a result limit from 1 to 100
+  scope: per-request (analytics_query)
+  max: 100
+  kind: page-size
+  endpoint: analytics_query
+  note: Time range is "at most 366 days" (inclusive); daily or monthly grain.
+headers:
+  rest: null
+  mcp: retry_after_seconds (tool result field, not an HTTP header)
+exhaustion_status:
+  rest: null
+  mcp: tool result with retry_after_seconds; the live endpoint answers 401 only for a missing bearer
+reconciled: true

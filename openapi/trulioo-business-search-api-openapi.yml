@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Trulioo Business Verification Authentication Business…………
+  title: Trulioo Business Verification Authentication Business……………
   description: Know Your Business (KYB) API for verifying legal entities, retrieving business registration data, and downloading business reports. Supports searching businesses by name and registration number, verifying a business record, and pulling the underlying registry document.
   version: '3.0'
   contact:
@@ -54,46 +54,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BusinessSearchResponse'
 components:
-  parameters:
-    TransactionRecordId:
-      name: transactionRecordId
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
   schemas:
-    BusinessInputFields:
-      type: object
-      properties:
-        BusinessName:
-          type: string
-        BusinessRegistrationNumber:
-          type: string
-        JurisdictionOfIncorporation:
-          type: string
-    BusinessSearchResponse:
-      type: object
-      properties:
-        TransactionID:
-          type: string
-        Results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BusinessRecord'
-    BusinessRecord:
-      type: object
-      properties:
-        BusinessName:
-          type: string
-        BusinessRegistrationNumber:
-          type: string
-        JurisdictionOfIncorporation:
-          type: string
-        Status:
-          type: string
-        ConfidenceScore:
-          type: number
     BusinessSearchRequest:
       type: object
       required:
@@ -112,6 +73,45 @@ components:
           type: string
         BusinessSearchInputFields:
           $ref: '#/components/schemas/BusinessInputFields'
+    BusinessRecord:
+      type: object
+      properties:
+        BusinessName:
+          type: string
+        BusinessRegistrationNumber:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
+        Status:
+          type: string
+        ConfidenceScore:
+          type: number
+    BusinessSearchResponse:
+      type: object
+      properties:
+        TransactionID:
+          type: string
+        Results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessRecord'
+    BusinessInputFields:
+      type: object
+      properties:
+        BusinessName:
+          type: string
+        BusinessRegistrationNumber:
+          type: string
+        JurisdictionOfIncorporation:
+          type: string
+  parameters:
+    TransactionRecordId:
+      name: transactionRecordId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     BasicAuth:
       type: http

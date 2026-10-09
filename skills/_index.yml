@@ -1,0 +1,87 @@
+generated: '2026-10-08'
+method: searched
+source:
+- https://mcp.trulioo.com/.well-known/skills/index.json (6 provider-published skills, saved verbatim under skills/provider/)
+- https://github.com/Trulioo/trulioo-mcp/tree/main/trulioo-mcp/skills (same skills shipped in the signed Agent Plugin)
+- skills/*.md frontmatter (4 generated REST skills); every operationId checked against openapi/
+provider_published:
+- file: provider/trulioo-onboarding.md
+  name: trulioo-onboarding
+  method: searched
+  source: https://mcp.trulioo.com/.well-known/skills/trulioo-onboarding/SKILL.md
+  note: Provider-published Agent Skill saved verbatim (no frontmatter; it names MCP tools, not REST operationIds),
+    kept under skills/provider/
+- file: provider/trulioo-kyc.md
+  name: trulioo-kyc
+  method: searched
+  source: https://mcp.trulioo.com/.well-known/skills/trulioo-kyc/SKILL.md
+  note: Provider-published Agent Skill saved verbatim (no frontmatter; it names MCP tools, not REST operationIds),
+    kept under skills/provider/
+- file: provider/trulioo-kyb.md
+  name: trulioo-kyb
+  method: searched
+  source: https://mcp.trulioo.com/.well-known/skills/trulioo-kyb/SKILL.md
+  note: Provider-published Agent Skill saved verbatim (no frontmatter; it names MCP tools, not REST operationIds),
+    kept under skills/provider/
+- file: provider/trulioo-kya.md
+  name: trulioo-kya
+  method: searched
+  source: https://mcp.trulioo.com/.well-known/skills/trulioo-kya/SKILL.md
+  note: Provider-published Agent Skill saved verbatim (no frontmatter; it names MCP tools, not REST operationIds),
+    kept under skills/provider/
+- file: provider/trulioo-agent-assurance.md
+  name: trulioo-agent-assurance
+  method: searched
+  source: https://mcp.trulioo.com/.well-known/skills/trulioo-agent-assurance/SKILL.md
+  note: Provider-published Agent Skill saved verbatim (no frontmatter; it names MCP tools, not REST operationIds),
+    kept under skills/provider/
+- file: provider/trulioo-agent-readiness.md
+  name: trulioo-agent-readiness
+  method: searched
+  source: https://mcp.trulioo.com/.well-known/skills/trulioo-agent-readiness/SKILL.md
+  note: Provider-published Agent Skill saved verbatim (no frontmatter; it names MCP tools, not REST operationIds),
+    kept under skills/provider/
+skills:
+- file: trulioo-business-search-and-verify-rest.md
+  name: trulioo-business-search-and-verify-rest
+  title: Search for a business and verify it (KYB) over REST
+  api: openapi/trulioo-business-verification-api-openapi.yml
+  operations:
+  - getBusinessRegistrationNumbersByCountry
+  - businessSearch
+  - getBusinessSearchResult
+  - businessVerify
+  - getBusinessReport
+  method: generated
+- file: trulioo-document-verification-rest.md
+  name: trulioo-document-verification-rest
+  title: Verify an identity document with the capture SDK handoff
+  api: openapi/trulioo-document-verification-api-openapi.yml
+  operations:
+  - postAuthCustomer
+  - postHandoff
+  - getDocumentTypes
+  - documentVerificationVerify
+  - downloadDocument
+  method: generated
+- file: trulioo-person-fraud-check-rest.md
+  name: trulioo-person-fraud-check-rest
+  title: Run a Person Fraud risk check
+  api: openapi/trulioo-person-fraud-api-openapi.yml
+  operations:
+  - getPersonFraudCountryCodes
+  - getPersonFraudFields
+  - personFraudCheck
+  method: generated
+- file: trulioo-verify-person-rest.md
+  name: trulioo-verify-person-rest
+  title: Verify a person (KYC) over REST
+  api: openapi/trulioo-verifications-api-openapi.yml
+  operations:
+  - getCountryCodes
+  - getRecommendedFields
+  - getConsents
+  - verifyPerson
+  - getTransactionStatus
+  - getTransactionRecord
+  method: generated

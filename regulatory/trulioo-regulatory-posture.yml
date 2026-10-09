@@ -1,0 +1,90 @@
+generated: '2026-10-08'
+method: searched
+source:
+- https://developer.trulioo.com/reference/multi-region-hosting.md
+- https://www.trulioo.com/legal/dpa
+- https://id.trulioo.com/subprocessor-notification.html
+- https://www.trulioo.com/company/security-compliance
+- https://www.trulioo.com/privacy
+- https://www.trulioo.com/california-privacy-notice
+- https://raw.githubusercontent.com/trulioo/trulioo-mcp/HEAD/SECURITY.md
+- 'probed 404 on 2026-10-08: https://www.trulioo.com/accessibility, /accessibility/vpat, /legal/subprocessors, /subprocessors,
+  /privacy/requests, /transparency, /security/sbom, /ai/transparency, /legal/report-content, https://developer.trulioo.com/docs/data-residency'
+name: Trulioo regulatory posture signals
+provider: Trulioo
+providerId: trulioo
+signals:
+  data_residency:
+    present: true
+    url: https://developer.trulioo.com/reference/multi-region-hosting
+    pointer_type: DataResidency
+    evidence:
+    - source: https://developer.trulioo.com/reference/multi-region-hosting.md
+      http_status: 200
+      fetched: '2026-10-08'
+      quote: The ability to restrict data hosting provides better flexibility to support your Data Privacy requirements
+    - source: https://developer.trulioo.com/reference/multi-region-hosting.md
+      http_status: 200
+      fetched: '2026-10-08'
+      quote: KYC Data / Person Match | Yes | APAC (Australia), Ireland (Dublin), United States (Oregon), Canada
+        (Quebec)
+  incident_notification:
+    present: true
+    url: https://www.trulioo.com/legal/dpa
+    pointer_type: IncidentNotification
+    stated_sla: without undue delay
+    evidence:
+    - source: https://www.trulioo.com/legal/dpa
+      http_status: 200
+      fetched: '2026-10-08'
+      quote: Upon becoming aware of a Security Incident, Trulioo shall notify Customer without undue delay
+  subprocessors:
+    present: false
+    url: https://id.trulioo.com/subprocessor-notification.html
+    probed_status: 200
+    note: The DPA says "Customer must subscribe to receive notice of Sub-processor changes at https://id.trulioo.com/subprocessor-notification.html";
+      that page is a notification sign-up form, not a published subprocessor list, so the substance (a dated table)
+      is not public
+  support_lifetime:
+    present: true
+    url: https://github.com/Trulioo/trulioo-mcp/blob/main/SECURITY.md
+    pointer_type: SupportLifetime
+    stated_period: Only the latest published tag is supported.
+    scope: trulioo-mcp Agent Plugin only; no support period is stated for the REST API or SDKs
+    evidence:
+    - source: https://raw.githubusercontent.com/trulioo/trulioo-mcp/HEAD/SECURITY.md
+      http_status: 200
+      fetched: '2026-10-08'
+      quote: 'Only the latest published tag is supported. This repository is a generated mirror: each release is
+        an immutable annotated tag'
+  data_subject_request:
+    present: false
+    note: https://www.trulioo.com/privacy and /california-privacy-notice are policy pages; no dedicated DSAR request
+      form or endpoint was found and /privacy/requests is 404
+  global_privacy_control:
+    present: false
+    note: No published statement about honouring GPC was found on /privacy or /california-privacy-notice (not tested
+      by header, per rule)
+  accessibility_conformance:
+    present: false
+    note: /accessibility and /accessibility/vpat 404; no VPAT or WCAG conformance report found
+  sbom:
+    present: false
+    note: /security/sbom 404; the trulioo-mcp repo publishes a signed distribution ledger (.trulioo/distributions/v0.7.5.json
+      with managed_tree_sha256) and an attestation, which is a provenance signature, not a bill of materials
+  ai_transparency:
+    present: false
+  training_data_summary:
+    present: false
+  transparency_report:
+    present: false
+    note: /transparency 404
+  notice_and_action:
+    present: false
+  age_assurance:
+    present: false
+    note: Age assurance is a product Trulioo sells (age_check tool, US Age Verification Check), not a posture statement
+      about its own services
+  exit_assistance:
+    present: false
+note: Harvest only; whether any regime applies is decided by the Kin Score regime map, not here.

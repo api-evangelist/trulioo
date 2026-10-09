@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/trulioo/main/json-schema/trulioo-consent-schema.json",
+  "title": "Consent",
+  "x-generated": "2026-10-08",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/trulioo-configuration-api-openapi.yml#/components/schemas/Consent",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string"
+    },
+    "Text": {
+      "type": "string"
+    },
+    "TextSummary": {
+      "type": "string"
+    }
+  }
+}

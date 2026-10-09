@@ -1,0 +1,505 @@
+generated: '2026-10-08'
+method: derived
+source:
+- mcp/trulioo-mcp.yml
+- mcp/trulioo-mcp-mock-tools-list.json
+- https://mcp.trulioo.com/developer/index.md
+- openapi/trulioo-*.yml
+- https://raw.githubusercontent.com/trulioo/mcp-server/HEAD/src/Trulioo.MCPServerForKYB/Tools/KYBTools.cs
+name: Trulioo MCP tool to REST operation crosswalk
+note: 'Bindings are by name and semantics: the live /mcp tools/list is OAuth-gated, so inputSchemas come from the
+  anonymous mock endpoint (18 tools, probed) and the remaining tool names from the developer docs. Confidence is
+  high only where the mock inputSchema or the docs name the same request shape as the REST operation.'
+surfaces:
+  openapi:
+    path: openapi/trulioo-*.yml
+    operations: 53
+    gated: false
+  mcp:
+    url: https://mcp.trulioo.com/mcp
+    gated: true
+    auth: oauth2.1
+    mock_url: https://mcp.trulioo.com/mock/mcp
+    mock_gated: false
+  mcp_stdio:
+    repo: https://github.com/trulioo/mcp-server
+    gated: false
+  graphql: null
+crosswalk:
+- tool: kyc_verify
+  category: kyc
+  rest:
+  - verifyPerson
+  binding: semantic
+  confidence: high
+  tool_source: probed
+  note: POST /v3/verifications/verify; the MCP tool takes package_id, country_code, data_fields, consents and include_aml
+    and inherits the Verify request body (PersonInfo, Location, Communication, NationalIds, Document).
+- tool: kyc_get_status
+  category: kyc
+  rest:
+  - getTransactionStatus
+  binding: semantic
+  confidence: high
+  tool_source: documented
+  note: Documented, not on the mock tools/list.
+- tool: kyc_get_record
+  category: kyc
+  rest:
+  - getTransactionRecord
+  - getTransactionRecordWithAddress
+  binding: semantic
+  confidence: high
+  tool_source: documented
+  note: Documented, not on the mock tools/list.
+- tool: transaction_lookup
+  category: retrieval
+  rest:
+  - getTransactionRecord
+  - getTransactionStatus
+  - getBusinessSearchResult
+  binding: composite
+  confidence: medium
+  tool_source: probed
+  note: Resolves a TransactionID or TransactionRecordID across KYC and KYB; mock schema takes domain, transaction_id,
+    record_id.
+- tool: kyb_search
+  category: kyb
+  rest:
+  - businessSearch
+  binding: semantic
+  confidence: high
+  tool_source: probed
+  note: POST /v3/business/search; mock schema takes business_name, business_registration_number, country_code, location,
+    package_id.
+- tool: kyb_verify
+  category: kyb
+  rest:
+  - businessVerify
+  binding: semantic
+  confidence: high
+  tool_source: probed
+  note: POST /v3/business/verify; the tool can also verify from a prior search candidate (candidate_id/candidate_ref),
+    which has no single REST equivalent.
+- tool: kyb_get_report
+  category: kyb
+  rest:
+  - getBusinessReport
+  binding: semantic
+  confidence: high
+  tool_source: documented
+  note: Documented, not on the mock tools/list; returns report JSON or a PDF descriptor.
+- tool: kyb_registration_lookup
+  category: kyb
+  rest:
+  - getAllBusinessRegistrationNumbers
+  - getBusinessRegistrationNumbersByCountry
+  - getAllJurisdictionsOfIncorporation
+  - getJurisdictionsOfIncorporationPerCountry
+  binding: composite
+  confidence: medium
+  tool_source: documented
+  note: 'Documented: returns supported registration-number types or jurisdictions of incorporation for a country.'
+- tool: kyb_get_partial_result
+  category: kyb
+  rest:
+  - getPartialTransactionResult
+  binding: semantic
+  confidence: high
+  tool_source: documented
+  note: Documented, not on the mock tools/list.
+- tool: config_discover_account
+  category: config
+  rest:
+  - getPackages
+  - getCountryCodes
+  binding: composite
+  confidence: high
+  tool_source: probed
+  note: Lists normalized account packages, or one package and its supported countries.
+- tool: config_describe_context
+  category: config
+  rest:
+  - getFields
+  - getRecommendedFields
+  - getConsents
+  - getDetailedConsents
+  - getDatasources
+  binding: composite
+  confidence: high
+  tool_source: probed
+  note: Required fields, consent and data sources for one package and country.
+- tool: config_list_test_entities
+  category: config
+  rest:
+  - getTestEntities
+  binding: semantic
+  confidence: high
+  tool_source: probed
+  note: Marked DEPRECATED on the mock tools/list in favour of sandbox_seed_scenario.
+- tool: docv_create_session
+  category: docv
+  rest:
+  - postHandoff
+  - createOrUpdateUserState
+  binding: composite
+  confidence: low
+  tool_source: documented
+  note: Documented per-account family; the session flow keeps images off the MCP stream and hands capture to the
+    SDK, which the REST handoff/init endpoints also do.
+- tool: docv_get_result
+  category: docv
+  rest:
+  - getTransactionRecord
+  binding: semantic
+  confidence: low
+  tool_source: documented
+  note: Documented per-account family.
+- tool: trulioo_health
+  category: meta
+  rest:
+  - testAuthentication
+  binding: semantic
+  confidence: low
+  tool_source: probed
+  note: Reports server health, session mode and authentication; the nearest REST probe is GET /v3/connection/testauthentication.
+- tool: TestAuthentication
+  category: stdio-kyb
+  rest:
+  - testAuthentication
+  binding: semantic
+  confidence: high
+  tool_source: source
+  note: trulioo/mcp-server (.NET stdio) tool.
+- tool: GetCountries
+  category: stdio-kyb
+  rest:
+  - getCountryCodes
+  binding: semantic
+  confidence: high
+  tool_source: source
+  note: trulioo/mcp-server (.NET stdio) tool.
+- tool: BusinessVerification
+  category: stdio-kyb
+  rest:
+  - businessVerify
+  binding: semantic
+  confidence: high
+  tool_source: source
+  note: trulioo/mcp-server (.NET stdio) tool.
+- tool: BusinessSearch
+  category: stdio-kyb
+  rest:
+  - businessSearch
+  binding: semantic
+  confidence: high
+  tool_source: source
+  note: trulioo/mcp-server (.NET stdio) tool.
+mcp_only:
+- tool: webhook_journal
+  reason: reads the server-side webhook history; no public REST read of delivered webhooks
+  tool_source: probed
+- tool: trulioo_capabilities
+  reason: meta/progressive-discovery tool or Know Your Agent (KYA) operation with no public REST contract in openapi/
+  tool_source: probed
+- tool: trulioo_getting_started
+  reason: meta/progressive-discovery tool or Know Your Agent (KYA) operation with no public REST contract in openapi/
+  tool_source: probed
+- tool: trulioo_find_tools
+  reason: meta/progressive-discovery tool or Know Your Agent (KYA) operation with no public REST contract in openapi/
+  tool_source: probed
+- tool: trulioo_tool_schema
+  reason: meta/progressive-discovery tool or Know Your Agent (KYA) operation with no public REST contract in openapi/
+  tool_source: probed
+- tool: trulioo_invoke_tool
+  reason: meta/progressive-discovery tool or Know Your Agent (KYA) operation with no public REST contract in openapi/
+  tool_source: probed
+- tool: sandbox_reset_scenarios
+  reason: sandbox scenario seeding is MCP-only (sandbox credentials only)
+  tool_source: probed
+- tool: kya_retire_agent
+  reason: meta/progressive-discovery tool or Know Your Agent (KYA) operation with no public REST contract in openapi/
+  tool_source: probed
+- tool: kya_revoke_mandate
+  reason: meta/progressive-discovery tool or Know Your Agent (KYA) operation with no public REST contract in openapi/
+  tool_source: probed
+- tool: kya_revoke_artifact
+  reason: meta/progressive-discovery tool or Know Your Agent (KYA) operation with no public REST contract in openapi/
+  tool_source: probed
+- tool: analytics_query
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: aml_screen
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: docv_cancel_session
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: docv_create_mobile_handoff
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: age_check
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: age_estimate_biometric
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: monitoring_enroll
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: monitoring_get_alert
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: monitoring_refresh
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: monitoring_cancel
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: monitoring_get_enrollment
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kyb_run_follow_up
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kyb_get_research
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: ubo_get_graph
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_admission_challenge
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_possession_challenge
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_issue_mandate
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_card_fingerprint
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_verify_agent
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_verify_web_bot_auth
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_lookup
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_list_agents
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_verify_protocol
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_supersede_agent
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_verify_mandate
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_get_mandate
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_record_spend
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_mandate_spend
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_revocations
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_transparency_sth
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_inclusion_proof
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_status_list
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_rails
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_assess_readiness
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_get_agent_domain
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_start_agent_domain_challenge
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_verify_agent_domain
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_list_artifact_candidates
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_list_publisher_bindings
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_register_artifact
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_publish_artifact
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: kya_verify_client
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: sandbox_seed_scenario
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: sandbox_list_scenarios
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+- tool: render_app_verdict
+  reason: documented per-account or KYA family (https://mcp.trulioo.com/developer/index.md); no public REST operation
+    for it in openapi/
+  tool_source: documented
+rest_only:
+- operation: addKnownFacesListTransaction
+  api: trulioo-known-faces-api-openapi.yml
+  route: POST /v3/knownfaces/lists/{listId}/transactions
+- operation: createLinkedLead
+  api: trulioo-end-clients-api-openapi.yml
+  route: POST /customer/v2/endclients/link
+- operation: deleteEndClientsBulk
+  api: trulioo-end-clients-api-openapi.yml
+  route: POST /customer/v2/endclients/bulkdelete
+- operation: deleteKnownFacesList
+  api: trulioo-known-faces-api-openapi.yml
+  route: DELETE /v3/knownfaces/lists/{listId}
+- operation: deleteLinkedLead
+  api: trulioo-end-clients-api-openapi.yml
+  route: DELETE /customer/v2/endclients/link
+- operation: documentVerificationVerify
+  api: trulioo-document-verification-api-openapi.yml
+  route: POST /v3/verifications/documentverification/verify
+- operation: downloadDocument
+  api: trulioo-documents-api-openapi.yml
+  route: GET /v3/verifications/documentdownload/{transactionRecordId}/{fieldName}
+- operation: flowBack
+  api: trulioo-flows-api-openapi.yml
+  route: POST /customer/v2/flow/{userStateId}/back
+- operation: generateSignedUrl
+  api: trulioo-sessions-api-openapi.yml
+  route: POST /customer/v2/signedurl
+- operation: getClientFile
+  api: trulioo-end-clients-api-openapi.yml
+  route: GET /customer/v2/profiles/{clientId}/file/{fileId}
+- operation: getCountrySubdivisions
+  api: trulioo-configuration-api-openapi.yml
+  route: GET /v3/configuration/countrysubdivisions/{countryCode}
+- operation: getDocumentTypes
+  api: trulioo-document-configuration-api-openapi.yml
+  route: GET /v3/verifications/documenttypes/{countryCode}
+- operation: getFlow
+  api: trulioo-flows-api-openapi.yml
+  route: GET /customer/v2/flow/{userStateId}
+- operation: getKnownFacesListTransactions
+  api: trulioo-known-faces-api-openapi.yml
+  route: GET /v3/knownfaces/lists/{listId}/transactions
+- operation: getKnownFacesLists
+  api: trulioo-known-faces-api-openapi.yml
+  route: GET /v3/knownfaces/lists
+- operation: getPersonFraudCountryCodes
+  api: trulioo-configuration-api-openapi.yml
+  route: GET /risk/v1/configuration/countrycodes/{configurationName}
+- operation: getPersonFraudDatasources
+  api: trulioo-configuration-api-openapi.yml
+  route: GET /risk/v1/configuration/datasources/{configurationName}/{countryCode}
+- operation: getPersonFraudFields
+  api: trulioo-configuration-api-openapi.yml
+  route: GET /risk/v1/configuration/fields/{configurationName}/{countryCode}
+- operation: getProfile
+  api: trulioo-end-clients-api-openapi.yml
+  route: GET /customer/v2/profiles/{clientId}
+- operation: getProfiles
+  api: trulioo-end-clients-api-openapi.yml
+  route: GET /customer/v2/profiles
+- operation: getWorkflows
+  api: trulioo-workflows-api-openapi.yml
+  route: GET /customer/v2/workflows
+- operation: personFraudCheck
+  api: trulioo-person-fraud-api-openapi.yml
+  route: POST /risk/v1/check
+- operation: postAuthCustomer
+  api: trulioo-authentication-api-openapi.yml
+  route: POST /customer/v2/auth/customer
+- operation: postKnownFacesList
+  api: trulioo-known-faces-api-openapi.yml
+  route: POST /v3/knownfaces/lists
+- operation: sayHello
+  api: trulioo-connection-api-openapi.yml
+  route: GET /v3/connection/sayhello/{name}
+- operation: sendEvent
+  api: trulioo-events-api-openapi.yml
+  route: POST /customer/v2/events
+- operation: submitFlowData
+  api: trulioo-flows-api-openapi.yml
+  route: POST /customer/v2/flow/{userStateId}
+- operation: submitFlowFile
+  api: trulioo-flows-api-openapi.yml
+  route: POST /customer/v2/flow/{userStateId}/file
+- operation: updateEndClientsStatusBulk
+  api: trulioo-end-clients-api-openapi.yml
+  route: POST /customer/v2/endclients/bulkstatus
+coverage:
+  mcp_tools_probed: 18
+  mcp_tools_documented: 70
+  stdio_tools: 4
+  crosswalk_rows: 19
+  rest_operations: 53
+  rest_mapped: 24
+  rest_only: 29
+  mcp_only: 55

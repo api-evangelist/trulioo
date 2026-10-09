@@ -1,21 +1,799 @@
-generated: '2026-09-11'
+generated: '2026-10-08'
 method: probed
-source: https://github.com/trulioo/mcp-server
-status: gated
-server:
-  name: trulioo
-  transport: http
-  url: https://mcp.trulioo.com/mcp
+status: live
+source:
+- https://mcp.trulioo.com/mock/mcp (anonymous tools/list, prompts/list, resources/list probed 2026-10-08)
+- https://mcp.trulioo.com/mcp (POST tools/list -> 401 with WWW-Authenticate Bearer resource_metadata=https://mcp.trulioo.com/.well-known/oauth-protected-resource/mcp,
+  probed 2026-10-08)
+- https://mcp.trulioo.com/developer/index.md
+- https://mcp.trulioo.com/developer/llms.txt
+- https://github.com/Trulioo/trulioo-mcp (server.json, trulioo-mcp/mcp.json, README.md)
+- https://github.com/trulioo/mcp-server (src/Trulioo.MCPServerForKYB, .NET 8 stdio)
+name: Trulioo MCP Server
+provider: Trulioo
+providerId: trulioo
+description: Trulioo hosts a streamable-HTTP MCP server at https://mcp.trulioo.com/mcp exposing typed KYC, KYB,
+  AML, document verification, age assurance, business monitoring, account analytics and Know Your Agent (KYA) tools,
+  plus workflow prompts and resources. Live access requires OAuth 2.1 (authorization code + PKCE with dynamic client
+  registration for sandbox; client_credentials exchange at /oauth/token for approved live accounts). An anonymous
+  synthetic endpoint at https://mcp.trulioo.com/mock/mcp answers tools/list without credentials and was probed for
+  this manifest. Trulioo also publishes an older .NET 8 stdio MCP server for KYB on GitHub (trulioo/mcp-server)
+  and a signed Agent Plugins 1.0.0 bundle (trulioo/trulioo-mcp, v0.7.5) that connects Claude Code, Codex, ChatGPT
+  and Claude Desktop to the hosted endpoint.
 deployment:
-  mode: remote
+  mode: both
   endpoint: https://mcp.trulioo.com/mcp
+  transport: streamable-http
+  mock_endpoint: https://mcp.trulioo.com/mock/mcp
+  install: dotnet run
+  package: https://github.com/trulioo/mcp-server
+  plugin:
+    marketplace: /plugin marketplace add Trulioo/trulioo-mcp
+    install: /plugin install trulioo-mcp@trulioo
+    codex: codex plugin marketplace add Trulioo/trulioo-mcp --ref v0.7.5
+    version: 0.7.5
+    registry_manifest: https://raw.githubusercontent.com/trulioo/trulioo-mcp/HEAD/server.json
+    registry_name: com.trulioo/trulioo-mcp
+    license: Apache-2.0
+  auth: oauth
   verified: probed
-  probe: gated
-  checked: '2026-09-11'
-  source: ptr_only reconciliation 2026-09-11 (apis.yml pointed here, no manifest existed)
-  probe_why: RFC 9728 challenge on the MCP path only
-tools_note: No tool list captured. This manifest records a PROBED, reachable endpoint only; anonymous
-  tools/list was auth-gated or the server requires an initialize handshake this reachability probe does
-  not perform. Run signals/audit_mcp_authorship.py --probe to enumerate tools and settle platform-vs-provider
-  authorship. Do NOT derive a tool list from the OpenAPI and store it here -- that is a candidate manifest,
-  and it belongs under an X-MCPServerCandidate pointer.
+  probe:
+    checked: '2026-10-08'
+    live_endpoint:
+      url: https://mcp.trulioo.com/mcp
+      method: POST tools/list
+      status: 401
+      www_authenticate: Bearer resource_metadata="https://mcp.trulioo.com/.well-known/oauth-protected-resource/mcp"
+      body: missing bearer token. Connect with an OAuth-capable MCP client and choose Sandbox. For anonymous hosted
+        testing, use https://mcp.trulioo.com/mock/mcp with the Auth Header left empty.
+    mock_endpoint:
+      url: https://mcp.trulioo.com/mock/mcp
+      status: 200
+      protocolVersion: '2025-06-18'
+      serverInfo:
+        name: trulioo-mcp
+        version: 0.1.0
+      tools: 18
+      prompts: 6
+      resources: 23
+  note: 'The .NET stdio server (install: dotnet run inside src/Trulioo.MCPServerForKYB after cloning; configured
+    via appsettings.json ClientId/ClientSecret) is a separate, older KYB-only server with four tools (TestAuthentication,
+    GetCountries, BusinessVerification, BusinessSearch). It is built from source, not shipped on a package registry.
+    The hosted endpoint is the primary agent surface.'
+auth:
+  type: oauth2.1
+  live: POST https://mcp.trulioo.com/oauth/token with HTTP Basic client_id:client_secret and grant_type=client_credentials
+    -> short-lived bearer (expires_in 3600, no refresh token)
+  sandbox: OAuth 2.1 authorization code + PKCE (S256); dynamic client registration at https://mcp.trulioo.com/register;
+    authorize https://mcp.trulioo.com/authorize; token https://mcp.trulioo.com/token
+  protected_resource_metadata: https://mcp.trulioo.com/.well-known/oauth-protected-resource/mcp
+  authorization_server_metadata: https://mcp.trulioo.com/.well-known/oauth-authorization-server
+  scopes_supported:
+  - read
+  - verification:create
+  - kyb:submit
+  - agent:write
+  - domain:write
+  - release:publish
+  - release:revoke
+  - sandbox:write
+  - verify
+  docs: https://mcp.trulioo.com/developer/#auth
+server:
+  name: trulioo-mcp
+  version: 0.1.0
+  protocolVersion: '2025-06-18'
+  capabilities:
+    extensions:
+      io.modelcontextprotocol/tasks: {}
+    completions: {}
+    prompts: {}
+    resources: {}
+    tools: {}
+  instructions_excerpt: 'You are a Trulioo Customer Service Representative. Help users run and
+
+    understand identity verification and decide how Trulioo fits their needs.
+
+    Trulioo verifies people (KYC) and businesses (KYB), screens sanctions,
+
+    watchlists, and PEPs (AML), verifies documents (DocV), and supports age
+
+    assurance, monitoring, and KYA (the organization behind an AI agent). These
+
+    capabilities support onboarding, comp'
+tools:
+- name: trulioo_health
+  description: '[READ-ONLY] Report server health, session mode, authentication, and negotiated protocol.'
+  annotations:
+    title: Health & auth status
+    readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: false
+  inputSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+- name: webhook_journal
+  description: '[READ-ONLY] Read webhook history; cold emptiness proves nothing.'
+  annotations:
+    title: Webhook audit journal
+    readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: false
+  inputSchema:
+    additionalProperties: false
+    properties:
+      limit:
+        description: 'Optional: max recent events when no transaction_id (default 20, max 200).'
+        type: integer
+      transaction_id:
+        description: 'Optional: return only this transaction''s events (the send->receive trail).'
+        type: string
+    type: object
+- name: trulioo_capabilities
+  description: '[READ-ONLY] List the tools enabled in this session.'
+  annotations:
+    title: List server capabilities
+    readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: false
+  inputSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+- name: trulioo_getting_started
+  description: '[READ-ONLY] Return the recommended startup sequence and core safety rules.'
+  annotations:
+    title: Getting-started orientation
+    readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: false
+  inputSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+- name: trulioo_find_tools
+  description: '[READ-ONLY] Find deferred tools by capability.'
+  annotations:
+    title: Find tools by keyword
+    readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: false
+  inputSchema:
+    additionalProperties: false
+    properties:
+      family:
+        description: 'Restrict to one family by name prefix: kyc, kyb, analytics, docv, aml, age, monitoring, config,
+          kya, ubo, trulioo.'
+        type: string
+      limit:
+        description: Max results (default 25, max 100).
+        maximum: 100
+        minimum: 1
+        type: integer
+      query:
+        description: Free-text terms matched against tool names, purpose, and guidance (e.g. 'watchlist', 'ownership',
+          'agent mandate'). Omit to list everything.
+        maxLength: 512
+        type: string
+    type: object
+- name: trulioo_tool_schema
+  description: '[READ-ONLY] Read a tool''s full schema and guidance.'
+  annotations:
+    title: Read a tool's full schema
+    readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: false
+  inputSchema:
+    additionalProperties: false
+    properties:
+      names:
+        description: One tool name or an array of tool names from trulioo_find_tools. Max 8 per call; ask for the
+          ones you intend to call, not the whole server.
+        oneOf:
+        - minLength: 1
+          type: string
+        - items:
+            minLength: 1
+            type: string
+          minItems: 1
+          type: array
+    required:
+    - names
+    type: object
+- name: trulioo_invoke_tool
+  description: '[WRITE] Call a deferred tool under its normal access gates.'
+  annotations:
+    title: Invoke a tool by name
+    readOnlyHint: false
+    destructiveHint: false
+    idempotentHint: false
+    openWorldHint: true
+  inputSchema:
+    additionalProperties: false
+    properties:
+      arguments:
+        description: The target tool's arguments object, exactly as its own input schema defines it.
+        type: object
+      name:
+        description: Target tool name. Must be a tool this deployment can dispatch; it cannot widen the profile
+          or re-enable a disabled family.
+        type: string
+    required:
+    - name
+    type: object
+- name: kyc_verify
+  description: '[WRITE] Verify a person. Call config_describe_context first for this country''s exact, case-sensitive
+    field names. A hit or non-match is a POTENTIAL result for human review, never an automated adverse decision
+    on a person alone (GDPR Art. 22 / OFAC valid-match / FCRA); report the evidence and recommend review.'
+  annotations:
+    title: Verify a person (KYC)
+    readOnlyHint: false
+    destructiveHint: false
+    idempotentHint: false
+    openWorldHint: true
+  inputSchema:
+    additionalProperties: false
+    properties:
+      consents:
+        description: Array of consent NAME values (the `Name` field of each entry in config_describe_context.consents[],
+          e.g. "MockCredit") - NOT the human-readable consent Text and NOT a boolean
+        items:
+          type: string
+        type: array
+      country_code:
+        description: ISO 3166-1 alpha-2, e.g. US. A name, an alpha-3 or a common spelling (`USA`, `UK`) is canonicalized
+          before dispatch
+        type: string
+      data_fields:
+        description: Trulioo verification data. Call config_describe_context first to get exact field names for
+          this country
+        type: object
+      include_aml:
+        description: 'Add AML watchlist screening. Default: false'
+        type: boolean
+      package_id:
+        description: Package UUID from config_discover_account
+        type: string
+      scenario_id:
+        description: Sandbox only. Bind a scenario from sandbox_seed_scenario so this call returns that scenario's
+          outcome. Omit to let the surname conventions decide
+        type: string
+      wait_for_completion:
+        description: 'Poll until final result (max 30s). Default: false'
+        type: boolean
+    required:
+    - package_id
+    - country_code
+    - data_fields
+    type: object
+- name: transaction_lookup
+  description: '[READ-ONLY] Resolve a KYC or KYB transaction id to its normalized record and supported next action.'
+  annotations:
+    title: Look up a transaction record
+    readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: true
+  inputSchema:
+    additionalProperties: false
+    properties:
+      domain:
+        description: Optional result-domain hint; otherwise auto-detected.
+        enum:
+        - kyc
+        - kyb
+        type: string
+      record_id:
+        description: Known TransactionRecordID; skips status lookup.
+        type: string
+      transaction_id:
+        description: TransactionID or TransactionRecordID. Either resolves.
+        type: string
+    required:
+    - transaction_id
+    type: object
+- name: kyb_search
+  description: '[READ-ONLY] Find a business by name and country and return ranked candidates to choose from, then
+    pass the chosen candidate to kyb_verify.'
+  annotations:
+    title: Search for a business
+    readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: true
+  inputSchema:
+    additionalProperties: false
+    properties:
+      business_name:
+        type: string
+      business_registration_number:
+        description: Optional known BRN/registration number to narrow the search (nested under Business, not BusinessDataFields)
+        type: string
+      country_code:
+        description: ISO 3166-1 alpha-2, e.g. US. A name, an alpha-3 or a common spelling (`USA`, `UK`) is canonicalized
+          before dispatch
+        type: string
+      location:
+        description: Optional address fields to narrow results. StateProvinceCode is a code; a name is canonicalized
+          before the search runs, including on the name-variant retries.
+        type: object
+      package_id:
+        description: Trulioo package UUID from config_discover_account
+        type: string
+    required:
+    - package_id
+    - business_name
+    - country_code
+    type: object
+- name: kyb_verify
+  description: '[WRITE] Verify a business from known fields or a search candidate; profile controls ownership. A
+    hit or non-match is a POTENTIAL result for human review, never an automated adverse decision on a person alone
+    (GDPR Art. 22 / OFAC valid-match / FCRA); report the evidence and recommend review.'
+  annotations:
+    title: Verify a business (KYB)
+    readOnlyHint: false
+    destructiveHint: false
+    idempotentHint: false
+    openWorldHint: true
+  inputSchema:
+    additionalProperties: false
+    properties:
+      business_data_fields:
+        description: NAPI identity fields from config_describe_context; Location is an array.
+        type: object
+      candidate_id:
+        description: Row id; needs candidate_ref.
+        type: string
+      candidate_ref:
+        description: kyb_search selection.ref plus candidate_id; expires in 15 minutes.
+        type: string
+      candidate_search_package_id:
+        description: Search package; defaults to package_id.
+        minLength: 1
+        type: string
+      country_code:
+        description: ISO 3166-1 alpha-2, e.g. US. A name, an alpha-3 or a common spelling (`USA`, `UK`) is canonicalized
+          before dispatch
+        type: string
+      enhanced_profile:
+        description: Provisioned profile override.
+        type: boolean
+      entities:
+        description: Override ownership inclusion.
+        type: boolean
+      from_candidate:
+        description: Unsigned fallback. Prefer candidate_ref plus candidate_id.
+        type: object
+      include_aml:
+        description: AML screening; default false.
+        type: boolean
+      package_id:
+        type: string
+      profile:
+        description: 'Provisioned tier: essentials=(false,false), insights=(true,false), complete=(true,true/UBO).'
+        enum:
+        - essentials
+        - insights
+        - complete
+        type: string
+      scenario_id:
+        description: Sandbox only. Bind a scenario from sandbox_seed_scenario so this call returns that scenario's
+          outcome. Omit to let the surname conventions decide
+        type: string
+      ubo_discovery:
+        description: Provisioned profile=complete.
+        type: boolean
+    required:
+    - package_id
+    - country_code
+    type: object
+- name: config_discover_account
+  description: '[READ-ONLY] List normalized account packages, or inspect one package and its supported countries.'
+  annotations:
+    title: Discover account packages
+    readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: true
+  inputSchema:
+    additionalProperties: false
+    properties:
+      package_id:
+        description: Optional. When provided, also returns the country codes this package is configured for.
+        type: string
+    type: object
+- name: config_describe_context
+  description: '[READ-ONLY] Return required fields, consent, and data sources for one package and country.'
+  annotations:
+    title: Describe package context
+    readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: true
+  inputSchema:
+    additionalProperties: false
+    properties:
+      country_code:
+        description: Country; normalized to alpha-2 or refused.
+        type: string
+      package_id:
+        type: string
+    required:
+    - package_id
+    - country_code
+    type: object
+- name: config_list_test_entities
+  description: '[READ-ONLY] List the sandbox scenarios this caller holds. DEPRECATED - use sandbox_seed_scenario.'
+  annotations:
+    title: List held sandbox scenarios (deprecated)
+    readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: true
+  inputSchema:
+    additionalProperties: false
+    properties:
+      country_code:
+        description: Country; normalized to alpha-2 or refused.
+        type: string
+      package_id:
+        description: 'Trulioo package UUID from config_discover_account. Still required, still validated, but no
+          longer narrows the answer: scenarios are scoped to the caller, not to a package+country.'
+        type: string
+      surface:
+        description: RETIRED. There is no persona list left to filter, so any value is refused rather than ignored.
+          Pass surface to sandbox_seed_scenario instead.
+        type: string
+    required:
+    - package_id
+    - country_code
+    type: object
+- name: sandbox_reset_scenarios
+  description: '[DESTRUCTIVE] Reset seeded scenarios'
+  annotations:
+    title: Reset seeded scenarios
+    readOnlyHint: false
+    destructiveHint: true
+    idempotentHint: true
+    openWorldHint: false
+  inputSchema:
+    additionalProperties: false
+    properties: {}
+    type: object
+- name: kya_retire_agent
+  description: '[DESTRUCTIVE] Retire a DAP; to replace one instead, call kya_supersede_agent.'
+  annotations:
+    title: Retire an agent (KYA)
+    readOnlyHint: false
+    destructiveHint: true
+    idempotentHint: true
+    openWorldHint: true
+  inputSchema:
+    additionalProperties: false
+    properties:
+      fingerprint:
+        description: The fingerprint of the agent to retire.
+        type: string
+    required:
+    - fingerprint
+    type: object
+- name: kya_revoke_mandate
+  description: '[DESTRUCTIVE] Revoke a mandate''s spend authority.'
+  annotations:
+    title: Revoke a mandate (KYA)
+    readOnlyHint: false
+    destructiveHint: true
+    idempotentHint: true
+    openWorldHint: true
+  inputSchema:
+    additionalProperties: false
+    properties:
+      mandate_id:
+        description: The mandate to revoke, as returned by kya_issue_mandate.
+        type: string
+      reason:
+        description: Why, for the audit trail an operator reads later (e.g. 'agent key leaked'), and optional -
+          it defaults to 'manual'
+        type: string
+    required:
+    - mandate_id
+    type: object
+- name: kya_revoke_artifact
+  description: '[DESTRUCTIVE] Revoke a compromised Agentic Release.'
+  annotations:
+    title: Revoke an Agentic Release (KYA)
+    readOnlyHint: false
+    destructiveHint: true
+    idempotentHint: true
+    openWorldHint: true
+  inputSchema:
+    additionalProperties: false
+    description: Permanently revoke a release's standing.
+    properties:
+      domain:
+        description: Currently verified publisher domain.
+        maxLength: 253
+        type: string
+      event_id:
+        description: Durable idempotency key for this transition.
+        maxLength: 256
+        type: string
+      expected_version:
+        description: Current status version from the artifact status resource. Prevents lost updates.
+        minimum: 0
+        type: integer
+      reason_code:
+        description: Stable audit reason code.
+        maxLength: 256
+        type: string
+      release_id:
+        description: The already-registered release to transition - the release_id returned at registration, never
+          a new value to mint here
+        maxLength: 256
+        type: string
+    required:
+    - release_id
+    - expected_version
+    - event_id
+    - reason_code
+    - domain
+    type: object
+tools_documented:
+  identity_business:
+  - kyc_verify
+  - kyc_get_status
+  - kyc_get_record
+  - kyb_verify
+  - kyb_search
+  - kyb_get_report
+  - kyb_registration_lookup
+  - kyb_get_partial_result
+  retrieval:
+  - transaction_lookup
+  analytics:
+  - analytics_query
+  per_account_families:
+  - aml_screen
+  - docv_create_session
+  - docv_get_result
+  - docv_cancel_session
+  - docv_create_mobile_handoff
+  - age_check
+  - age_estimate_biometric
+  - monitoring_enroll
+  - monitoring_get_alert
+  - monitoring_refresh
+  - monitoring_cancel
+  - monitoring_get_enrollment
+  post_kyb_research:
+  - kyb_run_follow_up
+  - kyb_get_research
+  - ubo_get_graph
+  know_your_agent:
+  - kya_admission_challenge
+  - kya_possession_challenge
+  - kya_issue_mandate
+  - kya_card_fingerprint
+  - kya_verify_agent
+  - kya_verify_web_bot_auth
+  - kya_lookup
+  - kya_list_agents
+  - kya_verify_protocol
+  - kya_supersede_agent
+  - kya_retire_agent
+  - kya_verify_mandate
+  - kya_get_mandate
+  - kya_record_spend
+  - kya_mandate_spend
+  - kya_revoke_mandate
+  - kya_revocations
+  - kya_transparency_sth
+  - kya_inclusion_proof
+  - kya_status_list
+  - kya_rails
+  - kya_assess_readiness
+  - kya_get_agent_domain
+  - kya_start_agent_domain_challenge
+  - kya_verify_agent_domain
+  - kya_list_artifact_candidates
+  - kya_list_publisher_bindings
+  - kya_register_artifact
+  - kya_publish_artifact
+  - kya_revoke_artifact
+  - kya_verify_client
+  config_meta:
+  - config_discover_account
+  - config_describe_context
+  - config_list_test_entities
+  - trulioo_health
+  - trulioo_capabilities
+  - trulioo_getting_started
+  - webhook_journal
+  sandbox_scenarios:
+  - sandbox_seed_scenario
+  - sandbox_list_scenarios
+  - sandbox_reset_scenarios
+  interactive_ui:
+  - render_app_verdict
+  progressive_discovery:
+  - trulioo_find_tools
+  - trulioo_tool_schema
+  - trulioo_invoke_tool
+tools_documented_note: Names as published at https://mcp.trulioo.com/developer/index.md (Tools reference, 2026-10-01
+  machine map). The docs state the product contract is 51 tools and that per-account families are absent from tools/list
+  until the deployment is entitled to them; this manifest did not call the live /mcp endpoint, only the anonymous
+  mock, which returned the 18 tools above.
+prompts:
+- name: kyc_onboarding_workflow
+  description: Step-by-step KYC identity verification workflow
+  arguments:
+  - name: country_code
+    description: ISO 3166-1 alpha-2 country code
+  - name: package_id
+    description: Trulioo package UUID
+- name: kyb_due_diligence_workflow
+  description: Step-by-step KYB business due diligence workflow
+  arguments:
+  - name: business_name
+    description: Legal name of the business
+  - name: country_code
+    description: ISO 3166-1 alpha-2 country code
+- name: aml_investigation_workflow
+  description: AML watchlist screening and risk decision workflow
+  arguments:
+  - name: entity_type
+    description: '''person'' or ''business'''
+- name: age_verification_workflow
+  description: 3-rung age assurance ladder workflow
+  arguments:
+  - name: age_threshold
+    description: Minimum required age, e.g. 18
+- name: docv_verification_workflow
+  description: SDK-mediated document verification workflow with handoff and polling
+  arguments:
+  - name: country_code
+    description: ISO 3166-1 alpha-2 country code
+  - name: capture_method
+    description: auto, eid, document, or liveness
+- name: monitoring_enrollment_workflow
+  description: Business monitoring enrollment, alert checking, and cancellation workflow
+  arguments:
+  - name: entity_name
+    description: Name of the business to monitor
+resources:
+- name: KYC transaction record
+  uri: trulioo://kyc/{id}
+  description: Retrieve a KYC verification record by transaction record ID
+  mimeType: null
+- name: DocV transaction
+  uri: trulioo://kyc/docv/{id}
+  description: Retrieve a document verification transaction by ID
+  mimeType: null
+- name: EID verification
+  uri: trulioo://kyc/eid/{id}
+  description: Retrieve an EID verification transaction by ID
+  mimeType: null
+- name: Age assurance result
+  uri: trulioo://kyc/age/{id}
+  description: Retrieve an age assurance result by transaction record ID
+  mimeType: null
+- name: Configuration context
+  uri: trulioo://config/{pkg}/{cc}
+  description: Package+country configuration context (recommended fields, consents, test entities). Cacheable at
+    host level.
+  mimeType: null
+- name: KYB transaction record
+  uri: trulioo://kyb/{id}
+  description: Retrieve a business verification record by transaction record ID
+  mimeType: null
+- name: KYB business report
+  uri: trulioo://kyb/report/{id}
+  description: Descriptor for a business report by record ID. The report is a PDF fetched out-of-band, not inlined
+    (Finding K).
+  mimeType: null
+- name: Monitoring enrollment
+  uri: trulioo://kyb/monitoring/{id}
+  description: Retrieve a business monitoring enrollment by enrollment ID
+  mimeType: null
+- name: AML screening result
+  uri: trulioo://aml/{id}
+  description: Retrieve an AML screening result by transaction record ID
+  mimeType: null
+- name: Horizon deep-research run
+  uri: trulioo://horizon/run/{run_id}
+  description: Retrieve a Horizon deep-research run by run_id (poll kyb_get_research for the live status/result).
+  mimeType: null
+- name: KYA Agentic Release
+  uri: trulioo://kya/software-artifacts/releases/{release_id}
+  description: Read one immutable Agentic Release and its computed package digests.
+  mimeType: null
+- name: KYA Agentic Release status
+  uri: trulioo://kya/software-artifacts/releases/{release_id}/status
+  description: Read the current lifecycle, standing, admission projection, and optimistic-concurrency version for
+    an Agentic Release.
+  mimeType: null
+- name: KYA Agentic Release receipt
+  uri: trulioo://kya/software-artifacts/releases/{release_id}/receipt
+  description: Read the signed immutable KYA receipt for an Agentic Release when issuance is complete.
+  mimeType: null
+- name: KYA Agentic Release digest lookup
+  uri: trulioo://kya/software-artifacts/digests/{digest}
+  description: Resolve a sha256 package or distribution digest to its immutable Agentic Release.
+  mimeType: null
+- name: Sandbox scenario
+  uri: trulioo://scenarios/{scenario_id}
+  description: 'Read back one seeded sandbox scenario: the inputs, the declared outcome, the ids it runs as, and
+    when it expires. Scoped to the caller that seeded it. Sandbox sessions only.'
+  mimeType: null
+- name: Agent readiness latest run
+  uri: trulioo://kya/readiness/latest/{host}
+  description: 'Read the newest recorded agent-readiness run for one host: reason codes, per-check residuals, the
+    vantage it was measured from, and whether it may be published. No score or ranking is emitted. Entitlement is
+    unchanged from the assessment tool.'
+  mimeType: null
+- name: Active sandbox scenarios
+  uri: trulioo://scenarios/active
+  description: List the sandbox scenarios this caller has seeded and not yet reset, newest first, with the published
+    caps. Sandbox sessions only.
+  mimeType: application/json
+- name: KYA issuer current signing keys
+  uri: trulioo://kya/issuer/jwks.json
+  description: Read Halo's current issuer JWKS for agent and Agentic Release receipt verification.
+  mimeType: application/json
+- name: KYA issuer DID document
+  uri: trulioo://kya/issuer/did.json
+  description: Read Halo's resolved did:webvh document with current version-qualified issuer keys.
+  mimeType: application/json
+- name: KYA issuer key history
+  uri: trulioo://kya/issuer/did.jsonl
+  description: Read Halo's append-only hash-chained did:webvh key history to resolve rotated receipt keys.
+  mimeType: application/jsonl
+- name: KYA Agentic Release signed tree head
+  uri: trulioo://kya/software-artifacts/transparency/sth
+  description: Read the current signed tree head for independent Agentic Release transparency verification and gossip.
+  mimeType: application/json
+- name: KYA Agentic Release transparency keys
+  uri: trulioo://kya/software-artifacts/transparency/jwks.json
+  description: Read the current and historical keys used only to verify Agentic Release signed tree heads.
+  mimeType: application/json
+- name: TypeScript tool bindings
+  uri: trulioo://bindings/typescript
+  description: Generated TypeScript wrappers for every tool on THIS instance, for code-execution clients. Each wrapper
+    already routes correctly (advertised tools by name, deferred tools via trulioo_invoke_tool).
+  mimeType: text/x-typescript
+stdio_server:
+  repo: https://github.com/trulioo/mcp-server
+  runtime: .NET 8
+  transport: stdio
+  tools:
+  - name: TestAuthentication
+    description: Can be used to verify credentials are set correctly.
+    readOnly: true
+    idempotent: true
+  - name: GetCountries
+    description: Gets a list of all the countries available in ISO2 format.
+    readOnly: true
+    idempotent: true
+  - name: BusinessVerification
+    readOnly: false
+    idempotent: false
+  - name: BusinessSearch
+    readOnly: false
+    idempotent: false
+  source: https://raw.githubusercontent.com/trulioo/mcp-server/HEAD/src/Trulioo.MCPServerForKYB/Tools/KYBTools.cs
+  pushed_at: '2025-12-16'
+skills_published: 'https://mcp.trulioo.com/.well-known/skills/index.json (6 skills: trulioo-onboarding, trulioo-kyc,
+  trulioo-kyb, trulioo-kya, trulioo-agent-assurance, trulioo-agent-readiness; saved verbatim under skills/)'
+docs: https://mcp.trulioo.com/developer/
+llms_txt:
+- https://mcp.trulioo.com/llms.txt
+- https://mcp.trulioo.com/developer/llms.txt
+rate_limits: Usage limits apply during early access. If a result includes retry_after_seconds, wait for that interval
+  before retrying. (https://mcp.trulioo.com/developer/index.md#usage-limits)

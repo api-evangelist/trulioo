@@ -1,36 +1,118 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/trulioo-business-verification-api-openapi.yml, openapi/trulioo-configuration-api-openapi.yml,
-  openapi/trulioo-connection-api-openapi.yml, openapi/trulioo-document-verification-api-openapi.yml,
-  openapi/trulioo-person-fraud-api-openapi.yml, openapi/trulioo-platform-api-openapi.yml, openapi/trulioo-verifications-api-openapi.yml
+generated: '2026-10-08'
+method: searched
+source:
+- openapi/trulioo-authentication-api-openapi.yml, openapi/trulioo-business-configuration-api-openapi.yml, openapi/trulioo-business-reports-api-openapi.yml,
+  openapi/trulioo-business-search-api-openapi.yml, openapi/trulioo-business-verification-api-openapi.yml, openapi/trulioo-configuration-api-openapi.yml,
+  openapi/trulioo-connection-api-openapi.yml, openapi/trulioo-document-configuration-api-openapi.yml, openapi/trulioo-document-verification-api-openapi.yml,
+  openapi/trulioo-documents-api-openapi.yml, openapi/trulioo-end-clients-api-openapi.yml, openapi/trulioo-events-api-openapi.yml
+  ...
+- https://developer.trulioo.com/reference/authentication.md
+- https://developer.trulioo.com/reference/keys-and-authentication-2.md
+- https://developer.trulioo.com/reference/connecting-to-trulioos-api-using-mutual-tls.md
+- https://developer.trulioo.com/reference/hmac.md
+- https://mcp.trulioo.com/developer/index.md
+- https://mcp.trulioo.com/.well-known/oauth-authorization-server (probed)
 summary:
   types:
-  - http
   - oauth2
+  - http
+  - mutualTLS
   oauth2_flows:
   - clientCredentials
+  - authorizationCode (MCP, PKCE)
 schemes:
-- name: BasicAuth
-  type: http
-  scheme: basic
-  sources:
-  - openapi/trulioo-business-verification-api-openapi.yml
-  - openapi/trulioo-configuration-api-openapi.yml
-  - openapi/trulioo-connection-api-openapi.yml
-  - openapi/trulioo-document-verification-api-openapi.yml
-  - openapi/trulioo-person-fraud-api-openapi.yml
-  - openapi/trulioo-verifications-api-openapi.yml
 - name: OAuth2
   type: oauth2
   flows:
   - flow: clientCredentials
-    tokenUrl: https://auth-api.trulioo.com/connect/token
+    tokenUrl: https://api.trulioo.com/customer/v2/auth/customer
     scopes: 0
   sources:
+  - openapi/trulioo-authentication-api-openapi.yml
+  - openapi/trulioo-business-configuration-api-openapi.yml
+  - openapi/trulioo-business-reports-api-openapi.yml
+  - openapi/trulioo-business-search-api-openapi.yml
   - openapi/trulioo-business-verification-api-openapi.yml
   - openapi/trulioo-configuration-api-openapi.yml
   - openapi/trulioo-connection-api-openapi.yml
+  - openapi/trulioo-document-configuration-api-openapi.yml
   - openapi/trulioo-document-verification-api-openapi.yml
+  - openapi/trulioo-documents-api-openapi.yml
+  - openapi/trulioo-end-clients-api-openapi.yml
+  - openapi/trulioo-events-api-openapi.yml
+  - openapi/trulioo-flows-api-openapi.yml
+  - openapi/trulioo-known-faces-api-openapi.yml
   - openapi/trulioo-person-fraud-api-openapi.yml
-  - openapi/trulioo-platform-api-openapi.yml
+  - openapi/trulioo-sessions-api-openapi.yml
+  - openapi/trulioo-transactions-api-openapi.yml
   - openapi/trulioo-verifications-api-openapi.yml
+  - openapi/trulioo-workflows-api-openapi.yml
+  docs: https://developer.trulioo.com/reference/authentication
+  documented_token_endpoints:
+  - https://auth-api.trulioo.com/connect/token (grant_type=client_credentials, scope=napi.api; Normalized API v3
+    / GlobalGateway)
+  - https://api.trulioo.com/customer/v2/auth/customer (postAuthCustomer; Trulioo Platform / Workflow Studio, access
+    tokens expire in one hour, refresh endpoint available)
+  credential_issuance: Client Id and Client Secret are provided by the Customer Success Manager; no self-serve key
+    creation
+  scopes_documented:
+  - napi.api
+  - workflow.studio.api (authentication recipe)
+- name: BasicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/trulioo-business-configuration-api-openapi.yml
+  - openapi/trulioo-business-reports-api-openapi.yml
+  - openapi/trulioo-business-search-api-openapi.yml
+  - openapi/trulioo-business-verification-api-openapi.yml
+  - openapi/trulioo-configuration-api-openapi.yml
+  - openapi/trulioo-connection-api-openapi.yml
+  - openapi/trulioo-document-configuration-api-openapi.yml
+  - openapi/trulioo-document-verification-api-openapi.yml
+  - openapi/trulioo-documents-api-openapi.yml
+  - openapi/trulioo-known-faces-api-openapi.yml
+  - openapi/trulioo-person-fraud-api-openapi.yml
+  - openapi/trulioo-transactions-api-openapi.yml
+  - openapi/trulioo-verifications-api-openapi.yml
+  note: Declared in the v3 contract as an alternative scheme; the docs describe OAuth bearer tokens as the Platform
+    API V3 method
+- name: MutualTLS
+  type: mutualTLS
+  docs: https://developer.trulioo.com/reference/connecting-to-trulioos-api-using-mutual-tls
+  note: Mutual TLS client-certificate connection option documented for the API, configured with Trulioo support
+  sources:
+  - https://developer.trulioo.com/reference/connecting-to-trulioos-api-using-mutual-tls.md
+- name: MCP OAuth 2.1
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    pkce: S256
+    authorizationUrl: https://mcp.trulioo.com/authorize
+    tokenUrl: https://mcp.trulioo.com/token
+    registrationUrl: https://mcp.trulioo.com/register
+    scopes:
+    - read
+    - verify
+    - verification:create
+    - kyb:submit
+    - agent:write
+    - domain:write
+    - release:publish
+    - release:revoke
+    - sandbox:write
+    note: 'Sandbox sessions: client-managed OAuth 2.1 with dynamic client registration'
+  - flow: clientCredentials
+    tokenUrl: https://mcp.trulioo.com/oauth/token
+    note: 'Live integrations: HTTP Basic client_id:client_secret, grant_type=client_credentials -> bearer, expires_in
+      3600, no refresh token'
+  protected_resource: https://mcp.trulioo.com/.well-known/oauth-protected-resource/mcp
+  docs: https://mcp.trulioo.com/developer/#auth
+  sources:
+  - https://mcp.trulioo.com/developer/index.md
+  - https://mcp.trulioo.com/.well-known/oauth-authorization-server
+docs: https://developer.trulioo.com/reference/authentication
+webhook_authentication:
+  header: x-trulioo-signature
+  algorithm: HMAC-SHA256, hex
+  docs: https://developer.trulioo.com/reference/hmac

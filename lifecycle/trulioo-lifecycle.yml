@@ -1,0 +1,58 @@
+generated: '2026-10-08'
+method: searched
+source:
+- https://developer.trulioo.com/reference/api-reference-overview.md
+- https://developer.trulioo.com/reference/deprecated.md
+- https://developer.trulioo.com/docs/release-notes.md
+- https://developer.trulioo.com/reference/multi-region-hosting.md
+- https://status.trulioo.com (HTTP 200 -> /access/login, probed 2026-10-08)
+- https://mcp.trulioo.com/developer/index.md
+- https://raw.githubusercontent.com/trulioo/trulioo-mcp/HEAD/SECURITY.md
+name: Trulioo API lifecycle
+provider: Trulioo
+providerId: trulioo
+versioning:
+  scheme: URL path version per product line
+  examples:
+  - /v3/verifications/verify and /v3/business/verify (Normalized API v3 / GlobalGateway)
+  - /customer/v2/... (Trulioo Platform / Workflow Studio API)
+  - /risk/v1/check (Person Fraud)
+  - Normalized API 1.0 (Legacy) endpoints remain documented under the v1 section of the reference
+  policy: The API reference overview states the output JSON should not be treated as fixed or as a schema; new fields
+    may be added as the API evolves and clients must not rely on the order of data in responses. No dated versioning
+    or Sunset header policy is published for the REST API.
+  docs: https://developer.trulioo.com/reference/api-reference-overview
+  mcp: Nothing on the MCP developer surface is versioned in its URL; the machine map carries an "Accurate as of"
+    date (2026-10-01) and the server negotiates the MCP protocol revision at initialize (floor 2025-06-18). The
+    Agent Plugin ships immutable annotated tags (v0.7.5 current) and only the latest published tag is supported.
+deprecation:
+  policy: 'The reference keeps a "Deprecated" folder: "older endpoints that we no longer recommend for new integrations.
+    While these endpoints are still supported for existing use, we encourage you to transition to our latest API
+    versions". No deprecation window, Sunset/Deprecation headers or end-of-life dates are published.'
+  docs: https://developer.trulioo.com/reference/deprecated
+  mcp_note: The mock tools/list marks config_list_test_entities "DEPRECATED - use sandbox_seed_scenario"; the docs
+    state age_estimate_biometric "is declared but returns NotImplemented until biometric estimation ships".
+  sdk_migrations:
+  - https://developer.trulioo.com/reference/migration-guide-docv-capture-web-2x-to-kyc-documents-capture-web-sdk-3x
+  - https://developer.trulioo.com/reference/migration-guide-kyc-documents-capture-web-sdk-3x-to-4x
+deprecated_operations: []
+deprecated_operations_note: 'No operation in openapi/ carries deprecated: true; the Normalized API 1.0 (Legacy)
+  section of the reference is the deprecated surface and is not in the contract.'
+status_page: https://status.trulioo.com
+status_page_note: 'status.trulioo.com answers 200 but redirects to /access/login ("Trulioo Status - Login"): the
+  status page is customer-gated, not public.'
+changelog: https://developer.trulioo.com/docs/release-notes
+release_cadence: Quarterly "Platform Update" release notes (6.0 July 2024 through 6.7 April 2026); the MCP developer
+  surface keeps its own dated changelog (2026-08-01 to 2026-09-22).
+sla: null
+sla_note: No public SLA or uptime commitment was found on the developer portal or www.trulioo.com; the DPA commits
+  to Security Incident notification "without undue delay".
+regions:
+  docs: https://developer.trulioo.com/reference/multi-region-hosting
+  hosting:
+  - APAC (Australia)
+  - Ireland (Dublin)
+  - United States (Oregon)
+  - Canada (Quebec)
+  - European Union (Frankfurt) - Trulioo Platform / Workflow only
+  note: Per-service multi-region availability table; Fraud & Risk is US (Oregon) only.

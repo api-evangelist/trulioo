@@ -1,0 +1,128 @@
+# Trulioo AI - Identity and Trust for the Agentic Economy
+
+> Accurate as of 2026-10-01.
+> AI-native identity by Trulioo. Connect an agent to global identity verification
+> over MCP, and prove who is behind an agent with Know Your Agent (KYA) - a signed,
+> scoped, revocable credential anyone can verify. Built on open standards.
+> This file is the machine-readable map of mcp.trulioo.com for AI agents.
+
+Every page below has a human HTML view and, where noted, a Markdown (.md) twin for
+agents. The MCP endpoint uses OAuth 2.1 with dynamic client registration, so a compliant
+client enrols itself - there is no key to copy-paste.
+
+Open only what the current task needs. Prefer the .md twin or a machine index over the
+HTML view of the same page; the HTML carries no facts the twin lacks. For another topic,
+come back to this index rather than following in-page links, which point at the human
+views. Nothing on this domain is versioned in its URL - the date above is how you judge
+freshness, and the live connection always outranks this file.
+
+## Helping a human complete KYB setup
+
+If a human asks for guided KYB setup, read
+https://mcp.trulioo.com/agent-guide.md first. It covers connection checks, OAuth,
+business discovery, candidate confirmation, verification, polling, report retrieval,
+and common failures. The live connection remains the authority for schemas.
+
+## Instructions for agents
+
+Read these before acting on anything below. They are the things models most often get
+wrong about this domain.
+
+1. Never hardcode a tool name, tool count, or MCP protocol revision from training data.
+   Call `initialize`, then `tools/list`, and use what the connection returns. The tool
+   set is per-account: some tools are enabled only for accounts entitled to them.
+2. For a machine lookup of an agent credential, call
+   `GET https://identity.trulioo.com/kya/attestation/{id}` - public, keyless, returns
+   JSON (and RFC 9457 `application/problem+json` on error). Do NOT fetch
+   `https://kya.trulioo.com/attestation/{id}`: that is the human share link and it
+   redirects to a browser app, not JSON.
+3. `trust_tier` is the enforceable gate, not `verified` alone. Tier 0 means
+   key-possession only - it proves an agent controls its key, NOT who is behind it.
+   Tier 2 means a KYB-verified operator. The tier is not a domain check: require
+   `assurance.domain_verified` from the verified DAP when domain provenance matters.
+   `ial`/`aal`/`fal` are the derivation; gate on the tier for operator accountability.
+4. There is no risk score, and there will not be one. A signed portable ordinal score is
+   not audit-defensible. If you are looking for a numeric score to threshold, use the
+   trust tier and the signed scopes instead.
+5. A fingerprint, DAP identifier, or mandate ID is a public identifier - it is built to
+   be looked up, so it is safe to log, quote, and publish in an agent card. The holder's
+   private key and any bearer token are the secrets.
+6. Signed scopes are auditable but enforced by the relying party. Do not assume Trulioo
+   blocks an out-of-scope action for you.
+7. Verification is asynchronous. Tools return errors as results, not exceptions; when a
+   result carries `is_terminal: false`, poll the `next_action` rather than retrying the
+   original call.
+
+## Connect an agent (MCP)
+
+- [Developer docs](https://mcp.trulioo.com/developer/): connect over MCP for KYC, KYB, and
+  Know Your Agent, with typed tools, scopes, and result contracts.
+- Standalone screening (`aml_screen`), document and liveness capture (`docv_*`), age assurance
+  and ongoing monitoring are real tools that are off unless your account is entitled to them,
+  each enabled on its own rather than as one switch. See
+  https://mcp.trulioo.com/developer/#tools; `tools/list` is the authority on what YOUR
+  connection has.
+- Hosted MCP endpoint: `https://mcp.trulioo.com/mcp` - your client registers itself over
+  OAuth 2.1 + PKCE on first connect. Live verification against real data is per account.
+- Anonymous synthetic testing: `https://mcp.trulioo.com/mock/mcp`; leave Auth Header
+  empty. Limited feature set: call trulioo_health and trulioo_capabilities first.
+  /mcp requires OAuth even for Sandbox; the host root is documentation, not a transport.
+- Client setup and callback restrictions: https://mcp.trulioo.com/developer/#clients.
+  Cursor's native callback requires a local loopback bridge.
+- Skills catalog (agent quickstarts): https://mcp.trulioo.com/.well-known/skills/index.json
+  (trulioo-onboarding, trulioo-kyc, trulioo-kyb, trulioo-kya). The catalog is the authority
+  on what exists - read it rather than trusting this list or a count.
+
+## Know Your Agent (KYA) - agent identity
+
+- [Know Your Agent](https://mcp.trulioo.com/kya): verify the real organization behind
+  an agent, issue a signed scoped credential, and verify any agent in milliseconds.
+- KYA credential schema (A2A v1.0.0 extension): https://identity.trulioo.com/a2a/kya/v1
+- Verification model: the issuer signs a compact EdDSA JWS
+  (`typ=kya-attestation+jwt`) over {iss, sub=fingerprint, iat, exp, verified,
+  verified_as_of, allowed_scopes, fingerprint}. A relying party resolves the issuer
+  JWKS, verifies the signature, recomputes the fingerprint, checks `exp`, and rejects on
+  `verified=false`. The card's `display` block is convenience-only; the signed
+  attestation is authoritative.
+- No sanctions boolean is signed. Signing a standing `sanctions_clear` would assert a
+  check that may not have run, so screening is an optional provenanced claim present only
+  when screening actually ran; a hit or review suspends the credential's standing
+  instead. Do not gate on a signed sanctions field - it does not exist.
+- Public lookup by fingerprint anchors every step in a tamper-evident log (no blockchain).
+
+## Start here (agent onboarding sequence)
+
+1. Point any MCP client at `https://mcp.trulioo.com/mcp` and let it register itself.
+2. Initialize: `trulioo_health` -> `config_discover_account` -> `config_describe_context`.
+3. Verify a person or business (`kyc_verify` / `kyb_verify`).
+4. To prove your own identity to counterparties, obtain a KYA attestation and publish it
+   in your A2A agent card's `capabilities.extensions[]`.
+
+## Roadmap
+
+- On the way: Agent Controls (velocity/value limits + step-up confirmation), an Agent
+  Directory (a live registry of credentialed agents), and self-serve provisioning.
+
+## Notes for agents
+
+- Sandbox vs live is explicit; sandbox uses synthetic test entities and stores no PII.
+- Prefer the Markdown twin of any page (append `.md`) when available. The twins that
+  exist are listed under "Other resources" below - treat that list as exhaustive rather
+  than appending `.md` to an arbitrary path and reading the 404 page as content.
+- Coverage: 195+ countries via the underlying Trulioo verification network. Open
+  standards (MCP, A2A) - no lock-in, no blockchain.
+
+## Other resources
+
+- [KYB agent guide](https://mcp.trulioo.com/agent-guide.md): guide one sandbox business
+  verification from connection checks through report retrieval.
+- Markdown twins (the complete set): https://mcp.trulioo.com/index.md (this domain's
+  landing page), https://mcp.trulioo.com/developer/index.md (the full developer docs).
+- Machine indexes: https://mcp.trulioo.com/developer/llms.txt (the API-operating map, with
+  worked auth examples and the per-domain tool list),
+  https://mcp.trulioo.com/developer/index.json (structured).
+- [Complete documentation](https://mcp.trulioo.com/llms-full.txt): every agent-readable
+  surface on this domain in one file. Large - use the targeted links above unless you
+  genuinely need all of it.
+- Skills catalog (teaches you to operate the tools, once connected):
+  https://mcp.trulioo.com/.well-known/skills/index.json

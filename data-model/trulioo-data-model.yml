@@ -1,0 +1,191 @@
+generated: '2026-10-08'
+method: derived
+generator: derive-data-model.py
+source:
+- openapi/trulioo-authentication-api-openapi.yml
+- openapi/trulioo-business-configuration-api-openapi.yml
+- openapi/trulioo-business-reports-api-openapi.yml
+- openapi/trulioo-business-search-api-openapi.yml
+- openapi/trulioo-business-verification-api-openapi.yml
+- openapi/trulioo-configuration-api-openapi.yml
+- openapi/trulioo-connection-api-openapi.yml
+- openapi/trulioo-document-configuration-api-openapi.yml
+- openapi/trulioo-document-verification-api-openapi.yml
+- openapi/trulioo-documents-api-openapi.yml
+- openapi/trulioo-end-clients-api-openapi.yml
+- openapi/trulioo-events-api-openapi.yml
+notation: has_one = property $ref; has_many = array of $ref; belongs_to = <entity>_id field
+summary:
+  entities: 42
+  entities_in_spec: 42
+  relationships: 21
+entities:
+- name: AccessToken
+  fields: 3
+- name: AppendedField
+  fields: 2
+- name: BusinessInputFields
+  fields: 3
+- name: BusinessRecord
+  fields: 5
+- name: BusinessRegistrationNumber
+  fields: 4
+- name: BusinessSearchRequest
+  fields: 5
+- name: BusinessSearchResponse
+  fields: 2
+- name: BusinessVerifyRequest
+  fields: 5
+- name: BusinessVerifyResult
+  fields: 3
+- name: Communication
+  fields: 3
+- name: Consent
+  fields: 3
+- name: CountrySubdivision
+  fields: 2
+- name: DataFields
+  fields: 5
+- name: Datasource
+  fields: 2
+- name: DatasourceField
+  fields: 3
+- name: DatasourceGroup
+  fields: 3
+- name: DatasourceResult
+  fields: 4
+- name: Document
+  fields: 4
+- name: DocumentVerifyRequest
+  fields: 6
+- name: DocumentVerifyResult
+  fields: 7
+- name: DownloadDocument
+  fields: 2
+- name: Error
+  fields: 2
+- name: FlowStep
+  fields: 5
+- name: InputField
+  fields: 2
+- name: KnownFacesList
+  fields: 3
+- name: Location
+  fields: 9
+- name: NationalId
+  fields: 3
+- name: Package
+  fields: 2
+- name: PersonInfo
+  fields: 8
+- name: Profile
+  fields: 5
+- name: Record
+  fields: 5
+- name: RecordError
+  fields: 2
+- name: RiskVerifyRequest
+  fields: 5
+- name: RiskVerifyResult
+  fields: 5
+- name: Rule
+  fields: 2
+- name: ServiceError
+  fields: 2
+- name: TestEntity
+  fields: 3
+- name: TransactionRecordResult
+  fields: 5
+- name: TransactionStatus
+  fields: 3
+- name: VerifyRequest
+  fields: 8
+- name: VerifyResult
+  fields: 6
+- name: Workflow
+  fields: 5
+relationships:
+- from: BusinessSearchResponse
+  to: BusinessRecord
+  type: has_many
+  via: Results
+- from: BusinessSearchRequest
+  to: BusinessInputFields
+  type: has_one
+  via: BusinessSearchInputFields
+- from: BusinessVerifyResult
+  to: BusinessRecord
+  type: has_one
+  via: Record
+- from: BusinessVerifyRequest
+  to: BusinessInputFields
+  type: has_one
+  via: BusinessSearchInputFields
+- from: DatasourceGroup
+  to: Datasource
+  type: has_many
+  via: Datasources
+- from: DatasourceResult
+  to: DatasourceField
+  type: has_many
+  via: DatasourceFields
+- from: DatasourceResult
+  to: RecordError
+  type: has_many
+  via: Errors
+- from: DatasourceResult
+  to: AppendedField
+  type: has_many
+  via: AppendedFields
+- from: Record
+  to: DatasourceResult
+  type: has_many
+  via: DatasourceResults
+- from: Record
+  to: RecordError
+  type: has_many
+  via: Errors
+- from: Record
+  to: Rule
+  type: has_one
+  via: Rule
+- from: TransactionRecordResult
+  to: Record
+  type: has_one
+  via: Record
+- from: TransactionRecordResult
+  to: InputField
+  type: has_many
+  via: InputFields
+- from: VerifyResult
+  to: Record
+  type: has_one
+  via: Record
+- from: VerifyResult
+  to: ServiceError
+  type: has_many
+  via: Errors
+- from: VerifyRequest
+  to: DataFields
+  type: has_one
+  via: DataFields
+- from: DataFields
+  to: PersonInfo
+  type: has_one
+  via: PersonInfo
+- from: DataFields
+  to: Location
+  type: has_one
+  via: Location
+- from: DataFields
+  to: Communication
+  type: has_one
+  via: Communication
+- from: DataFields
+  to: NationalId
+  type: has_many
+  via: NationalIds
+- from: DataFields
+  to: Document
+  type: has_one
+  via: Document

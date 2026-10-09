@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/trulioo/main/json-schema/trulioo-download-document-schema.json",
+  "title": "DownloadDocument",
+  "x-generated": "2026-10-08",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/trulioo-business-reports-api-openapi.yml#/components/schemas/DownloadDocument",
+  "type": "object",
+  "properties": {
+    "Document": {
+      "type": "string",
+      "format": "byte"
+    },
+    "ContentType": {
+      "type": "string"
+    }
+  }
+}

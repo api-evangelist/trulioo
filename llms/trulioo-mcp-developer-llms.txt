@@ -1,0 +1,300 @@
+# Trulioo Developer - machine map
+
+> Accurate as of 2026-10-01.
+> Early access. Security controls are in place. Tool names, input fields, and documentation
+> may change as we incorporate feedback.
+> One MCP connection gives an agent typed verification tools. Sandbox uses client-managed
+> OAuth 2.1. Live integrations bootstrap an MCP token with a Trulioo client_id and
+> client_secret.
+
+This file is for OPERATING the API. If a human asks for guided KYB setup, read
+https://mcp.trulioo.com/agent-guide.md first. It covers one sandbox business verification
+from connection checks through report retrieval.
+Nothing here is versioned in its URL - the date above is how you judge freshness, and
+what the live connection reports always outranks this file.
+
+## Instructions for agents
+
+Read this section before acting on the reference below. Each line is a mistake models
+routinely make against this API.
+
+1. Do not hardcode tool names, the tool count, or an MCP protocol revision from training
+   data. Call `initialize` then `tools/list` and use what the connection returns. The
+   tool set is per-account - several tools below are entitlement-gated and will be absent.
+2. Do not assume a protocol revision. The server negotiates at `initialize`; its floor is
+   `2025-06-18`, and `2026-07-28` behaviors (tool-list freshness, tasks, the renumbered
+   resource-not-found code) light up only for a client that asked for that revision. Read
+   the negotiated value back from `trulioo_capabilities` rather than assuming.
+3. Do not treat a verification call as synchronous. Errors come back as results, not
+   exceptions. When `is_terminal` is `false`, follow `next_action` - do not retry the
+   original call, and do not treat a non-terminal result as a `nomatch`.
+4. Gate on `assurance.trust_tier`, not on `verified` alone. Tier 0 proves only that the
+   agent controls its key; it says nothing about who is behind it. Tier 2 means a
+   KYB-verified operator. The tier is not a domain check: require
+   `assurance.domain_verified` from the verified DAP when domain provenance matters.
+5. There is no risk score. A signed portable ordinal score is not audit-defensible, so
+   none is issued. Use the trust tier and the signed scopes.
+6. Do not gate on a signed `sanctions_clear` - the field was removed from the signed
+   attestation (ADR-P-022), because signing a standing sanctions boolean asserts a check
+   that may not have run. Screening is an optional provenanced claim present only when it
+   actually ran; a hit or review suspends standing via `status_reference`.
+7. Call `kya_possession_challenge` before `kya_issue_mandate` for a keyed card. The
+   possession proof carries a single-use nonce and the issuer rejects a proof without a
+   fresh one. On a software key, AAL2 is earned by that possession proof, not by tier - a
+   bare replayable Web Bot Auth signature is AAL1 even at tier 2.
+8. A fingerprint, DAP identifier, or mandate ID is a public lookup key, not a secret; log
+   and publish them freely. The holder's private key and your access token are the secrets.
+9. Enforce scopes yourself. `allowed_scopes` is signed and auditable, but Trulioo does not
+   block an out-of-scope action on your behalf.
+10. Never put document images or biometric data on the MCP stream. Capture stays off the
+    protocol; a verification tool takes attributes, never an image.
+
+## Hosted MCP endpoint
+- URL: https://mcp.trulioo.com/mcp
+- Transport: MCP streamable HTTP
+- Sandbox auth: client-managed OAuth 2.1 + PKCE
+- Live auth: exchange client_id and client_secret at POST
+  https://mcp.trulioo.com/oauth/token, then use the returned bearer token on /mcp
+- Discovery: tools/list, resources/list, prompts/list return typed schemas at runtime
+- Post-initialize header: MCP-Protocol-Version: 2025-06-18 on notifications/initialized,
+  tools/list, and every tools/call request after negotiating that revision
+
+## Authentication (full worked examples: /developer#auth)
+
+### Anonymous synthetic testing
+
+- URL: https://mcp.trulioo.com/mock/mcp
+- Authentication: none; leave Auth Header empty in a direct connection tester.
+- Synthetic data with a limited feature set. Call trulioo_health, confirm mode:
+  sandbox, then trulioo_capabilities before selecting a workflow.
+- Installed plugins use /mcp and OAuth. Choose Sandbox without Trulioo API credentials.
+- The host root is documentation, not a transport. The legacy /sandbox/mcp alias
+  also requires OAuth and does not select a mode.
+
+```sh
+claude mcp add --transport http trulioo-sandbox https://mcp.trulioo.com/mock/mcp
+codex mcp add trulioo-sandbox --url https://mcp.trulioo.com/mock/mcp
+```
+
+### Client setup and connection troubleshooting
+
+```sh
+claude mcp add --transport http trulioo https://mcp.trulioo.com/mcp
+# Open Claude Code, run /mcp, authenticate Trulioo, and choose Sandbox.
+codex mcp add trulioo --url https://mcp.trulioo.com/mcp
+codex mcp login trulioo
+```
+
+- Cursor's cursor:// callback cannot register directly. Configure an npx
+  mcp-remote@latest bridge to https://mcp.trulioo.com/mcp with --transport http-only.
+  It uses a loopback callback. Full configuration: /developer/#clients.
+- CLI/IDE configuration and ChatGPT workspace registration are separate. Workspace
+  policy controls custom connector availability; verify health in the actual client.
+- 401 on /mcp: complete OAuth or renew the MCP token; use /mock/mcp for anonymous testing.
+- HTML or redirect: use the full transport URL, not the host root.
+- Missing tool: read trulioo_capabilities and use trulioo_find_tools to discover its family.
+- Raw HTTP: follow the negotiated MCP revision and parse SSE when returned; prefer an SDK.
+- Rate limited: honor returned retry guidance with bounded retries.
+- Keep tokens and API secrets out of prompts, screenshots, logs, and committed config.
+- Hosted actions that require review need an actor-bound session and the reviewed
+  Trust Workspace flow. Client approval alone is insufficient; mock and shared sandbox
+  credentials cannot authorize those actions.
+
+### Sandbox connection
+
+OAuth-capable MCP clients manage OAuth 2.1 + PKCE. Clients whose native callbacks
+use private URI schemes need a bridge with a supported callback.
+
+1. Add https://mcp.trulioo.com/mcp as a remote MCP server.
+2. Complete the browser consent flow.
+3. Choose sandbox.
+4. Return to the client. It initializes the session and discovers the available tools.
+
+Let the client manage sandbox registration, PKCE, tokens, refresh, and MCP session headers.
+
+- Sandbox uses the same endpoint, tools, and schemas. Results carry a test_mode block.
+- Scopes: verify (run verifications) and read (fetch records, statuses, and reports).
+- Usage limits apply during early access. Follow retry_after_seconds before retrying and
+  contact Trulioo before increasing production traffic.
+
+### Live integration with client credentials
+
+Store client_id and client_secret in a secret manager. Bootstrap a short-lived MCP token:
+
+```bash
+export TRULIOO_CLIENT_ID="your-client-id"
+export TRULIOO_CLIENT_SECRET="your-client-secret"
+
+# curl sends Authorization: Basic base64(client_id:client_secret)
+curl -sS -X POST https://mcp.trulioo.com/oauth/token \
+  -u "$TRULIOO_CLIENT_ID:$TRULIOO_CLIENT_SECRET" \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'grant_type=client_credentials'
+```
+
+The response contains access_token, token_type=Bearer, and expires_in. Set TOKEN to the
+returned access_token and use Authorization: Bearer $TOKEN on /mcp. Never send
+client_secret to /mcp or log it. No refresh token is returned; re-run the bootstrap after
+expiry or a 401 response.
+
+## Machine index
+- Structured index: https://mcp.trulioo.com/developer/index.json
+- KYA A2A extension schema: https://identity.trulioo.com/a2a/kya/v1/schema.json
+- KYA card example: https://identity.trulioo.com/a2a/kya/v1/card.example.json
+- Issuer signing keys (DAP verification): https://identity.trulioo.com/.well-known/jwks.json
+
+## Tools by domain (call tools/list for the exact set on your connection)
+- KYC: kyc_verify, kyc_get_status, kyc_get_record
+- KYB: kyb_verify, kyb_search, kyb_get_report, kyb_registration_lookup, kyb_get_partial_result
+- Retrieval by transactionId: transaction_lookup (resolve a TransactionID or TransactionRecordID to the record + identity, KYC or KYB)
+- Account analytics: analytics_query returns aggregate KYB transaction volume for the
+  authenticated customer's own account. It accepts no account id, SQL, relation, or arbitrary
+  filter. Supported inputs are transaction_volume, day or month grain, an inclusive range of at
+  most 366 days, optional country grouping, and limit 1-100. It is business-profile and
+  deployment gated and live-only; sandbox and test sessions are refused before the production
+  warehouse is queried. Under progressive discovery, find family=analytics, inspect the schema,
+  then call it through trulioo_invoke_tool. summary.total covers the full requested range;
+  available_series_rows, returned_series_rows, and series_truncated disclose whether the bounded
+  series is partial.
+- PER-ACCOUNT families, OFF unless your account is entitled to them, each enabled on its own.
+  They are real and supported; they are simply absent from tools/list until your deployment has
+  them. Ask Trulioo for the families you need rather than coding around them, and read the
+  result from tools/list: getting one family does not get you the rest.
+  - Standalone screening: aml_screen
+  - Document + liveness capture: docv_create_session, docv_get_result, docv_cancel_session,
+    docv_create_mobile_handoff. The session flow keeps images and biometric data OFF the MCP
+    stream - never put them on it.
+  - Age assurance: age_check (from a known DOB). age_estimate_biometric is declared but returns
+    NotImplemented until biometric estimation ships - do not build against it.
+  - Ongoing monitoring: monitoring_enroll, monitoring_get_alert, monitoring_refresh,
+    monitoring_cancel, monitoring_get_enrollment
+- Post-KYB research, OFF unless the account is entitled to it: kyb_run_follow_up starts an
+  explicitly approved, bounded ownership or Deep Research follow-up from a terminal KYB
+  verification; kyb_get_research polls Deep Research and ubo_get_graph polls the ownership
+  graph. Direct research and ownership starts are retired.
+- tools/list and config_discover_account are the authority on what YOUR connection has. Do not
+  hardcode the lists above and do not synthesize a tool name that is not on them - there is no
+  raw passthrough, so a tool that is absent is not reachable by another route.
+- KYA: kya_admission_challenge (mint a short-lived challenge bound to one privileged
+  target tool), kya_possession_challenge (mint the single-use nonce first), kya_issue_mandate,
+  kya_card_fingerprint (pre-flight: the fingerprint a build WOULD get, without registering or
+  attesting - costs nothing but is KEYED, not public, because it is a build-time utility
+  rather than a relying-party read), kya_verify_agent, kya_verify_web_bot_auth, kya_lookup,
+  kya_verify_protocol, kya_supersede_agent (rotate/reissue), kya_retire_agent (revoke standing)
+- KYA relying-party half: kya_verify_mandate (for a credential a counterparty PRESENTED to
+  you - signature, issuer, window, and with freshness=central_fresh revocation. Use this, not
+  kya_get_mandate, when somebody hands you a credential: reading a mandate by an id lifted out
+  of an unverified document trusts the document to describe itself. The optional amount is
+  ADVISORY and never changes valid; amount_advisory.within=null means UNANSWERABLE, never a
+  pass), kya_get_mandate (status, window, signed scope - a max_amount of
+  null means UNCAPPED, never a cap of zero), kya_record_spend (record a settled spend, which is
+  what makes a day/total ceiling answerable at all - settlement_id is the DE-DUPLICATION key, so
+  a replay with the same amount returns recorded=false and counts once while the same id with a
+  DIFFERENT amount is refused 409 rather than overwritten; recording is NOT enforcement, it moves
+  no money and blocks nothing), kya_mandate_spend (read the ledger - totals per currency, the
+  declared ceiling, the headroom left; remaining=null is NOT zero, it means no headroom to speak
+  of: uncapped, or a per-transaction cap, which limits each purchase rather than depleting),
+  kya_revoke_mandate (records a reason; the
+  capability rails fail closed on the next verify, the A2A discovery tier is OfflineOk by
+  design and lags), kya_revocations (with each status-list index). Four need NO account,
+  because Halo serves the same routes anonymously: kya_transparency_sth (the signed tree
+  head every proof hangs from), kya_inclusion_proof (RFC 6962 - verify the audit path with
+  transparency_log's verify_inclusion_hashed, NOT verify_inclusion: the served leaf_hash is
+  already hashed and hashing it twice reports a sound log as broken), kya_status_list (the
+  signed revocation bitstring), kya_rails (what each protocol rail requires),
+  kya_assess_readiness (measure public agent-facing documents and return reason codes,
+  not a score), kya_get_agent_domain (read the selected Digital Agent Profile's domain
+  proof state), kya_start_agent_domain_challenge (create its account-bound DNS proof),
+  kya_verify_agent_domain (verify that proof), kya_list_artifact_candidates (list this
+  account's unpublished Agentic Releases), kya_list_publisher_bindings (list its active
+  publisher namespace bindings), kya_register_artifact,
+  kya_publish_artifact, and kya_revoke_artifact
+  (register, publish, or permanently revoke an immutable Agentic Release for a Plugin).
+  One more needs an account and verifies something that is not a credential:
+  kya_verify_client (fetch and
+  validate the Client ID Metadata Document at an OAuth client's https client_id, the
+  registration mechanism MCP 2026-07-28 asks for; returns the document's origin, its
+  redirect_uris, whether it publishes a key, any KYA operator claim it carries, and TWO tier
+  fields - record_trust_tier is about the URL, request_trust_tier_ceiling is the most a
+  request carrying that client_id could reach, and they must not be collapsed. The carried
+  attestation is never verified here: follow up with kya_lookup on the fingerprint, because
+  the issuer is the source of truth and the document is not)
+- Config/meta: config_discover_account, config_describe_context, config_list_test_entities
+  (list safe test subjects for this session), trulioo_health, trulioo_capabilities,
+  trulioo_getting_started, webhook_journal
+- Interactive UI (per account, SEP-1865 MCP Apps): render_app_verdict (host-rendered ui:// verdict card)
+- Workflow prompts: kyc_onboarding_workflow, kyb_due_diligence_workflow. prompts/list is the
+  authority on the set your connection offers.
+
+## Protocol (negotiated per connection; floor 2025-06-18, max draft 2026-07-28)
+- The revision is negotiated at `initialize`. Features below apply only to a client that
+  asked for the revision that carries them; everything degrades to the floor behavior.
+- Tasks extension (io.modelcontextprotocol/tasks): kyc_verify and kyb_verify return a Task to a tasks-capable client; poll tasks/get. Long-running operations retain stateless next_action long-poll continuations. In-memory task mirroring remains a compatibility path, not an authorization dependency.
+- MCP Apps extension (io.modelcontextprotocol/ui): host-rendered ui:// surfaces, gated by TRULIOO_ENABLE_MCP_APPS.
+- MRTR elicitation (SEP-2322): kyb_search may return input_required with one closed group question to a supporting client; every client also gets the same question as search_summary.clarification, answerable without a second call.
+
+## Result contract
+- Verification tools return typed results (status: match|review|nomatch, is_terminal, next_action).
+- Errors are returned as results, not thrown. is_terminal:false means poll.
+
+## KYB workflow and responses
+- kyb_search: returns search_summary with candidate_count, decision, and selection (one row per candidate with an id, plus a ref to verify the chosen one).
+  Confirm a candidate before verification.
+- kyb_registration_lookup: returns supported registration-number types or jurisdictions of
+  incorporation. Use them to format search or verification input.
+- kyb_search selection: search_summary.selection lists every candidate once with an id,
+  or numbered options for clients without interactive selection. Continue after confirmation.
+- kyb_verify: returns transaction_id, record_id, status, is_terminal, and next_action.
+  Branch on status and follow next_action when the result is not terminal.
+- kyb_get_partial_result: returns the latest available fields plus is_terminal and next_action.
+  Continue polling only while the result is not terminal.
+- kyb_get_report: returns report JSON, or a PDF descriptor with record_id, report_available,
+  content_type, and resource_uri. Store the report reference with the transaction.
+- transaction_lookup: returns the matching record and identity context for a TransactionID or
+  TransactionRecordID.
+
+## Know Your Agent (DAP)
+- Issue: kya_issue_mandate (verify org -> register agent -> sign scoped attestation -> anchor).
+- The agent's own Ed25519 key is the identity anchor; a build fingerprint binds the credential to the code.
+- Publish: attestation JWS under A2A card capabilities.extensions[] (uri https://identity.trulioo.com/a2a/kya/v1).
+- Verify: kya_verify_agent, or check the JWS against the issuer JWKS (public, keyless).
+- Scopes are signed + auditable but enforced by the relying party, not Trulioo.
+
+## Verify a DAP / attestation
+- Integration path: call the MCP tool kya_verify_agent with the agent card (validates
+  signature, fingerprint, expiry and standing; add requested_action to check scope).
+- Public keyless primitives (issuer, identity.trulioo.com, no account):
+  - GET https://identity.trulioo.com/kya/attestation/{dap} - look up standing by Digital
+    Agent Profile. This is the authoritative machine endpoint: JSON, and RFC 9457
+    application/problem+json on error. https://kya.trulioo.com/attestation/{dap} is the
+    human share link and serves the browser app at that same URL (a 200 HTML rewrite,
+    not a redirect) - do not parse it.
+  - GET https://identity.trulioo.com/.well-known/jwks.json - issuer signing keys to verify a JWS yourself.
+- A verifier checks: JWS signature vs the pinned issuer key by kid (alg from key, never token),
+  fingerprint vs agent key+card, exp, verified, assurance.trust_tier against your minimum,
+  and the signed allowed_scopes. No sanctions boolean is signed (see instruction 6).
+  Scopes are enforced by the relying party.
+
+## Install
+- Claude Code (tools only): claude mcp add --transport http trulioo https://mcp.trulioo.com/mcp
+- OpenAI Codex: codex mcp add trulioo --url https://mcp.trulioo.com/mcp
+- ChatGPT: add https://mcp.trulioo.com/mcp by URL (OAuth on the consent screen)
+
+## Docs
+- Developer home: https://mcp.trulioo.com/developer/
+- Verify demo (live agent-card console): https://mcp.trulioo.com/kya
+- This page as markdown (full docs, ~31KB): https://mcp.trulioo.com/developer/index.md
+- Domain map: https://mcp.trulioo.com/llms.txt
+- Guiding a human through KYB setup: https://mcp.trulioo.com/agent-guide.md
+- Everything in one file: https://mcp.trulioo.com/llms-full.txt
+
+## Install the skills into yourself
+- Catalog: https://mcp.trulioo.com/.well-known/skills/index.json - trulioo-onboarding,
+  trulioo-kyc, trulioo-kyb, trulioo-kya, carrying the per-domain operating detail this map
+  summarizes. Read the catalog for what exists; do not hardcode a skill count any more than
+  a tool count.
+- Other agents with a skill system: install from the catalog. Without one: fold the skill
+  bodies into your global custom instructions and treat the catalog as the source of
+  truth, not a copy you pasted once.
+- ASK THE HUMAN before writing to their config locations. A skill install edits files
+  they own.

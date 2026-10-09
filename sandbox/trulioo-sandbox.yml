@@ -1,0 +1,68 @@
+generated: '2026-10-08'
+method: searched
+source:
+- https://developer.trulioo.com/reference/v1-sandbox-vs-live-environment.md
+- https://developer.trulioo.com/reference/getting-started-1.md
+- https://mcp.trulioo.com/developer/index.md (Anonymous synthetic testing, Sandbox, Sandbox scenarios)
+- https://mcp.trulioo.com/developer/llms.txt
+- https://mcp.trulioo.com/mock/mcp (probed 2026-10-08)
+name: Trulioo sandbox and test environments
+provider: Trulioo
+providerId: trulioo
+description: 'Trulioo separates Sandbox and Live by API credentials rather than by host: a Sandbox credential set
+  runs every verification against predefined static Test Entities instead of live data sources ("These transactions
+  are not chargeable and do not reflect in the monthly billing"), and test transactions appear in transaction review
+  and performance reports labelled Demo. Test entities are managed in the portal and readable through GET /v3/configuration/testentities/{configurationName}/{countryCode}.
+  The sandbox article applies to Identity Verification and Business Verification only, not Document Verification.
+  The hosted MCP server adds an anonymous synthetic endpoint (https://mcp.trulioo.com/mock/mcp, no auth) and an
+  OAuth "Sandbox" session mode with seedable scenarios.'
+docs:
+- https://developer.trulioo.com/reference/v1-sandbox-vs-live-environment
+- https://mcp.trulioo.com/developer/#sandbox
+modes:
+- name: sandbox
+  rest: separate Sandbox API credentials against the same base URL; verifications run against static Test Entities
+    and are not chargeable
+  mcp: 'OAuth session mode Sandbox (VerificationType: Demo); anonymous synthetic data at /mock/mcp'
+- name: live
+  rest: live Client Id / Secret
+  mcp: client_credentials bootstrap at https://mcp.trulioo.com/oauth/token
+- name: test
+  mcp: session mode named in the plugin SECURITY.md alongside sandbox and live
+  rest: null
+environments:
+- name: REST sandbox
+  how: Use your Sandbox API credentials against the same base URL (https://api.trulioo.com); contact support@trulioo.com
+    to confirm which credentials are Sandbox
+  docs: https://developer.trulioo.com/reference/v1-sandbox-vs-live-environment
+- name: MCP mock (anonymous)
+  endpoint: https://mcp.trulioo.com/mock/mcp
+  auth: none
+  probed:
+    date: '2026-10-08'
+    status: 200
+    tools: 18
+    prompts: 6
+    resources: 23
+  note: 'Synthetic data with a limited feature set; call trulioo_health, confirm mode: sandbox, then trulioo_capabilities'
+- name: MCP sandbox (OAuth)
+  endpoint: https://mcp.trulioo.com/mcp
+  auth: OAuth 2.1 + PKCE, choose Sandbox in the browser
+  note: 'Sandbox scenarios: sandbox_seed_scenario / sandbox_list_scenarios / sandbox_reset_scenarios, sandbox credentials
+    only'
+key_formats:
+  note: No key-prefix convention is published; Sandbox and Live are distinguished by which Client Id / Secret pair
+    was issued, and MCP sessions by the mode the server reports in trulioo_health.
+test_values:
+  test_entities: Static Test Entities configured per package and country; list them with getTestEntities (GET /v3/configuration/testentities/{configurationName}/{countryCode})
+    or the MCP tool config_list_test_entities (deprecated in favour of sandbox_seed_scenario). No literal test-entity
+    values are published on the public docs.
+  mcp_scenarios: sandbox_seed_scenario returns a content-addressed scn_ id; "bodies cap at 16 KiB, 50 per caller,
+    15-minute expiry"
+time_simulation: null
+triggers: MCP sandbox scenarios let the caller register the outcome a later verify should produce (seed -> verify
+  -> reset); REST test entities return match/no-match per field by comparison against the static entity attributes.
+gaps:
+- No published test-entity catalogue (values live in the customer portal)
+- Document Verification has no static sandbox; DocV testing goes through the SDK session flow
+- No test clocks or time simulation
